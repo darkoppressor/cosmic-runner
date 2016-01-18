@@ -1,0 +1,11 @@
+<ship>
+	name:player
+	sprite:ship_player
+	collision_percentage:0.6
+	mass:300
+	thrust_accel:1500.0
+	thrust_decel:3000.0
+	max_speed:200.0
+	hull_max:10
+	shields_max:2
+</ship>

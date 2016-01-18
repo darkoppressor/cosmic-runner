@@ -1,0 +1,29 @@
+<game_constant>
+	name:zoom_rate
+	value:0.1
+</game_constant>
+
+<game_constant>
+	name:zoom_min
+	value:0.5
+</game_constant>
+
+<game_constant>
+	name:zoom_max
+	value:2.0
+</game_constant>
+
+<game_constant>
+	name:max_background_star_size
+	value:3
+</game_constant>
+
+<game_constant>
+	name:base_background_stars
+	value:100
+</game_constant>
+
+<game_constant>
+	name:collision_chance_debris
+	value:5
+</game_constant>

@@ -1,0 +1,23 @@
+<animation>
+	name:ship_player
+	frame_count:3
+	animation_speed:70
+	frame_width:22
+	end_behavior:continue
+</animation>
+
+<animation>
+	name:explosion_shields
+	frame_count:3
+	animation_speed:50
+	frame_width:23
+	end_behavior:stop
+</animation>
+
+<animation>
+	name:explosion_hull
+	frame_count:3
+	animation_speed:50
+	frame_width:23
+	end_behavior:stop
+</animation>

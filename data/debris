@@ -1,0 +1,7 @@
+<debris>
+	name:asteroid_0
+	sprite:debris_asteroid_0
+	collision_percentage:0.8
+	damage:3
+	damage_type:solid
+</debris>

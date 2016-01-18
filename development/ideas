@@ -1,0 +1,181 @@
+Arcade style, you play until you quit or lose
+Single player
+A game takes place in a pcg star system of set size
+Game world is static (world objects don't move)
+Player is a smuggler
+Player controls a single spaceship
+
+Ships have a collision box
+Ships can thrust in 8 directions
+Ships do not decelerate naturally
+Ships have a brake that decelerates them to a stop
+Ships have an acceleration thrust
+Ships have a separate deceleration thrust, used for braking
+Ships have a velocity
+Ships have a maximum velocity
+Player begins at a planet, with an initial smuggling contract
+A contract is completed by landing on the contract planet
+When completing a contract, a new contract is assigned
+A new contract fills the player's cargo hold with cargo
+Player always has either one or zero contracts
+Player can drop cargo at any time
+Dropping cargo abandons the current contract
+Dropped cargo cannot be picked back up
+Player can land on a planet
+Player can view a map of the star system
+The current contract target is shown on the map
+A directional indicator pointing from the player to the contract target is shown on the map
+A directional indicator is also shown in the game world
+A notifier is shown when no contract is held
+A notification should pop up briefly when a contract is completed
+A notification should pop up briefly when a contract is lost
+Player has a score
+Player has a score multiplier
+Score multiplier increases when a contract is completed
+Score multiplier decreases when a contract is lost via the player being caught by police
+When a contract is completed, the player must select one upgrade for their ship
+There are three kinds of upgrades: active, passive, and weapon
+Passive upgrades are permanent modifications to the ship
+A ship may have up to one active upgrade at a time
+If the player selects an active upgrade, and already has one, the old active upgrade is replaced with the new one
+A ship can use its active upgrade
+Active upgrades have a cooldown
+There is a huge star in the center of the game world
+Planets are dotted about
+Star should have some kind of gravity, but only be dangerous really close to it (you CAN get caught in its gravity)
+Star is only object with gravity
+When really close to star, ships take energy damage over time
+Collision with star kills any ship instantly
+Ships have hull and shields
+When a ship takes damage, it loses shields first, if it has any, and then hull
+If a ship loses its hull entirely, it is destroyed, causing an explosion
+If the player's ship is destroyed, it is a game over
+Shields regen over time
+Hull is restored from some kind of item
+Items exist in the world, and are collected when touched
+Only the player can collect items
+If an item restores a stat, and the player has that stat at max, the item is not collected
+Items can be generated in the world, or dropped by a destroyed ship
+Items do not move
+There are three types of damage:
+Solid: x2 to Shields, /2 to Hull
+Explosive: x1.5 to Hull, x1.5 to Shields
+Energy: x2 to Hull, /2 to Shields
+A ship may have up to one weapon upgrade at a time
+If the player selects a weapon upgrade, and already has one, the old weapon upgrade is replaced with the new one
+Weapons fire automatically on a cooldown
+Ships can enable/disable their weapon's firing
+Weapons continue cooling down when disabled
+Each weapon fires one kind of shot: bullet, torpedo, missile, or plasma blast
+Bullets fly straight very fast and do solid damage on contact
+Torpedos fly straight and explode on contact
+Missiles are just like torpedos, but they follow the nearest target
+Plasma blasts fly straight extremely fast (cannot miss any ship) and do energy damage on contact
+Bullets and plasma blasts are destroyed when they deal damage, and thus can only damage one target, once
+Shots despawn if they are far from the player
+Explosions can hit any number of targets, once each, and deal explosive damage
+Player's ship has power (and only the player's ship)
+Power decreases over time
+If power runs out, player's ship is disabled and it is game over
+Power is replenished with an item
+A disabled ship stops responding to all controls, weapons do not fire (but weapons enabled status is unchanged),
+any active upgrade ability is disabled, shields do not recharge, and the following passive upgrade abilities
+are disabled if present: Point Defense
+Player has notoriety
+Notoriety decreases over time
+Notoriety increases when player does damage to civilian or police ships
+NPC ships are spawned "near" the player
+NPC ships far away from the player are despawned
+While NPC ships have no active or passive upgrades, they can be equipped with up to one weapon upgrade
+For the purposes of NPC ships reacting to another ship, they always only look at the closest ship not of their faction
+Ships and shots have a faction
+Factions are: player, civilian, police, pirate
+Faction is used by ships and shots to determine target to follow
+The player is manually controlled obviously
+Civilians spawn with a nearby target planet randomly selected, and try to fly there
+Civilians can spawn anywhere
+If they reach their target, they "land" and despawn
+If they see a pirate ship, or a player ship and the player has high enough notoriety, they flee from it
+If they are fleeing and no longer have a reason to, they resume their course for their target
+Civilians have no weapons
+Pirates spawn wandering at random
+Pirates only spawn when player is in deep space
+Pirates flee from police and the player if they have high enough notoriety (needs to be higher than for civilians to flee from the player)
+Pirates chase civilians and the player if their notoriety is too low
+Police spawn patrolling between their spawn point and a target point in a straight line
+Police only spawn when player is near a planet
+Police flee from no one
+Police chase pirates
+Police chase the player if their notoriety is high enough (same level as for civilians to flee from the player)
+However, Police treatment of player is variable when they are chasing him
+If the player is chasable but not scary to pirates, police will attempt to catch player in tractor beam
+If player is scary to pirates, police will attempt to kill player
+Tractor beam is shortish range special police ability
+Once active, it cannot be escaped by normal flight (unless maybe engines are very upgraded?)
+A tractored player is ignored by all other ships
+A tractoring ship brakes
+The tractor beam pulls the player in towards the tractoring ship
+When the player reaches the tractoring ship, the player is caught
+If the player leaves tractoring range, the tractoring ship stops tractoring and resumes normal behavior
+When the player is caught, any contract is lost, and notoriety is reset to 0
+All non-player ships use their active upgrade (if any) as often as they can,
+unless they are a police ship currently tractoring the player
+Asteroids are scattered around the game world
+Asteroids do not move
+Asteroids do solid damage when colliding with a ship
+No collision between ships
+No collision between shots
+No collision with planets
+When near a planet, background should have planety stuff
+Otherwise, player is in deep space, and background is just stars
+
+Weapon Upgrades:
+Shotgun Cannon: Fires bullets in a shotgun pattern, centered on target
+Sniper Cannon: Fires a single bullet at the target
+Quad Cannon: Fires 4 bullets in the 4 "cardinal directions", with the target being north
+Single Torpedo: Fires a single torpedo at the target
+Spread Torpedo: Fires a spread of torpedoes centered on the target
+Circle Torpedo: Fires a complete circle of evenly spaced torpedoes centered on the ship
+Single Missile: Fires a single slow missile at the target
+Triple Missile: Fires a spread of 3 slow missiles centered on the target
+Swarm Missile: Fires a large spread of several fast missiles centered on the target
+Plasma Gun: Locks onto the target briefly with a laser, then fires a plasma blast at the target
+
+Active Upgrades:
+Scanner: Only available to police ships. Has a brief startup animation during which time it is ineffective.
+Once it has started up, it scans an area around the ship, in an obvious way. If this scan sees the player's ship,
+the player's ship's cloak is disabled (if any), and if the player has a contract, his notoriety increases.
+This upgrade consumes a set amount of power per use
+EMP: Fires a circular pulse centered on the ship that expands to a set radius and then vanishes. Any ships caught in
+this pulse (ignoring the firing ship) are disabled for a set period of time
+This upgrade consumes a set amount of power per use
+Cloak: While this is active, the ship is invisible (the player's own ship will still be shown, but semi-transparent).
+No ships or shots can see the ship at all for AI purposes.
+This upgrade begins cooling down when the cloak is disabled
+This upgrade consumes power at a set rate while it is active
+Warp Drive: While this is active, all collision is ignored,
+and no ships or shots can see the ship at all for AI purposes. Ship controls do not respond while this is active,
+with the exception of disabling the Warp Drive. Separate "warp" acceleration thrust and max velocity are used,
+and the ship automatically thrusts continually in the direction it was facing when the warp drive was activated.
+This upgrade begins cooling down when the warp drive is disabled
+This upgrade consumes power at a set rate while it is active
+
+Passive Upgrades:
+Max Shields: Maximum shields increased
+Shield Recharge Rate: Shield recharge rate increased
+Max Hull: Maximum hull increased
+Point Defense: A laser fires automatically on a cooldown at any nearby hostile torpedo or missile. Torpedoes and
+missiles hit by this laser instantly explode
+Acceleration/Deceleration Thrust: Increases both acceleration and deceleration thrust
+Max Velocity: Increases maximum velocity
+Slower Power Loss: Regular power loss (ignoring use by active upgrades) is slowed
+Cooldown Reduction: Cooldowns on all upgrades that have them are reduced
+Anti-gravity System: The effects of gravity are greatly reduced
+
+Ships:
+Player ship:
+Civilian ships:
+
+Pirate ships:
+
+Police ships:

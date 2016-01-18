@@ -1,0 +1,79 @@
+<game_command>
+	name:pause
+	title:Pause
+	description:Pause the game
+	developer:false
+	key:Pause
+	controller_button:back
+	controller_axis:
+</game_command>
+
+<game_command>
+	name:up
+	title:Up
+	description:Thrust up
+	developer:false
+	key:Up
+	controller_button:dpup
+	controller_axis:
+</game_command>
+
+<game_command>
+	name:down
+	title:Down
+	description:Thrust down
+	developer:false
+	key:Down
+	controller_button:dpdown
+	controller_axis:
+</game_command>
+
+<game_command>
+	name:left
+	title:Left
+	description:Thrust left
+	developer:false
+	key:Left
+	controller_button:dpleft
+	controller_axis:
+</game_command>
+
+<game_command>
+	name:right
+	title:Right
+	description:Thrust right
+	developer:false
+	key:Right
+	controller_button:dpright
+	controller_axis:
+</game_command>
+
+<game_command>
+	name:move_stick_vertical
+	title:Vertical Stick
+	description:Thrust vertically via joystick
+	developer:false
+	key:
+	controller_button:
+	controller_axis:lefty
+</game_command>
+
+<game_command>
+	name:move_stick_horizontal
+	title:Horizontal Stick
+	description:Thrust horizontally via joystick
+	developer:false
+	key:
+	controller_button:
+	controller_axis:leftx
+</game_command>
+
+<game_command>
+	name:brake
+	title:Brake
+	description:Brake
+	developer:false
+	key:Right Ctrl
+	controller_button:a
+	controller_axis:
+</game_command>
