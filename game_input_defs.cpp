@@ -3,6 +3,7 @@
 /* See the file docs/LICENSE.txt for the full license text. */
 
 #include "game.h"
+#include "game_constants.h"
 
 #include <game_manager.h>
 #include <network_engine.h>
@@ -194,12 +195,24 @@ bool Game_Manager::handle_game_command(string command_name){
 
     if(!paused){
         if(command_name=="land"){
-            if(Game::player_has_contract() && !Game::player_is_landing() && !Game::player_is_landed()){
-                const Planet& planet=Game::get_contract_planet();
+            if(!Game::player_is_landing() && !Game::player_is_landed()){
                 const Ship& player=Game::get_player_const();
 
-                if(Collision::check_circ_rect(planet.get_circle(),player.get_box())){
-                    Game::commence_landing();
+                if(Game::player_has_contract()){
+                    const Planet& planet=Game::get_contract_planet();
+
+                    if(Collision::check_circ_rect(planet.get_circle(),player.get_box())){
+                        Game::commence_landing(Game::get_contract_planet_index());
+                    }
+                }
+                else{
+                    uint32_t nearest_planet_index=Game::get_nearest_planet();
+
+                    const Planet& planet=Game::get_planet(nearest_planet_index);
+
+                    if(Collision::check_circ_rect(planet.get_circle(),player.get_box())){
+                        Game::commence_landing(nearest_planet_index);
+                    }
                 }
             }
 
@@ -215,7 +228,7 @@ bool Game_Manager::handle_game_command(string command_name){
                     Game::create_effect("effect_cargo_"+Strings::num_to_string(Game::get_rng().random_range(0,0)),1.0,
                                         Coords<double>(player.get_box().center_x(),player.get_box().center_y()),"",
                                         Vector(Game::get_rng().random_range(0,10),Game::get_rng().random_range(0,359)),
-                                        Game::get_rng().random_range(0,359),Vector(0.01*Game::get_rng().random_range(0,50),Game::get_rng().random_range(0,359)),60);
+                                        Game::get_rng().random_range(0,359),Vector(0.01*Game::get_rng().random_range(0,50),Game::get_rng().random_range(0,359)),Game_Constants::EFFECT_LENGTH_CARGO);
                 }
 
                 Sound_Manager::play_sound("drop_cargo");

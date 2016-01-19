@@ -23,14 +23,17 @@ Ship::Ship(string new_type,const Coords<double>& position,double new_angle){
 
     angle=new_angle;
 
-    hull=get_ship_type()->hull_max;
-    shields=get_ship_type()->shields_max;
+    hull=get_hull_max();
+    shields=get_shields_max();
 
     thrusting=false;
     braking=false;
 
     landing=false;
     landing_scale=1.0;
+    landing_planet_index=0;
+
+    shield_recharge=0;
 
     sprite.set_name(get_ship_type()->sprite);
 
@@ -58,6 +61,30 @@ int32_t Ship::get_shields() const{
     return shields;
 }
 
+uint32_t Ship::get_shield_recharge_rate() const{
+    return Game_Constants::SHIELD_RECHARGE_RATE;
+}
+
+double Ship::get_thrust_accel() const{
+    return get_ship_type()->thrust_accel;
+}
+
+double Ship::get_thrust_decel() const{
+    return get_ship_type()->thrust_decel;
+}
+
+double Ship::get_max_speed() const{
+    return get_ship_type()->max_speed;
+}
+
+int32_t Ship::get_hull_max() const{
+    return get_ship_type()->hull_max;
+}
+
+int32_t Ship::get_shields_max() const{
+    return get_ship_type()->shields_max;
+}
+
 Collision_Rect<double> Ship::get_collision_box() const{
     return Collision_Rect<double>(box.x+box.w/2.0-box.w*get_ship_type()->collision_percentage/2.0,box.y+box.h/2.0-box.h*get_ship_type()->collision_percentage/2.0,
                                   box.w*get_ship_type()->collision_percentage,box.h*get_ship_type()->collision_percentage);
@@ -83,7 +110,7 @@ void Ship::take_damage(bool is_player,int32_t damage,string damage_type,const Co
             }
 
             if(effective_damage>0){
-                Game::create_effect("explosion_shields",((double)effective_damage/(double)get_ship_type()->shields_max)/2.0,location,"explosion_shields",
+                Game::create_effect("explosion_shields",((double)effective_damage/(double)get_shields_max())/2.0,location,"explosion_shields",
                                     Vector(0.0,0.0),0.0,Vector(0.0,0.0),0);
 
                 if(effective_damage<=shields){
@@ -123,7 +150,7 @@ void Ship::take_damage(bool is_player,int32_t damage,string damage_type,const Co
         }
 
         if(effective_damage>0){
-            Game::create_effect("explosion_hull",((double)effective_damage/(double)get_ship_type()->hull_max)/2.0,location,"explosion_hull",
+            Game::create_effect("explosion_hull",((double)effective_damage/(double)get_hull_max())/2.0,location,"explosion_hull",
                                 Vector(0.0,0.0),0.0,Vector(0.0,0.0),0);
 
             hull-=effective_damage;
@@ -179,7 +206,7 @@ void Ship::set_braking(bool new_braking){
 
 void Ship::thrust(uint32_t frame){
     if(thrusting){
-        Vector thrust_force(get_ship_type()->thrust_accel,angle);
+        Vector thrust_force(get_thrust_accel(),angle);
 
         force+=thrust_force;
 
@@ -191,7 +218,7 @@ void Ship::thrust(uint32_t frame){
 
 void Ship::brake(uint32_t frame){
     if(braking){
-        Vector brake_force(get_ship_type()->thrust_decel,velocity.direction+180.0);
+        Vector brake_force(get_thrust_decel(),velocity.direction+180.0);
 
         Math::clamp_angle(brake_force.direction);
 
@@ -207,8 +234,10 @@ void Ship::brake(uint32_t frame){
     }
 }
 
-void Ship::commence_landing(){
+void Ship::commence_landing(uint32_t new_landing_planet_index){
     landing=true;
+    landing_scale=1.0;
+    landing_planet_index=new_landing_planet_index;
 
     velocity*=0.0;
 }
@@ -223,15 +252,24 @@ void Ship::land(bool is_player){
 
         if(landing_scale<=0.0){
             if(is_player){
-                Game::land();
+                Game::land(landing_planet_index);
 
                 landing=false;
                 landing_scale=1.0;
+                landing_planet_index=0;
             }
             else{
                 hull=0;
             }
         }
+    }
+}
+
+void Ship::regenerate_shields(){
+    if(shields<get_shields_max() && ++shield_recharge>=get_shield_recharge_rate()*Engine::UPDATE_RATE/1000){
+        shield_recharge=0;
+
+        shields++;
     }
 }
 
@@ -244,18 +282,18 @@ void Ship::accelerate(bool is_player,uint32_t frame){
 
         velocity+=acceleration;
 
-        if(velocity.magnitude>get_ship_type()->max_speed){
-            velocity.magnitude=get_ship_type()->max_speed;
+        if(velocity.magnitude>get_max_speed()){
+            velocity.magnitude=get_max_speed();
         }
-        else if(velocity.magnitude<-get_ship_type()->max_speed){
-            velocity.magnitude=-get_ship_type()->max_speed;
+        else if(velocity.magnitude<-get_max_speed()){
+            velocity.magnitude=-get_max_speed();
         }
 
         force*=0.0;
     }
 }
 
-void Ship::movement(bool is_player,const Quadtree<double,uint32_t>& quadtree_debris,RNG& rng){
+void Ship::movement(bool is_player,const Quadtree<double,uint32_t>& quadtree_debris,const Quadtree<double,uint32_t>& quadtree_shots,RNG& rng){
     if(is_alive() && !is_landing() && (!is_player || !Game::player_is_landed())){
         Vector_Components vc=velocity.get_components();
 
@@ -275,6 +313,22 @@ void Ship::movement(bool is_player,const Quadtree<double,uint32_t>& quadtree_deb
                 Collision_Rect<double> box_area=Collision::get_collision_area_rect(box_collision,box_debris);
 
                 take_damage(is_player,debris.get_debris_type()->damage,debris.get_debris_type()->damage_type,Coords<double>(box_area.center_x(),box_area.center_y()));
+            }
+        }
+
+        vector<uint32_t> nearby_shots;
+        quadtree_shots.get_objects(nearby_shots,box_collision);
+
+        for(size_t i=0;i<nearby_shots.size();i++){
+            const Shot& shot=Game::get_shot(nearby_shots[i]);
+            Collision_Rect<double> box_shot=shot.get_collision_box();
+
+            if(Collision::check_rect(box_collision,box_shot)){
+                Collision_Rect<double> box_area=Collision::get_collision_area_rect(box_collision,box_shot);
+
+                take_damage(is_player,shot.get_shot_type()->damage,shot.get_shot_type()->damage_type,Coords<double>(box_area.center_x(),box_area.center_y()));
+
+                Game::kill_shot(nearby_shots[i]);
             }
         }
 

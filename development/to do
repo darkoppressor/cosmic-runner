@@ -1,1 +1,11 @@
+add weapons enabled to ships
+add "weapon" firing for testing to ships, just fire in random direction
+add ship generation
+ships disappear when far from player
+add factions to ships
+add weapon targeting, no firing unless target is seen
 
+shot death effect
+shots disappear when far from player
+add explosive shot stuff
+add other shot types

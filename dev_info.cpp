@@ -35,8 +35,8 @@ void Engine::render_dev_info(){
         msg+="\n-----Ship-----\n";
         msg+="Position: "+Strings::num_to_string(Game::get_player_const().get_box().center_x())+" , "+Strings::num_to_string(Game::get_player_const().get_box().center_y())+"\n";
         msg+="Velocity: "+Strings::num_to_string(Game::get_player_const().get_velocity().magnitude)+" m/s , "+Strings::num_to_string(Game::get_player_const().get_velocity().direction)+Symbols::degrees()+"\n";
-        msg+="Hull: "+Strings::num_to_string(Game::get_player_const().get_hull())+"/"+Strings::num_to_string(Game::get_player_const().get_ship_type()->hull_max)+"\n";
-        msg+="Shields: "+Strings::num_to_string(Game::get_player_const().get_shields())+"/"+Strings::num_to_string(Game::get_player_const().get_ship_type()->shields_max)+"\n";
+        msg+="Hull: "+Strings::num_to_string(Game::get_player_const().get_hull())+"/"+Strings::num_to_string(Game::get_player_const().get_hull_max())+"\n";
+        msg+="Shields: "+Strings::num_to_string(Game::get_player_const().get_shields())+"/"+Strings::num_to_string(Game::get_player_const().get_shields_max())+"\n";
     }
 
     if(msg.length()>0){

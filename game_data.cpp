@@ -13,9 +13,10 @@ using namespace std;
 
 vector<Ship_Type> Game_Data::ship_types;
 vector<Debris_Type> Game_Data::debris_types;
+vector<Shot_Type> Game_Data::shot_types;
 
 ///Don't forget to increment this for each progress item in load_data_game() below
-const int Game_Data::game_data_load_item_count=2;
+const int Game_Data::game_data_load_item_count=3;
 
 void Game_Data::load_data_game(Progress_Bar& bar){
     bar.progress("Loading ship types");
@@ -23,6 +24,9 @@ void Game_Data::load_data_game(Progress_Bar& bar){
 
     bar.progress("Loading debris types");
     Data_Manager::load_data("debris");
+
+    bar.progress("Loading shot types");
+    Data_Manager::load_data("shot");
 }
 
 void Game_Data::load_data_tag_game(string tag,File_IO_Load* load){
@@ -32,11 +36,15 @@ void Game_Data::load_data_tag_game(string tag,File_IO_Load* load){
     else if(tag=="debris"){
         load_debris_type(load);
     }
+    else if(tag=="shot"){
+        load_shot_type(load);
+    }
 }
 
 void Game_Data::unload_data_game(){
     ship_types.clear();
     debris_types.clear();
+    shot_types.clear();
 }
 
 void Game_Data::load_ship_type(File_IO_Load* load){
@@ -134,6 +142,59 @@ Debris_Type* Game_Data::get_debris_type(string name){
 
     if(ptr_object==0){
         Log::add_error("Error accessing debris type '"+name+"'");
+    }
+
+    return ptr_object;
+}
+
+void Game_Data::load_shot_type(File_IO_Load* load){
+    shot_types.push_back(Shot_Type());
+
+    vector<string> lines=Data_Reader::read_data(load,"</shot>");
+
+    for(size_t i=0;i<lines.size();i++){
+        string& line=lines[i];
+
+        if(Data_Reader::check_prefix(line,"name:")){
+            shot_types.back().name=line;
+        }
+        else if(Data_Reader::check_prefix(line,"sprite:")){
+            shot_types.back().sprite=line;
+        }
+        else if(Data_Reader::check_prefix(line,"collision_percentage:")){
+            shot_types.back().collision_percentage=Strings::string_to_double(line);
+        }
+        else if(Data_Reader::check_prefix(line,"mass:")){
+            shot_types.back().mass=Strings::string_to_double(line);
+        }
+        else if(Data_Reader::check_prefix(line,"thrust_accel:")){
+            shot_types.back().thrust_accel=Strings::string_to_double(line);
+        }
+        else if(Data_Reader::check_prefix(line,"max_speed:")){
+            shot_types.back().max_speed=Strings::string_to_double(line);
+        }
+        else if(Data_Reader::check_prefix(line,"damage:")){
+            shot_types.back().damage=Strings::string_to_long(line);
+        }
+        else if(Data_Reader::check_prefix(line,"damage_type:")){
+            shot_types.back().damage_type=line;
+        }
+    }
+}
+
+Shot_Type* Game_Data::get_shot_type(string name){
+    Shot_Type* ptr_object=0;
+
+    for(size_t i=0;i<shot_types.size();i++){
+        if(shot_types[i].name==name){
+            ptr_object=&shot_types[i];
+
+            break;
+        }
+    }
+
+    if(ptr_object==0){
+        Log::add_error("Error accessing shot type '"+name+"'");
     }
 
     return ptr_object;

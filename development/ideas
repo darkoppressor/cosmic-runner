@@ -24,6 +24,7 @@ Player can drop cargo at any time
 Dropping cargo abandons the current contract
 Dropped cargo cannot be picked back up
 Player can land on a planet if he has a contract targeting it
+Player can also land on a planet if he has no contract, and he will be assigned a new one
 Landing ships are invisible to other ships and shots for AI and collision purposes, and do not move
 
 Player can view a map of the star system
@@ -200,6 +201,9 @@ Police ships:
 
 
 Note: what increases score?
+Destroying ships, each ship has a point value
+Picking up an item, each item has a point value
+Completing a contract, points are added before increasing the score multiplier
 
 Polish ideas:
 Clouds floating over planets

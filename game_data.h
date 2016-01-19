@@ -7,6 +7,7 @@
 
 #include "ship_type.h"
 #include "debris_type.h"
+#include "shot_type.h"
 
 #include <progress_bar.h>
 #include <file_io.h>
@@ -18,6 +19,7 @@ private:
 
     static std::vector<Ship_Type> ship_types;
     static std::vector<Debris_Type> debris_types;
+    static std::vector<Shot_Type> shot_types;
 
 public:
 
@@ -36,6 +38,9 @@ public:
 
     static void load_debris_type(File_IO_Load* load);
     static Debris_Type* get_debris_type(std::string name);
+
+    static void load_shot_type(File_IO_Load* load);
+    static Shot_Type* get_shot_type(std::string name);
 };
 
 #endif

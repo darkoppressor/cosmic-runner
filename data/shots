@@ -1,0 +1,10 @@
+<shot>
+	name:bullet
+	sprite:shot_bullet
+	collision_percentage:0.9
+	mass:10
+	thrust_accel:128.0
+	max_speed:800.0
+	damage:6
+	damage_type:solid
+</shot>

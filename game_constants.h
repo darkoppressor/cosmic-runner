@@ -18,6 +18,10 @@ public:
     static std::uint64_t SCORE_MULTIPLIER_INCREASE;
 
     static std::uint32_t UPGRADE_LIST_SIZE;
+
+    static std::uint32_t EFFECT_LENGTH_CARGO;
+
+    static std::uint32_t SHIELD_RECHARGE_RATE;
 };
 
 #endif

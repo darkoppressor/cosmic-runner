@@ -37,6 +37,9 @@ private:
 
     bool landing;
     double landing_scale;
+    std::uint32_t landing_planet_index;
+
+    std::uint32_t shield_recharge;
 
     Sprite sprite;
 
@@ -51,6 +54,14 @@ public:
     std::int32_t get_hull() const;
     std::int32_t get_shields() const;
 
+    std::uint32_t get_shield_recharge_rate() const;
+
+    double get_thrust_accel() const;
+    double get_thrust_decel() const;
+    double get_max_speed() const;
+    std::int32_t get_hull_max() const;
+    std::int32_t get_shields_max() const;
+
     Collision_Rect<double> get_collision_box() const;
 
     bool is_alive() const;
@@ -63,12 +74,14 @@ public:
     void thrust(std::uint32_t frame);
     void brake(std::uint32_t frame);
 
-    void commence_landing();
+    void commence_landing(std::uint32_t new_landing_planet_index);
     bool is_landing();
     void land(bool is_player);
 
+    void regenerate_shields();
+
     void accelerate(bool is_player,std::uint32_t frame);
-    void movement(bool is_player,const Quadtree<double,std::uint32_t>& quadtree_debris,RNG& rng);
+    void movement(bool is_player,const Quadtree<double,std::uint32_t>& quadtree_debris,const Quadtree<double,std::uint32_t>& quadtree_shots,RNG& rng);
 
     void animate();
     void render();

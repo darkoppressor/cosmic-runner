@@ -9,6 +9,7 @@
 #include "debris.h"
 #include "effect.h"
 #include "planet.h"
+#include "shot.h"
 
 #include <quadtree.h>
 #include <rng.h>
@@ -26,6 +27,7 @@ private:
     static std::vector<Debris> debris;
     static std::vector<Effect> effects;
     static std::vector<Planet> planets;
+    static std::vector<Shot> shots;
 
     //contract target planet index
     static std::int32_t contract;
@@ -42,6 +44,7 @@ private:
     static std::vector<std::string> upgrade_list;
 
     static Quadtree<double,std::uint32_t> quadtree_debris;
+    static Quadtree<double,std::uint32_t> quadtree_shots;
 
     static RNG rng;
 
@@ -64,6 +67,8 @@ public:
     static std::uint32_t get_planet_count();
     static const Ship& get_player_const();
     static const Debris& get_debris(std::uint32_t index);
+    static const Shot& get_shot(std::uint32_t index);
+    static const Planet& get_planet(std::uint32_t index);
     static std::uint64_t get_score();
     static std::uint64_t get_score_multiplier();
     static std::vector<std::string> get_upgrade_list();
@@ -79,13 +84,14 @@ public:
     static void assign_new_contract(std::uint32_t current_planet);
     static bool player_has_contract();
     static const Planet& get_contract_planet();
+    static std::uint32_t get_contract_planet_index();
     static void complete_contract();
     static void cancel_contract();
 
     static void build_upgrade_list();
 
-    static void commence_landing();
-    static void land();
+    static void commence_landing(uint32_t landing_planet_index);
+    static void land(uint32_t landing_planet_index);
     static bool player_is_landing();
     static bool player_is_landed();
     static const Planet& get_landed_planet();
@@ -95,6 +101,8 @@ public:
 
     static void player_thrust(std::string direction);
     static void player_brake(bool brake);
+
+    static void kill_shot(std::uint32_t index);
 
     static void game_over();
 

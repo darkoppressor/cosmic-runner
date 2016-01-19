@@ -1,0 +1,22 @@
+/* Copyright (c) 2012 Cheese and Bacon Games, LLC */
+/* This file is licensed under the MIT License. */
+/* See the file docs/LICENSE.txt for the full license text. */
+
+#include "shot_type.h"
+
+using namespace std;
+
+Shot_Type::Shot_Type(){
+    name="";
+
+    sprite="";
+
+    collision_percentage=0.0;
+
+    mass=0.0;
+    thrust_accel=0.0;
+    max_speed=0.0;
+
+    damage=0;
+    damage_type="";
+}

@@ -26,6 +26,7 @@ vector<Ship> Game::ships;
 vector<Debris> Game::debris;
 vector<Effect> Game::effects;
 vector<Planet> Game::planets;
+vector<Shot> Game::shots;
 
 int32_t Game::contract=0;
 
@@ -40,6 +41,7 @@ uint64_t Game::score_multiplier=0;
 vector<string> Game::upgrade_list;
 
 Quadtree<double,uint32_t> Game::quadtree_debris;
+Quadtree<double,uint32_t> Game::quadtree_shots;
 
 RNG Game::rng;
 
@@ -66,6 +68,7 @@ void Game::clear_world(){
     debris.clear();
     effects.clear();
     planets.clear();
+    shots.clear();
 
     world_width=0.0;
     world_height=0.0;
@@ -83,6 +86,7 @@ void Game::clear_world(){
     landed_planet=-1;
 
     quadtree_debris.clear_tree();
+    quadtree_shots.clear_tree();
 
     frame=0;
 }
@@ -150,6 +154,7 @@ void Game::generate_world(){
     assign_new_contract(get_nearest_planet());
 
     quadtree_debris.setup(10,5,0,Collision_Rect<double>(0,0,world_width,world_height));
+    quadtree_shots.setup(10,5,0,Collision_Rect<double>(0,0,world_width,world_height));
 }
 
 uint32_t Game::get_ship_count(){
@@ -185,6 +190,28 @@ const Debris& Game::get_debris(uint32_t index){
     }
     else{
         Log::add_error("Error accessing debris '"+Strings::num_to_string(index)+"'");
+
+        Engine::quit();
+    }
+}
+
+const Shot& Game::get_shot(uint32_t index){
+    if(index<shots.size()){
+        return shots[index];
+    }
+    else{
+        Log::add_error("Error accessing shot '"+Strings::num_to_string(index)+"'");
+
+        Engine::quit();
+    }
+}
+
+const Planet& Game::get_planet(uint32_t index){
+    if(index<planets.size()){
+        return planets[index];
+    }
+    else{
+        Log::add_error("Error accessing planet '"+Strings::num_to_string(index)+"'");
 
         Engine::quit();
     }
@@ -270,6 +297,15 @@ const Planet& Game::get_contract_planet(){
     }
 }
 
+uint32_t Game::get_contract_planet_index(){
+    if(player_has_contract()){
+        return contract;
+    }
+    else{
+        return 0;
+    }
+}
+
 void Game::complete_contract(){
     increase_score_multiplier(Game_Constants::SCORE_MULTIPLIER_INCREASE);
 
@@ -300,26 +336,33 @@ void Game::build_upgrade_list(){
     }
 }
 
-void Game::commence_landing(){
-    Ship& player=get_player();
-
-    player.commence_landing();
+void Game::commence_landing(uint32_t landing_planet_index){
+    get_player().commence_landing(landing_planet_index);
 }
 
-void Game::land(){
+void Game::land(uint32_t landing_planet_index){
     Game_Manager::paused=true;
 
-    landed_planet=contract;
+    landed_planet=landing_planet_index;
 
-    build_upgrade_list();
+    if(player_has_contract() && landed_planet==contract){
+        build_upgrade_list();
 
-    Window_Manager::get_window("select_upgrade")->toggle_on(true,true);
+        Window_Manager::get_window("select_upgrade")->toggle_on(true,true);
+    }
+    else if(!player_has_contract()){
+        assign_new_contract((uint32_t)landed_planet);
+
+        landed_planet=-1;
+
+        Game_Manager::paused=false;
+
+        Engine::make_toast("New contract acquired");
+    }
 }
 
 bool Game::player_is_landing(){
-    Ship& player=get_player();
-
-    return player.is_landing();
+    return get_player().is_landing();
 }
 
 bool Game::player_is_landed(){
@@ -351,6 +394,12 @@ void Game::player_brake(bool brake){
     get_player().set_braking(brake);
 }
 
+void Game::kill_shot(uint32_t index){
+    if(index<shots.size()){
+        shots[index].die();
+    }
+}
+
 void Game::game_over(){
     Game_Manager::paused=true;
 
@@ -358,7 +407,7 @@ void Game::game_over(){
 }
 
 void Game::tick(){
-    if(++frame==Engine::UPDATE_RATE){
+    if(++frame>=Engine::UPDATE_RATE){
         frame=0;
     }
 }
@@ -372,6 +421,11 @@ void Game::movement(){
         quadtree_debris.insert_object(debris[i].get_collision_box(),(uint32_t)i);
     }
 
+    quadtree_shots.clear_tree();
+    for(size_t i=0;i<shots.size();i++){
+        quadtree_shots.insert_object(shots[i].get_collision_box(),(uint32_t)i);
+    }
+
     for(size_t i=0;i<debris.size();i++){
         debris[i].rotation();
     }
@@ -379,11 +433,21 @@ void Game::movement(){
     for(size_t i=0;i<ships.size();i++){
         ships[i].land(i==0);
 
+        ships[i].regenerate_shields();
+
         ships[i].accelerate(i==0,frame);
     }
 
     for(size_t i=0;i<ships.size();i++){
-        ships[i].movement(i==0,quadtree_debris,rng);
+        ships[i].movement(i==0,quadtree_debris,quadtree_shots,rng);
+    }
+
+    for(size_t i=0;i<shots.size();i++){
+        shots[i].accelerate();
+    }
+
+    for(size_t i=0;i<shots.size();i++){
+        shots[i].movement(quadtree_debris);
     }
 
     for(size_t i=0;i<effects.size();i++){
@@ -401,6 +465,15 @@ void Game::events(){
     for(size_t i=1;i<ships.size();){
         if(!ships[i].is_alive()){
             ships.erase(ships.begin()+i);
+        }
+        else{
+            i++;
+        }
+    }
+
+    for(size_t i=0;i<shots.size();){
+        if(!shots[i].is_alive()){
+            shots.erase(shots.begin()+i);
         }
         else{
             i++;
@@ -430,6 +503,10 @@ void Game::animate(){
         ships[i].animate();
     }
 
+    for(size_t i=0;i<shots.size();i++){
+        shots[i].animate();
+    }
+
     for(size_t i=0;i<effects.size();i++){
         effects[i].animate();
     }
@@ -453,6 +530,10 @@ void Game::render(){
 
     for(size_t i=0;i<ships.size();i++){
         ships[i].render();
+    }
+
+    for(size_t i=0;i<shots.size();i++){
+        shots[i].render();
     }
 
     for(size_t i=0;i<effects.size();i++){

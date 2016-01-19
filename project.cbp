@@ -410,6 +410,10 @@
 		<Unit filename="ship.h" />
 		<Unit filename="ship_type.cpp" />
 		<Unit filename="ship_type.h" />
+		<Unit filename="shot.cpp" />
+		<Unit filename="shot.h" />
+		<Unit filename="shot_type.cpp" />
+		<Unit filename="shot_type.h" />
 		<Unit filename="special_info.cpp" />
 		<Unit filename="version.cpp" />
 		<Unit filename="window_close_function.cpp" />

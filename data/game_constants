@@ -24,6 +24,7 @@
 </game_constant>
 
 <game_constant>
+	//integer percentage
 	name:collision_chance_debris
 	value:15
 </game_constant>
@@ -36,4 +37,16 @@
 <game_constant>
 	name:upgrade_list_size
 	value:3
+</game_constant>
+
+<game_constant>
+	//seconds
+	name:effect_length_cargo
+	value:300
+</game_constant>
+
+<game_constant>
+	//milliseconds
+	name:shield_recharge_rate
+	value:1000
 </game_constant>

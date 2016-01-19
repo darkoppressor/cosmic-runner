@@ -19,6 +19,10 @@ uint64_t Game_Constants::SCORE_MULTIPLIER_INCREASE=0;
 
 uint32_t Game_Constants::UPGRADE_LIST_SIZE=0;
 
+uint32_t Game_Constants::EFFECT_LENGTH_CARGO=0;
+
+uint32_t Game_Constants::SHIELD_RECHARGE_RATE=0;
+
 void Game_Constants_Loader::set_game_constant(string name,string value){
     if(name=="zoom_rate"){
         Engine_Data::ZOOM_RATE=Strings::string_to_double(value);
@@ -47,5 +51,13 @@ void Game_Constants_Loader::set_game_constant(string name,string value){
 
     else if(name=="upgrade_list_size"){
         Game_Constants::UPGRADE_LIST_SIZE=Strings::string_to_unsigned_long(value);
+    }
+
+    else if(name=="effect_length_cargo"){
+        Game_Constants::EFFECT_LENGTH_CARGO=Strings::string_to_unsigned_long(value);
+    }
+
+    else if(name=="shield_recharge_rate"){
+        Game_Constants::SHIELD_RECHARGE_RATE=Strings::string_to_unsigned_long(value);
     }
 }
