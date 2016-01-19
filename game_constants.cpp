@@ -10,10 +10,14 @@
 
 using namespace std;
 
-uint32_t Game_Constants::MAX_BACKGROUND_STAR_SIZE=0.0;
-uint32_t Game_Constants::BASE_BACKGROUND_STARS=0.0;
+uint32_t Game_Constants::MAX_BACKGROUND_STAR_SIZE=0;
+uint32_t Game_Constants::BASE_BACKGROUND_STARS=0;
 
-uint32_t Game_Constants::COLLISION_CHANCE_DEBRIS=0.0;
+uint32_t Game_Constants::COLLISION_CHANCE_DEBRIS=0;
+
+uint64_t Game_Constants::SCORE_MULTIPLIER_INCREASE=0;
+
+uint32_t Game_Constants::UPGRADE_LIST_SIZE=0;
 
 void Game_Constants_Loader::set_game_constant(string name,string value){
     if(name=="zoom_rate"){
@@ -35,5 +39,13 @@ void Game_Constants_Loader::set_game_constant(string name,string value){
 
     else if(name=="collision_chance_debris"){
         Game_Constants::COLLISION_CHANCE_DEBRIS=Strings::string_to_unsigned_long(value);
+    }
+
+    else if(name=="score_multiplier_increase"){
+        Game_Constants::SCORE_MULTIPLIER_INCREASE=Strings::string_to_unsigned_long(value);
+    }
+
+    else if(name=="upgrade_list_size"){
+        Game_Constants::UPGRADE_LIST_SIZE=Strings::string_to_unsigned_long(value);
     }
 }

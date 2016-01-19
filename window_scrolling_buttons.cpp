@@ -2,6 +2,8 @@
 /* This file is licensed under the MIT License. */
 /* See the file docs/LICENSE.txt for the full license text. */
 
+#include "game.h"
+
 #include <window.h>
 #include <engine_strings.h>
 #include <log.h>
@@ -22,6 +24,20 @@ void Window::build_scrolling_buttons(){
 
         if(scrolling_buttons=="configure_commands"){
             Object_Manager::add_game_command_scrolling_button(font,buttons);
+        }
+        else if(scrolling_buttons=="select_upgrade"){
+            for(size_t i=0;i<Game::get_upgrade_list().size();i++){
+                buttons.push_back(Button());
+                buttons.back().x=Object_Manager::get_font(font)->spacing_x*2;
+                buttons.back().y=0;
+                buttons.back().start_x=buttons.back().x;
+                buttons.back().start_y=buttons.back().y;
+                ///QQQ use upgrade name here
+                buttons.back().text=Game::get_upgrade_list()[i];
+                buttons.back().font="small";
+                buttons.back().event_function="select_upgrade_"+Game::get_upgrade_list()[i];
+                buttons.back().set_dimensions();
+            }
         }
         else if(scrolling_buttons=="server_list"){
             for(size_t i=0;i<Network_Client::server_list.size();i++){

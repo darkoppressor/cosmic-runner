@@ -11,6 +11,9 @@
 #include <object_manager.h>
 #include <options.h>
 #include <engine_input.h>
+#include <window_manager.h>
+#include <engine_strings.h>
+#include <sound_manager.h>
 
 using namespace std;
 
@@ -146,7 +149,10 @@ void Game_Manager::handle_input_states(){
 bool Game_Manager::handle_game_command_gui(string command_name){
     //Pause the game
     if(command_name=="pause"){
-        toggle_pause();
+        if(!Window_Manager::is_window_open(Window_Manager::get_window("game_over")) &&
+           !Game::player_is_landed()){
+            toggle_pause();
+        }
 
         return true;
     }
@@ -187,12 +193,39 @@ bool Game_Manager::handle_game_command(string command_name){
     ///END OF DEV COMMANDS
 
     if(!paused){
-        //Example command
-        /**if(command_name=="some_command"){
-            ///Command here
+        if(command_name=="land"){
+            if(Game::player_has_contract() && !Game::player_is_landing() && !Game::player_is_landed()){
+                const Planet& planet=Game::get_contract_planet();
+                const Ship& player=Game::get_player_const();
+
+                if(Collision::check_circ_rect(planet.get_circle(),player.get_box())){
+                    Game::commence_landing();
+                }
+            }
 
             return true;
-        }*/
+        }
+        else if(command_name=="drop_cargo"){
+            if(Game::player_has_contract()){
+                Game::cancel_contract();
+
+                for(uint32_t i=0;i<5;i++){
+                    const Ship& player=Game::get_player_const();
+
+                    Game::create_effect("effect_cargo_"+Strings::num_to_string(Game::get_rng().random_range(0,0)),1.0,
+                                        Coords<double>(player.get_box().center_x(),player.get_box().center_y()),"",
+                                        Vector(Game::get_rng().random_range(0,10),Game::get_rng().random_range(0,359)),
+                                        Game::get_rng().random_range(0,359),Vector(0.01*Game::get_rng().random_range(0,50),Game::get_rng().random_range(0,359)),60);
+                }
+
+                Sound_Manager::play_sound("drop_cargo");
+            }
+            else{
+                Sound_Manager::play_sound("cannot_drop_cargo");
+            }
+
+            return true;
+        }
 
         //Example multiplayer command input
         /**if(command_name=="some_command"){

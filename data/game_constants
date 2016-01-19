@@ -25,5 +25,15 @@
 
 <game_constant>
 	name:collision_chance_debris
-	value:5
+	value:15
+</game_constant>
+
+<game_constant>
+	name:score_multiplier_increase
+	value:1
+</game_constant>
+
+<game_constant>
+	name:upgrade_list_size
+	value:3
 </game_constant>

@@ -35,6 +35,9 @@ private:
     bool thrusting;
     bool braking;
 
+    bool landing;
+    double landing_scale;
+
     Sprite sprite;
 
 public:
@@ -52,16 +55,20 @@ public:
 
     bool is_alive() const;
 
-    void take_damage(std::int32_t damage,std::string damage_type,const Coords<double>& location);
+    void take_damage(bool is_player,std::int32_t damage,std::string damage_type,const Coords<double>& location);
 
     void set_thrust_angle(std::string direction);
     void set_braking(bool new_braking);
 
-    void thrust();
-    void brake();
+    void thrust(std::uint32_t frame);
+    void brake(std::uint32_t frame);
 
-    void accelerate();
-    void movement(const Quadtree<double,std::uint32_t>& quadtree_debris,RNG& rng);
+    void commence_landing();
+    bool is_landing();
+    void land(bool is_player);
+
+    void accelerate(bool is_player,std::uint32_t frame);
+    void movement(bool is_player,const Quadtree<double,std::uint32_t>& quadtree_debris,RNG& rng);
 
     void animate();
     void render();

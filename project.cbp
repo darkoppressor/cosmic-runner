@@ -404,6 +404,8 @@
 		<Unit filename="main.h" />
 		<Unit filename="network_game.cpp" />
 		<Unit filename="network_game.h" />
+		<Unit filename="planet.cpp" />
+		<Unit filename="planet.h" />
 		<Unit filename="ship.cpp" />
 		<Unit filename="ship.h" />
 		<Unit filename="ship_type.cpp" />

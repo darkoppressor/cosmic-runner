@@ -24,7 +24,15 @@ void Engine::render_dev_info(){
         msg+="Camera Size: "+Strings::num_to_string(Game_Manager::camera.w/Game_Manager::camera_zoom)+","+Strings::num_to_string(Game_Manager::camera.h/Game_Manager::camera_zoom)+"\n";
         msg+="Camera Zoom: "+Strings::num_to_string(Game_Manager::camera_zoom)+"\n";
 
-        msg+="-----Ship-----\n";
+        msg+="\n-----Game-----\n";
+        msg+="Score: "+Strings::num_to_string(Game::get_score())+" (x"+Strings::num_to_string(Game::get_score_multiplier())+" multiplier)\n";
+
+        msg+="\n-----Universe-----\n";
+        msg+="Ships: "+Strings::num_to_string(Game::get_ship_count())+"\n";
+        msg+="Debris: "+Strings::num_to_string(Game::get_debris_count())+"\n";
+        msg+="Planets: "+Strings::num_to_string(Game::get_planet_count())+"\n";
+
+        msg+="\n-----Ship-----\n";
         msg+="Position: "+Strings::num_to_string(Game::get_player_const().get_box().center_x())+" , "+Strings::num_to_string(Game::get_player_const().get_box().center_y())+"\n";
         msg+="Velocity: "+Strings::num_to_string(Game::get_player_const().get_velocity().magnitude)+" m/s , "+Strings::num_to_string(Game::get_player_const().get_velocity().direction)+Symbols::degrees()+"\n";
         msg+="Hull: "+Strings::num_to_string(Game::get_player_const().get_hull())+"/"+Strings::num_to_string(Game::get_player_const().get_ship_type()->hull_max)+"\n";

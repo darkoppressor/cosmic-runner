@@ -14,6 +14,10 @@ public:
     static std::uint32_t BASE_BACKGROUND_STARS;
 
     static std::uint32_t COLLISION_CHANCE_DEBRIS;
+
+    static std::uint64_t SCORE_MULTIPLIER_INCREASE;
+
+    static std::uint32_t UPGRADE_LIST_SIZE;
 };
 
 #endif

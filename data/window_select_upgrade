@@ -1,0 +1,10 @@
+<window>
+	name:select_upgrade
+	starting_position:-1,-1
+	width:800
+	height:480
+	title:Contract Completed
+	scrolling_buttons:select_upgrade
+	disallow_closing:true
+
+</window>

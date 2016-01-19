@@ -77,3 +77,23 @@
 	controller_button:a
 	controller_axis:
 </game_command>
+
+<game_command>
+	name:land
+	title:Land
+	description:Land on a planet
+	developer:false
+	key:Space
+	controller_button:y
+	controller_axis:
+</game_command>
+
+<game_command>
+	name:drop_cargo
+	title:Jettison Cargo
+	description:Jettison all cargo
+	developer:false
+	key:D
+	controller_button:b
+	controller_axis:
+</game_command>

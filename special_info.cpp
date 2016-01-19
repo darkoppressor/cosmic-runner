@@ -15,6 +15,9 @@ string Special_Info::get_special_info_text(string special_info){
         if(special_info=="configure_command"){
             Object_Manager::output_command_configuration_info(text);
         }
+        else if(special_info=="game_over"){
+            text+="Your career has come to an abrupt end.";
+        }
         else{
             Log::add_error("Invalid special info text: '"+special_info+"'");
         }

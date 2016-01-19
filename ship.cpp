@@ -9,6 +9,7 @@
 
 #include <engine.h>
 #include <game_manager.h>
+#include <sound_manager.h>
 ///QQQ includes
 ///#include <render.h>
 
@@ -27,6 +28,9 @@ Ship::Ship(string new_type,const Coords<double>& position,double new_angle){
 
     thrusting=false;
     braking=false;
+
+    landing=false;
+    landing_scale=1.0;
 
     sprite.set_name(get_ship_type()->sprite);
 
@@ -63,7 +67,7 @@ bool Ship::is_alive() const{
     return hull>0;
 }
 
-void Ship::take_damage(int32_t damage,string damage_type,const Coords<double>& location){
+void Ship::take_damage(bool is_player,int32_t damage,string damage_type,const Coords<double>& location){
     if(is_alive()){
         int32_t effective_damage=damage;
 
@@ -79,7 +83,8 @@ void Ship::take_damage(int32_t damage,string damage_type,const Coords<double>& l
             }
 
             if(effective_damage>0){
-                Game::create_effect("explosion_shields",((double)effective_damage/(double)get_ship_type()->shields_max)/2.0,location,"explosion_shields");
+                Game::create_effect("explosion_shields",((double)effective_damage/(double)get_ship_type()->shields_max)/2.0,location,"explosion_shields",
+                                    Vector(0.0,0.0),0.0,Vector(0.0,0.0),0);
 
                 if(effective_damage<=shields){
                     shields-=effective_damage;
@@ -118,9 +123,18 @@ void Ship::take_damage(int32_t damage,string damage_type,const Coords<double>& l
         }
 
         if(effective_damage>0){
-            Game::create_effect("explosion_hull",((double)effective_damage/(double)get_ship_type()->hull_max)/2.0,location,"explosion_hull");
+            Game::create_effect("explosion_hull",((double)effective_damage/(double)get_ship_type()->hull_max)/2.0,location,"explosion_hull",
+                                Vector(0.0,0.0),0.0,Vector(0.0,0.0),0);
 
             hull-=effective_damage;
+
+            if(!is_alive()){
+                ///QQQ create explosion
+
+                if(is_player){
+                    Game::game_over();
+                }
+            }
         }
     }
 }
@@ -163,15 +177,19 @@ void Ship::set_braking(bool new_braking){
     braking=new_braking;
 }
 
-void Ship::thrust(){
+void Ship::thrust(uint32_t frame){
     if(thrusting){
         Vector thrust_force(get_ship_type()->thrust_accel,angle);
 
         force+=thrust_force;
+
+        if(frame%15==0){
+            Sound_Manager::play_sound("thrust",box.center_x(),box.center_y());
+        }
     }
 }
 
-void Ship::brake(){
+void Ship::brake(uint32_t frame){
     if(braking){
         Vector brake_force(get_ship_type()->thrust_decel,velocity.direction+180.0);
 
@@ -182,13 +200,45 @@ void Ship::brake(){
         }
 
         force+=brake_force;
+
+        if(frame%30==0){
+            Sound_Manager::play_sound("brake",box.center_x(),box.center_y());
+        }
     }
 }
 
-void Ship::accelerate(){
-    if(is_alive()){
-        thrust();
-        brake();
+void Ship::commence_landing(){
+    landing=true;
+
+    velocity*=0.0;
+}
+
+bool Ship::is_landing(){
+    return landing;
+}
+
+void Ship::land(bool is_player){
+    if(landing){
+        landing_scale-=1.0/(double)Engine::UPDATE_RATE;
+
+        if(landing_scale<=0.0){
+            if(is_player){
+                Game::land();
+
+                landing=false;
+                landing_scale=1.0;
+            }
+            else{
+                hull=0;
+            }
+        }
+    }
+}
+
+void Ship::accelerate(bool is_player,uint32_t frame){
+    if(is_alive() && !is_landing() && (!is_player || !Game::player_is_landed())){
+        thrust(frame);
+        brake(frame);
 
         Vector acceleration=force/get_ship_type()->mass;
 
@@ -205,8 +255,8 @@ void Ship::accelerate(){
     }
 }
 
-void Ship::movement(const Quadtree<double,uint32_t>& quadtree_debris,RNG& rng){
-    if(is_alive()){
+void Ship::movement(bool is_player,const Quadtree<double,uint32_t>& quadtree_debris,RNG& rng){
+    if(is_alive() && !is_landing() && (!is_player || !Game::player_is_landed())){
         Vector_Components vc=velocity.get_components();
 
         box.x+=vc.a/(double)Engine::UPDATE_RATE;
@@ -224,7 +274,7 @@ void Ship::movement(const Quadtree<double,uint32_t>& quadtree_debris,RNG& rng){
             if(rng.random_range(0,99)<Game_Constants::COLLISION_CHANCE_DEBRIS && Collision::check_rect(box_collision,box_debris)){
                 Collision_Rect<double> box_area=Collision::get_collision_area_rect(box_collision,box_debris);
 
-                take_damage(debris.get_debris_type()->damage,debris.get_debris_type()->damage_type,Coords<double>(box_area.center_x(),box_area.center_y()));
+                take_damage(is_player,debris.get_debris_type()->damage,debris.get_debris_type()->damage_type,Coords<double>(box_area.center_x(),box_area.center_y()));
             }
         }
 
@@ -257,7 +307,12 @@ void Ship::animate(){
 void Ship::render(){
     if(is_alive()){
         if(Collision::check_rect(box*Game_Manager::camera_zoom,Game_Manager::camera)){
-            sprite.render(box.x*Game_Manager::camera_zoom-Game_Manager::camera.x,box.y*Game_Manager::camera_zoom-Game_Manager::camera.y,1.0,1.0,1.0,angle);
+            double scale=1.0;
+            if(is_landing()){
+                scale=landing_scale;
+            }
+
+            sprite.render(box.x*Game_Manager::camera_zoom-Game_Manager::camera.x,box.y*Game_Manager::camera_zoom-Game_Manager::camera.y,1.0,scale,scale,angle);
 
             ///QQQ render collision boxes
             /**Collision_Rect<double> col_box=get_collision_box();
