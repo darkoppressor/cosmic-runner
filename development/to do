@@ -9,3 +9,96 @@ shot death effect
 shots disappear when far from player
 add explosive shot stuff
 add other shot types
+
+Lift off animation complementing landing?
+
+Look over engine settings
+
+Setup ui colors
+
+Note: menu background
+Note: loading screen background
+
+Note: score increase for completing a contract should be a set number
+
+Note: finish designing score increase
+
+Note: change map screen to a minimap? It would be like now and show the star and planets
+
+Make sure score increase uses the multiplier
+
+Note: NPC ships can have active and passive upgrades
+
+Add upgrades to ships
+Add data files for all three upgrade types
+Add cooldown for active upgrade
+Add cooldown for weapon upgrade
+
+Note: how are upgrades chosen to show?
+All upgrades must be unique on a ship, no duplicates
+Upgrades already possessed by the player are not shown
+Other than that, maybe it is just completely random?
+
+Once explosions are in the game, add them for ships dying
+
+Add ship disabled status
+Add power
+
+Add notoriety
+
+Add items
+Add all item types
+Items are genned with world
+Items are dropped when npc ships die
+
+Add star
+
+Note: Star gravity affects shots and items
+
+Note: Shots and items are destroyed by collision with the star
+
+Add distinction between planetary and deep space
+Add planetary space background
+
+Add all weapons
+
+Add all passives
+Note that one passive, point defense, needs its own cooldown
+
+Add all actives
+
+Make sure ship disabled status is fully implemented
+
+Add AI for civilians
+Add AI for pirates
+Add AI for police
+
+Note: notoriety and score multiplier should affect ship spawns
+
+Design ships
+
+Add all ships
+
+Note: music:
+Menu music
+Pause music
+Choosing upgrade music
+Peaceful music
+Combat music
+Police chase music
+Game over music
+
+Sounds:
+Contract completed
+New contract acquired (with no previous one)
+Upgrade purchased
+Arrested
+
+Note: high score board
+
+Note: can I use small text input with large resolution?
+
+Polish ideas:
+Smoke effects for ship engines and torpedoes/missiles
+Variations for graphics
+Variations for sounds?
