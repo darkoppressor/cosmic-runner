@@ -7,6 +7,14 @@
 </animation>
 
 <animation>
+	name:ship_test
+	frame_count:3
+	animation_speed:70
+	frame_width:24
+	end_behavior:continue
+</animation>
+
+<animation>
 	name:explosion_shields
 	frame_count:3
 	animation_speed:50

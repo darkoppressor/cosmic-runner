@@ -3,6 +3,7 @@
 /* See the file docs/LICENSE.txt for the full license text. */
 
 #include "game.h"
+#include "game_data.h"
 
 #include <window.h>
 #include <engine_strings.h>
@@ -32,8 +33,7 @@ void Window::build_scrolling_buttons(){
                 buttons.back().y=0;
                 buttons.back().start_x=buttons.back().x;
                 buttons.back().start_y=buttons.back().y;
-                ///QQQ use upgrade name here
-                buttons.back().text=Game::get_upgrade_list()[i];
+                buttons.back().text=Game_Data::get_upgrade_type(Game::get_upgrade_list()[i])->display_name;
                 buttons.back().font="small";
                 buttons.back().event_function="select_upgrade_"+Game::get_upgrade_list()[i];
                 buttons.back().set_dimensions();

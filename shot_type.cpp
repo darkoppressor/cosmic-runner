@@ -14,9 +14,6 @@ Shot_Type::Shot_Type(){
     collision_percentage=0.0;
 
     mass=0.0;
-    thrust_accel=0.0;
-    max_speed=0.0;
 
-    damage=0;
     damage_type="";
 }

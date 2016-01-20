@@ -26,12 +26,17 @@
 <game_constant>
 	//integer percentage
 	name:collision_chance_debris
-	value:15
+	value:30
 </game_constant>
 
 <game_constant>
 	name:score_multiplier_increase
 	value:1
+</game_constant>
+
+<game_constant>
+	name:point_value_contract
+	value:10000
 </game_constant>
 
 <game_constant>
@@ -49,4 +54,34 @@
 	//milliseconds
 	name:shield_recharge_rate
 	value:1000
+</game_constant>
+
+<game_constant>
+	//degrees
+	name:weapon_spread_distance
+	value:10
+</game_constant>
+
+<game_constant>
+	//meters (pixels)
+	name:despawn_distance
+	value:8192.0
+</game_constant>
+
+<game_constant>
+	//meters (pixels)
+	name:ship_spawn_distance_max
+	value:2560
+</game_constant>
+
+<game_constant>
+	//meters (pixels)
+	name:ship_spawn_distance_min
+	value:1440
+</game_constant>
+
+<game_constant>
+	//seconds
+	name:ship_spawn_rate
+	value:15
 </game_constant>

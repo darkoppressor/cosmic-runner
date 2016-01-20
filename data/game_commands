@@ -97,3 +97,13 @@
 	controller_button:b
 	controller_axis:
 </game_command>
+
+<game_command>
+	name:toggle_weapons
+	title:Toggle Weapons
+	description:Toggle weapons
+	developer:false
+	key:W
+	controller_button:x
+	controller_axis:
+</game_command>

@@ -16,12 +16,20 @@ public:
     static std::uint32_t COLLISION_CHANCE_DEBRIS;
 
     static std::uint64_t SCORE_MULTIPLIER_INCREASE;
+    static std::uint64_t POINT_VALUE_CONTRACT;
 
     static std::uint32_t UPGRADE_LIST_SIZE;
 
     static std::uint32_t EFFECT_LENGTH_CARGO;
 
     static std::uint32_t SHIELD_RECHARGE_RATE;
+
+    static std::uint32_t WEAPON_SPREAD_DISTANCE;
+
+    static double DESPAWN_DISTANCE;
+    static std::uint32_t SHIP_SPAWN_DISTANCE_MAX;
+    static std::uint32_t SHIP_SPAWN_DISTANCE_MIN;
+    static std::uint32_t SHIP_SPAWN_RATE;
 };
 
 #endif

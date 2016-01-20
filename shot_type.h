@@ -19,12 +19,7 @@ public:
 
     //kg
     double mass;
-    //N
-    double thrust_accel;
-    //m/s
-    double max_speed;
 
-    std::int32_t damage;
     std::string damage_type;
 
     Shot_Type();

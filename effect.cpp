@@ -16,10 +16,6 @@ Effect::Effect(std::string new_sprite,double new_scale,const Coords<double>& pos
 
     scale=new_scale;
 
-    if(scale<0.5){
-        scale=0.5;
-    }
-
     box.w=sprite.get_width()*scale;
     box.h=sprite.get_height()*scale;
 

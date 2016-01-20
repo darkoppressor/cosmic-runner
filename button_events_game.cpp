@@ -29,7 +29,7 @@ bool Button_Events::handle_button_event_game(string button_event,Window* parent_
 
         Window_Manager::close_all_windows();
 
-        ///QQQ apply upgrade
+        Game::player_add_upgrade(button_event);
 
         Game::complete_contract();
 

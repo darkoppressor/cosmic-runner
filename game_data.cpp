@@ -14,9 +14,10 @@ using namespace std;
 vector<Ship_Type> Game_Data::ship_types;
 vector<Debris_Type> Game_Data::debris_types;
 vector<Shot_Type> Game_Data::shot_types;
+vector<Upgrade> Game_Data::upgrades;
 
 ///Don't forget to increment this for each progress item in load_data_game() below
-const int Game_Data::game_data_load_item_count=3;
+const int Game_Data::game_data_load_item_count=4;
 
 void Game_Data::load_data_game(Progress_Bar& bar){
     bar.progress("Loading ship types");
@@ -27,6 +28,9 @@ void Game_Data::load_data_game(Progress_Bar& bar){
 
     bar.progress("Loading shot types");
     Data_Manager::load_data("shot");
+
+    bar.progress("Loading upgrade types");
+    Data_Manager::load_data("upgrade");
 }
 
 void Game_Data::load_data_tag_game(string tag,File_IO_Load* load){
@@ -39,12 +43,16 @@ void Game_Data::load_data_tag_game(string tag,File_IO_Load* load){
     else if(tag=="shot"){
         load_shot_type(load);
     }
+    else if(tag=="upgrade"){
+        load_upgrade_type(load);
+    }
 }
 
 void Game_Data::unload_data_game(){
     ship_types.clear();
     debris_types.clear();
     shot_types.clear();
+    upgrades.clear();
 }
 
 void Game_Data::load_ship_type(File_IO_Load* load){
@@ -81,6 +89,9 @@ void Game_Data::load_ship_type(File_IO_Load* load){
         }
         else if(Data_Reader::check_prefix(line,"shields_max:")){
             ship_types.back().shields_max=Strings::string_to_long(line);
+        }
+        else if(Data_Reader::check_prefix(line,"point_value:")){
+            ship_types.back().point_value=Strings::string_to_unsigned_long(line);
         }
     }
 }
@@ -167,15 +178,6 @@ void Game_Data::load_shot_type(File_IO_Load* load){
         else if(Data_Reader::check_prefix(line,"mass:")){
             shot_types.back().mass=Strings::string_to_double(line);
         }
-        else if(Data_Reader::check_prefix(line,"thrust_accel:")){
-            shot_types.back().thrust_accel=Strings::string_to_double(line);
-        }
-        else if(Data_Reader::check_prefix(line,"max_speed:")){
-            shot_types.back().max_speed=Strings::string_to_double(line);
-        }
-        else if(Data_Reader::check_prefix(line,"damage:")){
-            shot_types.back().damage=Strings::string_to_long(line);
-        }
         else if(Data_Reader::check_prefix(line,"damage_type:")){
             shot_types.back().damage_type=line;
         }
@@ -198,4 +200,79 @@ Shot_Type* Game_Data::get_shot_type(string name){
     }
 
     return ptr_object;
+}
+
+void Game_Data::load_upgrade_type(File_IO_Load* load){
+    upgrades.push_back(Upgrade());
+
+    vector<string> lines=Data_Reader::read_data(load,"</upgrade>");
+
+    for(size_t i=0;i<lines.size();i++){
+        string& line=lines[i];
+
+        if(Data_Reader::check_prefix(line,"name:")){
+            upgrades.back().name=line;
+        }
+        else if(Data_Reader::check_prefix(line,"display_name:")){
+            upgrades.back().display_name=line;
+        }
+        else if(Data_Reader::check_prefix(line,"type:")){
+            upgrades.back().type=line;
+        }
+        else if(Data_Reader::check_prefix(line,"sound:")){
+            upgrades.back().sound=line;
+        }
+        else if(Data_Reader::check_prefix(line,"cooldown:")){
+            upgrades.back().cooldown=Strings::string_to_unsigned_long(line);
+        }
+        else if(Data_Reader::check_prefix(line,"shot_type:")){
+            upgrades.back().shot_type=line;
+        }
+        else if(Data_Reader::check_prefix(line,"spread_type:")){
+            upgrades.back().spread_type=line;
+        }
+        else if(Data_Reader::check_prefix(line,"thrust_accel:")){
+            upgrades.back().thrust_accel=Strings::string_to_double(line);
+        }
+        else if(Data_Reader::check_prefix(line,"max_speed:")){
+            upgrades.back().max_speed=Strings::string_to_double(line);
+        }
+        else if(Data_Reader::check_prefix(line,"damage:")){
+            upgrades.back().damage=Strings::string_to_long(line);
+        }
+        else if(Data_Reader::check_prefix(line,"shots:")){
+            upgrades.back().shots=Strings::string_to_unsigned_long(line);
+        }
+        else if(Data_Reader::check_prefix(line,"range:")){
+            upgrades.back().range=Strings::string_to_double(line);
+        }
+    }
+}
+
+Upgrade* Game_Data::get_upgrade_type(string name){
+    Upgrade* ptr_object=0;
+
+    for(size_t i=0;i<upgrades.size();i++){
+        if(upgrades[i].name==name){
+            ptr_object=&upgrades[i];
+
+            break;
+        }
+    }
+
+    if(ptr_object==0){
+        Log::add_error("Error accessing upgrade '"+name+"'");
+    }
+
+    return ptr_object;
+}
+
+vector<string> Game_Data::get_upgrade_names(){
+    vector<string> names;
+
+    for(size_t i=0;i<upgrades.size();i++){
+        names.push_back(upgrades[i].name);
+    }
+
+    return names;
 }

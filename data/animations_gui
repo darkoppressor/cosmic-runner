@@ -2,6 +2,6 @@
 	name:text_selector
 	frame_count:2
 	animation_speed:500
-	frame_width:12
+	frame_width:18
 	end_behavior:continue
 </animation>

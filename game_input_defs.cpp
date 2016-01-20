@@ -239,6 +239,11 @@ bool Game_Manager::handle_game_command(string command_name){
 
             return true;
         }
+        else if(command_name=="toggle_weapons"){
+            Game::player_toggle_weapons();
+
+            return true;
+        }
 
         //Example multiplayer command input
         /**if(command_name=="some_command"){

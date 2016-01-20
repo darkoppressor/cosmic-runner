@@ -1,0 +1,44 @@
+<upgrade>
+	name:cannon_shotgun
+	display_name:Shotgun Cannon
+	type:weapon
+	sound:weapon_cannon_shotgun
+	cooldown:3000
+	shot_type:bullet
+	spread_type:normal
+	thrust_accel:99999.0
+	max_speed:600.0
+	damage:6
+	shots:5
+	range:160.0
+</upgrade>
+
+<upgrade>
+	name:cannon_sniper
+	display_name:Sniper Cannon
+	type:weapon
+	sound:weapon_cannon_sniper
+	cooldown:3000
+	shot_type:bullet
+	spread_type:none
+	thrust_accel:99999.0
+	max_speed:900.0
+	damage:18
+	shots:1
+	range:384.0
+</upgrade>
+
+<upgrade>
+	name:cannon_quad
+	display_name:Quad Cannon
+	type:weapon
+	sound:weapon_cannon_quad
+	cooldown:3000
+	shot_type:bullet
+	spread_type:even
+	thrust_accel:99999.0
+	max_speed:400.0
+	damage:10
+	shots:4
+	range:256.0
+</upgrade>

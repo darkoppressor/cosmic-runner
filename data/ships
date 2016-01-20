@@ -8,4 +8,18 @@
 	max_speed:200.0
 	hull_max:10
 	shields_max:2
+	point_value:0
+</ship>
+
+<ship>
+	name:test
+	sprite:ship_test
+	collision_percentage:0.6
+	mass:300
+	thrust_accel:2500.0
+	thrust_decel:3000.0
+	max_speed:200.0
+	hull_max:10
+	shields_max:2
+	point_value:100
 </ship>

@@ -6,6 +6,7 @@
 #define shot_h
 
 #include "shot_type.h"
+#include "upgrade.h"
 
 #include <collision.h>
 #include <math_vector.h>
@@ -31,23 +32,32 @@ private:
 
     bool alive;
 
+    std::int32_t owner_index;
+
+    std::string firing_upgrade;
+
     Sprite sprite;
 
 public:
 
-    Shot(std::string new_type,const Coords<double>& position,double new_angle);
+    Shot(std::uint32_t new_owner_index,std::string new_type,std::string new_firing_upgrade,const Coords<double>& position,double new_angle);
 
     Shot_Type* get_shot_type() const;
 
     Collision_Rect<double> get_box() const;
     Vector get_velocity() const;
 
-    double get_thrust_accel() const;
-    double get_max_speed() const;
-
     Collision_Rect<double> get_collision_box() const;
 
     bool is_alive() const;
+
+    double get_distance_to_player() const;
+
+    bool has_owner() const;
+    std::uint32_t get_owner_index() const;
+    void clear_owner();
+
+    Upgrade* get_firing_upgrade() const;
 
     void die();
 

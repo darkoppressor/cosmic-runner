@@ -16,6 +16,7 @@
 
 #include <string>
 #include <cstdint>
+#include <vector>
 
 class Ship{
 private:
@@ -41,11 +42,15 @@ private:
 
     std::uint32_t shield_recharge;
 
+    std::vector<std::string> upgrades;
+    bool weapons_enabled;
+    std::uint32_t weapon_cooldown;
+
     Sprite sprite;
 
 public:
 
-    Ship(std::string new_type,const Coords<double>& position,double new_angle);
+    Ship(std::string new_type,const Coords<double>& position,double new_angle,const std::vector<std::string>& starting_upgrades);
 
     Ship_Type* get_ship_type() const;
 
@@ -56,6 +61,18 @@ public:
 
     std::uint32_t get_shield_recharge_rate() const;
 
+    bool has_upgrade(std::string name) const;
+    bool has_weapon() const;
+    std::string get_weapon_name() const;
+    void remove_weapon();
+    bool has_active() const;
+    std::string get_active_name() const;
+    void remove_active();
+    bool are_weapons_enabled() const;
+    void toggle_weapons();
+    void add_upgrade(std::string name);
+    void remove_upgrade(std::string name);
+
     double get_thrust_accel() const;
     double get_thrust_decel() const;
     double get_max_speed() const;
@@ -65,6 +82,8 @@ public:
     Collision_Rect<double> get_collision_box() const;
 
     bool is_alive() const;
+
+    double get_distance_to_player() const;
 
     void take_damage(bool is_player,std::int32_t damage,std::string damage_type,const Coords<double>& location);
 
@@ -79,9 +98,13 @@ public:
     void land(bool is_player);
 
     void regenerate_shields();
+    void cooldown(const Quadtree<double,std::uint32_t>& quadtree_ships,RNG& rng,std::uint32_t own_index);
+
+    //Returns true if the weapon found a target and fired upon it
+    bool fire_weapon(const Quadtree<double,std::uint32_t>& quadtree_ships,RNG& rng,std::uint32_t own_index);
 
     void accelerate(bool is_player,std::uint32_t frame);
-    void movement(bool is_player,const Quadtree<double,std::uint32_t>& quadtree_debris,const Quadtree<double,std::uint32_t>& quadtree_shots,RNG& rng);
+    void movement(uint32_t own_index,const Quadtree<double,std::uint32_t>& quadtree_debris,const Quadtree<double,std::uint32_t>& quadtree_shots,RNG& rng);
 
     void animate();
     void render();

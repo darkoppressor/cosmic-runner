@@ -415,6 +415,8 @@
 		<Unit filename="shot_type.cpp" />
 		<Unit filename="shot_type.h" />
 		<Unit filename="special_info.cpp" />
+		<Unit filename="upgrade.cpp" />
+		<Unit filename="upgrade.h" />
 		<Unit filename="version.cpp" />
 		<Unit filename="window_close_function.cpp" />
 		<Unit filename="window_scrolling_buttons.cpp" />

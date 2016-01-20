@@ -20,4 +20,6 @@ Ship_Type::Ship_Type(){
 
     hull_max=0;
     shields_max=0;
+
+    point_value=0;
 }

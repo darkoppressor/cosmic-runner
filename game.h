@@ -45,10 +45,12 @@ private:
 
     static Quadtree<double,std::uint32_t> quadtree_debris;
     static Quadtree<double,std::uint32_t> quadtree_shots;
+    static Quadtree<double,std::uint32_t> quadtree_ships;
 
     static RNG rng;
 
     static std::uint32_t frame;
+    static std::uint32_t ship_spawn_check;
 
     static Ship& get_player();
 
@@ -68,6 +70,7 @@ public:
     static const Ship& get_player_const();
     static const Debris& get_debris(std::uint32_t index);
     static const Shot& get_shot(std::uint32_t index);
+    static const Ship& get_ship(std::uint32_t index);
     static const Planet& get_planet(std::uint32_t index);
     static std::uint64_t get_score();
     static std::uint64_t get_score_multiplier();
@@ -101,8 +104,14 @@ public:
 
     static void player_thrust(std::string direction);
     static void player_brake(bool brake);
+    static void player_add_upgrade(std::string name);
+    static void player_remove_upgrade(std::string name);
+    static void player_toggle_weapons();
 
     static void kill_shot(std::uint32_t index);
+    static void create_shot(std::uint32_t owner_index,std::string type,std::string firing_upgrade,const Coords<double>& position,double angle);
+
+    static void generate_ships();
 
     static void game_over();
 

@@ -36,12 +36,19 @@ A notification should pop up briefly when a contract is completed
 A notification should pop up briefly when a contract is lost
 
 Player has a score
+Score increases when:
+Destroying ships, each ship has a point value
+Picking up an item, each item has a point value
+Completing a contract, this is a set number, and points are added before increasing the score multiplier
+
 Player has a score multiplier
 Score multiplier increases when a contract is completed
 Score multiplier decreases when a contract is lost via the player being caught by police
-When a contract is completed, the player must select one upgrade for their ship
 
+When a contract is completed, the player must select one upgrade for their ship
+The upgrade list is chosen completely at random from all upgrades not currently on the player's ship
 There are three kinds of upgrades: active, passive, and weapon
+All upgrades must be unique on a ship, no duplicates
 Passive upgrades are permanent modifications to the ship
 A ship may have up to one active upgrade at a time
 If the player selects an active upgrade, and already has one, the old active upgrade is replaced with the new one
@@ -53,7 +60,8 @@ Planets are dotted about
 Star should have some kind of gravity, but only be dangerous really close to it (you CAN get caught in its gravity)
 Star is only object with gravity
 When really close to star, ships take energy damage over time
-Collision with star kills any ship instantly
+Collision with star kills/destroys any ship, shot, or item instantly
+Star gravity affects ships, shots, and items
 
 Ships have hull and shields
 When a ship takes damage, it loses shields first, if it has any, and then hull
@@ -101,9 +109,12 @@ Notoriety increases when player does damage to civilian or police ships
 
 NPC ships are spawned "near" the player
 NPC ships far away from the player are despawned
-While NPC ships have no active or passive upgrades, they can be equipped with up to one weapon upgrade
-For the purposes of NPC ships reacting to another ship, they always only look at the closest ship not of their faction
+Every set number of seconds, a ship spawn occurs
+A number of ships to try to place around the player (minus any existing ships) is determined using
+the player's notoriety and score multiplier
+Ships are spawned randomly, with the chance to spawn again determined using the player's notoriety and score multiplier
 
+For the purposes of NPC ships reacting to another ship, they always only look at the closest ship not of their faction
 Ships and shots have a faction
 Factions are: player, civilian, police, pirate
 Faction is used by ships and shots to determine target to follow
@@ -200,11 +211,9 @@ Pirate ships:
 Police ships:
 
 
-Note: what increases score?
-Destroying ships, each ship has a point value
-Picking up an item, each item has a point value
-Completing a contract, points are added before increasing the score multiplier
-
 Polish ideas:
 Clouds floating over planets
 Ship shadows on planet below ship
+Smoke effects for ship engines and torpedoes/missiles
+Variations for graphics
+Variations for sounds?

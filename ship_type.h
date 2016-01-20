@@ -28,6 +28,8 @@ public:
     std::int32_t hull_max;
     std::int32_t shields_max;
 
+    std::uint64_t point_value;
+
     Ship_Type();
 };
 
