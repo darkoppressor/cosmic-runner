@@ -30,6 +30,8 @@ private:
 
     std::string type;
 
+    std::string faction;
+
     bool alive;
 
     std::int32_t owner_index;
@@ -40,7 +42,7 @@ private:
 
 public:
 
-    Shot(std::uint32_t new_owner_index,std::string new_type,std::string new_firing_upgrade,const Coords<double>& position,double new_angle);
+    Shot(std::uint32_t new_owner_index,std::string new_type,std::string new_faction,std::string new_firing_upgrade,const Coords<double>& position,double new_angle);
 
     Shot_Type* get_shot_type() const;
 
@@ -56,14 +58,15 @@ public:
     bool has_owner() const;
     std::uint32_t get_owner_index() const;
     void clear_owner();
+    void notify_of_ship_death(std::uint32_t index);
 
     Upgrade* get_firing_upgrade() const;
 
     void die();
 
-    void thrust();
+    void thrust(const Quadtree<double,std::uint32_t>& quadtree_ships);
 
-    void accelerate();
+    void accelerate(const Quadtree<double,std::uint32_t>& quadtree_ships);
     void movement(const Quadtree<double,std::uint32_t>& quadtree_debris);
 
     void animate();

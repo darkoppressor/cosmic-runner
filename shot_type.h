@@ -15,12 +15,17 @@ public:
 
     std::string sprite;
 
+    std::string death_sprite;
+    std::string death_sound;
+
     double collision_percentage;
 
     //kg
     double mass;
 
     std::string damage_type;
+
+    bool homing;
 
     Shot_Type();
 };

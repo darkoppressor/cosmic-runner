@@ -10,7 +10,7 @@
 	max_speed:600.0
 	damage:6
 	shots:5
-	range:160.0
+	range:192.0
 </upgrade>
 
 <upgrade>
@@ -25,7 +25,7 @@
 	max_speed:900.0
 	damage:18
 	shots:1
-	range:384.0
+	range:416.0
 </upgrade>
 
 <upgrade>
@@ -40,5 +40,110 @@
 	max_speed:400.0
 	damage:10
 	shots:4
-	range:256.0
+	range:288.0
+</upgrade>
+
+<upgrade>
+	name:plasma_gun
+	display_name:Plasma Gun
+	type:weapon
+	sound:weapon_plasma_gun
+	cooldown:3000
+	shot_type:plasma_blast
+	spread_type:none
+	thrust_accel:99999.0
+	max_speed:1200.0
+	damage:24
+	shots:1
+	range:288.0
+</upgrade>
+
+<upgrade>
+	name:missile_single
+	display_name:Single Missile
+	type:weapon
+	sound:weapon_missile_single
+	cooldown:3000
+	shot_type:missile
+	spread_type:none
+	thrust_accel:65.0
+	max_speed:225.0
+	damage:18
+	shots:1
+	range:416.0
+</upgrade>
+
+<upgrade>
+	name:missile_spread
+	display_name:Spread Missile
+	type:weapon
+	sound:weapon_missile_spread
+	cooldown:3000
+	shot_type:missile
+	spread_type:normal
+	thrust_accel:65.0
+	max_speed:225.0
+	damage:18
+	shots:3
+	range:288.0
+</upgrade>
+
+<upgrade>
+	name:missile_circle
+	display_name:Circle Missile
+	type:weapon
+	sound:weapon_missile_circle
+	cooldown:3000
+	shot_type:missile
+	spread_type:even
+	thrust_accel:65.0
+	max_speed:225.0
+	damage:18
+	shots:16
+	range:288.0
+</upgrade>
+
+<upgrade>
+	name:guided_missile_single
+	display_name:Single Guided Missile
+	type:weapon
+	sound:weapon_guided_missile_single
+	cooldown:3000
+	shot_type:guided_missile
+	spread_type:none
+	thrust_accel:50.0
+	max_speed:200.0
+	damage:18
+	shots:1
+	range:288.0
+</upgrade>
+
+<upgrade>
+	name:guided_missile_triple
+	display_name:Triple Guided Missile
+	type:weapon
+	sound:weapon_guided_missile_triple
+	cooldown:3000
+	shot_type:guided_missile
+	spread_type:normal
+	thrust_accel:50.0
+	max_speed:200.0
+	damage:18
+	shots:3
+	range:288.0
+</upgrade>
+
+<upgrade>
+	name:guided_missile_swarm
+	display_name:Swarm Guided Missile
+	type:weapon
+	sound:weapon_guided_missile_swarm
+	cooldown:3000
+	shot_type:guided_missile
+	spread_type:normal
+	thrust_accel:75.0
+	max_speed:240.0
+	damage:18
+	shots:6
+	range:288.0
 </upgrade>

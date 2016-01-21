@@ -25,6 +25,11 @@
 	rgb:204,10,10
 </color>
 
+<color>
+	name:laser
+	rgb:10,204,204
+</color>
+
 //** Engine Colors **//
 
 <color>

@@ -5,6 +5,7 @@
 #include "shot.h"
 #include "game_data.h"
 #include "game.h"
+#include "game_constants.h"
 
 #include <engine.h>
 #include <game_manager.h>
@@ -16,10 +17,12 @@
 
 using namespace std;
 
-Shot::Shot(uint32_t new_owner_index,string new_type,string new_firing_upgrade,const Coords<double>& position,double new_angle){
+Shot::Shot(uint32_t new_owner_index,string new_type,string new_faction,string new_firing_upgrade,const Coords<double>& position,double new_angle){
     owner_index=(int32_t)new_owner_index;
 
     type=new_type;
+
+    faction=new_faction;
 
     box.x=position.x;
     box.y=position.y;
@@ -75,6 +78,17 @@ void Shot::clear_owner(){
     owner_index=-1;
 }
 
+void Shot::notify_of_ship_death(uint32_t index){
+    if(has_owner()){
+        if(get_owner_index()==index){
+            clear_owner();
+        }
+        else if(index<get_owner_index()){
+            owner_index--;
+        }
+    }
+}
+
 Upgrade* Shot::get_firing_upgrade() const{
     return Game_Data::get_upgrade_type(firing_upgrade);
 }
@@ -83,19 +97,76 @@ void Shot::die(){
     if(is_alive()){
         alive=false;
 
-        ///QQQ create death effect
+        if(get_shot_type()->death_sprite.length()>0){
+            Game::create_effect(get_shot_type()->death_sprite,1.0,Coords<double>(box.center_x(),box.center_y()),get_shot_type()->death_sound,Vector(),0.0,Vector(),0);
+        }
     }
 }
 
-void Shot::thrust(){
+void Shot::thrust(const Quadtree<double,uint32_t>& quadtree_ships){
+    if(get_shot_type()->homing){
+        Collision_Rect<double> box_targeting=box;
+
+        box_targeting.x-=Game_Constants::MISSILE_HOMING_RANGE;
+        box_targeting.y-=Game_Constants::MISSILE_HOMING_RANGE;
+        box_targeting.w+=Game_Constants::MISSILE_HOMING_RANGE*2.0;
+        box_targeting.h+=Game_Constants::MISSILE_HOMING_RANGE*2.0;
+
+        vector<uint32_t> nearby_ships;
+        quadtree_ships.get_objects(nearby_ships,box_targeting);
+
+        vector<uint32_t> valid_targets;
+
+        unordered_set<uint32_t> collisions;
+
+        //Find all valid targets
+        for(size_t i=0;i<nearby_ships.size();i++){
+            if(!collisions.count(nearby_ships[i])){
+                collisions.emplace(nearby_ships[i]);
+
+                const Ship& ship=Game::get_ship(nearby_ships[i]);
+
+                if(ship.is_alive() && !ship.is_landing() && (nearby_ships[i]!=0 || !Game::player_is_landed())){
+                    Collision_Rect<double> box_ship=ship.get_box();
+
+                    if(faction!=ship.get_faction() && Collision::check_rect(box_targeting,box_ship)){
+                        valid_targets.push_back(nearby_ships[i]);
+                    }
+                }
+            }
+        }
+
+        //Find nearest valid target
+        int32_t nearest_index=-1;
+        double nearest_distance=0.0;
+
+        for(size_t i=0;i<valid_targets.size();i++){
+            const Ship& ship=Game::get_ship(valid_targets[i]);
+
+            double new_distance=Math::distance_between_points(box.center_x(),box.center_y(),ship.get_box().center_x(),ship.get_box().center_y());
+
+            if(nearest_index==-1 || new_distance<nearest_distance){
+                nearest_index=valid_targets[i];
+                nearest_distance=new_distance;
+            }
+        }
+
+        //If a nearest valid target was found
+        if(nearest_index>=0){
+            const Ship& ship=Game::get_ship((uint32_t)nearest_index);
+
+            angle=Collision::get_angle_to_rect(box,ship.get_box());
+        }
+    }
+
     Vector thrust_force(get_firing_upgrade()->thrust_accel,angle);
 
     force+=thrust_force;
 }
 
-void Shot::accelerate(){
+void Shot::accelerate(const Quadtree<double,uint32_t>& quadtree_ships){
     if(is_alive()){
-        thrust();
+        thrust(quadtree_ships);
 
         Vector acceleration=force/get_shot_type()->mass;
 
@@ -134,6 +205,10 @@ void Shot::movement(const Quadtree<double,uint32_t>& quadtree_debris){
                 Collision_Rect<double> box_debris=debris.get_collision_box();
 
                 if(Collision::check_rect(box_collision,box_debris)){
+                    if(get_shot_type()->damage_type=="explosive"){
+                        Game::create_explosion("explosion_missile","explosion_missile",Coords<double>(box.center_x(),box.center_y()),get_firing_upgrade()->damage);
+                    }
+
                     die();
                 }
             }

@@ -11,9 +11,14 @@ Shot_Type::Shot_Type(){
 
     sprite="";
 
+    death_sprite="";
+    death_sound="";
+
     collision_percentage=0.0;
 
     mass=0.0;
 
     damage_type="";
+
+    homing=false;
 }

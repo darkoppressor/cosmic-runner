@@ -30,6 +30,10 @@ public:
     static std::uint32_t SHIP_SPAWN_DISTANCE_MAX;
     static std::uint32_t SHIP_SPAWN_DISTANCE_MIN;
     static std::uint32_t SHIP_SPAWN_RATE;
+
+    static double MISSILE_HOMING_RANGE;
+
+    static std::int32_t EXPLOSION_DAMAGE_SHIP;
 };
 
 #endif

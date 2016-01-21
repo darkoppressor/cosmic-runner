@@ -27,19 +27,15 @@ private:
 
     Sprite sprite;
 
-    std::string sound;
-
     bool timed;
     std::uint32_t counter;
 
 public:
 
-    Effect(std::string new_sprite,double new_scale,const Coords<double>& position,std::string new_sound,const Vector& new_velocity,double new_angle,
+    Effect(std::string new_sprite,double new_scale,const Coords<double>& position,std::string sound,const Vector& new_velocity,double new_angle,
            const Vector& new_angular_velocity,std::uint32_t seconds);
 
     bool is_done() const;
-
-    void play_sound();
 
     void countdown();
 

@@ -83,5 +83,16 @@
 <game_constant>
 	//seconds
 	name:ship_spawn_rate
-	value:15
+	value:1
+</game_constant>
+
+<game_constant>
+	//meters (pixels)
+	name:missile_homing_range
+	value:64.0
+</game_constant>
+
+<game_constant>
+	name:explosion_damage_ship
+	value:24
 </game_constant>

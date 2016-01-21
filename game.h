@@ -10,6 +10,7 @@
 #include "effect.h"
 #include "planet.h"
 #include "shot.h"
+#include "explosion.h"
 
 #include <quadtree.h>
 #include <rng.h>
@@ -28,6 +29,7 @@ private:
     static std::vector<Effect> effects;
     static std::vector<Planet> planets;
     static std::vector<Shot> shots;
+    static std::vector<Explosion> explosions;
 
     //contract target planet index
     static std::int32_t contract;
@@ -46,6 +48,7 @@ private:
     static Quadtree<double,std::uint32_t> quadtree_debris;
     static Quadtree<double,std::uint32_t> quadtree_shots;
     static Quadtree<double,std::uint32_t> quadtree_ships;
+    static Quadtree<double,std::uint32_t> quadtree_explosions;
 
     static RNG rng;
 
@@ -72,6 +75,7 @@ public:
     static const Shot& get_shot(std::uint32_t index);
     static const Ship& get_ship(std::uint32_t index);
     static const Planet& get_planet(std::uint32_t index);
+    static const Explosion& get_explosion(std::uint32_t index);
     static std::uint64_t get_score();
     static std::uint64_t get_score_multiplier();
     static std::vector<std::string> get_upgrade_list();
@@ -109,7 +113,9 @@ public:
     static void player_toggle_weapons();
 
     static void kill_shot(std::uint32_t index);
-    static void create_shot(std::uint32_t owner_index,std::string type,std::string firing_upgrade,const Coords<double>& position,double angle);
+    static void create_shot(std::uint32_t owner_index,std::string type,std::string faction,std::string firing_upgrade,const Coords<double>& position,double angle);
+
+    static void create_explosion(std::string sprite,std::string sound,const Coords<double>& position,std::int32_t damage);
 
     static void generate_ships();
 

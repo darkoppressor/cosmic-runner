@@ -9,6 +9,8 @@ using namespace std;
 Ship_Type::Ship_Type(){
     name="";
 
+    faction="";
+
     sprite="";
 
     collision_percentage=0.0;

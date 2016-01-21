@@ -13,6 +13,8 @@ public:
 
     std::string name;
 
+    std::string faction;
+
     std::string sprite;
 
     double collision_percentage;

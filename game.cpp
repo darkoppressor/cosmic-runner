@@ -27,6 +27,7 @@ vector<Debris> Game::debris;
 vector<Effect> Game::effects;
 vector<Planet> Game::planets;
 vector<Shot> Game::shots;
+vector<Explosion> Game::explosions;
 
 int32_t Game::contract=0;
 
@@ -43,6 +44,7 @@ vector<string> Game::upgrade_list;
 Quadtree<double,uint32_t> Game::quadtree_debris;
 Quadtree<double,uint32_t> Game::quadtree_shots;
 Quadtree<double,uint32_t> Game::quadtree_ships;
+Quadtree<double,uint32_t> Game::quadtree_explosions;
 
 RNG Game::rng;
 
@@ -71,6 +73,7 @@ void Game::clear_world(){
     effects.clear();
     planets.clear();
     shots.clear();
+    explosions.clear();
 
     world_width=0.0;
     world_height=0.0;
@@ -90,6 +93,7 @@ void Game::clear_world(){
     quadtree_debris.clear_tree();
     quadtree_shots.clear_tree();
     quadtree_ships.clear_tree();
+    quadtree_explosions.clear_tree();
 
     frame=0;
     ship_spawn_check=0;
@@ -130,14 +134,14 @@ void Game::generate_world(){
     //Generate debris
     uint32_t asteroid_count=((world_width+world_height)/2.0)/24.0;
     for(uint32_t i=0;i<asteroid_count;i++){
-        string debris_type="asteroid_"+Strings::num_to_string(rng.random_range(0,0));
+        string debris_type="asteroid_"+Strings::num_to_string(rng.random_range(0,5));
         Sprite debris_sprite;
         debris_sprite.set_name(Game_Data::get_debris_type(debris_type)->sprite);
 
         uint32_t x=rng.random_range(0,(uint32_t)world_width-(uint32_t)debris_sprite.get_width());
         uint32_t y=rng.random_range(0,(uint32_t)world_height-(uint32_t)debris_sprite.get_height());
 
-        debris.push_back(Debris(debris_type,Coords<double>((double)x,(double)y),rng.random_range(0,359),Vector(0.01*rng.random_range(0,100),rng.random_range(0,359))));
+        debris.push_back(Debris(debris_type,Coords<double>((double)x,(double)y),rng.random_range(0,359),Vector(0.01*rng.random_range(0,75),rng.random_range(0,359))));
     }
 
     ///QQQ Generate items
@@ -154,7 +158,7 @@ void Game::generate_world(){
     const Planet& planet=planets[random_planet_index];
     vector<string> starting_upgrades;
     ///QQQ
-    ///starting_upgrades.push_back("cannon_quad");
+    ///starting_upgrades.push_back("plasma_gun");
     ///
     ships.push_back(Ship(ship_type,Coords<double>(planet.get_circle().x-ship_sprite.get_width()/2.0,planet.get_circle().y-ship_sprite.get_height()/2.0),rng.random_range(0,359),starting_upgrades));
 
@@ -164,6 +168,7 @@ void Game::generate_world(){
     quadtree_debris.setup(10,5,0,Collision_Rect<double>(0,0,world_width,world_height));
     quadtree_shots.setup(10,5,0,Collision_Rect<double>(0,0,world_width,world_height));
     quadtree_ships.setup(10,5,0,Collision_Rect<double>(0,0,world_width,world_height));
+    quadtree_explosions.setup(10,5,0,Collision_Rect<double>(0,0,world_width,world_height));
 }
 
 uint32_t Game::get_ship_count(){
@@ -232,6 +237,17 @@ const Planet& Game::get_planet(uint32_t index){
     }
     else{
         Log::add_error("Error accessing planet '"+Strings::num_to_string(index)+"'");
+
+        Engine::quit();
+    }
+}
+
+const Explosion& Game::get_explosion(uint32_t index){
+    if(index<explosions.size()){
+        return explosions[index];
+    }
+    else{
+        Log::add_error("Error accessing explosion '"+Strings::num_to_string(index)+"'");
 
         Engine::quit();
     }
@@ -421,7 +437,6 @@ void Game::create_effect(string sprite,double scale,const Coords<double>& positi
                          const Vector& angular_velocity,uint32_t seconds){
     if(Game_Manager::effect_allowed()){
         effects.push_back(Effect(sprite,scale,position,sound,velocity,angle,angular_velocity,seconds));
-        effects.back().play_sound();
     }
 }
 
@@ -451,15 +466,19 @@ void Game::kill_shot(uint32_t index){
     }
 }
 
-void Game::create_shot(uint32_t owner_index,string type,string firing_upgrade,const Coords<double>& position,double angle){
-    shots.push_back(Shot(owner_index,type,firing_upgrade,position,angle));
+void Game::create_shot(uint32_t owner_index,string type,string faction,string firing_upgrade,const Coords<double>& position,double angle){
+    shots.push_back(Shot(owner_index,type,faction,firing_upgrade,position,angle));
+}
+
+void Game::create_explosion(string sprite,string sound,const Coords<double>& position,int32_t damage){
+    explosions.push_back(Explosion(sprite,sound,position,damage));
 }
 
 void Game::generate_ships(){
     uint32_t ship_count=ships.size()-1;
 
     ///QQQ maximum number of ships determined by notoriety and score multiplier
-    uint32_t MAX_SHIP_COUNT=30;
+    uint32_t MAX_SHIP_COUNT=300;
 
     for(uint32_t i=ship_count;i<MAX_SHIP_COUNT;i++){
         ///QQQ chance per ship to spawn is also determined by notoriety and score multiplier
@@ -552,6 +571,9 @@ void Game::tick(){
 }
 
 void Game::ai(){
+    for(size_t i=1;i<ships.size();i++){
+        ships[i].ai();
+    }
 }
 
 void Game::movement(){
@@ -562,12 +584,23 @@ void Game::movement(){
 
     quadtree_shots.clear_tree();
     for(size_t i=0;i<shots.size();i++){
-        quadtree_shots.insert_object(shots[i].get_collision_box(),(uint32_t)i);
+        if(shots[i].is_alive()){
+            quadtree_shots.insert_object(shots[i].get_collision_box(),(uint32_t)i);
+        }
     }
 
     quadtree_ships.clear_tree();
     for(size_t i=0;i<ships.size();i++){
-        quadtree_ships.insert_object(ships[i].get_collision_box(),(uint32_t)i);
+        if(ships[i].is_alive()){
+            quadtree_ships.insert_object(ships[i].get_collision_box(),(uint32_t)i);
+        }
+    }
+
+    quadtree_explosions.clear_tree();
+    for(size_t i=0;i<explosions.size();i++){
+        if(explosions[i].is_alive()){
+            quadtree_explosions.insert_object(explosions[i].get_circle(),(uint32_t)i);
+        }
     }
 
     for(size_t i=0;i<debris.size();i++){
@@ -579,16 +612,17 @@ void Game::movement(){
 
         ships[i].regenerate_shields();
         ships[i].cooldown(quadtree_ships,rng,(uint32_t)i);
+        ships[i].calculate_laser_target(quadtree_ships,(uint32_t)i);
 
         ships[i].accelerate(i==0,frame);
     }
 
     for(size_t i=0;i<ships.size();i++){
-        ships[i].movement((uint32_t)i,quadtree_debris,quadtree_shots,rng);
+        ships[i].movement((uint32_t)i,quadtree_debris,quadtree_shots,quadtree_explosions,rng);
     }
 
     for(size_t i=0;i<shots.size();i++){
-        shots[i].accelerate();
+        shots[i].accelerate(quadtree_ships);
     }
 
     for(size_t i=0;i<shots.size();i++){
@@ -609,6 +643,12 @@ void Game::events(){
 
     for(size_t i=1;i<ships.size();){
         if(!ships[i].is_alive() || ships[i].get_distance_to_player()>=Game_Constants::DESPAWN_DISTANCE){
+            for(size_t shots_index=0;shots_index<shots.size();shots_index++){
+                if(shots[shots_index].is_alive()){
+                    shots[shots_index].notify_of_ship_death((uint32_t)i);
+                }
+            }
+
             ships.erase(ships.begin()+i);
         }
         else{
@@ -619,6 +659,21 @@ void Game::events(){
     for(size_t i=0;i<shots.size();){
         if(!shots[i].is_alive() || shots[i].get_distance_to_player()>=Game_Constants::DESPAWN_DISTANCE){
             shots.erase(shots.begin()+i);
+        }
+        else{
+            i++;
+        }
+    }
+
+    for(size_t i=0;i<explosions.size();){
+        if(!explosions[i].is_alive() || explosions[i].get_distance_to_player()>=Game_Constants::DESPAWN_DISTANCE){
+            for(size_t ships_index=0;ships_index<ships.size();ships_index++){
+                if(ships[ships_index].is_alive()){
+                    ships[ships_index].notify_of_explosion_death((uint32_t)i);
+                }
+            }
+
+            explosions.erase(explosions.begin()+i);
         }
         else{
             i++;
@@ -652,6 +707,10 @@ void Game::animate(){
         shots[i].animate();
     }
 
+    for(size_t i=0;i<explosions.size();i++){
+        explosions[i].animate();
+    }
+
     for(size_t i=0;i<effects.size();i++){
         effects[i].animate();
     }
@@ -675,10 +734,15 @@ void Game::render(){
 
     for(size_t i=0;i<ships.size();i++){
         ships[i].render();
+        ships[i].render_laser(i==0);
     }
 
     for(size_t i=0;i<shots.size();i++){
         shots[i].render();
+    }
+
+    for(size_t i=0;i<explosions.size();i++){
+        explosions[i].render();
     }
 
     for(size_t i=0;i<effects.size();i++){

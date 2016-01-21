@@ -2,7 +2,7 @@
 	name:ship_player
 	frame_count:3
 	animation_speed:70
-	frame_width:22
+	frame_width:44
 	end_behavior:continue
 </animation>
 
@@ -10,22 +10,70 @@
 	name:ship_test
 	frame_count:3
 	animation_speed:70
-	frame_width:24
+	frame_width:48
 	end_behavior:continue
 </animation>
 
 <animation>
-	name:explosion_shields
+	name:shot_plasma_blast
+	frame_count:4
+	animation_speed:50
+	frame_width:12
+	end_behavior:continue
+</animation>
+
+<animation>
+	name:shot_missile
+	frame_count:2
+	animation_speed:50
+	frame_width:12
+	end_behavior:continue
+</animation>
+
+<animation>
+	name:effect_shot_death_bullet
 	frame_count:3
 	animation_speed:50
+	frame_width:10
+	end_behavior:stop
+</animation>
+
+<animation>
+	name:effect_shot_death_plasma_blast
+	frame_count:3
+	animation_speed:50
+	frame_width:12
+	end_behavior:stop
+</animation>
+
+<animation>
+	name:explosion_missile
+	frame_count:3
+	animation_speed:100
+	frame_width:184
+	end_behavior:stop
+</animation>
+
+<animation>
+	name:explosion_ship
+	frame_count:3
+	animation_speed:100
+	frame_width:184
+	end_behavior:stop
+</animation>
+
+<animation>
+	name:effect_explosion_shields
+	frame_count:3
+	animation_speed:100
 	frame_width:23
 	end_behavior:stop
 </animation>
 
 <animation>
-	name:explosion_hull
+	name:effect_explosion_hull
 	frame_count:3
-	animation_speed:50
+	animation_speed:100
 	frame_width:23
 	end_behavior:stop
 </animation>

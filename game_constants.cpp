@@ -31,6 +31,10 @@ uint32_t Game_Constants::SHIP_SPAWN_DISTANCE_MAX=0;
 uint32_t Game_Constants::SHIP_SPAWN_DISTANCE_MIN=0;
 uint32_t Game_Constants::SHIP_SPAWN_RATE=0;
 
+double Game_Constants::MISSILE_HOMING_RANGE=0.0;
+
+int32_t Game_Constants::EXPLOSION_DAMAGE_SHIP=0;
+
 void Game_Constants_Loader::set_game_constant(string name,string value){
     if(name=="zoom_rate"){
         Engine_Data::ZOOM_RATE=Strings::string_to_double(value);
@@ -87,5 +91,13 @@ void Game_Constants_Loader::set_game_constant(string name,string value){
     }
     else if(name=="ship_spawn_rate"){
         Game_Constants::SHIP_SPAWN_RATE=Strings::string_to_unsigned_long(value);
+    }
+
+    else if(name=="missile_homing_range"){
+        Game_Constants::MISSILE_HOMING_RANGE=Strings::string_to_double(value);
+    }
+
+    else if(name=="explosion_damage_ship"){
+        Game_Constants::EXPLOSION_DAMAGE_SHIP=Strings::string_to_long(value);
     }
 }

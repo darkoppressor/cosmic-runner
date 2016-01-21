@@ -66,6 +66,9 @@ void Game_Data::load_ship_type(File_IO_Load* load){
         if(Data_Reader::check_prefix(line,"name:")){
             ship_types.back().name=line;
         }
+        else if(Data_Reader::check_prefix(line,"faction:")){
+            ship_types.back().faction=line;
+        }
         else if(Data_Reader::check_prefix(line,"sprite:")){
             ship_types.back().sprite=line;
         }
@@ -172,6 +175,12 @@ void Game_Data::load_shot_type(File_IO_Load* load){
         else if(Data_Reader::check_prefix(line,"sprite:")){
             shot_types.back().sprite=line;
         }
+        else if(Data_Reader::check_prefix(line,"death_sprite:")){
+            shot_types.back().death_sprite=line;
+        }
+        else if(Data_Reader::check_prefix(line,"death_sound:")){
+            shot_types.back().death_sound=line;
+        }
         else if(Data_Reader::check_prefix(line,"collision_percentage:")){
             shot_types.back().collision_percentage=Strings::string_to_double(line);
         }
@@ -180,6 +189,9 @@ void Game_Data::load_shot_type(File_IO_Load* load){
         }
         else if(Data_Reader::check_prefix(line,"damage_type:")){
             shot_types.back().damage_type=line;
+        }
+        else if(Data_Reader::check_prefix(line,"homing:")){
+            shot_types.back().homing=Strings::string_to_bool(line);
         }
     }
 }

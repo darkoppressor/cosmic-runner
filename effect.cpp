@@ -10,7 +10,7 @@
 
 using namespace std;
 
-Effect::Effect(std::string new_sprite,double new_scale,const Coords<double>& position,string new_sound,const Vector& new_velocity,double new_angle,
+Effect::Effect(std::string new_sprite,double new_scale,const Coords<double>& position,string sound,const Vector& new_velocity,double new_angle,
                const Vector& new_angular_velocity,uint32_t seconds){
     sprite.set_name(new_sprite);
 
@@ -21,8 +21,6 @@ Effect::Effect(std::string new_sprite,double new_scale,const Coords<double>& pos
 
     box.x=position.x-box.w/2.0;
     box.y=position.y-box.h/2.0;
-
-    sound=new_sound;
 
     velocity=new_velocity;
 
@@ -40,6 +38,10 @@ Effect::Effect(std::string new_sprite,double new_scale,const Coords<double>& pos
 
         counter=0;
     }
+
+    if(sound.length()>0){
+        Sound_Manager::play_sound(sound,box.center_x(),box.center_y());
+    }
 }
 
 bool Effect::is_done() const{
@@ -48,12 +50,6 @@ bool Effect::is_done() const{
     }
     else{
         return !sprite.animating;
-    }
-}
-
-void Effect::play_sound(){
-    if(sound.length()>0){
-        Sound_Manager::play_sound(sound,box.center_x(),box.center_y());
     }
 }
 

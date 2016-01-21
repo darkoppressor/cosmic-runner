@@ -387,6 +387,8 @@
 		<Unit filename="effect.cpp" />
 		<Unit filename="effect.h" />
 		<Unit filename="engine_glue.cpp" />
+		<Unit filename="explosion.cpp" />
+		<Unit filename="explosion.h" />
 		<Unit filename="game.cpp" />
 		<Unit filename="game.h" />
 		<Unit filename="game.rc">
