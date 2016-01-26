@@ -758,7 +758,7 @@ void Game::render(){
                                                       contract_sprite.get_width(),contract_sprite.get_height());
 
         contract_sprite.render((Game_Window::width()-contract_sprite.get_width())/2.0,(Game_Window::height()/4.0-contract_sprite.get_height())/2.0,1.0,1.0,1.0,
-                               Collision::get_angle_to_circ(box_contract_indicator,planet.get_circle()));
+                               box_contract_indicator.get_angle_to_circ(planet.get_circle()));
     }
     else{
         no_contract_sprite.render((Game_Window::width()-no_contract_sprite.get_width())/2.0,(Game_Window::height()/4.0-no_contract_sprite.get_height())/2.0);

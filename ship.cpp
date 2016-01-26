@@ -562,7 +562,7 @@ bool Ship::fire_weapon(const Quadtree<double,uint32_t>& quadtree_ships,RNG& rng,
                     angle_variation=(360.0/(double)upgrade->shots)*(double)i;
                 }
 
-                Game::create_shot(own_index,upgrade->shot_type,get_faction(),upgrade->name,Coords<double>(box.center_x(),box.center_y()),Collision::get_angle_to_rect(box,ship.get_box())+angle_variation);
+                Game::create_shot(own_index,upgrade->shot_type,get_faction(),upgrade->name,Coords<double>(box.center_x(),box.center_y()),box.get_angle_to_rect(ship.get_box())+angle_variation);
             }
 
             if(upgrade->sound.length()>0){

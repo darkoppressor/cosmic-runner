@@ -155,7 +155,7 @@ void Shot::thrust(const Quadtree<double,uint32_t>& quadtree_ships){
         if(nearest_index>=0){
             const Ship& ship=Game::get_ship((uint32_t)nearest_index);
 
-            angle=Collision::get_angle_to_rect(box,ship.get_box());
+            angle=box.get_angle_to_rect(ship.get_box());
         }
     }
 
