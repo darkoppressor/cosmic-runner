@@ -627,10 +627,8 @@ void Ship::movement(uint32_t own_index,const Quadtree<double,uint32_t>& quadtree
                 const Debris& debris=Game::get_debris(nearby_debris[i]);
                 Collision_Rect<double> box_debris=debris.get_collision_box();
 
-                if(rng.random_range(0,99)<Game_Constants::COLLISION_CHANCE_DEBRIS && Collision::check_rect(box_collision,box_debris)){
-                    Collision_Rect<double> box_area=Collision::get_collision_area_rect(box_collision,box_debris);
-
-                    take_damage(is_player,debris.get_debris_type()->damage,debris.get_debris_type()->damage_type,Coords<double>(box_area.center_x(),box_area.center_y()));
+                if(rng.random_range(0,99)<Game_Constants::COLLISION_CHANCE_DEBRIS && Collision::check_rect_rotated(box_collision,box_debris,angle,debris.get_angle())){
+                    take_damage(is_player,debris.get_debris_type()->damage,debris.get_debris_type()->damage_type,Coords<double>(box_collision.center_x(),box_collision.center_y()));
                 }
             }
         }
@@ -647,14 +645,12 @@ void Ship::movement(uint32_t own_index,const Quadtree<double,uint32_t>& quadtree
                 const Shot& shot=Game::get_shot(nearby_shots[i]);
                 Collision_Rect<double> box_shot=shot.get_collision_box();
 
-                if(shot.is_alive() && (!shot.has_owner() || own_index!=shot.get_owner_index()) && Collision::check_rect(box_collision,box_shot)){
+                if(shot.is_alive() && (!shot.has_owner() || own_index!=shot.get_owner_index()) && Collision::check_rect_rotated(box_collision,box_shot,angle,shot.get_angle())){
                     if(shot.get_shot_type()->damage_type=="explosive"){
                         Game::create_explosion("explosion_missile","explosion_missile",Coords<double>(box_shot.center_x(),box_shot.center_y()),shot.get_firing_upgrade()->damage);
                     }
                     else{
-                        Collision_Rect<double> box_area=Collision::get_collision_area_rect(box_collision,box_shot);
-
-                        take_damage(is_player,shot.get_firing_upgrade()->damage,shot.get_shot_type()->damage_type,Coords<double>(box_area.center_x(),box_area.center_y()));
+                        take_damage(is_player,shot.get_firing_upgrade()->damage,shot.get_shot_type()->damage_type,Coords<double>(box_collision.center_x(),box_collision.center_y()));
                     }
 
                     Game::kill_shot(nearby_shots[i]);
@@ -724,8 +720,19 @@ void Ship::render(){
 
             ///QQQ render collision boxes
             /**Collision_Rect<double> col_box=get_collision_box();
-            Render::render_rectangle(box.x*Game_Manager::camera_zoom-Game_Manager::camera.x,box.y*Game_Manager::camera_zoom-Game_Manager::camera.y,box.w,box.h,0.5,"ui_white");
-            Render::render_rectangle(col_box.x*Game_Manager::camera_zoom-Game_Manager::camera.x,col_box.y*Game_Manager::camera_zoom-Game_Manager::camera.y,col_box.w,col_box.h,0.5,"red");*/
+            ///Render::render_rectangle(box.x*Game_Manager::camera_zoom-Game_Manager::camera.x,box.y*Game_Manager::camera_zoom-Game_Manager::camera.y,box.w,box.h,0.25,"white");
+            ///Render::render_rectangle(col_box.x*Game_Manager::camera_zoom-Game_Manager::camera.x,col_box.y*Game_Manager::camera_zoom-Game_Manager::camera.y,col_box.w,col_box.h,0.25,"red");
+
+            vector<Coords<double>> vertices;
+            col_box.get_vertices(vertices,angle);
+
+            for(size_t i=0;i<vertices.size();i++){
+                uint32_t start_vertex=(uint32_t)i;
+                uint32_t end_vertex=(i<vertices.size()-1) ? start_vertex+1 : 0;
+
+                Render::render_line(vertices[start_vertex].x*Game_Manager::camera_zoom-Game_Manager::camera.x,vertices[start_vertex].y*Game_Manager::camera_zoom-Game_Manager::camera.y,
+                                    vertices[end_vertex].x*Game_Manager::camera_zoom-Game_Manager::camera.x,vertices[end_vertex].y*Game_Manager::camera_zoom-Game_Manager::camera.y,1.0,"red");
+            }*/
             ///
         }
     }

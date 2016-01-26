@@ -56,6 +56,10 @@ Collision_Rect<double> Shot::get_collision_box() const{
                                   box.w*get_shot_type()->collision_percentage,box.h*get_shot_type()->collision_percentage);
 }
 
+double Shot::get_angle() const{
+    return angle;
+}
+
 bool Shot::is_alive() const{
     return alive;
 }
@@ -204,7 +208,7 @@ void Shot::movement(const Quadtree<double,uint32_t>& quadtree_debris){
                 const Debris& debris=Game::get_debris(nearby_debris[i]);
                 Collision_Rect<double> box_debris=debris.get_collision_box();
 
-                if(Collision::check_rect(box_collision,box_debris)){
+                if(Collision::check_rect_rotated(box_collision,box_debris,angle,debris.get_angle())){
                     if(get_shot_type()->damage_type=="explosive"){
                         Game::create_explosion("explosion_missile","explosion_missile",Coords<double>(box.center_x(),box.center_y()),get_firing_upgrade()->damage);
                     }
@@ -229,8 +233,19 @@ void Shot::render(){
 
             ///QQQ render collision boxes
             /**Collision_Rect<double> col_box=get_collision_box();
-            Render::render_rectangle(box.x*Game_Manager::camera_zoom-Game_Manager::camera.x,box.y*Game_Manager::camera_zoom-Game_Manager::camera.y,box.w,box.h,0.5,"ui_white");
-            Render::render_rectangle(col_box.x*Game_Manager::camera_zoom-Game_Manager::camera.x,col_box.y*Game_Manager::camera_zoom-Game_Manager::camera.y,col_box.w,col_box.h,0.5,"red");*/
+            ///Render::render_rectangle(box.x*Game_Manager::camera_zoom-Game_Manager::camera.x,box.y*Game_Manager::camera_zoom-Game_Manager::camera.y,box.w,box.h,0.25,"white");
+            ///Render::render_rectangle(col_box.x*Game_Manager::camera_zoom-Game_Manager::camera.x,col_box.y*Game_Manager::camera_zoom-Game_Manager::camera.y,col_box.w,col_box.h,0.25,"red");
+
+            vector<Coords<double>> vertices;
+            col_box.get_vertices(vertices,angle);
+
+            for(size_t i=0;i<vertices.size();i++){
+                uint32_t start_vertex=(uint32_t)i;
+                uint32_t end_vertex=(i<vertices.size()-1) ? start_vertex+1 : 0;
+
+                Render::render_line(vertices[start_vertex].x*Game_Manager::camera_zoom-Game_Manager::camera.x,vertices[start_vertex].y*Game_Manager::camera_zoom-Game_Manager::camera.y,
+                                    vertices[end_vertex].x*Game_Manager::camera_zoom-Game_Manager::camera.x,vertices[end_vertex].y*Game_Manager::camera_zoom-Game_Manager::camera.y,1.0,"red");
+            }*/
             ///
         }
     }

@@ -16,7 +16,7 @@
 	name:test
 	faction:civilian
 	sprite:ship_test
-	collision_percentage:0.6
+	collision_percentage:0.65
 	mass:300
 	thrust_accel:2500.0
 	thrust_decel:3000.0

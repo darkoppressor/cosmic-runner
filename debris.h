@@ -36,6 +36,8 @@ public:
 
     Collision_Rect<double> get_collision_box() const;
 
+    double get_angle() const;
+
     void rotation();
 
     void animate();

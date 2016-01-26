@@ -51,6 +51,8 @@ public:
 
     Collision_Rect<double> get_collision_box() const;
 
+    double get_angle() const;
+
     bool is_alive() const;
 
     double get_distance_to_player() const;

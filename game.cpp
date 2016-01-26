@@ -158,7 +158,7 @@ void Game::generate_world(){
     const Planet& planet=planets[random_planet_index];
     vector<string> starting_upgrades;
     ///QQQ
-    ///starting_upgrades.push_back("plasma_gun");
+    ///starting_upgrades.push_back("missile_single");
     ///
     ships.push_back(Ship(ship_type,Coords<double>(planet.get_circle().x-ship_sprite.get_width()/2.0,planet.get_circle().y-ship_sprite.get_height()/2.0),rng.random_range(0,359),starting_upgrades));
 
