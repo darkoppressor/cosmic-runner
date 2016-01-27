@@ -38,6 +38,8 @@ private:
 
     std::string firing_upgrade;
 
+    std::uint32_t homing_delay;
+
     Sprite sprite;
 
 public:
@@ -45,6 +47,8 @@ public:
     Shot(std::uint32_t new_owner_index,std::string new_type,std::string new_faction,std::string new_firing_upgrade,const Coords<double>& position,double new_angle);
 
     Shot_Type* get_shot_type() const;
+
+    std::string get_faction() const;
 
     Collision_Rect<double> get_box() const;
     Vector get_velocity() const;
@@ -64,7 +68,11 @@ public:
 
     Upgrade* get_firing_upgrade() const;
 
+    bool can_home() const;
+
     void die();
+
+    void cooldown();
 
     void thrust(const Quadtree<double,std::uint32_t>& quadtree_ships);
 

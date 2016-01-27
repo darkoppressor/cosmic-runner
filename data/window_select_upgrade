@@ -7,4 +7,10 @@
 	scrolling_buttons:select_upgrade
 	disallow_closing:true
 
+	<button>
+		location:-1,36
+		text:Skip Upgrade
+		event:skip_upgrade
+	</button>
+
 </window>

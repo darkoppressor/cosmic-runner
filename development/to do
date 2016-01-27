@@ -1,6 +1,10 @@
-Note: Consider adding an option to take no upgrade
-
-Note: Should explosions destroy/explode shots?
+Note:
+Should tell what is being smuggled and to where
+Probably show this under the contract arrow
+So each planet will need a name
+Each game has a pcg world, so the planets are different each time
+Maybe the planets could be the same (name, look) but be in different places each time
+Also, will need a list of things to smuggle
 
 Lift off animation complementing landing?
 
@@ -8,16 +12,6 @@ Note: change map screen to a minimap? It would be like now and show the star and
 
 Add upgrades to ships
 Add cooldown for active upgrade
-
-Add ship disabled status
-Add power
-
-Add notoriety
-
-Add items
-Add all item types
-Items are genned with world
-Items are dropped when npc ships die
 
 Add star
 
@@ -31,9 +25,7 @@ Add all actives
 
 Make sure ship disabled status is fully implemented
 
-Add AI for civilians
-Add AI for pirates
-Add AI for police
+Add police tractoring
 
 Design ships
 
@@ -53,13 +45,15 @@ Game over music
 Sounds:
 Contract completed
 New contract acquired (with no previous one)
-Upgrade purchased
 Arrested
 Weapons toggled
 1 per shot death effect
 1 per weapon upgrade fire
 missile explosion
 ship explosion
+1 per item collected
+disabled (played continuously)?
+game over
 
 Images:
 Menu background

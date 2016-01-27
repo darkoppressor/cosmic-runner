@@ -16,7 +16,7 @@
 
 using namespace std;
 
-Ship::Ship(string new_type,const Coords<double>& position,double new_angle,const vector<string>& starting_upgrades){
+Ship::Ship(string new_type,const Coords<double>& position,double new_angle){
     type=new_type;
 
     box.x=position.x;
@@ -36,19 +36,28 @@ Ship::Ship(string new_type,const Coords<double>& position,double new_angle,const
 
     shield_recharge=0;
 
-    weapons_enabled=false;
+    weapons_enabled=true;
     weapon_cooldown=0;
 
     laser_has_target=false;
+
+    disabled_cooldown=0;
 
     sprite.set_name(get_ship_type()->sprite);
 
     box.w=sprite.get_width();
     box.h=sprite.get_height();
 
-    for(size_t i=0;i<starting_upgrades.size();i++){
-        add_upgrade(starting_upgrades[i]);
+    if(get_ship_type()->weapon.length()>0){
+        add_upgrade(get_ship_type()->weapon);
     }
+
+    if(get_ship_type()->active.length()>0){
+        add_upgrade(get_ship_type()->active);
+    }
+
+    ai_target_next=position;
+    clear_proximity_target();
 }
 
 Ship_Type* Ship::get_ship_type() const{
@@ -166,9 +175,18 @@ bool Ship::has_laser() const{
 void Ship::calculate_laser_target(const Quadtree<double,uint32_t>& quadtree_ships,uint32_t own_index){
     bool is_player=own_index==0;
 
-    if(is_alive() && !is_landing() && (!is_player || !Game::player_is_landed())){
+    if(is_alive() && !is_landing() && (!is_player || !Game::player_is_landed()) && !is_disabled(is_player)){
         if(weapons_enabled && has_laser()){
-            int32_t nearest_index=get_nearest_valid_target_ship(quadtree_ships,own_index);
+            Collision_Rect<double> box_targeting=box;
+
+            Upgrade* upgrade=Game_Data::get_upgrade_type(get_weapon_name());
+
+            box_targeting.x-=upgrade->range;
+            box_targeting.y-=upgrade->range;
+            box_targeting.w+=upgrade->range*2.0;
+            box_targeting.h+=upgrade->range*2.0;
+
+            int32_t nearest_index=get_nearest_valid_target_ship(quadtree_ships,own_index,box_targeting);
 
             //If a nearest valid target was found
             if(nearest_index>=0){
@@ -188,13 +206,50 @@ void Ship::calculate_laser_target(const Quadtree<double,uint32_t>& quadtree_ship
 }
 
 void Ship::render_laser(bool is_player){
-    if(is_alive() && !is_landing() && (!is_player || !Game::player_is_landed())){
+    if(is_alive() && !is_landing() && (!is_player || !Game::player_is_landed()) && !is_disabled(is_player)){
         if(laser_has_target && (Collision::check_rect(box*Game_Manager::camera_zoom,Game_Manager::camera) ||
                                 Collision::check_rect(Collision_Rect<double>(laser_endpoint.x,laser_endpoint.y,1.0,1.0)*Game_Manager::camera_zoom,Game_Manager::camera))){
             Render::render_line(box.center_x()*Game_Manager::camera_zoom-Game_Manager::camera.x,box.center_y()*Game_Manager::camera_zoom-Game_Manager::camera.y,
                                 laser_endpoint.x*Game_Manager::camera_zoom-Game_Manager::camera.x,laser_endpoint.y*Game_Manager::camera_zoom-Game_Manager::camera.y,1.0,"laser");
         }
     }
+}
+
+bool Ship::is_disabled(bool is_player) const{
+    return disabled_cooldown>0 || (is_player && Game::player_is_out_of_power());
+}
+
+void Ship::disable(){
+    disabled_cooldown=Game_Constants::DISABLED_LENGTH*Engine::UPDATE_RATE;
+
+    thrusting=false;
+}
+
+bool Ship::can_use_item(Item_Type* item_type) const{
+    if(item_type->restores_hull()){
+        return get_hull()<get_hull_max();
+    }
+    else if(item_type->restores_power()){
+        return Game::get_power()<Game_Constants::MAX_POWER*Engine::UPDATE_RATE;
+    }
+    else{
+        return true;
+    }
+}
+
+void Ship::use_item(Item_Type* item_type){
+    if(item_type->restores_hull()){
+        hull+=Game_Constants::ITEM_RESTORE_HULL;
+
+        if(hull>get_hull_max()){
+            hull=get_hull_max();
+        }
+    }
+    else if(item_type->restores_power()){
+        Game::increase_power();
+    }
+
+    Game::increase_score(item_type->point_value);
 }
 
 double Ship::get_thrust_accel() const{
@@ -265,8 +320,29 @@ void Ship::notify_of_explosion_death(uint32_t index){
     }
 }
 
-void Ship::take_damage(bool is_player,int32_t damage,string damage_type,const Coords<double>& location){
+void Ship::clear_proximity_target(){
+    ai_proximity_target=0;
+    ai_has_proximity_target=false;
+    ai_proximity_target_flee=false;
+}
+
+void Ship::notify_of_ship_death(uint32_t index){
+    if(ai_has_proximity_target){
+        if(index==ai_proximity_target){
+            clear_proximity_target();
+        }
+        else if(index<ai_proximity_target){
+            ai_proximity_target--;
+        }
+    }
+}
+
+void Ship::take_damage(bool is_player,int32_t damage,string damage_type,const Coords<double>& location,string damage_faction,RNG& rng){
     if(is_alive()){
+        if(damage_faction=="player" && !is_player && (get_faction()=="civilian" || get_faction()=="police")){
+            Game::increase_notoriety();
+        }
+
         int32_t effective_damage=damage;
 
         if(shields>0){
@@ -343,13 +419,21 @@ void Ship::take_damage(bool is_player,int32_t damage,string damage_type,const Co
             hull-=effective_damage;
 
             if(!is_alive()){
-                Game::create_explosion("explosion_ship","explosion_ship",Coords<double>(box.center_x(),box.center_y()),Game_Constants::EXPLOSION_DAMAGE_SHIP);
+                Game::create_explosion("explosion_ship","explosion_ship",Coords<double>(box.center_x(),box.center_y()),Game_Constants::EXPLOSION_DAMAGE_SHIP,get_faction());
+
+                uint32_t items_to_drop=rng.random_range(get_ship_type()->item_drop_min,get_ship_type()->item_drop_max);
+
+                for(uint32_t i=0;i<items_to_drop;i++){
+                    Game::create_item(Coords<double>(box.center_x(),box.center_y()),velocity);
+                }
 
                 if(is_player){
                     Game::game_over();
                 }
                 else{
-                    Game::increase_score(get_ship_type()->point_value);
+                    if(damage_faction=="player"){
+                        Game::increase_score(get_ship_type()->point_value);
+                    }
                 }
             }
         }
@@ -457,8 +541,8 @@ void Ship::land(bool is_player){
     }
 }
 
-void Ship::regenerate_shields(){
-    if(is_alive()){
+void Ship::regenerate_shields(bool is_player){
+    if(is_alive() && !is_disabled(is_player)){
         if(shields<get_shields_max() && ++shield_recharge>=get_shield_recharge_rate()*Engine::UPDATE_RATE/1000){
             shield_recharge=0;
 
@@ -468,7 +552,13 @@ void Ship::regenerate_shields(){
 }
 
 void Ship::cooldown(const Quadtree<double,uint32_t>& quadtree_ships,RNG& rng,uint32_t own_index){
+    bool is_player=own_index==0;
+
     if(is_alive()){
+        if(disabled_cooldown>0){
+            disabled_cooldown--;
+        }
+
         if(has_weapon()){
             uint32_t weapon_cool_point=Game_Data::get_upgrade_type(get_weapon_name())->cooldown*Engine::UPDATE_RATE/1000;
 
@@ -476,7 +566,7 @@ void Ship::cooldown(const Quadtree<double,uint32_t>& quadtree_ships,RNG& rng,uin
                 weapon_cooldown++;
             }
 
-            if(weapons_enabled && weapon_cooldown>=weapon_cool_point){
+            if(weapons_enabled && !is_disabled(is_player) && weapon_cooldown>=weapon_cool_point){
                 if(fire_weapon(quadtree_ships,rng,own_index)){
                     weapon_cooldown=0;
                 }
@@ -485,16 +575,48 @@ void Ship::cooldown(const Quadtree<double,uint32_t>& quadtree_ships,RNG& rng,uin
     }
 }
 
-int32_t Ship::get_nearest_valid_target_ship(const Quadtree<double,uint32_t>& quadtree_ships,uint32_t own_index){
-    Upgrade* upgrade=Game_Data::get_upgrade_type(get_weapon_name());
+bool Ship::faction_is_valid(string faction) const{
+    if(get_faction()=="player"){
+        return true;
+    }
+    else if(get_faction()=="civilian"){
+        if(faction=="pirate" || (faction=="player" && (Game::notoriety_tier_1() || Game::notoriety_tier_2()))){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+    else if(get_faction()=="pirate"){
+        if(faction=="civilian" || faction=="police" || faction=="player"){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+    else if(get_faction()=="bounty_hunter"){
+        if(faction=="player"){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+    else if(get_faction()=="police"){
+        if(faction=="pirate" || (faction=="player" && (Game::notoriety_tier_1() || Game::notoriety_tier_2()))){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+    else{
+        return false;
+    }
+}
 
-    Collision_Rect<double> box_targeting=box;
-
-    box_targeting.x-=upgrade->range;
-    box_targeting.y-=upgrade->range;
-    box_targeting.w+=upgrade->range*2.0;
-    box_targeting.h+=upgrade->range*2.0;
-
+int32_t Ship::get_nearest_valid_target_ship(const Quadtree<double,uint32_t>& quadtree_ships,uint32_t own_index,const Collision_Rect<double>& box_targeting){
     vector<uint32_t> nearby_ships;
     quadtree_ships.get_objects(nearby_ships,box_targeting);
 
@@ -512,7 +634,7 @@ int32_t Ship::get_nearest_valid_target_ship(const Quadtree<double,uint32_t>& qua
             if(ship.is_alive() && own_index!=nearby_ships[i] && !ship.is_landing() && (nearby_ships[i]!=0 || !Game::player_is_landed())){
                 Collision_Rect<double> box_ship=ship.get_box();
 
-                if(get_faction()!=ship.get_faction() && Collision::check_rect(box_targeting,box_ship)){
+                if(faction_is_valid(ship.get_faction()) && Collision::check_rect(box_targeting,box_ship)){
                     valid_targets.push_back(nearby_ships[i]);
                 }
             }
@@ -539,9 +661,16 @@ int32_t Ship::get_nearest_valid_target_ship(const Quadtree<double,uint32_t>& qua
 
 bool Ship::fire_weapon(const Quadtree<double,uint32_t>& quadtree_ships,RNG& rng,uint32_t own_index){
     if(has_weapon()){
-        int32_t nearest_index=get_nearest_valid_target_ship(quadtree_ships,own_index);
+        Collision_Rect<double> box_targeting=box;
 
         Upgrade* upgrade=Game_Data::get_upgrade_type(get_weapon_name());
+
+        box_targeting.x-=upgrade->range;
+        box_targeting.y-=upgrade->range;
+        box_targeting.w+=upgrade->range*2.0;
+        box_targeting.h+=upgrade->range*2.0;
+
+        int32_t nearest_index=get_nearest_valid_target_ship(quadtree_ships,own_index,box_targeting);
 
         //If a nearest valid target was found
         if(nearest_index>=0){
@@ -576,11 +705,132 @@ bool Ship::fire_weapon(const Quadtree<double,uint32_t>& quadtree_ships,RNG& rng,
     return false;
 }
 
-void Ship::ai(){
-    ///QQQ
-    /**if(is_alive() && !is_landing()){
-        set_thrust_angle("up");
-    }*/
+void Ship::ai_select_target(uint32_t own_index,RNG& rng){
+    if(get_faction()=="civilian"){
+        uint32_t nearest_planet_index=Game::get_nearest_planet(own_index);
+
+        const Planet& planet=Game::get_planet(nearest_planet_index);
+
+        ai_target=planet.get_circle().get_center();
+    }
+    else if(get_faction()=="pirate" || get_faction()=="bounty_hunter"){
+        ai_target.x=(double)rng.random_range(0,(uint32_t)(Game::world_width-1.0));
+        ai_target.y=(double)rng.random_range(0,(uint32_t)(Game::world_height-1.0));
+    }
+    else if(get_faction()=="police"){
+        ai_target=ai_target_next;
+
+        Vector select_target(Game_Constants::AI_PATROL_DISTANCE,rng.random_range(0,359));
+        Vector_Components vc=select_target.get_components();
+        ai_target.x+=vc.a;
+        ai_target.y+=vc.b;
+    }
+}
+
+void Ship::ai_check_for_proximity_target(const Quadtree<double,uint32_t>& quadtree_ships,uint32_t own_index){
+    Collision_Rect<double> box_targeting=box;
+
+    box_targeting.x-=Game_Constants::AI_RANGE;
+    box_targeting.y-=Game_Constants::AI_RANGE;
+    box_targeting.w+=Game_Constants::AI_RANGE*2.0;
+    box_targeting.h+=Game_Constants::AI_RANGE*2.0;
+
+    int32_t nearest_index=get_nearest_valid_target_ship(quadtree_ships,own_index,box_targeting);
+
+    //If a nearest valid target was found
+    if(nearest_index>=0){
+        ai_has_proximity_target=true;
+        ai_proximity_target=(uint32_t)nearest_index;
+
+        const Ship& ship=Game::get_ship((uint32_t)nearest_index);
+
+        string faction=ship.get_faction();
+
+        ai_proximity_target_flee=false;
+
+        if(get_faction()=="civilian"){
+            if(faction=="pirate"){
+                ai_proximity_target_flee=true;
+            }
+            else if(faction=="player" && (Game::notoriety_tier_1() || Game::notoriety_tier_2())){
+                ai_proximity_target_flee=true;
+            }
+        }
+        else if(get_faction()=="pirate"){
+            if(faction=="police"){
+                ai_proximity_target_flee=true;
+            }
+            else if(faction=="player" && Game::notoriety_tier_2()){
+                ai_proximity_target_flee=true;
+            }
+        }
+    }
+    else{
+        clear_proximity_target();
+    }
+}
+
+bool Ship::ai_proximity_check_allowed(uint32_t frame,uint32_t own_index) const{
+    if((frame+(own_index%Engine::UPDATE_RATE))%Game_Constants::AI_PROXIMITY_CHECK_PERIOD==0){
+        return true;
+    }
+    else{
+        return false;
+    }
+}
+
+void Ship::ai(const Quadtree<double,uint32_t>& quadtree_ships,const Quadtree<double,uint32_t>& quadtree_planets,uint32_t frame,uint32_t own_index,RNG& rng){
+    if(is_alive() && !is_landing() && !is_disabled(false)){
+        if(ai_proximity_check_allowed(frame,own_index)){
+            ai_check_for_proximity_target(quadtree_ships,own_index);
+        }
+
+        if(ai_has_proximity_target){
+            angle=Math::get_angle_to_point(box.get_center(),Game::get_ship(ai_proximity_target).box.get_center());
+
+            if(ai_proximity_target_flee){
+                angle+=180.0;
+            }
+        }
+        else{
+            if(get_faction()=="police"){
+                if(Collision::check_rect(box,Collision_Rect<double>(ai_target.x,ai_target.y,1.0,1.0))){
+                    swap(ai_target,ai_target_next);
+                }
+            }
+            else{
+                if(get_faction()=="civilian"){
+                    vector<uint32_t> nearby_planets;
+                    quadtree_planets.get_objects(nearby_planets,box);
+
+                    unordered_set<uint32_t> collisions;
+
+                    for(size_t i=0;i<nearby_planets.size();i++){
+                        if(!collisions.count(nearby_planets[i])){
+                            collisions.emplace(nearby_planets[i]);
+
+                            const Planet& planet=Game::get_planet(nearby_planets[i]);
+
+                            if(Collision::check_rect_circ(box,planet.get_circle())){
+                                commence_landing(nearby_planets[i]);
+
+                                break;
+                            }
+                        }
+                    }
+                }
+                else if(get_faction()=="pirate" || get_faction()=="bounty_hunter"){
+                    if(Collision::check_rect(box,Collision_Rect<double>(ai_target.x,ai_target.y,1.0,1.0))){
+                        ai_select_target(own_index,rng);
+                    }
+                }
+            }
+
+            angle=Math::get_angle_to_point(box.get_center(),ai_target);
+        }
+
+        thrusting=true;
+    }
 }
 
 void Ship::accelerate(bool is_player,uint32_t frame){
@@ -604,7 +854,7 @@ void Ship::accelerate(bool is_player,uint32_t frame){
 }
 
 void Ship::movement(uint32_t own_index,const Quadtree<double,uint32_t>& quadtree_debris,const Quadtree<double,uint32_t>& quadtree_shots,
-                    const Quadtree<double,uint32_t>& quadtree_explosions,RNG& rng){
+                    const Quadtree<double,uint32_t>& quadtree_explosions,const Quadtree<double,uint32_t>& quadtree_items,RNG& rng){
     bool is_player=own_index==0;
 
     if(is_alive() && !is_landing() && (!is_player || !Game::player_is_landed())){
@@ -621,15 +871,21 @@ void Ship::movement(uint32_t own_index,const Quadtree<double,uint32_t>& quadtree
         unordered_set<uint32_t> collisions;
 
         for(size_t i=0;i<nearby_debris.size();i++){
-            if(!collisions.count(nearby_debris[i])){
-                collisions.emplace(nearby_debris[i]);
+            if(is_alive()){
+                if(!collisions.count(nearby_debris[i])){
+                    collisions.emplace(nearby_debris[i]);
 
-                const Debris& debris=Game::get_debris(nearby_debris[i]);
-                Collision_Rect<double> box_debris=debris.get_collision_box();
+                    const Debris& debris=Game::get_debris(nearby_debris[i]);
+                    Collision_Rect<double> box_debris=debris.get_collision_box();
 
-                if(rng.random_range(0,99)<Game_Constants::COLLISION_CHANCE_DEBRIS && Collision::check_rect_rotated(box_collision,box_debris,angle,debris.get_angle())){
-                    take_damage(is_player,debris.get_debris_type()->damage,debris.get_debris_type()->damage_type,Coords<double>(box_collision.center_x(),box_collision.center_y()));
+                    if(rng.random_range(0,99)<Game_Constants::COLLISION_CHANCE_DEBRIS && Collision::check_rect_rotated(box_collision,box_debris,angle,debris.get_angle())){
+                        take_damage(is_player,debris.get_debris_type()->damage,debris.get_debris_type()->damage_type,
+                                    Coords<double>(box_collision.x+rng.random_range(0,(uint32_t)box_collision.w),box_collision.y+rng.random_range(0,(uint32_t)box_collision.h)),"world",rng);
+                    }
                 }
+            }
+            else{
+                return;
             }
         }
 
@@ -639,22 +895,28 @@ void Ship::movement(uint32_t own_index,const Quadtree<double,uint32_t>& quadtree
         collisions.clear();
 
         for(size_t i=0;i<nearby_shots.size();i++){
-            if(!collisions.count(nearby_shots[i])){
-                collisions.emplace(nearby_shots[i]);
+            if(is_alive()){
+                if(!collisions.count(nearby_shots[i])){
+                    collisions.emplace(nearby_shots[i]);
 
-                const Shot& shot=Game::get_shot(nearby_shots[i]);
-                Collision_Rect<double> box_shot=shot.get_collision_box();
+                    const Shot& shot=Game::get_shot(nearby_shots[i]);
+                    Collision_Rect<double> box_shot=shot.get_collision_box();
 
-                if(shot.is_alive() && (!shot.has_owner() || own_index!=shot.get_owner_index()) && Collision::check_rect_rotated(box_collision,box_shot,angle,shot.get_angle())){
-                    if(shot.get_shot_type()->damage_type=="explosive"){
-                        Game::create_explosion("explosion_missile","explosion_missile",Coords<double>(box_shot.center_x(),box_shot.center_y()),shot.get_firing_upgrade()->damage);
+                    if(shot.is_alive() && (!shot.has_owner() || own_index!=shot.get_owner_index()) && Collision::check_rect_rotated(box_collision,box_shot,angle,shot.get_angle())){
+                        if(shot.get_shot_type()->damage_type=="explosive"){
+                            Game::create_explosion("explosion_missile","explosion_missile",Coords<double>(box_shot.center_x(),box_shot.center_y()),shot.get_firing_upgrade()->damage,shot.get_faction());
+                        }
+                        else{
+                            take_damage(is_player,shot.get_firing_upgrade()->damage,shot.get_shot_type()->damage_type,
+                                        Coords<double>(box_collision.x+rng.random_range(0,(uint32_t)box_collision.w),box_collision.y+rng.random_range(0,(uint32_t)box_collision.h)),shot.get_faction(),rng);
+                        }
+
+                        Game::kill_shot(nearby_shots[i]);
                     }
-                    else{
-                        take_damage(is_player,shot.get_firing_upgrade()->damage,shot.get_shot_type()->damage_type,Coords<double>(box_collision.center_x(),box_collision.center_y()));
-                    }
-
-                    Game::kill_shot(nearby_shots[i]);
                 }
+            }
+            else{
+                return;
             }
         }
 
@@ -664,20 +926,49 @@ void Ship::movement(uint32_t own_index,const Quadtree<double,uint32_t>& quadtree
         collisions.clear();
 
         for(size_t i=0;i<nearby_explosions.size();i++){
-            if(!collisions.count(nearby_explosions[i])){
-                collisions.emplace(nearby_explosions[i]);
+            if(is_alive()){
+                if(!collisions.count(nearby_explosions[i])){
+                    collisions.emplace(nearby_explosions[i]);
 
-                const Explosion& explosion=Game::get_explosion(nearby_explosions[i]);
-                Collision_Circ<double> circle_explosion=explosion.get_circle();
+                    const Explosion& explosion=Game::get_explosion(nearby_explosions[i]);
+                    Collision_Circ<double> circle_explosion=explosion.get_circle();
 
-                if(explosion.is_alive() && !was_damaged_by_explosion(nearby_explosions[i]) && Collision::check_circ_rect(circle_explosion,box_collision)){
-                    damaged_by_explosion(nearby_explosions[i]);
+                    if(explosion.is_alive() && !was_damaged_by_explosion(nearby_explosions[i]) && Collision::check_circ_rect(circle_explosion,box_collision)){
+                        damaged_by_explosion(nearby_explosions[i]);
 
-                    Collision_Rect<double> box_area=Collision::get_collision_area_rect(box_collision,Collision_Rect<double>(circle_explosion.x-circle_explosion.r,
-                                                                                                                            circle_explosion.y-circle_explosion.r,
-                                                                                                                            circle_explosion.r*2.0,circle_explosion.r*2.0));
+                        Collision_Rect<double> box_area=Collision::get_collision_area_rect(box_collision,Collision_Rect<double>(circle_explosion.x-circle_explosion.r,
+                                                                                                                                circle_explosion.y-circle_explosion.r,
+                                                                                                                                circle_explosion.r*2.0,circle_explosion.r*2.0));
 
-                    take_damage(is_player,explosion.get_damage(),"explosive",Coords<double>(box_area.center_x(),box_area.center_y()));
+                        take_damage(is_player,explosion.get_damage(),"explosive",
+                                    Coords<double>(box_area.x+rng.random_range(0,(uint32_t)box_area.w),box_area.y+rng.random_range(0,(uint32_t)box_area.h)),explosion.get_faction(),rng);
+                    }
+                }
+            }
+            else{
+                return;
+            }
+        }
+
+        if(is_player){
+            vector<uint32_t> nearby_items;
+            quadtree_items.get_objects(nearby_items,box);
+
+            collisions.clear();
+
+            for(size_t i=0;i<nearby_items.size();i++){
+                if(!collisions.count(nearby_items[i])){
+                    collisions.emplace(nearby_items[i]);
+
+                    const Item& item=Game::get_item(nearby_items[i]);
+
+                    if(item.is_alive() && can_use_item(item.get_item_type()) && Collision::check_rect(item.get_box(),box)){
+                        use_item(item.get_item_type());
+
+                        item.play_collection_sound();
+
+                        Game::kill_item(nearby_items[i]);
+                    }
                 }
             }
         }

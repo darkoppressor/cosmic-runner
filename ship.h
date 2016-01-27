@@ -6,6 +6,7 @@
 #define ship_h
 
 #include "ship_type.h"
+#include "item_type.h"
 
 #include <collision.h>
 #include <math_vector.h>
@@ -52,11 +53,21 @@ private:
     bool laser_has_target;
     Coords<double> laser_endpoint;
 
+    std::uint32_t disabled_cooldown;
+
+    Coords<double> ai_target;
+    //An extra target held in reserve for police ships
+    //They patrol between this point and ai_target
+    Coords<double> ai_target_next;
+    std::uint32_t ai_proximity_target;
+    bool ai_has_proximity_target;
+    bool ai_proximity_target_flee;
+
     Sprite sprite;
 
 public:
 
-    Ship(std::string new_type,const Coords<double>& position,double new_angle,const std::vector<std::string>& starting_upgrades);
+    Ship(std::string new_type,const Coords<double>& position,double new_angle);
 
     Ship_Type* get_ship_type() const;
 
@@ -83,6 +94,12 @@ public:
     void calculate_laser_target(const Quadtree<double,std::uint32_t>& quadtree_ships,std::uint32_t own_index);
     void render_laser(bool is_player);
 
+    bool is_disabled(bool is_player) const;
+    void disable();
+
+    bool can_use_item(Item_Type* item_type) const;
+    void use_item(Item_Type* item_type);
+
     double get_thrust_accel() const;
     double get_thrust_decel() const;
     double get_max_speed() const;
@@ -100,7 +117,10 @@ public:
     void damaged_by_explosion(std::uint32_t index);
     void notify_of_explosion_death(std::uint32_t index);
 
-    void take_damage(bool is_player,std::int32_t damage,std::string damage_type,const Coords<double>& location);
+    void clear_proximity_target();
+    void notify_of_ship_death(std::uint32_t index);
+
+    void take_damage(bool is_player,std::int32_t damage,std::string damage_type,const Coords<double>& location,std::string damage_faction,RNG& rng);
 
     void set_thrust_angle(std::string direction);
     void set_braking(bool new_braking);
@@ -112,19 +132,24 @@ public:
     bool is_landing() const;
     void land(bool is_player);
 
-    void regenerate_shields();
+    void regenerate_shields(bool is_player);
     void cooldown(const Quadtree<double,std::uint32_t>& quadtree_ships,RNG& rng,std::uint32_t own_index);
 
-    std::int32_t get_nearest_valid_target_ship(const Quadtree<double,std::uint32_t>& quadtree_ships,std::uint32_t own_index);
+    bool faction_is_valid(std::string faction) const;
+
+    std::int32_t get_nearest_valid_target_ship(const Quadtree<double,std::uint32_t>& quadtree_ships,std::uint32_t own_index,const Collision_Rect<double>& box_targeting);
 
     //Returns true if the weapon found a target and fired upon it
     bool fire_weapon(const Quadtree<double,std::uint32_t>& quadtree_ships,RNG& rng,std::uint32_t own_index);
 
-    void ai();
+    void ai_select_target(std::uint32_t own_index,RNG& rng);
+    void ai_check_for_proximity_target(const Quadtree<double,std::uint32_t>& quadtree_ships,std::uint32_t own_index);
+    bool ai_proximity_check_allowed(std::uint32_t frame,std::uint32_t own_index) const;
+    void ai(const Quadtree<double,std::uint32_t>& quadtree_ships,const Quadtree<double,std::uint32_t>& quadtree_planets,std::uint32_t frame,std::uint32_t own_index,RNG& rng);
 
     void accelerate(bool is_player,std::uint32_t frame);
     void movement(uint32_t own_index,const Quadtree<double,std::uint32_t>& quadtree_debris,const Quadtree<double,std::uint32_t>& quadtree_shots,
-                  const Quadtree<double,std::uint32_t>& quadtree_explosions,RNG& rng);
+                  const Quadtree<double,std::uint32_t>& quadtree_explosions,const Quadtree<double,std::uint32_t>& quadtree_items,RNG& rng);
 
     void animate();
     void render();

@@ -14,10 +14,11 @@ using namespace std;
 vector<Ship_Type> Game_Data::ship_types;
 vector<Debris_Type> Game_Data::debris_types;
 vector<Shot_Type> Game_Data::shot_types;
+vector<Item_Type> Game_Data::item_types;
 vector<Upgrade> Game_Data::upgrades;
 
 ///Don't forget to increment this for each progress item in load_data_game() below
-const int Game_Data::game_data_load_item_count=4;
+const int Game_Data::game_data_load_item_count=5;
 
 void Game_Data::load_data_game(Progress_Bar& bar){
     bar.progress("Loading ship types");
@@ -28,6 +29,9 @@ void Game_Data::load_data_game(Progress_Bar& bar){
 
     bar.progress("Loading shot types");
     Data_Manager::load_data("shot");
+
+    bar.progress("Loading item types");
+    Data_Manager::load_data("item");
 
     bar.progress("Loading upgrade types");
     Data_Manager::load_data("upgrade");
@@ -43,6 +47,9 @@ void Game_Data::load_data_tag_game(string tag,File_IO_Load* load){
     else if(tag=="shot"){
         load_shot_type(load);
     }
+    else if(tag=="item"){
+        load_item_type(load);
+    }
     else if(tag=="upgrade"){
         load_upgrade_type(load);
     }
@@ -52,6 +59,7 @@ void Game_Data::unload_data_game(){
     ship_types.clear();
     debris_types.clear();
     shot_types.clear();
+    item_types.clear();
     upgrades.clear();
 }
 
@@ -75,6 +83,12 @@ void Game_Data::load_ship_type(File_IO_Load* load){
         else if(Data_Reader::check_prefix(line,"collision_percentage:")){
             ship_types.back().collision_percentage=Strings::string_to_double(line);
         }
+        else if(Data_Reader::check_prefix(line,"weapon:")){
+            ship_types.back().weapon=line;
+        }
+        else if(Data_Reader::check_prefix(line,"active:")){
+            ship_types.back().active=line;
+        }
         else if(Data_Reader::check_prefix(line,"mass:")){
             ship_types.back().mass=Strings::string_to_double(line);
         }
@@ -92,6 +106,12 @@ void Game_Data::load_ship_type(File_IO_Load* load){
         }
         else if(Data_Reader::check_prefix(line,"shields_max:")){
             ship_types.back().shields_max=Strings::string_to_long(line);
+        }
+        else if(Data_Reader::check_prefix(line,"item_drop_min:")){
+            ship_types.back().item_drop_min=Strings::string_to_unsigned_long(line);
+        }
+        else if(Data_Reader::check_prefix(line,"item_drop_max:")){
+            ship_types.back().item_drop_max=Strings::string_to_unsigned_long(line);
         }
         else if(Data_Reader::check_prefix(line,"point_value:")){
             ship_types.back().point_value=Strings::string_to_unsigned_long(line);
@@ -209,6 +229,53 @@ Shot_Type* Game_Data::get_shot_type(string name){
 
     if(ptr_object==0){
         Log::add_error("Error accessing shot type '"+name+"'");
+    }
+
+    return ptr_object;
+}
+
+void Game_Data::load_item_type(File_IO_Load* load){
+    item_types.push_back(Item_Type());
+
+    vector<string> lines=Data_Reader::read_data(load,"</item>");
+
+    for(size_t i=0;i<lines.size();i++){
+        string& line=lines[i];
+
+        if(Data_Reader::check_prefix(line,"name:")){
+            item_types.back().name=line;
+        }
+        else if(Data_Reader::check_prefix(line,"sprite:")){
+            item_types.back().sprite=line;
+        }
+        else if(Data_Reader::check_prefix(line,"collect_sound:")){
+            item_types.back().collect_sound=line;
+        }
+        else if(Data_Reader::check_prefix(line,"mass:")){
+            item_types.back().mass=Strings::string_to_double(line);
+        }
+        else if(Data_Reader::check_prefix(line,"thrust_decel:")){
+            item_types.back().thrust_decel=Strings::string_to_double(line);
+        }
+        else if(Data_Reader::check_prefix(line,"point_value:")){
+            item_types.back().point_value=Strings::string_to_unsigned_long(line);
+        }
+    }
+}
+
+Item_Type* Game_Data::get_item_type(string name){
+    Item_Type* ptr_object=0;
+
+    for(size_t i=0;i<item_types.size();i++){
+        if(item_types[i].name==name){
+            ptr_object=&item_types[i];
+
+            break;
+        }
+    }
+
+    if(ptr_object==0){
+        Log::add_error("Error accessing item type '"+name+"'");
     }
 
     return ptr_object;

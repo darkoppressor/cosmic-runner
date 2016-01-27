@@ -21,15 +21,19 @@ private:
 
     std::int32_t damage;
 
+    std::string faction;
+
     Sprite sprite;
 
 public:
 
-    Explosion(std::string new_sprite,std::string sound,const Coords<double>& position,std::int32_t new_damage);
+    Explosion(std::string new_sprite,std::string sound,const Coords<double>& position,std::int32_t new_damage,std::string new_faction);
 
     Collision_Circ<double> get_circle() const;
 
     std::int32_t get_damage() const;
+
+    std::string get_faction() const;
 
     bool is_alive() const;
 

@@ -11,6 +11,7 @@
 #include "planet.h"
 #include "shot.h"
 #include "explosion.h"
+#include "item.h"
 
 #include <quadtree.h>
 #include <rng.h>
@@ -30,6 +31,7 @@ private:
     static std::vector<Planet> planets;
     static std::vector<Shot> shots;
     static std::vector<Explosion> explosions;
+    static std::vector<Item> items;
 
     //contract target planet index
     static std::int32_t contract;
@@ -43,12 +45,18 @@ private:
     static std::uint64_t score;
     static std::uint64_t score_multiplier;
 
+    static std::uint32_t power;
+
+    static std::uint32_t notoriety;
+
     static std::vector<std::string> upgrade_list;
 
     static Quadtree<double,std::uint32_t> quadtree_debris;
     static Quadtree<double,std::uint32_t> quadtree_shots;
     static Quadtree<double,std::uint32_t> quadtree_ships;
     static Quadtree<double,std::uint32_t> quadtree_explosions;
+    static Quadtree<double,std::uint32_t> quadtree_items;
+    static Quadtree<double,std::uint32_t> quadtree_planets;
 
     static RNG rng;
 
@@ -76,6 +84,7 @@ public:
     static const Ship& get_ship(std::uint32_t index);
     static const Planet& get_planet(std::uint32_t index);
     static const Explosion& get_explosion(std::uint32_t index);
+    static const Item& get_item(std::uint32_t index);
     static std::uint64_t get_score();
     static std::uint64_t get_score_multiplier();
     static std::vector<std::string> get_upgrade_list();
@@ -85,6 +94,8 @@ public:
     static void increase_score(std::uint64_t amount);
     static void increase_score_multiplier(std::uint64_t amount);
 
+    //Returns the index of the planet nearest to the ship with the passed index
+    static std::uint32_t get_nearest_planet(std::uint32_t ship_index);
     //Returns the index of the planet nearest to the player's ship
     static std::uint32_t get_nearest_planet();
 
@@ -103,19 +114,34 @@ public:
     static bool player_is_landed();
     static const Planet& get_landed_planet();
 
+    static std::uint32_t get_power();
+    static bool player_is_out_of_power();
+    static void increase_power();
+
+    static std::uint32_t get_notoriety();
+    static bool notoriety_tier_1();
+    static bool notoriety_tier_2();
+    static void increase_notoriety();
+
     static void create_effect(std::string sprite,double scale,const Coords<double>& position,std::string sound,const Vector& velocity,double angle,
                               const Vector& angular_velocity,std::uint32_t seconds);
 
     static void player_thrust(std::string direction);
     static void player_brake(bool brake);
+    static void player_toggle_weapons();
     static void player_add_upgrade(std::string name);
     static void player_remove_upgrade(std::string name);
-    static void player_toggle_weapons();
+
+    static void disable_ship(std::uint32_t index);
 
     static void kill_shot(std::uint32_t index);
     static void create_shot(std::uint32_t owner_index,std::string type,std::string faction,std::string firing_upgrade,const Coords<double>& position,double angle);
 
-    static void create_explosion(std::string sprite,std::string sound,const Coords<double>& position,std::int32_t damage);
+    static void create_explosion(std::string sprite,std::string sound,const Coords<double>& position,std::int32_t damage,std::string faction);
+
+    static std::string get_random_item_type();
+    static void kill_item(std::uint32_t index);
+    static void create_item(const Coords<double>& position,const Vector& base_velocity);
 
     static void generate_ships();
 

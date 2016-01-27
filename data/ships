@@ -3,25 +3,87 @@
 	faction:player
 	sprite:ship_player
 	collision_percentage:0.6
+	weapon:guided_missile_swarm
+	active:
 	mass:300
 	thrust_accel:2500.0
 	thrust_decel:3000.0
 	max_speed:200.0
-	hull_max:10
-	shields_max:2
+	hull_max:50
+	shields_max:5
+	item_drop_min:0
+	item_drop_max:0
 	point_value:0
 </ship>
 
 <ship>
-	name:test
+	name:test_civilian
 	faction:civilian
-	sprite:ship_test
+	sprite:ship_test_civilian
 	collision_percentage:0.65
+	weapon:
+	active:
 	mass:300
-	thrust_accel:2500.0
-	thrust_decel:3000.0
-	max_speed:200.0
-	hull_max:10
-	shields_max:2
+	thrust_accel:1000.0
+	thrust_decel:1500.0
+	max_speed:100.0
+	hull_max:25
+	shields_max:0
+	item_drop_min:0
+	item_drop_max:1
+	point_value:50
+</ship>
+
+<ship>
+	name:test_pirate
+	faction:pirate
+	sprite:ship_test_pirate
+	collision_percentage:0.65
+	weapon:cannon_sniper
+	active:
+	mass:300
+	thrust_accel:2000.0
+	thrust_decel:2500.0
+	max_speed:150.0
+	hull_max:25
+	shields_max:5
+	item_drop_min:0
+	item_drop_max:2
 	point_value:100
+</ship>
+
+<ship>
+	name:test_bounty_hunter
+	faction:bounty_hunter
+	sprite:ship_test_bounty_hunter
+	collision_percentage:0.65
+	weapon:cannon_shotgun
+	active:
+	mass:300
+	thrust_accel:2250.0
+	thrust_decel:2750.0
+	max_speed:175.0
+	hull_max:35
+	shields_max:10
+	item_drop_min:1
+	item_drop_max:3
+	point_value:200
+</ship>
+
+<ship>
+	name:test_police
+	faction:police
+	sprite:ship_test_police
+	collision_percentage:0.65
+	weapon:cannon_sniper
+	active:
+	mass:300
+	thrust_accel:1500.0
+	thrust_decel:2000.0
+	max_speed:125.0
+	hull_max:35
+	shields_max:5
+	item_drop_min:0
+	item_drop_max:1
+	point_value:75
 </ship>

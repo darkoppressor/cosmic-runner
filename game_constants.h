@@ -23,6 +23,19 @@ public:
     static std::uint32_t EFFECT_LENGTH_CARGO;
 
     static std::uint32_t SHIELD_RECHARGE_RATE;
+    static std::uint32_t DISABLED_LENGTH;
+    static std::uint32_t MAX_POWER;
+
+    static std::int32_t ITEM_RESTORE_HULL;
+    static std::uint32_t ITEM_RESTORE_POWER;
+
+    static double ITEM_START_VELOCITY_MIN;
+    static double ITEM_START_VELOCITY_MAX;
+
+    static std::uint32_t NOTORIETY_MAX;
+    static std::uint32_t NOTORIETY_TIER_2;
+    static std::uint32_t NOTORIETY_TIER_1;
+    static std::uint32_t NOTORIETY_INCREASE;
 
     static std::uint32_t WEAPON_SPREAD_DISTANCE;
 
@@ -31,7 +44,13 @@ public:
     static std::uint32_t SHIP_SPAWN_DISTANCE_MIN;
     static std::uint32_t SHIP_SPAWN_RATE;
 
+    static double AI_RANGE;
+    static double AI_PATROL_DISTANCE;
     static double MISSILE_HOMING_RANGE;
+
+    static std::uint32_t MISSILE_HOMING_DELAY;
+
+    static std::uint32_t AI_PROXIMITY_CHECK_PERIOD;
 
     static std::int32_t EXPLOSION_DAMAGE_SHIP;
 };

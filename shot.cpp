@@ -37,10 +37,19 @@ Shot::Shot(uint32_t new_owner_index,string new_type,string new_faction,string ne
     alive=true;
 
     firing_upgrade=new_firing_upgrade;
+
+    homing_delay=0;
+    if(get_shot_type()->homing){
+        homing_delay=Game_Constants::MISSILE_HOMING_DELAY*Engine::UPDATE_RATE/1000;
+    }
 }
 
 Shot_Type* Shot::get_shot_type() const{
     return Game_Data::get_shot_type(type);
+}
+
+string Shot::get_faction() const{
+    return faction;
 }
 
 Collision_Rect<double> Shot::get_box() const{
@@ -97,6 +106,10 @@ Upgrade* Shot::get_firing_upgrade() const{
     return Game_Data::get_upgrade_type(firing_upgrade);
 }
 
+bool Shot::can_home() const{
+    return homing_delay==0 && get_shot_type()->homing;
+}
+
 void Shot::die(){
     if(is_alive()){
         alive=false;
@@ -107,8 +120,16 @@ void Shot::die(){
     }
 }
 
+void Shot::cooldown(){
+    if(is_alive()){
+        if(homing_delay>0){
+            homing_delay--;
+        }
+    }
+}
+
 void Shot::thrust(const Quadtree<double,uint32_t>& quadtree_ships){
-    if(get_shot_type()->homing){
+    if(can_home()){
         Collision_Rect<double> box_targeting=box;
 
         box_targeting.x-=Game_Constants::MISSILE_HOMING_RANGE;
@@ -202,19 +223,24 @@ void Shot::movement(const Quadtree<double,uint32_t>& quadtree_debris){
         unordered_set<uint32_t> collisions;
 
         for(size_t i=0;i<nearby_debris.size();i++){
-            if(!collisions.count(nearby_debris[i])){
-                collisions.emplace(nearby_debris[i]);
+            if(is_alive()){
+                if(!collisions.count(nearby_debris[i])){
+                    collisions.emplace(nearby_debris[i]);
 
-                const Debris& debris=Game::get_debris(nearby_debris[i]);
-                Collision_Rect<double> box_debris=debris.get_collision_box();
+                    const Debris& debris=Game::get_debris(nearby_debris[i]);
+                    Collision_Rect<double> box_debris=debris.get_collision_box();
 
-                if(Collision::check_rect_rotated(box_collision,box_debris,angle,debris.get_angle())){
-                    if(get_shot_type()->damage_type=="explosive"){
-                        Game::create_explosion("explosion_missile","explosion_missile",Coords<double>(box.center_x(),box.center_y()),get_firing_upgrade()->damage);
+                    if(Collision::check_rect_rotated(box_collision,box_debris,angle,debris.get_angle())){
+                        if(get_shot_type()->damage_type=="explosive"){
+                            Game::create_explosion("explosion_missile","explosion_missile",Coords<double>(box.center_x(),box.center_y()),get_firing_upgrade()->damage,faction);
+                        }
+
+                        die();
                     }
-
-                    die();
                 }
+            }
+            else{
+                return;
             }
         }
     }

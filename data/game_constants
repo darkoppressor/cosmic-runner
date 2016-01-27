@@ -57,6 +57,65 @@
 </game_constant>
 
 <game_constant>
+	//seconds
+	name:disabled_length
+	value:3
+</game_constant>
+
+<game_constant>
+	//seconds
+	name:max_power
+	value:300
+</game_constant>
+
+<game_constant>
+	name:item_restore_hull
+	value:5
+</game_constant>
+
+<game_constant>
+	//seconds
+	name:item_restore_power
+	value:15
+</game_constant>
+
+<game_constant>
+	//m/s
+	name:item_start_velocity_min
+	value:50.0
+</game_constant>
+
+<game_constant>
+	//m/s
+	name:item_start_velocity_max
+	value:100.0
+</game_constant>
+
+<game_constant>
+	//seconds
+	name:notoriety_max
+	value:600
+</game_constant>
+
+<game_constant>
+	//seconds
+	name:notoriety_tier_2
+	value:360
+</game_constant>
+
+<game_constant>
+	//seconds
+	name:notoriety_tier_1
+	value:120
+</game_constant>
+
+<game_constant>
+	//seconds
+	name:notoriety_increase
+	value:35
+</game_constant>
+
+<game_constant>
 	//degrees
 	name:weapon_spread_distance
 	value:10
@@ -65,34 +124,60 @@
 <game_constant>
 	//meters (pixels)
 	name:despawn_distance
-	value:8192.0
+	value:4608.0
 </game_constant>
 
 <game_constant>
 	//meters (pixels)
 	name:ship_spawn_distance_max
-	value:2560
+	value:2432
 </game_constant>
 
 <game_constant>
 	//meters (pixels)
 	name:ship_spawn_distance_min
-	value:1440
+	value:1408
 </game_constant>
 
 <game_constant>
 	//seconds
 	name:ship_spawn_rate
-	value:1
+	value:30
+</game_constant>
+
+<game_constant>
+	//meters (pixels)
+	name:ai_range
+	value:512.0
+</game_constant>
+
+<game_constant>
+	//meters (pixels)
+	name:ai_patrol_distance
+	value:512.0
 </game_constant>
 
 <game_constant>
 	//meters (pixels)
 	name:missile_homing_range
-	value:64.0
+	value:192.0
+</game_constant>
+
+<game_constant>
+	//milliseconds
+	name:missile_homing_delay
+	value:600
+</game_constant>
+
+<game_constant>
+	//Valid range: [1,logic update rate]
+	//There will be ai_proximity_check_period - 1 frames in between each AI proximity check opportunity
+	//AI proximity checking is additionally staggered among the ships
+	name:ai_proximity_check_period
+	value:60
 </game_constant>
 
 <game_constant>
 	name:explosion_damage_ship
-	value:24
+	value:18
 </game_constant>

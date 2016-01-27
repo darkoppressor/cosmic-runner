@@ -83,7 +83,7 @@
 	spread_type:normal
 	thrust_accel:65.0
 	max_speed:225.0
-	damage:18
+	damage:16
 	shots:3
 	range:288.0
 </upgrade>
@@ -98,7 +98,7 @@
 	spread_type:even
 	thrust_accel:65.0
 	max_speed:225.0
-	damage:18
+	damage:14
 	shots:16
 	range:288.0
 </upgrade>
@@ -113,7 +113,7 @@
 	spread_type:none
 	thrust_accel:50.0
 	max_speed:200.0
-	damage:18
+	damage:14
 	shots:1
 	range:288.0
 </upgrade>
@@ -128,7 +128,7 @@
 	spread_type:normal
 	thrust_accel:50.0
 	max_speed:200.0
-	damage:18
+	damage:12
 	shots:3
 	range:288.0
 </upgrade>
@@ -143,7 +143,7 @@
 	spread_type:normal
 	thrust_accel:75.0
 	max_speed:240.0
-	damage:18
+	damage:10
 	shots:6
 	range:288.0
 </upgrade>

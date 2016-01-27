@@ -2,43 +2,32 @@
 /* This file is licensed under the MIT License. */
 /* See the file docs/LICENSE.txt for the full license text. */
 
-#ifndef ship_type_h
-#define ship_type_h
+#ifndef item_type_h
+#define item_type_h
 
 #include <string>
 #include <cstdint>
 
-class Ship_Type{
+class Item_Type{
 public:
 
     std::string name;
 
-    std::string faction;
-
     std::string sprite;
 
-    double collision_percentage;
-
-    std::string weapon;
-    std::string active;
+    std::string collect_sound;
 
     //kg
     double mass;
     //N
-    double thrust_accel;
     double thrust_decel;
-    //m/s
-    double max_speed;
-
-    std::int32_t hull_max;
-    std::int32_t shields_max;
-
-    std::uint32_t item_drop_min;
-    std::uint32_t item_drop_max;
 
     std::uint64_t point_value;
 
-    Ship_Type();
+    Item_Type();
+
+    bool restores_hull() const;
+    bool restores_power() const;
 };
 
 #endif

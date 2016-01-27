@@ -7,6 +7,7 @@
 #include <game_manager.h>
 ///QQQ includes
 ///#include <render.h>
+///
 
 using namespace std;
 
@@ -31,7 +32,7 @@ void Planet::render(){
         sprite.render((circle.x-circle.r)*Game_Manager::camera_zoom-Game_Manager::camera.x,(circle.y-circle.r)*Game_Manager::camera_zoom-Game_Manager::camera.y);
 
         ///QQQ render collision circle
-        ///Render::render_circle(circle.x*Game_Manager::camera_zoom-Game_Manager::camera.x,circle.y*Game_Manager::camera_zoom-Game_Manager::camera.y,circle.r,0.5,"red");
+        ///Render::render_circle(circle.x*Game_Manager::camera_zoom-Game_Manager::camera.x,circle.y*Game_Manager::camera_zoom-Game_Manager::camera.y,circle.r,0.25,"red");
         ///
     }
 }

@@ -402,6 +402,10 @@
 		<Unit filename="game_manager_defs.cpp" />
 		<Unit filename="game_options.cpp" />
 		<Unit filename="game_options.h" />
+		<Unit filename="item.cpp" />
+		<Unit filename="item.h" />
+		<Unit filename="item_type.cpp" />
+		<Unit filename="item_type.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="main.h" />
 		<Unit filename="network_game.cpp" />

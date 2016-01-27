@@ -6,7 +6,6 @@
 #define shot_type_h
 
 #include <string>
-#include <cstdint>
 
 class Shot_Type{
 public:

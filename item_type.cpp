@@ -2,32 +2,27 @@
 /* This file is licensed under the MIT License. */
 /* See the file docs/LICENSE.txt for the full license text. */
 
-#include "ship_type.h"
+#include "item_type.h"
 
 using namespace std;
 
-Ship_Type::Ship_Type(){
+Item_Type::Item_Type(){
     name="";
-
-    faction="";
 
     sprite="";
 
-    collision_percentage=0.0;
-
-    weapon="";
-    active="";
+    collect_sound="";
 
     mass=0.0;
-    thrust_accel=0.0;
     thrust_decel=0.0;
-    max_speed=0.0;
-
-    hull_max=0;
-    shields_max=0;
-
-    item_drop_min=0;
-    item_drop_max=0;
 
     point_value=0;
+}
+
+bool Item_Type::restores_hull() const{
+    return name=="restore_hull";
+}
+
+bool Item_Type::restores_power() const{
+    return name=="restore_power";
 }

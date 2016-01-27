@@ -23,6 +23,19 @@ uint32_t Game_Constants::UPGRADE_LIST_SIZE=0;
 uint32_t Game_Constants::EFFECT_LENGTH_CARGO=0;
 
 uint32_t Game_Constants::SHIELD_RECHARGE_RATE=0;
+uint32_t Game_Constants::DISABLED_LENGTH=0;
+uint32_t Game_Constants::MAX_POWER=0;
+
+int32_t Game_Constants::ITEM_RESTORE_HULL=0;
+uint32_t Game_Constants::ITEM_RESTORE_POWER=0;
+
+double Game_Constants::ITEM_START_VELOCITY_MIN=0.0;
+double Game_Constants::ITEM_START_VELOCITY_MAX=0.0;
+
+uint32_t Game_Constants::NOTORIETY_MAX=0;
+uint32_t Game_Constants::NOTORIETY_TIER_2=0;
+uint32_t Game_Constants::NOTORIETY_TIER_1=0;
+uint32_t Game_Constants::NOTORIETY_INCREASE=0;
 
 uint32_t Game_Constants::WEAPON_SPREAD_DISTANCE=0;
 
@@ -31,7 +44,13 @@ uint32_t Game_Constants::SHIP_SPAWN_DISTANCE_MAX=0;
 uint32_t Game_Constants::SHIP_SPAWN_DISTANCE_MIN=0;
 uint32_t Game_Constants::SHIP_SPAWN_RATE=0;
 
+double Game_Constants::AI_RANGE=0.0;
+double Game_Constants::AI_PATROL_DISTANCE=0.0;
 double Game_Constants::MISSILE_HOMING_RANGE=0.0;
+
+uint32_t Game_Constants::MISSILE_HOMING_DELAY=0;
+
+uint32_t Game_Constants::AI_PROXIMITY_CHECK_PERIOD=0;
 
 int32_t Game_Constants::EXPLOSION_DAMAGE_SHIP=0;
 
@@ -75,6 +94,39 @@ void Game_Constants_Loader::set_game_constant(string name,string value){
     else if(name=="shield_recharge_rate"){
         Game_Constants::SHIELD_RECHARGE_RATE=Strings::string_to_unsigned_long(value);
     }
+    else if(name=="disabled_length"){
+        Game_Constants::DISABLED_LENGTH=Strings::string_to_unsigned_long(value);
+    }
+    else if(name=="max_power"){
+        Game_Constants::MAX_POWER=Strings::string_to_unsigned_long(value);
+    }
+
+    else if(name=="item_restore_hull"){
+        Game_Constants::ITEM_RESTORE_HULL=Strings::string_to_long(value);
+    }
+    else if(name=="item_restore_power"){
+        Game_Constants::ITEM_RESTORE_POWER=Strings::string_to_unsigned_long(value);
+    }
+
+    else if(name=="item_start_velocity_min"){
+        Game_Constants::ITEM_START_VELOCITY_MIN=Strings::string_to_double(value);
+    }
+    else if(name=="item_start_velocity_max"){
+        Game_Constants::ITEM_START_VELOCITY_MAX=Strings::string_to_double(value);
+    }
+
+    else if(name=="notoriety_max"){
+        Game_Constants::NOTORIETY_MAX=Strings::string_to_unsigned_long(value);
+    }
+    else if(name=="notoriety_tier_2"){
+        Game_Constants::NOTORIETY_TIER_2=Strings::string_to_unsigned_long(value);
+    }
+    else if(name=="notoriety_tier_1"){
+        Game_Constants::NOTORIETY_TIER_1=Strings::string_to_unsigned_long(value);
+    }
+    else if(name=="notoriety_increase"){
+        Game_Constants::NOTORIETY_INCREASE=Strings::string_to_unsigned_long(value);
+    }
 
     else if(name=="weapon_spread_distance"){
         Game_Constants::WEAPON_SPREAD_DISTANCE=Strings::string_to_unsigned_long(value);
@@ -93,8 +145,22 @@ void Game_Constants_Loader::set_game_constant(string name,string value){
         Game_Constants::SHIP_SPAWN_RATE=Strings::string_to_unsigned_long(value);
     }
 
+    else if(name=="ai_range"){
+        Game_Constants::AI_RANGE=Strings::string_to_double(value);
+    }
+    else if(name=="ai_patrol_distance"){
+        Game_Constants::AI_PATROL_DISTANCE=Strings::string_to_double(value);
+    }
     else if(name=="missile_homing_range"){
         Game_Constants::MISSILE_HOMING_RANGE=Strings::string_to_double(value);
+    }
+
+    else if(name=="missile_homing_delay"){
+        Game_Constants::MISSILE_HOMING_DELAY=Strings::string_to_unsigned_long(value);
+    }
+
+    else if(name=="ai_proximity_check_period"){
+        Game_Constants::AI_PROXIMITY_CHECK_PERIOD=Strings::string_to_unsigned_long(value);
     }
 
     else if(name=="explosion_damage_ship"){

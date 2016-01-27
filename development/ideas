@@ -45,7 +45,7 @@ Player has a score multiplier
 Score multiplier increases when a contract is completed
 Score multiplier decreases when a contract is lost via the player being caught by police
 
-When a contract is completed, the player must select one upgrade for their ship
+When a contract is completed, the player may select one upgrade for their ship
 The upgrade list is chosen completely at random from all upgrades not currently on the player's ship
 There are three kinds of upgrades: active, passive, and weapon
 All upgrades must be unique on a ship, no duplicates
@@ -74,7 +74,8 @@ Items exist in the world, and are collected when touched
 Only the player can collect items
 If an item restores a stat, and the player has that stat at max, the item is not collected
 Items can be generated in the world, or dropped by a destroyed ship
-Items do not move
+Items start out moving when dropped by a ship
+Items' velocity and angular velocity quickly reduce to 0
 
 There are three types of damage:
 Solid: x2 to Shields, /2 to Hull
@@ -107,6 +108,7 @@ are disabled if present: Point Defense
 Player has notoriety
 Notoriety decreases over time
 Notoriety increases when player does damage to civilian or police ships
+(this applies even if the effective damage done is 0)
 
 NPC ships are spawned "near" the player
 NPC ships far away from the player are despawned
@@ -117,27 +119,31 @@ Ships are spawned randomly, with the chance to spawn again determined using the 
 
 For the purposes of NPC ships reacting to another ship, they always only look at the closest ship not of their faction
 Ships and shots have a faction
-Factions are: player, civilian, police, pirate
+Factions are: player, civilian, police, pirate, bounty_hunter, world (a special faction for damage done by world objects)
 Faction is used by ships and shots to determine target to follow
 The player is manually controlled obviously
 Civilians spawn with a nearby target planet randomly selected, and try to fly there
 Civilians can spawn anywhere
 If they reach their target, they "land" and despawn
-If they see a pirate ship, or a player ship and the player has high enough notoriety, they flee from it
+If they see a pirate ship, or a player ship and the player has tier 1 notoriety or greater, they flee from it
 If they are fleeing and no longer have a reason to, they resume their course for their target
 Civilians have no weapons
 Pirates spawn wandering at random
 Pirates only spawn when player is in deep space
-Pirates flee from police and the player if they have high enough notoriety (needs to be higher than for civilians to flee from the player)
-Pirates chase civilians and the player if their notoriety is too low
+Pirates flee from police and the player if they have tier 2 notoriety
+Pirates chase civilians and the player if their notoriety is below tier 2
+Bounty Hunters spawn wandering at random
+Bounty Hunters can spawn anywhere
+Bounty Hunters flee from no one
+Bounty Hunters chase the player
 Police spawn patrolling between their spawn point and a target point in a straight line
 Police only spawn when player is near a planet
 Police flee from no one
 Police chase pirates
-Police chase the player if their notoriety is high enough (same level as for civilians to flee from the player)
+Police chase the player if their notoriety is tier 1 or higher
 However, Police treatment of player is variable when they are chasing him
-If the player is chasable but not scary to pirates, police will attempt to catch player in tractor beam
-If player is scary to pirates, police will attempt to kill player
+If the player's notoriety is tier 1, police will attempt to catch player in tractor beam
+If player's notoriety is tier 2, police will attempt to kill player
 Tractor beam is shortish range special police ability
 Once active, it cannot be escaped by normal flight (unless maybe engines are very upgraded?)
 A tractored player is ignored by all other ships
@@ -146,6 +152,7 @@ The tractor beam pulls the player in towards the tractoring ship
 When the player reaches the tractoring ship, the player is caught
 If the player leaves tractoring range, the tractoring ship stops tractoring and resumes normal behavior
 When the player is caught, any contract is lost, and notoriety is reset to 0
+
 All non-player ships use their active upgrade (if any) as often as they can,
 unless they are a police ship currently tractoring the player
 

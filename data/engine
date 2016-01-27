@@ -11,7 +11,7 @@
 	axis_scroll_rate:5
 	cursor_width:2
 	cursor_height:2
-	sound_falloff:64.0
+	sound_falloff:40.0
 	window_border_thickness:2.0
     gui_border_thickness:1.0
 	drag_and_drop:false

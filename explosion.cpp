@@ -15,7 +15,7 @@
 
 using namespace std;
 
-Explosion::Explosion(string new_sprite,string sound,const Coords<double>& position,int32_t new_damage){
+Explosion::Explosion(string new_sprite,string sound,const Coords<double>& position,int32_t new_damage,string new_faction){
     circle.x=position.x;
     circle.y=position.y;
 
@@ -24,6 +24,8 @@ Explosion::Explosion(string new_sprite,string sound,const Coords<double>& positi
     circle.r=sprite.get_width()/2.0;
 
     damage=new_damage;
+
+    faction=new_faction;
 
     if(sound.length()>0){
         Sound_Manager::play_sound(sound,circle.x,circle.y);
@@ -36,6 +38,10 @@ Collision_Circ<double> Explosion::get_circle() const{
 
 int32_t Explosion::get_damage() const{
     return damage;
+}
+
+string Explosion::get_faction() const{
+    return faction;
 }
 
 bool Explosion::is_alive() const{

@@ -3,6 +3,7 @@
 /* See the file docs/LICENSE.txt for the full license text. */
 
 #include "game.h"
+#include "game_constants.h"
 
 #include <engine.h>
 #include <game_manager.h>
@@ -26,6 +27,17 @@ void Engine::render_dev_info(){
 
         msg+="\n-----Game-----\n";
         msg+="Score: "+Strings::num_to_string(Game::get_score())+" (x"+Strings::num_to_string(Game::get_score_multiplier())+" multiplier)\n";
+        msg+="Power: "+Strings::num_to_string(Game::get_power())+"/"+Strings::num_to_string(Game_Constants::MAX_POWER*Engine::UPDATE_RATE)+"\n";
+        if(Game::notoriety_tier_2()){
+            msg+="Notoriety: Tier 2";
+        }
+        else if(Game::notoriety_tier_1()){
+            msg+="Notoriety: Tier 1";
+        }
+        else{
+            msg+="Notoriety: Tier 0";
+        }
+        msg+=" ("+Strings::num_to_string(Game::get_notoriety())+"/"+Strings::num_to_string(Game_Constants::NOTORIETY_MAX*Engine::UPDATE_RATE)+")\n";
 
         msg+="\n-----Universe-----\n";
         msg+="Ships: "+Strings::num_to_string(Game::get_ship_count())+"\n";

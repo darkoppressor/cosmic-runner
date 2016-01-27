@@ -7,7 +7,31 @@
 </animation>
 
 <animation>
-	name:ship_test
+	name:ship_test_civilian
+	frame_count:3
+	animation_speed:70
+	frame_width:48
+	end_behavior:continue
+</animation>
+
+<animation>
+	name:ship_test_pirate
+	frame_count:3
+	animation_speed:70
+	frame_width:48
+	end_behavior:continue
+</animation>
+
+<animation>
+	name:ship_test_bounty_hunter
+	frame_count:3
+	animation_speed:70
+	frame_width:48
+	end_behavior:continue
+</animation>
+
+<animation>
+	name:ship_test_police
 	frame_count:3
 	animation_speed:70
 	frame_width:48

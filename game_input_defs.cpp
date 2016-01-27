@@ -195,9 +195,9 @@ bool Game_Manager::handle_game_command(string command_name){
 
     if(!paused){
         if(command_name=="land"){
-            if(!Game::player_is_landing() && !Game::player_is_landed()){
-                const Ship& player=Game::get_player_const();
+            const Ship& player=Game::get_player_const();
 
+            if(!Game::player_is_landing() && !Game::player_is_landed() && !player.is_disabled(true)){
                 if(Game::player_has_contract()){
                     const Planet& planet=Game::get_contract_planet();
 
@@ -219,28 +219,32 @@ bool Game_Manager::handle_game_command(string command_name){
             return true;
         }
         else if(command_name=="drop_cargo"){
-            if(Game::player_has_contract()){
-                Game::cancel_contract();
+            const Ship& player=Game::get_player_const();
 
-                for(uint32_t i=0;i<5;i++){
-                    const Ship& player=Game::get_player_const();
+            if(!player.is_disabled(true)){
+                if(Game::player_has_contract()){
+                    Game::cancel_contract();
 
-                    Game::create_effect("effect_cargo_"+Strings::num_to_string(Game::get_rng().random_range(0,0)),1.0,
-                                        Coords<double>(player.get_box().center_x(),player.get_box().center_y()),"",
-                                        Vector(Game::get_rng().random_range(0,10),Game::get_rng().random_range(0,359)),
-                                        Game::get_rng().random_range(0,359),Vector(0.01*Game::get_rng().random_range(0,50),Game::get_rng().random_range(0,359)),Game_Constants::EFFECT_LENGTH_CARGO);
+                    for(uint32_t i=0;i<5;i++){
+                        Game::create_effect("effect_cargo_"+Strings::num_to_string(Game::get_rng().random_range(0,0)),1.0,
+                                            Coords<double>(player.get_box().center_x(),player.get_box().center_y()),"",
+                                            Vector(Game::get_rng().random_range(0,10),Game::get_rng().random_range(0,359)),
+                                            Game::get_rng().random_range(0,359),Vector(0.01*Game::get_rng().random_range(0,50),Game::get_rng().random_range(0,359)),Game_Constants::EFFECT_LENGTH_CARGO);
+                    }
+
+                    Sound_Manager::play_sound("drop_cargo");
                 }
-
-                Sound_Manager::play_sound("drop_cargo");
-            }
-            else{
-                Sound_Manager::play_sound("cannot_drop_cargo");
+                else{
+                    Sound_Manager::play_sound("cannot_drop_cargo");
+                }
             }
 
             return true;
         }
         else if(command_name=="toggle_weapons"){
-            Game::player_toggle_weapons();
+            if(!Game::get_player_const().is_disabled(true)){
+                Game::player_toggle_weapons();
+            }
 
             return true;
         }
