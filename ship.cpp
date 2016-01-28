@@ -440,7 +440,7 @@ void Ship::take_damage(bool is_player,int32_t damage,string damage_type,const Co
             hull-=effective_damage;
 
             if(!is_alive()){
-                Game::create_explosion("explosion_ship","explosion_ship",Coords<double>(box.center_x(),box.center_y()),Game_Constants::EXPLOSION_DAMAGE_SHIP,get_faction());
+                Game::create_explosion("explosion_ship","explosion_ship",Coords<double>(box.center_x(),box.center_y()),Game_Constants::EXPLOSION_DAMAGE_SHIP,damage_faction);
 
                 uint32_t items_to_drop=rng.random_range(get_ship_type()->item_drop_min,get_ship_type()->item_drop_max);
 
@@ -825,6 +825,27 @@ void Ship::ai(const Quadtree<double,uint32_t>& quadtree_ships,const Quadtree<dou
         thrusting=false;
         set_braking(false);
 
+        if(get_faction()=="civilian"){
+            vector<uint32_t> nearby_planets;
+            quadtree_planets.get_objects(nearby_planets,box);
+
+            unordered_set<uint32_t> collisions;
+
+            for(size_t i=0;i<nearby_planets.size();i++){
+                if(!collisions.count(nearby_planets[i])){
+                    collisions.emplace(nearby_planets[i]);
+
+                    const Planet& planet=Game::get_planet(nearby_planets[i]);
+
+                    if(Collision::check_rect_circ(box,planet.get_circle())){
+                        commence_landing(nearby_planets[i]);
+
+                        return;
+                    }
+                }
+            }
+        }
+
         if(ai_has_proximity_target){
             angle=Math::get_angle_to_point(box.get_center(),Game::get_ship(ai_proximity_target).box.get_center());
 
@@ -849,31 +870,9 @@ void Ship::ai(const Quadtree<double,uint32_t>& quadtree_ships,const Quadtree<dou
                     swap(ai_target,ai_target_next);
                 }
             }
-            else{
-                if(get_faction()=="civilian"){
-                    vector<uint32_t> nearby_planets;
-                    quadtree_planets.get_objects(nearby_planets,box);
-
-                    unordered_set<uint32_t> collisions;
-
-                    for(size_t i=0;i<nearby_planets.size();i++){
-                        if(!collisions.count(nearby_planets[i])){
-                            collisions.emplace(nearby_planets[i]);
-
-                            const Planet& planet=Game::get_planet(nearby_planets[i]);
-
-                            if(Collision::check_rect_circ(box,planet.get_circle())){
-                                commence_landing(nearby_planets[i]);
-
-                                break;
-                            }
-                        }
-                    }
-                }
-                else if(get_faction()=="pirate" || get_faction()=="bounty_hunter"){
-                    if(Collision::check_rect(box,Collision_Rect<double>(ai_target.x,ai_target.y,1.0,1.0))){
-                        ai_select_target(own_index,rng);
-                    }
+            else if(get_faction()=="pirate" || get_faction()=="bounty_hunter"){
+                if(Collision::check_rect(box,Collision_Rect<double>(ai_target.x,ai_target.y,1.0,1.0))){
+                    ai_select_target(own_index,rng);
                 }
             }
 
@@ -930,8 +929,15 @@ void Ship::movement(uint32_t own_index,const Quadtree<double,uint32_t>& quadtree
                     Collision_Rect<double> box_debris=debris.get_collision_box();
 
                     if(rng.random_range(0,99)<Game_Constants::COLLISION_CHANCE_DEBRIS && Collision::check_rect_rotated(box_collision,box_debris,angle,debris.get_angle())){
+                        string damage_faction="world";
+
+                        //If we are either fleeing from or chasing a ship, it is blamed for this damage
+                        if(!is_player && ai_has_proximity_target){
+                            damage_faction=Game::get_ship(ai_proximity_target).get_faction();
+                        }
+
                         take_damage(is_player,debris.get_debris_type()->damage,debris.get_debris_type()->damage_type,
-                                    Coords<double>(box_collision.x+rng.random_range(0,(uint32_t)box_collision.w),box_collision.y+rng.random_range(0,(uint32_t)box_collision.h)),"world",rng);
+                                    Coords<double>(box_collision.x+rng.random_range(0,(uint32_t)box_collision.w),box_collision.y+rng.random_range(0,(uint32_t)box_collision.h)),damage_faction,rng);
                     }
                 }
             }
@@ -987,12 +993,8 @@ void Ship::movement(uint32_t own_index,const Quadtree<double,uint32_t>& quadtree
                     if(explosion.is_alive() && !was_damaged_by_explosion(nearby_explosions[i]) && Collision::check_circ_rect(circle_explosion,box_collision)){
                         damaged_by_explosion(nearby_explosions[i]);
 
-                        Collision_Rect<double> box_area=Collision::get_collision_area_rect(box_collision,Collision_Rect<double>(circle_explosion.x-circle_explosion.r,
-                                                                                                                                circle_explosion.y-circle_explosion.r,
-                                                                                                                                circle_explosion.r*2.0,circle_explosion.r*2.0));
-
                         take_damage(is_player,explosion.get_damage(),"explosive",
-                                    Coords<double>(box_area.x+rng.random_range(0,(uint32_t)box_area.w),box_area.y+rng.random_range(0,(uint32_t)box_area.h)),explosion.get_faction(),rng);
+                                    Coords<double>(box_collision.x+rng.random_range(0,(uint32_t)box_collision.w),box_collision.y+rng.random_range(0,(uint32_t)box_collision.h)),explosion.get_faction(),rng);
                     }
                 }
             }

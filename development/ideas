@@ -46,6 +46,8 @@ The score multiplier cannot drop below 1
 Score multiplier increases when a contract is completed
 Score multiplier decreases when a contract is lost via the player being caught by police
 
+If a ship is chasing or fleeing from the player and is damage/killed by debris, the player is blamed
+
 When a contract is completed, the player may select one upgrade for their ship
 The upgrade list is chosen completely at random from all upgrades not currently on the player's ship
 There are three kinds of upgrades: active, passive, and weapon
@@ -223,6 +225,8 @@ Police ships:
 
 Polish ideas:
 Sound and graphical effect for police ship tractoring player or chasing player with intent to tractor
+Text effects when score is gained
+A fancier replacement for toast text involving gameplay stuff
 Clouds floating over planets
 Ship shadows on planet below ship
 Smoke effects for ship engines and missiles/guided missiles
