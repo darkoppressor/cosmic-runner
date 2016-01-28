@@ -46,6 +46,7 @@ uint32_t Game_Constants::SHIP_SPAWN_DISTANCE_MIN=0;
 uint32_t Game_Constants::SHIP_SPAWN_RATE=0;
 
 double Game_Constants::AI_RANGE=0.0;
+double Game_Constants::AI_FOLLOW_DISTANCE=0.0;
 double Game_Constants::AI_PATROL_DISTANCE=0.0;
 double Game_Constants::MISSILE_HOMING_RANGE=0.0;
 
@@ -154,6 +155,9 @@ void Game_Constants_Loader::set_game_constant(string name,string value){
 
     else if(name=="ai_range"){
         Game_Constants::AI_RANGE=Strings::string_to_double(value);
+    }
+    else if(name=="ai_follow_distance"){
+        Game_Constants::AI_FOLLOW_DISTANCE=Strings::string_to_double(value);
     }
     else if(name=="ai_patrol_distance"){
         Game_Constants::AI_PATROL_DISTANCE=Strings::string_to_double(value);

@@ -167,7 +167,7 @@ void Game::generate_world(){
     }
 
     //Generate items
-    uint32_t item_count=((world_width+world_height)/2.0)/128.0;
+    uint32_t item_count=((world_width+world_height)/2.0)/256.0;
     for(uint32_t i=0;i<item_count;i++){
         string type=get_random_item_type();
 
@@ -434,11 +434,15 @@ void Game::cancel_contract(){
 }
 
 void Game::arrest_player(){
+    clear_tractor();
+
     contract=-1;
 
     reset_notoriety();
 
     decrease_score_multiplier(Game_Constants::SCORE_MULTIPLIER_DECREASE);
+
+    get_player().stop();
 
     Engine::make_toast("Arrested");
 
@@ -675,9 +679,8 @@ void Game::generate_ships(){
         ///QQQ chance per ship to spawn is also determined by notoriety and score multiplier
         if(rng.random_range(0,99)<100){
             ///QQQ ship type is determined by player's current area and notoriety
-            ///string ship_type="test_civilian";
-            string ship_type="test_police";
-            /**uint32_t random_ship=rng.random_range(0,99);
+            string ship_type="test_civilian";
+            uint32_t random_ship=rng.random_range(0,99);
             if(random_ship>=25 && random_ship<50){
                 ship_type="test_pirate";
             }
@@ -686,7 +689,7 @@ void Game::generate_ships(){
             }
             else if(random_ship>=75){
                 ship_type="test_police";
-            }*/
+            }
 
             Sprite ship_sprite;
             ship_sprite.set_name(Game_Data::get_ship_type(ship_type)->sprite);
@@ -1053,7 +1056,7 @@ void Game::update_background(){
 }
 
 void Game::render_background(){
-    Render::render_rectangle(0,0,Game_Window::width(),Game_Window::height(),1.0,"ui_black");
+    Render::render_rectangle(0,0,Game_Window::width(),Game_Window::height(),1.0,"space");
 
     Background::render();
 }

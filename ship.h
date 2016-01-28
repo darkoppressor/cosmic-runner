@@ -115,6 +115,7 @@ public:
     bool is_alive() const;
 
     double get_distance_to_player() const;
+    double get_distance_to_proximity_target() const;
 
     bool was_damaged_by_explosion(std::uint32_t index) const;
     void damaged_by_explosion(std::uint32_t index);
@@ -130,6 +131,8 @@ public:
 
     void thrust(std::uint32_t frame);
     void brake(std::uint32_t frame);
+
+    void stop();
 
     void commence_landing(std::uint32_t new_landing_planet_index);
     bool is_landing() const;

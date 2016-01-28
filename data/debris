@@ -2,7 +2,7 @@
 	name:asteroid_0
 	sprite:debris_asteroid_0
 	collision_percentage:0.8
-	damage:3
+	damage:4
 	damage_type:solid
 </debris>
 
@@ -10,7 +10,7 @@
 	name:asteroid_1
 	sprite:debris_asteroid_1
 	collision_percentage:0.8
-	damage:3
+	damage:4
 	damage_type:solid
 </debris>
 
@@ -18,7 +18,7 @@
 	name:asteroid_2
 	sprite:debris_asteroid_2
 	collision_percentage:0.8
-	damage:3
+	damage:4
 	damage_type:solid
 </debris>
 
@@ -26,7 +26,7 @@
 	name:asteroid_3
 	sprite:debris_asteroid_3
 	collision_percentage:0.8
-	damage:3
+	damage:4
 	damage_type:solid
 </debris>
 
@@ -34,7 +34,7 @@
 	name:asteroid_4
 	sprite:debris_asteroid_4
 	collision_percentage:0.8
-	damage:3
+	damage:4
 	damage_type:solid
 </debris>
 
@@ -42,6 +42,6 @@
 	name:asteroid_5
 	sprite:debris_asteroid_5
 	collision_percentage:0.8
-	damage:3
+	damage:4
 	damage_type:solid
 </debris>

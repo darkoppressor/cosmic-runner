@@ -46,6 +46,7 @@ public:
     static std::uint32_t SHIP_SPAWN_RATE;
 
     static double AI_RANGE;
+    static double AI_FOLLOW_DISTANCE;
     static double AI_PATROL_DISTANCE;
     static double MISSILE_HOMING_RANGE;
 

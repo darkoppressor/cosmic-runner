@@ -158,6 +158,12 @@
 
 <game_constant>
 	//meters (pixels)
+	name:ai_follow_distance
+	value:128.0
+</game_constant>
+
+<game_constant>
+	//meters (pixels)
 	name:ai_patrol_distance
 	value:512.0
 </game_constant>
@@ -183,7 +189,7 @@
 <game_constant>
 	//milliseconds
 	name:missile_homing_delay
-	value:600
+	value:1000
 </game_constant>
 
 <game_constant>
@@ -196,5 +202,5 @@
 
 <game_constant>
 	name:explosion_damage_ship
-	value:18
+	value:2
 </game_constant>

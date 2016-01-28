@@ -1,6 +1,11 @@
 //** Game Colors **//
 
 <color>
+	name:space
+	rgb:26,26,26
+</color>
+
+<color>
 	name:star_blue
 	rgb:12,127,242
 </color>

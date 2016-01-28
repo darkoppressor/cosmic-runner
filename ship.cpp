@@ -301,6 +301,17 @@ double Ship::get_distance_to_player() const{
     return Math::distance_between_points(box.center_x(),box.center_y(),player.get_box().center_x(),player.get_box().center_y());
 }
 
+double Ship::get_distance_to_proximity_target() const{
+    if(ai_has_proximity_target){
+        const Ship& ship=Game::get_ship(ai_proximity_target);
+
+        return Math::distance_between_points(box.center_x(),box.center_y(),ship.get_box().center_x(),ship.get_box().center_y());
+    }
+    else{
+        return 0.0;
+    }
+}
+
 bool Ship::was_damaged_by_explosion(uint32_t index) const{
     for(size_t i=0;i<explosions.size();i++){
         if(index==explosions[i]){
@@ -516,6 +527,11 @@ void Ship::brake(uint32_t frame){
             Sound_Manager::play_sound("brake",box.center_x(),box.center_y());
         }
     }
+}
+
+void Ship::stop(){
+    velocity*=0.0;
+    force*=0.0;
 }
 
 void Ship::commence_landing(uint32_t new_landing_planet_index){
@@ -822,7 +838,9 @@ void Ship::ai(const Quadtree<double,uint32_t>& quadtree_ships,const Quadtree<dou
                 set_braking(true);
             }
             else{
-                thrusting=true;
+                if(ai_proximity_target_flee || get_distance_to_proximity_target()>Game_Constants::AI_FOLLOW_DISTANCE){
+                    thrusting=true;
+                }
             }
         }
         else{

@@ -5,13 +5,18 @@ Lift off animation complementing landing?
 
 Note: change map screen to a minimap? It would be like now and show the star and planets
 
-Add upgrades to ships
-Add cooldown for active upgrade
+Ships that take damage from debris are damaged by the faction of the ship they are chasing, if any
+If a ship dies and explodes, its explosion is given the faction of its killer if possible
+
+The player's ship should suck up nearby items
 
 Add star
 
 Add distinction between planetary and deep space
 Add planetary space background
+
+Add upgrades to ships
+Add cooldown for active upgrade
 
 Add all passives
 Note that one passive, point defense, needs its own cooldown
@@ -24,7 +29,10 @@ Design ships
 
 Add all ships
 
+Improve item generation weighting?
 Improve ship generation
+
+Note: high score board
 
 Music:
 Menu music
@@ -52,5 +60,3 @@ game over
 Images:
 Menu background
 Loading screen background
-
-Note: high score board
