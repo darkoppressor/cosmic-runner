@@ -72,6 +72,10 @@ Vector Ship::get_velocity() const{
     return velocity;
 }
 
+double Ship::get_angle() const{
+    return angle;
+}
+
 int32_t Ship::get_hull() const{
     return hull;
 }
@@ -186,7 +190,7 @@ void Ship::calculate_laser_target(const Quadtree<double,uint32_t>& quadtree_ship
             box_targeting.w+=upgrade->range*2.0;
             box_targeting.h+=upgrade->range*2.0;
 
-            int32_t nearest_index=get_nearest_valid_target_ship(quadtree_ships,own_index,box_targeting);
+            int32_t nearest_index=get_nearest_valid_target_ship(quadtree_ships,own_index,box_targeting,true);
 
             //If a nearest valid target was found
             if(nearest_index>=0){
@@ -250,6 +254,12 @@ void Ship::use_item(Item_Type* item_type){
     }
 
     Game::increase_score(item_type->point_value);
+}
+
+void Ship::apply_tractor(double force_angle){
+    Vector tractor_force(Game_Constants::TRACTOR_FORCE,force_angle);
+
+    force+=tractor_force;
 }
 
 double Ship::get_thrust_accel() const{
@@ -575,12 +585,12 @@ void Ship::cooldown(const Quadtree<double,uint32_t>& quadtree_ships,RNG& rng,uin
     }
 }
 
-bool Ship::faction_is_valid(string faction) const{
+bool Ship::faction_is_valid(string faction,bool weapon_check) const{
     if(get_faction()=="player"){
         return true;
     }
     else if(get_faction()=="civilian"){
-        if(faction=="pirate" || (faction=="player" && (Game::notoriety_tier_1() || Game::notoriety_tier_2()))){
+        if(faction=="pirate" || (faction=="player" && !Game::is_player_tractored() && (Game::notoriety_tier_1() || Game::notoriety_tier_2()))){
             return true;
         }
         else{
@@ -588,7 +598,7 @@ bool Ship::faction_is_valid(string faction) const{
         }
     }
     else if(get_faction()=="pirate"){
-        if(faction=="civilian" || faction=="police" || faction=="player"){
+        if(faction=="civilian" || faction=="police" || (faction=="player" && !Game::is_player_tractored())){
             return true;
         }
         else{
@@ -596,7 +606,7 @@ bool Ship::faction_is_valid(string faction) const{
         }
     }
     else if(get_faction()=="bounty_hunter"){
-        if(faction=="player"){
+        if(faction=="player" && !Game::is_player_tractored()){
             return true;
         }
         else{
@@ -604,8 +614,19 @@ bool Ship::faction_is_valid(string faction) const{
         }
     }
     else if(get_faction()=="police"){
-        if(faction=="pirate" || (faction=="player" && (Game::notoriety_tier_1() || Game::notoriety_tier_2()))){
+        if(faction=="pirate"){
             return true;
+        }
+        else if(faction=="player" && !Game::is_player_tractored()){
+            if(!weapon_check && (Game::notoriety_tier_1() || Game::notoriety_tier_2())){
+                return true;
+            }
+            else if(weapon_check && Game::notoriety_tier_2()){
+                return true;
+            }
+            else{
+                return false;
+            }
         }
         else{
             return false;
@@ -616,7 +637,7 @@ bool Ship::faction_is_valid(string faction) const{
     }
 }
 
-int32_t Ship::get_nearest_valid_target_ship(const Quadtree<double,uint32_t>& quadtree_ships,uint32_t own_index,const Collision_Rect<double>& box_targeting){
+int32_t Ship::get_nearest_valid_target_ship(const Quadtree<double,uint32_t>& quadtree_ships,uint32_t own_index,const Collision_Rect<double>& box_targeting,bool weapon_check){
     vector<uint32_t> nearby_ships;
     quadtree_ships.get_objects(nearby_ships,box_targeting);
 
@@ -634,7 +655,7 @@ int32_t Ship::get_nearest_valid_target_ship(const Quadtree<double,uint32_t>& qua
             if(ship.is_alive() && own_index!=nearby_ships[i] && !ship.is_landing() && (nearby_ships[i]!=0 || !Game::player_is_landed())){
                 Collision_Rect<double> box_ship=ship.get_box();
 
-                if(faction_is_valid(ship.get_faction()) && Collision::check_rect(box_targeting,box_ship)){
+                if(faction_is_valid(ship.get_faction(),weapon_check) && Collision::check_rect(box_targeting,box_ship)){
                     valid_targets.push_back(nearby_ships[i]);
                 }
             }
@@ -670,7 +691,7 @@ bool Ship::fire_weapon(const Quadtree<double,uint32_t>& quadtree_ships,RNG& rng,
         box_targeting.w+=upgrade->range*2.0;
         box_targeting.h+=upgrade->range*2.0;
 
-        int32_t nearest_index=get_nearest_valid_target_ship(quadtree_ships,own_index,box_targeting);
+        int32_t nearest_index=get_nearest_valid_target_ship(quadtree_ships,own_index,box_targeting,true);
 
         //If a nearest valid target was found
         if(nearest_index>=0){
@@ -735,7 +756,7 @@ void Ship::ai_check_for_proximity_target(const Quadtree<double,uint32_t>& quadtr
     box_targeting.w+=Game_Constants::AI_RANGE*2.0;
     box_targeting.h+=Game_Constants::AI_RANGE*2.0;
 
-    int32_t nearest_index=get_nearest_valid_target_ship(quadtree_ships,own_index,box_targeting);
+    int32_t nearest_index=get_nearest_valid_target_ship(quadtree_ships,own_index,box_targeting,false);
 
     //If a nearest valid target was found
     if(nearest_index>=0){
@@ -785,11 +806,23 @@ void Ship::ai(const Quadtree<double,uint32_t>& quadtree_ships,const Quadtree<dou
             ai_check_for_proximity_target(quadtree_ships,own_index);
         }
 
+        thrusting=false;
+        set_braking(false);
+
         if(ai_has_proximity_target){
             angle=Math::get_angle_to_point(box.get_center(),Game::get_ship(ai_proximity_target).box.get_center());
 
             if(ai_proximity_target_flee){
                 angle+=180.0;
+            }
+
+            if(get_faction()=="police" && ai_proximity_target==0 && Game::notoriety_tier_1() && get_distance_to_player()<=Game_Constants::TRACTOR_RANGE){
+                Game::tractor_player(angle+180.0,own_index);
+
+                set_braking(true);
+            }
+            else{
+                thrusting=true;
             }
         }
         else{
@@ -827,9 +860,8 @@ void Ship::ai(const Quadtree<double,uint32_t>& quadtree_ships,const Quadtree<dou
             }
 
             angle=Math::get_angle_to_point(box.get_center(),ai_target);
+            thrusting=true;
         }
-
-        thrusting=true;
     }
 }
 
@@ -837,6 +869,10 @@ void Ship::accelerate(bool is_player,uint32_t frame){
     if(is_alive() && !is_landing() && (!is_player || !Game::player_is_landed())){
         thrust(frame);
         brake(frame);
+
+        if(is_player && Game::is_player_tractored()){
+            apply_tractor(Game::get_tractor_angle());
+        }
 
         Vector acceleration=force/get_ship_type()->mass;
 
@@ -971,6 +1007,14 @@ void Ship::movement(uint32_t own_index,const Quadtree<double,uint32_t>& quadtree
                     }
                 }
             }
+
+            if(Game::is_player_tractored()){
+                const Ship& ship=Game::get_ship(Game::get_tractoring_ship_index());
+
+                if(Collision::check_rect_rotated(box_collision,ship.get_collision_box(),angle,ship.get_angle())){
+                    Game::arrest_player();
+                }
+            }
         }
 
         if(box.x<0.0){
@@ -999,7 +1043,7 @@ void Ship::animate(){
     }
 }
 
-void Ship::render(){
+void Ship::render(bool tractoring){
     if(is_alive()){
         if(Collision::check_rect(box*Game_Manager::camera_zoom,Game_Manager::camera)){
             double scale=1.0;
@@ -1025,6 +1069,23 @@ void Ship::render(){
                                     vertices[end_vertex].x*Game_Manager::camera_zoom-Game_Manager::camera.x,vertices[end_vertex].y*Game_Manager::camera_zoom-Game_Manager::camera.y,1.0,"red");
             }*/
             ///
+        }
+
+        if(tractoring){
+            const Sprite& tractor_sprite=Game::get_tractor_sprite();
+
+            double x=box.center_x()-tractor_sprite.get_width()/2.0;
+            double y=box.center_y()-tractor_sprite.get_height()/2.0;
+
+            Coords<double> box_side(box.x+box.w,box.center_y());
+            box_side=Math::rotate_point(box_side,box.get_center(),angle);
+
+            Vector move_sprite(Math::distance_between_points(box.center_x(),box.center_y(),box_side.x,box_side.y),angle);
+            Vector_Components vc=move_sprite.get_components();
+            x+=vc.a;
+            y+=vc.b;
+
+            tractor_sprite.render(x*Game_Manager::camera_zoom-Game_Manager::camera.x,y*Game_Manager::camera_zoom-Game_Manager::camera.y,1.0,1.0,1.0,angle);
         }
     }
 }

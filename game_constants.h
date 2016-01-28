@@ -16,6 +16,7 @@ public:
     static std::uint32_t COLLISION_CHANCE_DEBRIS;
 
     static std::uint64_t SCORE_MULTIPLIER_INCREASE;
+    static std::uint64_t SCORE_MULTIPLIER_DECREASE;
     static std::uint64_t POINT_VALUE_CONTRACT;
 
     static std::uint32_t UPGRADE_LIST_SIZE;
@@ -47,6 +48,9 @@ public:
     static double AI_RANGE;
     static double AI_PATROL_DISTANCE;
     static double MISSILE_HOMING_RANGE;
+
+    static double TRACTOR_RANGE;
+    static double TRACTOR_FORCE;
 
     static std::uint32_t MISSILE_HOMING_DELAY;
 

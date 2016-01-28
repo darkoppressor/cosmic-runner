@@ -1,10 +1,5 @@
-Note:
-Should tell what is being smuggled and to where
-Probably show this under the contract arrow
-So each planet will need a name
-Each game has a pcg world, so the planets are different each time
-Maybe the planets could be the same (name, look) but be in different places each time
-Also, will need a list of things to smuggle
+Note: Should homing shots ignore the player when he is being tractored?
+Note: Should the player ignore collisions when being tractored?
 
 Lift off animation complementing landing?
 
@@ -24,8 +19,6 @@ Note that one passive, point defense, needs its own cooldown
 Add all actives
 
 Make sure ship disabled status is fully implemented
-
-Add police tractoring
 
 Design ships
 
@@ -53,6 +46,7 @@ missile explosion
 ship explosion
 1 per item collected
 disabled (played continuously)?
+tractoring (played continuously)?
 game over
 
 Images:

@@ -16,6 +16,7 @@ uint32_t Game_Constants::BASE_BACKGROUND_STARS=0;
 uint32_t Game_Constants::COLLISION_CHANCE_DEBRIS=0;
 
 uint64_t Game_Constants::SCORE_MULTIPLIER_INCREASE=0;
+uint64_t Game_Constants::SCORE_MULTIPLIER_DECREASE=0;
 uint64_t Game_Constants::POINT_VALUE_CONTRACT=0;
 
 uint32_t Game_Constants::UPGRADE_LIST_SIZE=0;
@@ -48,6 +49,9 @@ double Game_Constants::AI_RANGE=0.0;
 double Game_Constants::AI_PATROL_DISTANCE=0.0;
 double Game_Constants::MISSILE_HOMING_RANGE=0.0;
 
+double Game_Constants::TRACTOR_RANGE=0.0;
+double Game_Constants::TRACTOR_FORCE=0.0;
+
 uint32_t Game_Constants::MISSILE_HOMING_DELAY=0;
 
 uint32_t Game_Constants::AI_PROXIMITY_CHECK_PERIOD=0;
@@ -78,6 +82,9 @@ void Game_Constants_Loader::set_game_constant(string name,string value){
 
     else if(name=="score_multiplier_increase"){
         Game_Constants::SCORE_MULTIPLIER_INCREASE=Strings::string_to_unsigned_long(value);
+    }
+    else if(name=="score_multiplier_decrease"){
+        Game_Constants::SCORE_MULTIPLIER_DECREASE=Strings::string_to_unsigned_long(value);
     }
     else if(name=="point_value_contract"){
         Game_Constants::POINT_VALUE_CONTRACT=Strings::string_to_unsigned_long(value);
@@ -153,6 +160,13 @@ void Game_Constants_Loader::set_game_constant(string name,string value){
     }
     else if(name=="missile_homing_range"){
         Game_Constants::MISSILE_HOMING_RANGE=Strings::string_to_double(value);
+    }
+
+    else if(name=="tractor_range"){
+        Game_Constants::TRACTOR_RANGE=Strings::string_to_double(value);
+    }
+    else if(name=="tractor_force"){
+        Game_Constants::TRACTOR_FORCE=Strings::string_to_double(value);
     }
 
     else if(name=="missile_homing_delay"){

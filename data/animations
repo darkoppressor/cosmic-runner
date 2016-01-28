@@ -39,6 +39,14 @@
 </animation>
 
 <animation>
+	name:tractor_beam
+	frame_count:3
+	animation_speed:70
+	frame_width:44
+	end_behavior:continue
+</animation>
+
+<animation>
 	name:shot_plasma_blast
 	frame_count:4
 	animation_speed:50

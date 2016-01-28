@@ -42,6 +42,7 @@ Picking up an item, each item has a point value
 Completing a contract, this is a set number, and points are added before increasing the score multiplier
 
 Player has a score multiplier
+The score multiplier cannot drop below 1
 Score multiplier increases when a contract is completed
 Score multiplier decreases when a contract is lost via the player being caught by police
 
@@ -220,9 +221,22 @@ Police ships:
 
 
 Polish ideas:
+Sound and graphical effect for police ship tractoring player or chasing player with intent to tractor
 Clouds floating over planets
 Ship shadows on planet below ship
 Smoke effects for ship engines and missiles/guided missiles
 Variations for graphics
 Variations for sounds?
 Animated sprites for weapons on ships
+
+Should tell what is being smuggled and to where
+Probably show this under the contract arrow
+So each planet will need a name
+Each game has a pcg world, so the planets are different each time
+Maybe the planets could be the same (name, look) but be in different places each time
+Also, will need a list of things to smuggle
+
+Demo mode for main menu
+A world would be generated on game startup, but the game would run in a "demo" mode
+When starting a game, use the menu world
+When the game is ended for any reason, generate a new world before loading up the main menu again

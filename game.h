@@ -49,6 +49,11 @@ private:
 
     static std::uint32_t notoriety;
 
+    static bool player_tractored;
+    static std::uint32_t tractoring_ship;
+    static double tractor_angle;
+    static Sprite tractor_sprite;
+
     static std::vector<std::string> upgrade_list;
 
     static Quadtree<double,std::uint32_t> quadtree_debris;
@@ -93,6 +98,7 @@ public:
 
     static void increase_score(std::uint64_t amount);
     static void increase_score_multiplier(std::uint64_t amount);
+    static void decrease_score_multiplier(std::uint64_t amount);
 
     //Returns the index of the planet nearest to the ship with the passed index
     static std::uint32_t get_nearest_planet(std::uint32_t ship_index);
@@ -105,6 +111,7 @@ public:
     static std::uint32_t get_contract_planet_index();
     static void complete_contract();
     static void cancel_contract();
+    static void arrest_player();
 
     static void build_upgrade_list();
 
@@ -122,6 +129,14 @@ public:
     static bool notoriety_tier_1();
     static bool notoriety_tier_2();
     static void increase_notoriety();
+    static void reset_notoriety();
+
+    static bool is_player_tractored();
+    static std::uint32_t get_tractoring_ship_index();
+    static double get_tractor_angle();
+    static const Sprite& get_tractor_sprite();
+    static void clear_tractor();
+    static void tractor_player(double angle,std::uint32_t ship_index);
 
     static void create_effect(std::string sprite,double scale,const Coords<double>& position,std::string sound,const Vector& velocity,double angle,
                               const Vector& angular_velocity,std::uint32_t seconds);

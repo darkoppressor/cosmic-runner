@@ -44,6 +44,11 @@ uint32_t Game::power=0;
 
 uint32_t Game::notoriety=0;
 
+bool Game::player_tractored=false;
+uint32_t Game::tractoring_ship=0;
+double Game::tractor_angle=0.0;
+Sprite Game::tractor_sprite;
+
 vector<string> Game::upgrade_list;
 
 Quadtree<double,uint32_t> Game::quadtree_debris;
@@ -92,6 +97,9 @@ void Game::clear_world(){
     power=Game_Constants::MAX_POWER*Engine::UPDATE_RATE;
 
     notoriety=0;
+
+    clear_tractor();
+    tractor_sprite.set_name("tractor_beam");
 
     upgrade_list.clear();
 
@@ -332,6 +340,19 @@ void Game::increase_score_multiplier(uint64_t amount){
     }
 }
 
+void Game::decrease_score_multiplier(uint64_t amount){
+    if(amount<=score_multiplier){
+        score_multiplier-=amount;
+    }
+    else{
+        score_multiplier=0;
+    }
+
+    if(score_multiplier==0){
+        score_multiplier++;
+    }
+}
+
 uint32_t Game::get_nearest_planet(uint32_t ship_index){
     const Ship& ship=get_ship(ship_index);
 
@@ -410,6 +431,18 @@ void Game::cancel_contract(){
     contract=-1;
 
     Engine::make_toast("Contract abandoned");
+}
+
+void Game::arrest_player(){
+    contract=-1;
+
+    reset_notoriety();
+
+    decrease_score_multiplier(Game_Constants::SCORE_MULTIPLIER_DECREASE);
+
+    Engine::make_toast("Arrested");
+
+    Sound_Manager::play_sound("arrested");
 }
 
 void Game::build_upgrade_list(){
@@ -515,6 +548,38 @@ void Game::increase_notoriety(){
     if(notoriety>Game_Constants::NOTORIETY_MAX*Engine::UPDATE_RATE){
         notoriety=Game_Constants::NOTORIETY_MAX*Engine::UPDATE_RATE;
     }
+}
+
+void Game::reset_notoriety(){
+    notoriety=0;
+}
+
+bool Game::is_player_tractored(){
+    return player_tractored;
+}
+
+uint32_t Game::get_tractoring_ship_index(){
+    return tractoring_ship;
+}
+
+double Game::get_tractor_angle(){
+    return tractor_angle;
+}
+
+const Sprite& Game::get_tractor_sprite(){
+    return tractor_sprite;
+}
+
+void Game::clear_tractor(){
+    player_tractored=false;
+    tractoring_ship=0;
+    tractor_angle=0.0;
+}
+
+void Game::tractor_player(double angle,uint32_t ship_index){
+    player_tractored=true;
+    tractoring_ship=ship_index;
+    tractor_angle=angle;
 }
 
 void Game::create_effect(string sprite,double scale,const Coords<double>& position,string sound,const Vector& velocity,double angle,
@@ -718,6 +783,8 @@ void Game::tick(){
         notoriety--;
     }
 
+    clear_tractor();
+
     quadtree_debris.clear_tree();
     for(size_t i=0;i<debris.size();i++){
         quadtree_debris.insert_object(debris[i].get_collision_box(),(uint32_t)i);
@@ -815,15 +882,26 @@ void Game::events(){
 
     for(size_t i=1;i<ships.size();){
         if(!ships[i].is_alive() || ships[i].get_distance_to_player()>=Game_Constants::DESPAWN_DISTANCE){
+            uint32_t dying_ship_index=(uint32_t)i;
+
             for(size_t shots_index=0;shots_index<shots.size();shots_index++){
                 if(shots[shots_index].is_alive()){
-                    shots[shots_index].notify_of_ship_death((uint32_t)i);
+                    shots[shots_index].notify_of_ship_death(dying_ship_index);
                 }
             }
 
             for(size_t ships_index=1;ships_index<ships.size();ships_index++){
                 if(ships[ships_index].is_alive()){
-                    ships[ships_index].notify_of_ship_death((uint32_t)i);
+                    ships[ships_index].notify_of_ship_death(dying_ship_index);
+                }
+            }
+
+            if(is_player_tractored()){
+                if(dying_ship_index==tractoring_ship){
+                    clear_tractor();
+                }
+                else if(dying_ship_index<tractoring_ship){
+                    tractoring_ship--;
                 }
             }
 
@@ -912,6 +990,10 @@ void Game::animate(){
     else{
         no_contract_sprite.animate();
     }
+
+    if(is_player_tractored()){
+        tractor_sprite.animate();
+    }
 }
 
 void Game::render(){
@@ -928,7 +1010,7 @@ void Game::render(){
     }
 
     for(size_t i=0;i<ships.size();i++){
-        ships[i].render();
+        ships[i].render(is_player_tractored() && (uint32_t)i==tractoring_ship);
         ships[i].render_laser(i==0);
     }
 

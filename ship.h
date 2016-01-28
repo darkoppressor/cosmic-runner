@@ -73,6 +73,7 @@ public:
 
     Collision_Rect<double> get_box() const;
     Vector get_velocity() const;
+    double get_angle() const;
     std::int32_t get_hull() const;
     std::int32_t get_shields() const;
 
@@ -99,6 +100,8 @@ public:
 
     bool can_use_item(Item_Type* item_type) const;
     void use_item(Item_Type* item_type);
+
+    void apply_tractor(double force_angle);
 
     double get_thrust_accel() const;
     double get_thrust_decel() const;
@@ -135,9 +138,9 @@ public:
     void regenerate_shields(bool is_player);
     void cooldown(const Quadtree<double,std::uint32_t>& quadtree_ships,RNG& rng,std::uint32_t own_index);
 
-    bool faction_is_valid(std::string faction) const;
+    bool faction_is_valid(std::string faction,bool weapon_check) const;
 
-    std::int32_t get_nearest_valid_target_ship(const Quadtree<double,std::uint32_t>& quadtree_ships,std::uint32_t own_index,const Collision_Rect<double>& box_targeting);
+    std::int32_t get_nearest_valid_target_ship(const Quadtree<double,std::uint32_t>& quadtree_ships,std::uint32_t own_index,const Collision_Rect<double>& box_targeting,bool weapon_check);
 
     //Returns true if the weapon found a target and fired upon it
     bool fire_weapon(const Quadtree<double,std::uint32_t>& quadtree_ships,RNG& rng,std::uint32_t own_index);
@@ -152,7 +155,7 @@ public:
                   const Quadtree<double,std::uint32_t>& quadtree_explosions,const Quadtree<double,std::uint32_t>& quadtree_items,RNG& rng);
 
     void animate();
-    void render();
+    void render(bool tractoring);
 };
 
 #endif
