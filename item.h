@@ -43,8 +43,13 @@ public:
 
     void die();
 
+    double get_distance_to_player() const;
+
     void play_collection_sound() const;
 
+    //Returns true if the item was vacuumed towards the player
+    //Returns false if the player was not in vacuuming range
+    bool vacuum();
     void brake();
     void accelerate();
     void rotation();

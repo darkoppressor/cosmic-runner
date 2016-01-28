@@ -8,8 +8,6 @@ Note: change map screen to a minimap? It would be like now and show the star and
 Ships that take damage from debris are damaged by the faction of the ship they are chasing, if any
 If a ship dies and explodes, its explosion is given the faction of its killer if possible
 
-The player's ship should suck up nearby items
-
 Add star
 
 Add distinction between planetary and deep space

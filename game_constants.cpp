@@ -32,6 +32,10 @@ uint32_t Game_Constants::ITEM_RESTORE_POWER=0;
 
 double Game_Constants::ITEM_START_VELOCITY_MIN=0.0;
 double Game_Constants::ITEM_START_VELOCITY_MAX=0.0;
+double Game_Constants::ITEM_MAX_SPEED=0.0;
+
+double Game_Constants::ITEM_VACUUM_RANGE=0.0;
+double Game_Constants::ITEM_VACUUM_FORCE=0.0;
 
 uint32_t Game_Constants::NOTORIETY_MAX=0;
 uint32_t Game_Constants::NOTORIETY_TIER_2=0;
@@ -121,6 +125,16 @@ void Game_Constants_Loader::set_game_constant(string name,string value){
     }
     else if(name=="item_start_velocity_max"){
         Game_Constants::ITEM_START_VELOCITY_MAX=Strings::string_to_double(value);
+    }
+    else if(name=="item_max_speed"){
+        Game_Constants::ITEM_MAX_SPEED=Strings::string_to_double(value);
+    }
+
+    else if(name=="item_vacuum_range"){
+        Game_Constants::ITEM_VACUUM_RANGE=Strings::string_to_double(value);
+    }
+    else if(name=="item_vacuum_force"){
+        Game_Constants::ITEM_VACUUM_FORCE=Strings::string_to_double(value);
     }
 
     else if(name=="notoriety_max"){

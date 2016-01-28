@@ -200,9 +200,6 @@ void Shot::accelerate(const Quadtree<double,uint32_t>& quadtree_ships){
         if(velocity.magnitude>get_firing_upgrade()->max_speed){
             velocity.magnitude=get_firing_upgrade()->max_speed;
         }
-        else if(velocity.magnitude<-get_firing_upgrade()->max_speed){
-            velocity.magnitude=-get_firing_upgrade()->max_speed;
-        }
 
         force*=0.0;
     }

@@ -5,6 +5,7 @@
 #include "item.h"
 #include "game_data.h"
 #include "game.h"
+#include "game_constants.h"
 
 #include <game_manager.h>
 #include <sound_manager.h>
@@ -52,11 +53,27 @@ void Item::die(){
     }
 }
 
+double Item::get_distance_to_player() const{
+    const Ship& player=Game::get_player_const();
+
+    return Math::distance_between_points(box.center_x(),box.center_y(),player.get_box().center_x(),player.get_box().center_y());
+}
+
 void Item::play_collection_sound() const{
     string sound=get_item_type()->collect_sound;
 
     if(sound.length()>0){
         Sound_Manager::play_sound(sound,box.center_x(),box.center_y());
+    }
+}
+
+bool Item::vacuum(){
+    const Ship& player=Game::get_player_const();
+
+    if(player.can_use_item(get_item_type()) && get_distance_to_player()<=Game_Constants::ITEM_VACUUM_RANGE){
+        Vector vacuum_force(Game_Constants::ITEM_VACUUM_FORCE,Math::get_angle_to_point(box.get_center(),player.get_box().get_center()));
+
+        force+=vacuum_force;
     }
 }
 
@@ -80,11 +97,17 @@ void Item::brake(){
 
 void Item::accelerate(){
     if(is_alive()){
-        brake();
+        if(!vacuum()){
+            brake();
+        }
 
         Vector acceleration=force/get_item_type()->mass;
 
         velocity+=acceleration;
+
+        if(velocity.magnitude>Game_Constants::ITEM_MAX_SPEED){
+            velocity.magnitude=Game_Constants::ITEM_MAX_SPEED;
+        }
 
         force*=0.0;
     }

@@ -97,6 +97,24 @@
 </game_constant>
 
 <game_constant>
+	//m/s
+	name:item_max_speed
+	value:500.0
+</game_constant>
+
+<game_constant>
+	//meters (pixels)
+	name:item_vacuum_range
+	value:320.0
+</game_constant>
+
+<game_constant>
+	//N
+	name:item_vacuum_force
+	value:512.0
+</game_constant>
+
+<game_constant>
 	//seconds
 	name:notoriety_max
 	value:600
@@ -189,7 +207,7 @@
 <game_constant>
 	//milliseconds
 	name:missile_homing_delay
-	value:1000
+	value:900
 </game_constant>
 
 <game_constant>

@@ -32,6 +32,10 @@ public:
 
     static double ITEM_START_VELOCITY_MIN;
     static double ITEM_START_VELOCITY_MAX;
+    static double ITEM_MAX_SPEED;
+
+    static double ITEM_VACUUM_RANGE;
+    static double ITEM_VACUUM_FORCE;
 
     static std::uint32_t NOTORIETY_MAX;
     static std::uint32_t NOTORIETY_TIER_2;

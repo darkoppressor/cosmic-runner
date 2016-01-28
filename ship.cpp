@@ -899,9 +899,6 @@ void Ship::accelerate(bool is_player,uint32_t frame){
         if(velocity.magnitude>get_max_speed()){
             velocity.magnitude=get_max_speed();
         }
-        else if(velocity.magnitude<-get_max_speed()){
-            velocity.magnitude=-get_max_speed();
-        }
 
         force*=0.0;
     }

@@ -77,6 +77,7 @@ If an item restores a stat, and the player has that stat at max, the item is not
 Items can be generated in the world, or dropped by a destroyed ship
 Items start out moving when dropped by a ship
 Items' velocity and angular velocity quickly reduce to 0
+Items near the player's ship are sucked towards it
 
 There are three types of damage:
 Solid: x2 to Shields, /2 to Hull
