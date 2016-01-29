@@ -2,7 +2,7 @@
 	name:restore_hull
 	sprite:item_restore_hull
 	collect_sound:item_restore_hull
-	mass:10
+	mass:10.0
 	thrust_decel:32.0
 	point_value:5
 </item>
@@ -11,7 +11,7 @@
 	name:restore_power
 	sprite:item_restore_power
 	collect_sound:item_restore_power
-	mass:10
+	mass:10.0
 	thrust_decel:32.0
 	point_value:10
 </item>

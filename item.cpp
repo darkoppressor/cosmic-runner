@@ -39,6 +39,10 @@ Item_Type* Item::get_item_type() const{
     return Game_Data::get_item_type(type);
 }
 
+double Item::get_mass() const{
+    return get_item_type()->mass;
+}
+
 Collision_Rect<double> Item::get_box() const{
     return box;
 }
@@ -88,11 +92,23 @@ void Item::brake(){
 
     Math::clamp_angle(brake_force.direction);
 
-    if(brake_force.magnitude/get_item_type()->mass>velocity.magnitude){
-        brake_force.magnitude=velocity.magnitude*get_item_type()->mass;
+    if(brake_force.magnitude/get_mass()>velocity.magnitude){
+        brake_force.magnitude=velocity.magnitude*get_mass();
     }
 
     force+=brake_force;
+}
+
+void Item::gravitate(){
+    const Star& star=Game::get_star();
+
+    double distance_between=Math::distance_between_points(box.center_x(),box.center_y(),star.get_circle().x,star.get_circle().y);
+
+    double gravitational_magnitude=(Game_Constants::GRAVITATIONAL_CONSTANT*get_mass()*star.get_mass())/(distance_between*distance_between);
+
+    Vector gravitational_force(gravitational_magnitude,Math::get_angle_to_point(box.get_center(),star.get_circle().get_center()));
+
+    force+=gravitational_force;
 }
 
 void Item::accelerate(){
@@ -101,7 +117,9 @@ void Item::accelerate(){
             brake();
         }
 
-        Vector acceleration=force/get_item_type()->mass;
+        ///QQQgravitate();
+
+        Vector acceleration=force/get_mass();
 
         velocity+=acceleration;
 

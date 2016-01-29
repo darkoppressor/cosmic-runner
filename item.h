@@ -37,6 +37,8 @@ public:
 
     Item_Type* get_item_type() const;
 
+    double get_mass() const;
+
     Collision_Rect<double> get_box() const;
 
     bool is_alive() const;
@@ -51,6 +53,7 @@ public:
     //Returns false if the player was not in vacuuming range
     bool vacuum();
     void brake();
+    void gravitate();
     void accelerate();
     void rotation();
     void movement();

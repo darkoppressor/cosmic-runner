@@ -474,6 +474,10 @@ int32_t Ship::get_shields_max() const{
     return value;
 }
 
+double Ship::get_mass() const{
+    return get_ship_type()->mass;
+}
+
 string Ship::get_faction() const{
     return get_ship_type()->faction;
 }
@@ -701,42 +705,6 @@ double Ship::get_distance_between_angles(double angle_a,double angle_b) const{
     }
 
     return (double)difference;
-}
-
-void Ship::thrust(uint32_t frame){
-    if(thrusting){
-        double thrust_magnitude=get_thrust_accel();
-
-        if(get_distance_between_angles(velocity.direction,angle)>=Game_Constants::SHIP_MANEUVER_ANGLE){
-            thrust_magnitude=get_thrust_decel();
-        }
-
-        Vector thrust_force(thrust_magnitude,angle);
-
-        force+=thrust_force;
-
-        if(frame%15==0){
-            Sound_Manager::play_sound("thrust",box.center_x(),box.center_y());
-        }
-    }
-}
-
-void Ship::brake(uint32_t frame){
-    if(braking){
-        Vector brake_force(get_thrust_decel(),velocity.direction+180.0);
-
-        Math::clamp_angle(brake_force.direction);
-
-        if(brake_force.magnitude/get_ship_type()->mass>velocity.magnitude){
-            brake_force.magnitude=velocity.magnitude*get_ship_type()->mass;
-        }
-
-        force+=brake_force;
-
-        if(frame%30==0){
-            Sound_Manager::play_sound("brake",box.center_x(),box.center_y());
-        }
-    }
 }
 
 void Ship::stop(){
@@ -1179,16 +1147,65 @@ void Ship::ai(const Quadtree<double,uint32_t>& quadtree_ships,const Quadtree<dou
     }
 }
 
+void Ship::thrust(uint32_t frame){
+    if(thrusting){
+        double thrust_magnitude=get_thrust_accel();
+
+        if(get_distance_between_angles(velocity.direction,angle)>=Game_Constants::SHIP_MANEUVER_ANGLE){
+            thrust_magnitude=get_thrust_decel();
+        }
+
+        Vector thrust_force(thrust_magnitude,angle);
+
+        force+=thrust_force;
+
+        if(frame%15==0){
+            Sound_Manager::play_sound("thrust",box.center_x(),box.center_y());
+        }
+    }
+}
+
+void Ship::brake(uint32_t frame){
+    if(braking){
+        Vector brake_force(get_thrust_decel(),velocity.direction+180.0);
+
+        Math::clamp_angle(brake_force.direction);
+
+        if(brake_force.magnitude/get_mass()>velocity.magnitude){
+            brake_force.magnitude=velocity.magnitude*get_mass();
+        }
+
+        force+=brake_force;
+
+        if(frame%30==0){
+            Sound_Manager::play_sound("brake",box.center_x(),box.center_y());
+        }
+    }
+}
+
+void Ship::gravitate(){
+    const Star& star=Game::get_star();
+
+    double distance_between=Math::distance_between_points(box.center_x(),box.center_y(),star.get_circle().x,star.get_circle().y);
+
+    double gravitational_magnitude=(Game_Constants::GRAVITATIONAL_CONSTANT*get_mass()*star.get_mass())/(distance_between*distance_between);
+
+    Vector gravitational_force(gravitational_magnitude,Math::get_angle_to_point(box.get_center(),star.get_circle().get_center()));
+
+    force+=gravitational_force;
+}
+
 void Ship::accelerate(bool is_player,uint32_t frame){
     if(is_alive() && !is_landing() && (!is_player || !Game::player_is_landed())){
         thrust(frame);
         brake(frame);
+        gravitate();
 
         if(is_player && Game::is_player_tractored()){
             apply_tractor(Game::get_tractor_angle());
         }
 
-        Vector acceleration=force/get_ship_type()->mass;
+        Vector acceleration=force/get_mass();
 
         if(is_player){
             Game::set_player_acceleration(acceleration);

@@ -24,6 +24,7 @@ using namespace std;
 
 vector<Ship> Game::ships;
 vector<Debris> Game::debris;
+vector<Star> Game::stars;
 vector<Effect> Game::effects;
 vector<Planet> Game::planets;
 vector<Shot> Game::shots;
@@ -84,6 +85,7 @@ void Game::clear_world(){
 
     ships.clear();
     debris.clear();
+    stars.clear();
     effects.clear();
     planets.clear();
     shots.clear();
@@ -138,7 +140,8 @@ void Game::generate_world(){
     world_width=10000.0;
     world_height=10000.0;
 
-    ///QQQ Generate star
+    //Generate star
+    stars.push_back(Star(Coords<double>(world_width/2.0,world_height/2.0)));
 
     //Generate planets
     uint32_t planet_count=((world_width+world_height)/2.0)/2048.0;
@@ -301,6 +304,17 @@ const Item& Game::get_item(uint32_t index){
     }
     else{
         Log::add_error("Error accessing item '"+Strings::num_to_string(index)+"'");
+
+        Engine::quit();
+    }
+}
+
+const Star& Game::get_star(){
+    if(!stars.empty()){
+        return stars.front();
+    }
+    else{
+        Log::add_error("Error accessing star");
 
         Engine::quit();
     }
@@ -1014,6 +1028,10 @@ void Game::animate(){
 }
 
 void Game::render(){
+    for(size_t i=0;i<stars.size();i++){
+        stars[i].render();
+    }
+
     for(size_t i=0;i<planets.size();i++){
         planets[i].render();
     }

@@ -7,6 +7,7 @@
 
 #include "ship.h"
 #include "debris.h"
+#include "star.h"
 #include "effect.h"
 #include "planet.h"
 #include "shot.h"
@@ -27,6 +28,7 @@ private:
 
     static std::vector<Ship> ships;
     static std::vector<Debris> debris;
+    static std::vector<Star> stars;
     static std::vector<Effect> effects;
     static std::vector<Planet> planets;
     static std::vector<Shot> shots;
@@ -93,6 +95,7 @@ public:
     static const Planet& get_planet(std::uint32_t index);
     static const Explosion& get_explosion(std::uint32_t index);
     static const Item& get_item(std::uint32_t index);
+    static const Star& get_star();
     static std::uint64_t get_score();
     static std::uint64_t get_score_multiplier();
     static std::vector<std::string> get_upgrade_list();

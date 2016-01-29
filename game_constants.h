@@ -41,6 +41,10 @@ public:
     static double ITEM_VACUUM_RANGE;
     static double ITEM_VACUUM_FORCE;
 
+    static double GRAVITATIONAL_CONSTANT;
+    static double STAR_RADIUS;
+    static double STAR_MASS;
+
     static std::uint32_t NOTORIETY_MAX;
     static std::uint32_t NOTORIETY_TIER_2;
     static std::uint32_t NOTORIETY_TIER_1;

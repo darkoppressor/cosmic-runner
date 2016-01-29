@@ -4,7 +4,7 @@
 	death_sprite:effect_shot_death_bullet
 	death_sound:effect_shot_death_bullet
 	collision_percentage:0.9
-	mass:10
+	mass:10.0
 	damage_type:solid
 	homing:false
 </shot>
@@ -15,7 +15,7 @@
 	death_sprite:effect_shot_death_plasma_blast
 	death_sound:effect_shot_death_plasma_blast
 	collision_percentage:0.9
-	mass:10
+	mass:10.0
 	damage_type:energy
 	homing:false
 </shot>
@@ -26,7 +26,7 @@
 	death_sprite:
 	death_sound:
 	collision_percentage:0.9
-	mass:10
+	mass:10.0
 	damage_type:explosive
 	homing:false
 </shot>
@@ -37,7 +37,7 @@
 	death_sprite:
 	death_sound:
 	collision_percentage:0.9
-	mass:10
+	mass:10.0
 	damage_type:explosive
 	homing:true
 </shot>

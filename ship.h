@@ -120,6 +120,7 @@ public:
     double get_max_speed() const;
     std::int32_t get_hull_max() const;
     std::int32_t get_shields_max() const;
+    double get_mass() const;
     std::string get_faction() const;
 
     Collision_Rect<double> get_collision_box() const;
@@ -143,9 +144,6 @@ public:
 
     //Returns the distance between the two passed angles as a number within [0,180], casted to a double
     double get_distance_between_angles(double angle_a,double angle_b) const;
-
-    void thrust(std::uint32_t frame);
-    void brake(std::uint32_t frame);
 
     void stop();
 
@@ -172,6 +170,10 @@ public:
     void ai_check_for_proximity_target(const Quadtree<double,std::uint32_t>& quadtree_ships,std::uint32_t own_index);
     bool ai_proximity_check_allowed(std::uint32_t frame,std::uint32_t own_index) const;
     void ai(const Quadtree<double,std::uint32_t>& quadtree_ships,const Quadtree<double,std::uint32_t>& quadtree_planets,std::uint32_t frame,std::uint32_t own_index,RNG& rng);
+
+    void thrust(std::uint32_t frame);
+    void brake(std::uint32_t frame);
+    void gravitate();
 
     void accelerate(bool is_player,std::uint32_t frame);
     void movement(uint32_t own_index,const Quadtree<double,std::uint32_t>& quadtree_debris,const Quadtree<double,std::uint32_t>& quadtree_shots,

@@ -50,6 +50,7 @@ public:
 
     Shot_Type* get_shot_type() const;
 
+    double get_mass() const;
     std::string get_faction() const;
 
     Collision_Rect<double> get_box() const;
@@ -79,6 +80,7 @@ public:
     void cooldown();
 
     void thrust(const Quadtree<double,std::uint32_t>& quadtree_ships);
+    void gravitate();
 
     void accelerate(const Quadtree<double,std::uint32_t>& quadtree_ships);
     void movement(const Quadtree<double,std::uint32_t>& quadtree_debris);
