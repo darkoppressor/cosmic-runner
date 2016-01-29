@@ -34,6 +34,8 @@ double Game_Constants::ITEM_START_VELOCITY_MIN=0.0;
 double Game_Constants::ITEM_START_VELOCITY_MAX=0.0;
 double Game_Constants::ITEM_MAX_SPEED=0.0;
 
+double Game_Constants::SHIP_MANEUVER_ANGLE=0.0;
+
 double Game_Constants::ITEM_VACUUM_RANGE=0.0;
 double Game_Constants::ITEM_VACUUM_FORCE=0.0;
 
@@ -128,6 +130,10 @@ void Game_Constants_Loader::set_game_constant(string name,string value){
     }
     else if(name=="item_max_speed"){
         Game_Constants::ITEM_MAX_SPEED=Strings::string_to_double(value);
+    }
+
+    else if(name=="ship_maneuver_angle"){
+        Game_Constants::SHIP_MANEUVER_ANGLE=Strings::string_to_double(value);
     }
 
     else if(name=="item_vacuum_range"){

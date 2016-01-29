@@ -34,6 +34,8 @@ public:
     static double ITEM_START_VELOCITY_MAX;
     static double ITEM_MAX_SPEED;
 
+    static double SHIP_MANEUVER_ANGLE;
+
     static double ITEM_VACUUM_RANGE;
     static double ITEM_VACUUM_FORCE;
 

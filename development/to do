@@ -7,6 +7,12 @@ Note: change map screen to a minimap? It would be like now and show the star and
 
 Add star
 
+Note: Balance idea:
+I could decide on a base amount for each stat
+Then assign a stat point value to each stat (might just be 1 for all stats)
+Then, give each ship a stat point pool
+Then spend the stat points for each ship, to design it
+
 Add distinction between planetary and deep space
 Add planetary space background
 
@@ -24,6 +30,7 @@ Design ships
 
 Add all ships
 
+Improve world generation
 Improve item generation weighting?
 Improve ship generation
 

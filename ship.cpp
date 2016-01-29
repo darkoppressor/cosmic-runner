@@ -499,9 +499,27 @@ void Ship::set_braking(bool new_braking){
     braking=new_braking;
 }
 
+double Ship::get_distance_between_angles(double angle_a,double angle_b) const{
+    int32_t a=(int32_t)angle_a;
+    int32_t b=(int32_t)angle_b;
+
+    int32_t difference=Math::abs(a,b)%360;
+    if(difference>180){
+        difference=360-difference;
+    }
+
+    return (double)difference;
+}
+
 void Ship::thrust(uint32_t frame){
     if(thrusting){
-        Vector thrust_force(get_thrust_accel(),angle);
+        double thrust_magnitude=get_thrust_accel();
+
+        if(get_distance_between_angles(velocity.direction,angle)>=Game_Constants::SHIP_MANEUVER_ANGLE){
+            thrust_magnitude=get_thrust_decel();
+        }
+
+        Vector thrust_force(thrust_magnitude,angle);
 
         force+=thrust_force;
 
@@ -892,6 +910,10 @@ void Ship::accelerate(bool is_player,uint32_t frame){
         }
 
         Vector acceleration=force/get_ship_type()->mass;
+
+        if(is_player){
+            Game::set_player_acceleration(acceleration);
+        }
 
         velocity+=acceleration;
 

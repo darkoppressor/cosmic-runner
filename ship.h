@@ -129,6 +129,9 @@ public:
     void set_thrust_angle(std::string direction);
     void set_braking(bool new_braking);
 
+    //Returns the distance between the two passed angles as a number within [0,180], casted to a double
+    double get_distance_between_angles(double angle_a,double angle_b) const;
+
     void thrust(std::uint32_t frame);
     void brake(std::uint32_t frame);
 

@@ -7,7 +7,7 @@
 	active:
 	mass:300
 	thrust_accel:2500.0
-	thrust_decel:3000.0
+	thrust_decel:5000.0
 	max_speed:200.0
 	hull_max:100
 	shields_max:0
@@ -25,7 +25,7 @@
 	active:
 	mass:300
 	thrust_accel:1000.0
-	thrust_decel:1500.0
+	thrust_decel:2000.0
 	max_speed:100.0
 	hull_max:25
 	shields_max:0
@@ -43,7 +43,7 @@
 	active:
 	mass:300
 	thrust_accel:2000.0
-	thrust_decel:2500.0
+	thrust_decel:4000.0
 	max_speed:150.0
 	hull_max:75
 	shields_max:0
@@ -61,7 +61,7 @@
 	active:
 	mass:300
 	thrust_accel:2250.0
-	thrust_decel:2750.0
+	thrust_decel:4500.0
 	max_speed:175.0
 	hull_max:100
 	shields_max:0
@@ -79,7 +79,7 @@
 	active:
 	mass:300
 	thrust_accel:1500.0
-	thrust_decel:2000.0
+	thrust_decel:3000.0
 	max_speed:125.0
 	hull_max:50
 	shields_max:0

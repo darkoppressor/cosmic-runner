@@ -49,6 +49,8 @@ uint32_t Game::tractoring_ship=0;
 double Game::tractor_angle=0.0;
 Sprite Game::tractor_sprite;
 
+Vector Game::player_acceleration;
+
 vector<string> Game::upgrade_list;
 
 Quadtree<double,uint32_t> Game::quadtree_debris;
@@ -100,6 +102,8 @@ void Game::clear_world(){
 
     clear_tractor();
     tractor_sprite.set_name("tractor_beam");
+
+    player_acceleration*=0.0;
 
     upgrade_list.clear();
 
@@ -183,6 +187,8 @@ void Game::generate_world(){
     ///QQQ Try to get number of planets desired, but don't allow any too near the star, and don't allow any to touch each other
     ///QQQ If debris is too near the star or touching other debris, skip it
     ///QQQ If item is too near the star or touching a planet, or touching another item, skip it
+    ///QQQ If player is touching any debris, erase that debris
+    ///QQQ If player is within vacuum range of any item, erase that item
 
     //Generate the player's ship
     string ship_type="player";
@@ -584,6 +590,14 @@ void Game::tractor_player(double angle,uint32_t ship_index){
     player_tractored=true;
     tractoring_ship=ship_index;
     tractor_angle=angle;
+}
+
+Vector Game::get_player_acceleration(){
+    return player_acceleration;
+}
+
+void Game::set_player_acceleration(const Vector& acceleration){
+    player_acceleration=acceleration;
 }
 
 void Game::create_effect(string sprite,double scale,const Coords<double>& position,string sound,const Vector& velocity,double angle,

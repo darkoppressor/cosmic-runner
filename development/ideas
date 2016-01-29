@@ -11,7 +11,8 @@ The player's ship can thrust in 8 directions
 Ships do not decelerate naturally
 Ships have a brake that decelerates them to a stop
 Ships have an acceleration thrust
-Ships have a separate deceleration thrust, used for braking
+Ships have a separate deceleration thrust, used for braking and "maneuvering"
+Maneuvering occurs when a ship is thrusting at an angle very different from its current velocity direction
 Ships have a velocity
 Ships have a maximum velocity
 
@@ -202,17 +203,20 @@ and the ship automatically thrusts continually in the direction it was facing wh
 This upgrade begins cooling down when the warp drive is disabled
 This upgrade consumes power at a set rate while it is active
 
-Passive Upgrades:
+Passive Upgrade Effects:
 Max Shields: Maximum shields increased
 Shield Recharge Rate: Shield recharge rate increased
 Max Hull: Maximum hull increased
-Point Defense: A laser fires automatically on a cooldown at any nearby hostile missile or guided missile. Missiles and
-guided missiles hit by this laser instantly explode
 Acceleration/Deceleration Thrust: Increases both acceleration and deceleration thrust
 Max Velocity: Increases maximum velocity
 Slower Power Loss: Regular power loss (ignoring use by active upgrades) is slowed
 Cooldown Reduction: Cooldowns on all upgrades that have them are reduced
 Anti-gravity System: The effects of gravity are greatly reduced
+
+Passive Upgrades:
+Point Defense: A laser fires automatically on a cooldown at any nearby hostile missile or guided missile. Missiles and
+guided missiles hit by this laser instantly explode
+
 
 Ships:
 Player ship:

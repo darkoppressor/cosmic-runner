@@ -54,6 +54,9 @@ private:
     static double tractor_angle;
     static Sprite tractor_sprite;
 
+    //Simply used for information purposes
+    static Vector player_acceleration;
+
     static std::vector<std::string> upgrade_list;
 
     static Quadtree<double,std::uint32_t> quadtree_debris;
@@ -137,6 +140,9 @@ public:
     static const Sprite& get_tractor_sprite();
     static void clear_tractor();
     static void tractor_player(double angle,std::uint32_t ship_index);
+
+    static Vector get_player_acceleration();
+    static void set_player_acceleration(const Vector& acceleration);
 
     static void create_effect(std::string sprite,double scale,const Coords<double>& position,std::string sound,const Vector& velocity,double angle,
                               const Vector& angular_velocity,std::uint32_t seconds);

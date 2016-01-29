@@ -103,6 +103,15 @@
 </game_constant>
 
 <game_constant>
+	//degrees
+	//Valid range: [0.0,180.0]
+	//If the distance between a ship's velocity angle and thrust angle is >= ship_maneuver_angle,
+	//thrust_decel will be used instead of thrust_accel
+	name:ship_maneuver_angle
+	value:90.0
+</game_constant>
+
+<game_constant>
 	//meters (pixels)
 	name:item_vacuum_range
 	value:320.0
