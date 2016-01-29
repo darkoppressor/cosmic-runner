@@ -35,6 +35,11 @@
 	rgb:10,204,204
 </color>
 
+<color>
+	name:point_defense
+	rgb:242,242,12
+</color>
+
 //** Engine Colors **//
 
 <color>

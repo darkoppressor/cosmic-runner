@@ -113,6 +113,12 @@
 
 <game_constant>
 	//meters (pixels)
+	name:point_defense_range
+	value:128.0
+</game_constant>
+
+<game_constant>
+	//meters (pixels)
 	name:item_vacuum_range
 	value:320.0
 </game_constant>

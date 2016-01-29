@@ -7,6 +7,7 @@
 
 #include <string>
 #include <cstdint>
+#include <vector>
 
 class Ship_Type{
 public:
@@ -19,8 +20,7 @@ public:
 
     double collision_percentage;
 
-    std::string weapon;
-    std::string active;
+    std::vector<std::string> upgrades;
 
     //kg
     double mass;

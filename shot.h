@@ -40,11 +40,13 @@ private:
 
     std::uint32_t homing_delay;
 
+    std::int32_t damage_mod;
+
     Sprite sprite;
 
 public:
 
-    Shot(std::uint32_t new_owner_index,std::string new_type,std::string new_faction,std::string new_firing_upgrade,const Coords<double>& position,double new_angle);
+    Shot(std::uint32_t new_owner_index,std::string new_type,std::string new_faction,std::string new_firing_upgrade,const Coords<double>& position,double new_angle,std::int32_t new_damage_mod);
 
     Shot_Type* get_shot_type() const;
 
@@ -67,6 +69,8 @@ public:
     void notify_of_ship_death(std::uint32_t index);
 
     Upgrade* get_firing_upgrade() const;
+
+    std::int32_t get_damage() const;
 
     bool can_home() const;
 

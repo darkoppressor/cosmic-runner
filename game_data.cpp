@@ -9,6 +9,8 @@
 #include <engine_strings.h>
 #include <log.h>
 
+#include <boost/algorithm/string.hpp>
+
 using namespace std;
 
 vector<Ship_Type> Game_Data::ship_types;
@@ -83,11 +85,15 @@ void Game_Data::load_ship_type(File_IO_Load* load){
         else if(Data_Reader::check_prefix(line,"collision_percentage:")){
             ship_types.back().collision_percentage=Strings::string_to_double(line);
         }
-        else if(Data_Reader::check_prefix(line,"weapon:")){
-            ship_types.back().weapon=line;
-        }
-        else if(Data_Reader::check_prefix(line,"active:")){
-            ship_types.back().active=line;
+        else if(Data_Reader::check_prefix(line,"upgrades:")){
+            vector<string> upgrade_strings;
+            boost::algorithm::split(upgrade_strings,line,boost::algorithm::is_any_of(","));
+
+            for(size_t j=0;j<upgrade_strings.size();j++){
+                if(upgrade_strings[j].length()>0){
+                    ship_types.back().upgrades.push_back(upgrade_strings[j]);
+                }
+            }
         }
         else if(Data_Reader::check_prefix(line,"mass:")){
             ship_types.back().mass=Strings::string_to_double(line);
@@ -324,6 +330,42 @@ void Game_Data::load_upgrade_type(File_IO_Load* load){
         }
         else if(Data_Reader::check_prefix(line,"range:")){
             upgrades.back().range=Strings::string_to_double(line);
+        }
+        else if(Data_Reader::check_prefix(line,"max_shields:")){
+            upgrades.back().max_shields=Strings::string_to_long(line);
+        }
+        else if(Data_Reader::check_prefix(line,"shield_recharge_rate_up:")){
+            upgrades.back().shield_recharge_rate_up=Strings::string_to_unsigned_long(line);
+        }
+        else if(Data_Reader::check_prefix(line,"shield_recharge_rate_down:")){
+            upgrades.back().shield_recharge_rate_down=Strings::string_to_unsigned_long(line);
+        }
+        else if(Data_Reader::check_prefix(line,"max_hull:")){
+            upgrades.back().max_hull=Strings::string_to_long(line);
+        }
+        else if(Data_Reader::check_prefix(line,"thrust_decel:")){
+            upgrades.back().thrust_decel=Strings::string_to_double(line);
+        }
+        else if(Data_Reader::check_prefix(line,"cooldown_up:")){
+            upgrades.back().cooldown_up=Strings::string_to_unsigned_long(line);
+        }
+        else if(Data_Reader::check_prefix(line,"cooldown_down:")){
+            upgrades.back().cooldown_down=Strings::string_to_unsigned_long(line);
+        }
+        else if(Data_Reader::check_prefix(line,"solid_damage_mod:")){
+            upgrades.back().solid_damage_mod=Strings::string_to_long(line);
+        }
+        else if(Data_Reader::check_prefix(line,"explosive_damage_mod:")){
+            upgrades.back().explosive_damage_mod=Strings::string_to_long(line);
+        }
+        else if(Data_Reader::check_prefix(line,"energy_damage_mod:")){
+            upgrades.back().energy_damage_mod=Strings::string_to_long(line);
+        }
+        else if(Data_Reader::check_prefix(line,"anti_gravity:")){
+            upgrades.back().anti_gravity=Strings::string_to_bool(line);
+        }
+        else if(Data_Reader::check_prefix(line,"point_defense:")){
+            upgrades.back().point_defense=Strings::string_to_bool(line);
         }
     }
 }

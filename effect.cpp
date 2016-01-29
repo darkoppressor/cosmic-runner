@@ -7,20 +7,34 @@
 #include <game_manager.h>
 #include <sound_manager.h>
 #include <engine.h>
+#include <render.h>
 
 using namespace std;
 
 Effect::Effect(std::string new_sprite,double new_scale,const Coords<double>& position,string sound,const Vector& new_velocity,double new_angle,
-               const Vector& new_angular_velocity,uint32_t seconds){
-    sprite.set_name(new_sprite);
+               const Vector& new_angular_velocity,uint32_t seconds,bool new_line,const Coords<double>& end_point){
+    line=new_line;
+
+    if(new_sprite.length()>0){
+        sprite.set_name(new_sprite);
+    }
 
     scale=new_scale;
 
-    box.w=sprite.get_width()*scale;
-    box.h=sprite.get_height()*scale;
+    if(!line){
+        box.w=sprite.get_width()*scale;
+        box.h=sprite.get_height()*scale;
 
-    box.x=position.x-box.w/2.0;
-    box.y=position.y-box.h/2.0;
+        box.x=position.x-box.w/2.0;
+        box.y=position.y-box.h/2.0;
+    }
+    else{
+        box.x=position.x;
+        box.y=position.y;
+
+        box.w=end_point.x;
+        box.h=end_point.y;
+    }
 
     velocity=new_velocity;
 
@@ -78,15 +92,20 @@ void Effect::movement(){
 }
 
 void Effect::animate(){
-    if(!is_done()){
+    if(!is_done() && !line){
         sprite.animate();
     }
 }
 
 void Effect::render(){
     if(!is_done()){
-        if(Collision::check_rect(box*Game_Manager::camera_zoom,Game_Manager::camera)){
+        if(!line && Collision::check_rect(box*Game_Manager::camera_zoom,Game_Manager::camera)){
             sprite.render(box.x*Game_Manager::camera_zoom-Game_Manager::camera.x,box.y*Game_Manager::camera_zoom-Game_Manager::camera.y,1.0,scale,scale,angle);
+        }
+        else if(Collision::check_rect(Collision_Rect<double>(box.x,box.y,1.0,1.0)*Game_Manager::camera_zoom,Game_Manager::camera) ||
+                Collision::check_rect(Collision_Rect<double>(box.w,box.h,1.0,1.0)*Game_Manager::camera_zoom,Game_Manager::camera)){
+            Render::render_line(box.x*Game_Manager::camera_zoom-Game_Manager::camera.x,box.y*Game_Manager::camera_zoom-Game_Manager::camera.y,
+                                box.w*Game_Manager::camera_zoom-Game_Manager::camera.x,box.h*Game_Manager::camera_zoom-Game_Manager::camera.y,1.0,"point_defense");
         }
     }
 }

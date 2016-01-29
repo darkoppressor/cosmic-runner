@@ -36,6 +36,8 @@ public:
 
     static double SHIP_MANEUVER_ANGLE;
 
+    static double POINT_DEFENSE_RANGE;
+
     static double ITEM_VACUUM_RANGE;
     static double ITEM_VACUUM_FORCE;
 

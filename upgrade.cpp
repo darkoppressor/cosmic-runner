@@ -23,6 +23,19 @@ Upgrade::Upgrade(){
     damage=0;
     shots=0;
     range=0.0;
+
+    max_shields=0;
+    shield_recharge_rate_up=0;
+    shield_recharge_rate_down=0;
+    max_hull=0;
+    thrust_decel=0.0;
+    cooldown_up=0;
+    cooldown_down=0;
+    solid_damage_mod=0;
+    explosive_damage_mod=0;
+    energy_damage_mod=0;
+    anti_gravity=false;
+    point_defense=false;
 }
 
 bool Upgrade::is_weapon() const{
@@ -33,10 +46,22 @@ bool Upgrade::is_active() const{
     return type=="active";
 }
 
+bool Upgrade::is_passive() const{
+    return type=="passive";
+}
+
 bool Upgrade::spreads_normally() const{
     return spread_type=="normal";
 }
 
 bool Upgrade::spreads_evenly() const{
     return spread_type=="even";
+}
+
+bool Upgrade::gives_point_defense() const{
+    return is_passive() && point_defense;
+}
+
+bool Upgrade::gives_anti_gravity() const{
+    return is_passive() && anti_gravity;
 }

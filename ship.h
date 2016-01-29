@@ -55,6 +55,8 @@ private:
 
     std::uint32_t disabled_cooldown;
 
+    std::uint32_t point_defense_cooldown;
+
     Coords<double> ai_target;
     //An extra target held in reserve for police ships
     //They patrol between this point and ai_target
@@ -79,6 +81,13 @@ public:
 
     std::uint32_t get_shield_recharge_rate() const;
 
+    std::uint32_t get_cooldown(std::uint32_t cooldown_base) const;
+
+    std::int32_t get_damage_mod_solid() const;
+    std::int32_t get_damage_mod_explosive() const;
+    std::int32_t get_damage_mod_energy() const;
+
+    std::vector<std::string> get_upgrades() const;
     bool has_upgrade(std::string name) const;
     bool has_weapon() const;
     std::string get_weapon_name() const;
@@ -94,6 +103,9 @@ public:
     bool has_laser() const;
     void calculate_laser_target(const Quadtree<double,std::uint32_t>& quadtree_ships,std::uint32_t own_index);
     void render_laser(bool is_player);
+
+    bool has_point_defense() const;
+    std::string get_point_defense_name() const;
 
     bool is_disabled(bool is_player) const;
     void disable();
@@ -142,7 +154,7 @@ public:
     void land(bool is_player);
 
     void regenerate_shields(bool is_player);
-    void cooldown(const Quadtree<double,std::uint32_t>& quadtree_ships,RNG& rng,std::uint32_t own_index);
+    void cooldown(const Quadtree<double,std::uint32_t>& quadtree_ships,const Quadtree<double,std::uint32_t>& quadtree_shots,RNG& rng,std::uint32_t own_index);
 
     bool faction_is_valid(std::string faction,bool weapon_check) const;
 
@@ -150,6 +162,11 @@ public:
 
     //Returns true if the weapon found a target and fired upon it
     bool fire_weapon(const Quadtree<double,std::uint32_t>& quadtree_ships,RNG& rng,std::uint32_t own_index);
+
+    std::int32_t get_nearest_valid_target_shot(const Quadtree<double,std::uint32_t>& quadtree_shots,const Collision_Rect<double>& box_targeting);
+
+    //Returns true if the point defense found a target and fired upon it
+    bool fire_point_defense(const Quadtree<double,std::uint32_t>& quadtree_shots);
 
     void ai_select_target(std::uint32_t own_index,RNG& rng);
     void ai_check_for_proximity_target(const Quadtree<double,std::uint32_t>& quadtree_ships,std::uint32_t own_index);

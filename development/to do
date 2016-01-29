@@ -7,6 +7,8 @@ Note: change map screen to a minimap? It would be like now and show the star and
 
 Add star
 
+Implement antigravity passive feature
+
 Note: Balance idea:
 I could decide on a base amount for each stat
 Then assign a stat point value to each stat (might just be 1 for all stats)
@@ -20,7 +22,6 @@ Add upgrades to ships
 Add cooldown for active upgrade
 
 Add all passives
-Note that one passive, point defense, needs its own cooldown
 
 Add all actives
 
@@ -52,6 +53,7 @@ Arrested
 Weapons toggled
 1 per shot death effect
 1 per weapon upgrade fire
+point defense
 missile explosion
 ship explosion
 1 per item collected

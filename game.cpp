@@ -601,9 +601,9 @@ void Game::set_player_acceleration(const Vector& acceleration){
 }
 
 void Game::create_effect(string sprite,double scale,const Coords<double>& position,string sound,const Vector& velocity,double angle,
-                         const Vector& angular_velocity,uint32_t seconds){
+                         const Vector& angular_velocity,uint32_t seconds,bool line,const Coords<double>& end_point){
     if(Game_Manager::effect_allowed()){
-        effects.push_back(Effect(sprite,scale,position,sound,velocity,angle,angular_velocity,seconds));
+        effects.push_back(Effect(sprite,scale,position,sound,velocity,angle,angular_velocity,seconds,line,end_point));
     }
 }
 
@@ -645,8 +645,8 @@ void Game::kill_shot(uint32_t index){
     }
 }
 
-void Game::create_shot(uint32_t owner_index,string type,string faction,string firing_upgrade,const Coords<double>& position,double angle){
-    shots.push_back(Shot(owner_index,type,faction,firing_upgrade,position,angle));
+void Game::create_shot(uint32_t owner_index,string type,string faction,string firing_upgrade,const Coords<double>& position,double angle,int32_t damage_mod){
+    shots.push_back(Shot(owner_index,type,faction,firing_upgrade,position,angle,damage_mod));
 }
 
 void Game::create_explosion(string sprite,string sound,const Coords<double>& position,int32_t damage,string faction){
@@ -865,7 +865,7 @@ void Game::movement(){
         ships[i].land(i==0);
 
         ships[i].regenerate_shields(i==0);
-        ships[i].cooldown(quadtree_ships,rng,(uint32_t)i);
+        ships[i].cooldown(quadtree_ships,quadtree_shots,rng,(uint32_t)i);
         ships[i].calculate_laser_target(quadtree_ships,(uint32_t)i);
 
         ships[i].accelerate(i==0,frame);

@@ -16,6 +16,9 @@
 class Effect{
 private:
 
+    //If line is true:
+    //box.x,box.y == start point
+    //box.w,box.h == end point
     Collision_Rect<double> box;
 
     Vector velocity;
@@ -30,10 +33,12 @@ private:
     bool timed;
     std::uint32_t counter;
 
+    bool line;
+
 public:
 
     Effect(std::string new_sprite,double new_scale,const Coords<double>& position,std::string sound,const Vector& new_velocity,double new_angle,
-           const Vector& new_angular_velocity,std::uint32_t seconds);
+           const Vector& new_angular_velocity,std::uint32_t seconds,bool new_line,const Coords<double>& end_point);
 
     bool is_done() const;
 

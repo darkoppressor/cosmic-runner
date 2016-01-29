@@ -1,0 +1,42 @@
+/**<upgrade>
+	name:cannon_shotgun
+	display_name:Shotgun Cannon
+	type:passive
+
+	max_shields:
+    shield_recharge_rate_up:
+    shield_recharge_rate_down:
+    max_hull:
+	thrust_accel:
+    thrust_decel:
+	max_speed:
+    cooldown_up:
+    cooldown_down:
+    solid_damage_mod:
+    explosive_damage_mod:
+    energy_damage_mod:
+    anti_gravity:
+	point_defense:
+</upgrade>*/
+
+<upgrade>
+	name:point_defense
+	display_name:Point Defense
+	type:passive
+	cooldown:4000
+
+	/**max_shields:
+    shield_recharge_rate_up:
+    shield_recharge_rate_down:
+    max_hull:
+	thrust_accel:
+    thrust_decel:
+	max_speed:
+    cooldown_up:
+    cooldown_down:
+    solid_damage_mod:
+    explosive_damage_mod:
+    energy_damage_mod:
+    anti_gravity:*/
+	point_defense:true
+</upgrade>

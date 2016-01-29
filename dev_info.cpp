@@ -56,6 +56,11 @@ void Engine::render_dev_info(){
         else{
             msg+="Weapons Systems: Disabled\n";
         }
+        vector<string> upgrades=Game::get_player_const().get_upgrades();
+        msg+="Upgrades: "+Strings::num_to_string(upgrades.size())+"\n";
+        for(size_t i=0;i<upgrades.size();i++){
+            msg+="Upgrade "+Strings::num_to_string(i)+": "+upgrades[i]+"\n";
+        }
     }
 
     if(msg.length()>0){

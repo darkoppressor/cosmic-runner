@@ -15,9 +15,6 @@ Ship_Type::Ship_Type(){
 
     collision_percentage=0.0;
 
-    weapon="";
-    active="";
-
     mass=0.0;
     thrust_accel=0.0;
     thrust_decel=0.0;

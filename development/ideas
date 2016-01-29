@@ -204,14 +204,27 @@ This upgrade begins cooling down when the warp drive is disabled
 This upgrade consumes power at a set rate while it is active
 
 Passive Upgrade Effects:
-Max Shields: Maximum shields increased
-Shield Recharge Rate: Shield recharge rate increased
-Max Hull: Maximum hull increased
-Acceleration/Deceleration Thrust: Increases both acceleration and deceleration thrust
-Max Velocity: Increases maximum velocity
-Slower Power Loss: Regular power loss (ignoring use by active upgrades) is slowed
+Max Shields Up: Maximum shields increased
+Max Shields Down: Maximum shields decreased
+Shield Recharge Rate Up: Shield recharge rate increased
+Shield Recharge Rate Down: Shield recharge rate decreased
+Max Hull Up: Maximum hull increased
+Max Hull Down: Maximum hull decreased
+Acceleration Thrust Up: Increases acceleration thrust
+Acceleration Thrust Down: Decreases acceleration thrust
+Deceleration Thrust Up: Increases deceleration thrust
+Deceleration Thrust Down: Decreases deceleration thrust
+Max Speed Up: Increases maximum speed
+Max Speed Down: Decreases maximum speed
 Cooldown Reduction: Cooldowns on all upgrades that have them are reduced
-Anti-gravity System: The effects of gravity are greatly reduced
+Cooldown Increase: Cooldowns on all upgrades that have them are increased
+Solid Damage Up: Increases solid damage dealt by weapons
+Solid Damage Down: Decreases solid damage dealt by weapons
+Explosive Damage Up: Increases explosive damage dealt by weapons
+Explosive Damage Down: Decreases explosive damage dealt by weapons
+Energy Damage Up: Increases energy damage dealt by weapons
+Energy Damage Down: Decreases energy damage dealt by weapons
+Anti-Gravity System: The effects of gravity are greatly reduced
 
 Passive Upgrades:
 Point Defense: A laser fires automatically on a cooldown at any nearby hostile missile or guided missile. Missiles and

@@ -43,17 +43,15 @@ Ship::Ship(string new_type,const Coords<double>& position,double new_angle){
 
     disabled_cooldown=0;
 
+    point_defense_cooldown=0;
+
     sprite.set_name(get_ship_type()->sprite);
 
     box.w=sprite.get_width();
     box.h=sprite.get_height();
 
-    if(get_ship_type()->weapon.length()>0){
-        add_upgrade(get_ship_type()->weapon);
-    }
-
-    if(get_ship_type()->active.length()>0){
-        add_upgrade(get_ship_type()->active);
+    for(size_t i=0;i<get_ship_type()->upgrades.size();i++){
+        add_upgrade(get_ship_type()->upgrades[i]);
     }
 
     ai_target_next=position;
@@ -85,7 +83,111 @@ int32_t Ship::get_shields() const{
 }
 
 uint32_t Ship::get_shield_recharge_rate() const{
-    return Game_Constants::SHIELD_RECHARGE_RATE;
+    uint32_t value=Game_Constants::SHIELD_RECHARGE_RATE;
+
+    //First, add all shield_recharge_rate_up's
+    for(size_t i=0;i<upgrades.size();i++){
+        Upgrade* upgrade=Game_Data::get_upgrade_type(upgrades[i]);
+
+        if(upgrade->is_passive()){
+            value+=upgrade->shield_recharge_rate_up;
+        }
+    }
+
+    //Then, subtract all shield_recharge_rate_down's
+    for(size_t i=0;i<upgrades.size();i++){
+        Upgrade* upgrade=Game_Data::get_upgrade_type(upgrades[i]);
+
+        if(upgrade->is_passive()){
+            if(upgrade->shield_recharge_rate_down<=value){
+                value-=upgrade->shield_recharge_rate_down;
+            }
+            else{
+                value=0;
+
+                break;
+            }
+        }
+    }
+
+    return value;
+}
+
+uint32_t Ship::get_cooldown(uint32_t cooldown_base) const{
+    uint32_t value=cooldown_base;
+
+    //First, add all cooldown_up's
+    for(size_t i=0;i<upgrades.size();i++){
+        Upgrade* upgrade=Game_Data::get_upgrade_type(upgrades[i]);
+
+        if(upgrade->is_passive()){
+            value+=upgrade->cooldown_up;
+        }
+    }
+
+    //Then, subtract all cooldown_down's
+    for(size_t i=0;i<upgrades.size();i++){
+        Upgrade* upgrade=Game_Data::get_upgrade_type(upgrades[i]);
+
+        if(upgrade->is_passive()){
+            if(upgrade->cooldown_down<=value){
+                value-=upgrade->cooldown_down;
+            }
+            else{
+                value=0;
+
+                break;
+            }
+        }
+    }
+
+    return value;
+}
+
+int32_t Ship::get_damage_mod_solid() const{
+    int32_t value=0;
+
+    for(size_t i=0;i<upgrades.size();i++){
+        Upgrade* upgrade=Game_Data::get_upgrade_type(upgrades[i]);
+
+        if(upgrade->is_passive()){
+            value+=upgrade->solid_damage_mod;
+        }
+    }
+
+    return value;
+}
+
+int32_t Ship::get_damage_mod_explosive() const{
+    int32_t value=0;
+
+    for(size_t i=0;i<upgrades.size();i++){
+        Upgrade* upgrade=Game_Data::get_upgrade_type(upgrades[i]);
+
+        if(upgrade->is_passive()){
+            value+=upgrade->explosive_damage_mod;
+        }
+    }
+
+    return value;
+}
+
+int32_t Ship::get_damage_mod_energy() const{
+    int32_t value=0;
+
+    for(size_t i=0;i<upgrades.size();i++){
+        Upgrade* upgrade=Game_Data::get_upgrade_type(upgrades[i]);
+
+        if(upgrade->is_passive()){
+            value+=upgrade->energy_damage_mod;
+        }
+    }
+
+    return value;
+}
+
+vector<string> Ship::get_upgrades() const{
+    return upgrades;
 }
 
 bool Ship::has_upgrade(string name) const{
@@ -219,6 +321,26 @@ void Ship::render_laser(bool is_player){
     }
 }
 
+bool Ship::has_point_defense() const{
+    for(size_t i=0;i<upgrades.size();i++){
+        if(Game_Data::get_upgrade_type(upgrades[i])->gives_point_defense()){
+            return true;
+        }
+    }
+
+    return false;
+}
+
+string Ship::get_point_defense_name() const{
+    for(size_t i=0;i<upgrades.size();i++){
+        if(Game_Data::get_upgrade_type(upgrades[i])->gives_point_defense()){
+            return upgrades[i];
+        }
+    }
+
+    return "";
+}
+
 bool Ship::is_disabled(bool is_player) const{
     return disabled_cooldown>0 || (is_player && Game::player_is_out_of_power());
 }
@@ -263,23 +385,93 @@ void Ship::apply_tractor(double force_angle){
 }
 
 double Ship::get_thrust_accel() const{
-    return get_ship_type()->thrust_accel;
+    double value=get_ship_type()->thrust_accel;
+
+    for(size_t i=0;i<upgrades.size();i++){
+        Upgrade* upgrade=Game_Data::get_upgrade_type(upgrades[i]);
+
+        if(upgrade->is_passive()){
+            value+=upgrade->thrust_accel;
+        }
+    }
+
+    if(value<1.0){
+        value=1.0;
+    }
+
+    return value;
 }
 
 double Ship::get_thrust_decel() const{
-    return get_ship_type()->thrust_decel;
+    double value=get_ship_type()->thrust_decel;
+
+    for(size_t i=0;i<upgrades.size();i++){
+        Upgrade* upgrade=Game_Data::get_upgrade_type(upgrades[i]);
+
+        if(upgrade->is_passive()){
+            value+=upgrade->thrust_decel;
+        }
+    }
+
+    if(value<1.0){
+        value=1.0;
+    }
+
+    return value;
 }
 
 double Ship::get_max_speed() const{
-    return get_ship_type()->max_speed;
+    double value=get_ship_type()->max_speed;
+
+    for(size_t i=0;i<upgrades.size();i++){
+        Upgrade* upgrade=Game_Data::get_upgrade_type(upgrades[i]);
+
+        if(upgrade->is_passive()){
+            value+=upgrade->max_speed;
+        }
+    }
+
+    if(value<1.0){
+        value=1.0;
+    }
+
+    return value;
 }
 
 int32_t Ship::get_hull_max() const{
-    return get_ship_type()->hull_max;
+    int32_t value=get_ship_type()->hull_max;
+
+    for(size_t i=0;i<upgrades.size();i++){
+        Upgrade* upgrade=Game_Data::get_upgrade_type(upgrades[i]);
+
+        if(upgrade->is_passive()){
+            value+=upgrade->max_hull;
+        }
+    }
+
+    if(value<1){
+        value=1;
+    }
+
+    return value;
 }
 
 int32_t Ship::get_shields_max() const{
-    return get_ship_type()->shields_max;
+    int32_t value=get_ship_type()->shields_max;
+
+    for(size_t i=0;i<upgrades.size();i++){
+        Upgrade* upgrade=Game_Data::get_upgrade_type(upgrades[i]);
+
+        if(upgrade->is_passive()){
+            value+=upgrade->max_shields;
+        }
+    }
+
+    if(value<0){
+        value=0;
+    }
+
+    return value;
 }
 
 string Ship::get_faction() const{
@@ -387,7 +579,7 @@ void Ship::take_damage(bool is_player,int32_t damage,string damage_type,const Co
                 }
 
                 Game::create_effect("effect_explosion_shields",scale,location,"effect_explosion_shields",
-                                    Vector(0.0,0.0),0.0,Vector(0.0,0.0),0);
+                                    Vector(0.0,0.0),0.0,Vector(0.0,0.0),0,false,Coords<double>());
 
                 if(effective_damage<=shields){
                     shields-=effective_damage;
@@ -435,7 +627,7 @@ void Ship::take_damage(bool is_player,int32_t damage,string damage_type,const Co
             }
 
             Game::create_effect("effect_explosion_hull",scale,location,"effect_explosion_hull",
-                                Vector(0.0,0.0),0.0,Vector(0.0,0.0),0);
+                                Vector(0.0,0.0),0.0,Vector(0.0,0.0),0,false,Coords<double>());
 
             hull-=effective_damage;
 
@@ -595,7 +787,7 @@ void Ship::regenerate_shields(bool is_player){
     }
 }
 
-void Ship::cooldown(const Quadtree<double,uint32_t>& quadtree_ships,RNG& rng,uint32_t own_index){
+void Ship::cooldown(const Quadtree<double,uint32_t>& quadtree_ships,const Quadtree<double,uint32_t>& quadtree_shots,RNG& rng,uint32_t own_index){
     bool is_player=own_index==0;
 
     if(is_alive()){
@@ -604,15 +796,31 @@ void Ship::cooldown(const Quadtree<double,uint32_t>& quadtree_ships,RNG& rng,uin
         }
 
         if(has_weapon()){
-            uint32_t weapon_cool_point=Game_Data::get_upgrade_type(get_weapon_name())->cooldown*Engine::UPDATE_RATE/1000;
+            uint32_t cool_point=get_cooldown(Game_Data::get_upgrade_type(get_weapon_name())->cooldown)*Engine::UPDATE_RATE/1000;
 
-            if(weapon_cooldown<weapon_cool_point){
+            if(weapon_cooldown<cool_point){
                 weapon_cooldown++;
             }
 
-            if(weapons_enabled && !is_disabled(is_player) && weapon_cooldown>=weapon_cool_point){
+            if(weapons_enabled && !is_disabled(is_player) && weapon_cooldown>=cool_point){
                 if(fire_weapon(quadtree_ships,rng,own_index)){
                     weapon_cooldown=0;
+                }
+            }
+        }
+
+        ///QQQ cooldown active
+
+        if(has_point_defense()){
+            uint32_t cool_point=get_cooldown(Game_Data::get_upgrade_type(get_point_defense_name())->cooldown)*Engine::UPDATE_RATE/1000;
+
+            if(point_defense_cooldown<cool_point){
+                point_defense_cooldown++;
+            }
+
+            if(!is_disabled(is_player) && point_defense_cooldown>=cool_point){
+                if(fire_point_defense(quadtree_shots)){
+                    point_defense_cooldown=0;
                 }
             }
         }
@@ -621,30 +829,23 @@ void Ship::cooldown(const Quadtree<double,uint32_t>& quadtree_ships,RNG& rng,uin
 
 bool Ship::faction_is_valid(string faction,bool weapon_check) const{
     if(get_faction()=="player"){
-        return true;
+        if(faction!="player"){
+            return true;
+        }
     }
     else if(get_faction()=="civilian"){
         if(faction=="pirate" || (faction=="player" && !Game::is_player_tractored() && (Game::notoriety_tier_1() || Game::notoriety_tier_2()))){
             return true;
-        }
-        else{
-            return false;
         }
     }
     else if(get_faction()=="pirate"){
         if(faction=="civilian" || faction=="police" || (faction=="player" && !Game::is_player_tractored())){
             return true;
         }
-        else{
-            return false;
-        }
     }
     else if(get_faction()=="bounty_hunter"){
         if(faction=="player" && !Game::is_player_tractored()){
             return true;
-        }
-        else{
-            return false;
         }
     }
     else if(get_faction()=="police"){
@@ -658,17 +859,10 @@ bool Ship::faction_is_valid(string faction,bool weapon_check) const{
             else if(weapon_check && Game::notoriety_tier_2()){
                 return true;
             }
-            else{
-                return false;
-            }
-        }
-        else{
-            return false;
         }
     }
-    else{
-        return false;
-    }
+
+    return false;
 }
 
 int32_t Ship::get_nearest_valid_target_ship(const Quadtree<double,uint32_t>& quadtree_ships,uint32_t own_index,const Collision_Rect<double>& box_targeting,bool weapon_check){
@@ -746,12 +940,97 @@ bool Ship::fire_weapon(const Quadtree<double,uint32_t>& quadtree_ships,RNG& rng,
                     angle_variation=(360.0/(double)upgrade->shots)*(double)i;
                 }
 
-                Game::create_shot(own_index,upgrade->shot_type,get_faction(),upgrade->name,Coords<double>(box.center_x(),box.center_y()),box.get_angle_to_rect(ship.get_box())+angle_variation);
+                string damage_type=Game_Data::get_shot_type(upgrade->shot_type)->damage_type;
+
+                int32_t damage_mod=0;
+
+                if(damage_type=="solid"){
+                    damage_mod=get_damage_mod_solid();
+                }
+                else if(damage_type=="explosive"){
+                    damage_mod=get_damage_mod_explosive();
+                }
+                else if(damage_type=="energy"){
+                    damage_mod=get_damage_mod_energy();
+                }
+
+                Game::create_shot(own_index,upgrade->shot_type,get_faction(),upgrade->name,Coords<double>(box.center_x(),box.center_y()),box.get_angle_to_rect(ship.get_box())+angle_variation,damage_mod);
             }
 
             if(upgrade->sound.length()>0){
                 Sound_Manager::play_sound(upgrade->sound,box.center_x(),box.center_y());
             }
+
+            return true;
+        }
+    }
+
+    return false;
+}
+
+int32_t Ship::get_nearest_valid_target_shot(const Quadtree<double,uint32_t>& quadtree_shots,const Collision_Rect<double>& box_targeting){
+    vector<uint32_t> nearby_shots;
+    quadtree_shots.get_objects(nearby_shots,box_targeting);
+
+    vector<uint32_t> valid_targets;
+
+    unordered_set<uint32_t> collisions;
+
+    //Find all valid targets
+    for(size_t i=0;i<nearby_shots.size();i++){
+        if(!collisions.count(nearby_shots[i])){
+            collisions.emplace(nearby_shots[i]);
+
+            const Shot& shot=Game::get_shot(nearby_shots[i]);
+
+            if(shot.is_alive() && shot.get_shot_type()->damage_type=="explosive"){
+                Collision_Rect<double> box_shot=shot.get_box();
+
+                if(faction_is_valid(shot.get_faction(),true) && Collision::check_rect(box_targeting,box_shot)){
+                    valid_targets.push_back(nearby_shots[i]);
+                }
+            }
+        }
+    }
+
+    //Find nearest valid target
+    int32_t nearest_index=-1;
+    double nearest_distance=0.0;
+
+    for(size_t i=0;i<valid_targets.size();i++){
+        const Shot& shot=Game::get_shot(valid_targets[i]);
+
+        double new_distance=Math::distance_between_points(box.center_x(),box.center_y(),shot.get_box().center_x(),shot.get_box().center_y());
+
+        if(nearest_index==-1 || new_distance<nearest_distance){
+            nearest_index=valid_targets[i];
+            nearest_distance=new_distance;
+        }
+    }
+
+    return nearest_index;
+}
+
+bool Ship::fire_point_defense(const Quadtree<double,uint32_t>& quadtree_shots){
+    if(has_point_defense()){
+        Collision_Rect<double> box_targeting=box;
+
+        box_targeting.x-=Game_Constants::POINT_DEFENSE_RANGE;
+        box_targeting.y-=Game_Constants::POINT_DEFENSE_RANGE;
+        box_targeting.w+=Game_Constants::POINT_DEFENSE_RANGE*2.0;
+        box_targeting.h+=Game_Constants::POINT_DEFENSE_RANGE*2.0;
+
+        int32_t nearest_index=get_nearest_valid_target_shot(quadtree_shots,box_targeting);
+
+        //If a nearest valid target was found
+        if(nearest_index>=0){
+            const Shot& shot=Game::get_shot((uint32_t)nearest_index);
+
+            Game::create_explosion("explosion_missile","explosion_missile",Coords<double>(shot.get_box().center_x(),shot.get_box().center_y()),shot.get_damage(),shot.get_faction());
+
+            Game::create_effect("",1.0,box.get_center(),"point_defense",Vector(),0.0,Vector(),1,true,shot.get_box().get_center());
+
+            Game::kill_shot((uint32_t)nearest_index);
 
             return true;
         }
@@ -983,10 +1262,10 @@ void Ship::movement(uint32_t own_index,const Quadtree<double,uint32_t>& quadtree
 
                     if(shot.is_alive() && (!shot.has_owner() || own_index!=shot.get_owner_index()) && Collision::check_rect_rotated(box_collision,box_shot,angle,shot.get_angle())){
                         if(shot.get_shot_type()->damage_type=="explosive"){
-                            Game::create_explosion("explosion_missile","explosion_missile",Coords<double>(box_shot.center_x(),box_shot.center_y()),shot.get_firing_upgrade()->damage,shot.get_faction());
+                            Game::create_explosion("explosion_missile","explosion_missile",Coords<double>(box_shot.center_x(),box_shot.center_y()),shot.get_damage(),shot.get_faction());
                         }
                         else{
-                            take_damage(is_player,shot.get_firing_upgrade()->damage,shot.get_shot_type()->damage_type,
+                            take_damage(is_player,shot.get_damage(),shot.get_shot_type()->damage_type,
                                         Coords<double>(box_collision.x+rng.random_range(0,(uint32_t)box_collision.w),box_collision.y+rng.random_range(0,(uint32_t)box_collision.h)),shot.get_faction(),rng);
                         }
 

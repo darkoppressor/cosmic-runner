@@ -145,7 +145,7 @@ public:
     static void set_player_acceleration(const Vector& acceleration);
 
     static void create_effect(std::string sprite,double scale,const Coords<double>& position,std::string sound,const Vector& velocity,double angle,
-                              const Vector& angular_velocity,std::uint32_t seconds);
+                              const Vector& angular_velocity,std::uint32_t seconds,bool line,const Coords<double>& end_point);
 
     static void player_thrust(std::string direction);
     static void player_brake(bool brake);
@@ -156,7 +156,7 @@ public:
     static void disable_ship(std::uint32_t index);
 
     static void kill_shot(std::uint32_t index);
-    static void create_shot(std::uint32_t owner_index,std::string type,std::string faction,std::string firing_upgrade,const Coords<double>& position,double angle);
+    static void create_shot(std::uint32_t owner_index,std::string type,std::string faction,std::string firing_upgrade,const Coords<double>& position,double angle,std::int32_t damage_mod);
 
     static void create_explosion(std::string sprite,std::string sound,const Coords<double>& position,std::int32_t damage,std::string faction);
 

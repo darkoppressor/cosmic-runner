@@ -17,7 +17,7 @@
 
 using namespace std;
 
-Shot::Shot(uint32_t new_owner_index,string new_type,string new_faction,string new_firing_upgrade,const Coords<double>& position,double new_angle){
+Shot::Shot(uint32_t new_owner_index,string new_type,string new_faction,string new_firing_upgrade,const Coords<double>& position,double new_angle,int32_t new_damage_mod){
     owner_index=(int32_t)new_owner_index;
 
     type=new_type;
@@ -42,6 +42,8 @@ Shot::Shot(uint32_t new_owner_index,string new_type,string new_faction,string ne
     if(get_shot_type()->homing){
         homing_delay=Game_Constants::MISSILE_HOMING_DELAY*Engine::UPDATE_RATE/1000;
     }
+
+    damage_mod=new_damage_mod;
 }
 
 Shot_Type* Shot::get_shot_type() const{
@@ -106,6 +108,16 @@ Upgrade* Shot::get_firing_upgrade() const{
     return Game_Data::get_upgrade_type(firing_upgrade);
 }
 
+int32_t Shot::get_damage() const{
+    int32_t damage=get_firing_upgrade()->damage+damage_mod;
+
+    if(damage<1){
+        damage=1;
+    }
+
+    return damage;
+}
+
 bool Shot::can_home() const{
     return homing_delay==0 && get_shot_type()->homing;
 }
@@ -115,7 +127,7 @@ void Shot::die(){
         alive=false;
 
         if(get_shot_type()->death_sprite.length()>0){
-            Game::create_effect(get_shot_type()->death_sprite,1.0,Coords<double>(box.center_x(),box.center_y()),get_shot_type()->death_sound,Vector(),0.0,Vector(),0);
+            Game::create_effect(get_shot_type()->death_sprite,1.0,Coords<double>(box.center_x(),box.center_y()),get_shot_type()->death_sound,Vector(),0.0,Vector(),0,false,Coords<double>());
         }
     }
 }
@@ -229,7 +241,7 @@ void Shot::movement(const Quadtree<double,uint32_t>& quadtree_debris){
 
                     if(Collision::check_rect_rotated(box_collision,box_debris,angle,debris.get_angle())){
                         if(get_shot_type()->damage_type=="explosive"){
-                            Game::create_explosion("explosion_missile","explosion_missile",Coords<double>(box.center_x(),box.center_y()),get_firing_upgrade()->damage,faction);
+                            Game::create_explosion("explosion_missile","explosion_missile",Coords<double>(box.center_x(),box.center_y()),get_damage(),faction);
                         }
 
                         die();
