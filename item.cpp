@@ -99,25 +99,11 @@ void Item::brake(){
     force+=brake_force;
 }
 
-void Item::gravitate(){
-    const Star& star=Game::get_star();
-
-    double distance_between=Math::distance_between_points(box.center_x(),box.center_y(),star.get_circle().x,star.get_circle().y);
-
-    double gravitational_magnitude=(Game_Constants::GRAVITATIONAL_CONSTANT*get_mass()*star.get_mass())/(distance_between*distance_between);
-
-    Vector gravitational_force(gravitational_magnitude,Math::get_angle_to_point(box.get_center(),star.get_circle().get_center()));
-
-    force+=gravitational_force;
-}
-
 void Item::accelerate(){
     if(is_alive()){
         if(!vacuum()){
             brake();
         }
-
-        ///QQQgravitate();
 
         Vector acceleration=force/get_mass();
 

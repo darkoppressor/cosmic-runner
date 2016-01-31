@@ -1183,23 +1183,10 @@ void Ship::brake(uint32_t frame){
     }
 }
 
-void Ship::gravitate(){
-    const Star& star=Game::get_star();
-
-    double distance_between=Math::distance_between_points(box.center_x(),box.center_y(),star.get_circle().x,star.get_circle().y);
-
-    double gravitational_magnitude=(Game_Constants::GRAVITATIONAL_CONSTANT*get_mass()*star.get_mass())/(distance_between*distance_between);
-
-    Vector gravitational_force(gravitational_magnitude,Math::get_angle_to_point(box.get_center(),star.get_circle().get_center()));
-
-    force+=gravitational_force;
-}
-
 void Ship::accelerate(bool is_player,uint32_t frame){
     if(is_alive() && !is_landing() && (!is_player || !Game::player_is_landed())){
         thrust(frame);
         brake(frame);
-        gravitate();
 
         if(is_player && Game::is_player_tractored()){
             apply_tractor(Game::get_tractor_angle());

@@ -19,8 +19,6 @@ public:
 
     Collision_Circ<double> get_circle() const;
 
-    double get_mass() const;
-
     void render();
 };
 

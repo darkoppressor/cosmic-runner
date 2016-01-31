@@ -41,9 +41,7 @@ double Game_Constants::POINT_DEFENSE_RANGE=0.0;
 double Game_Constants::ITEM_VACUUM_RANGE=0.0;
 double Game_Constants::ITEM_VACUUM_FORCE=0.0;
 
-double Game_Constants::GRAVITATIONAL_CONSTANT=0.0;
 double Game_Constants::STAR_RADIUS=0.0;
-double Game_Constants::STAR_MASS=0.0;
 
 uint32_t Game_Constants::NOTORIETY_MAX=0;
 uint32_t Game_Constants::NOTORIETY_TIER_2=0;
@@ -153,14 +151,8 @@ void Game_Constants_Loader::set_game_constant(string name,string value){
         Game_Constants::ITEM_VACUUM_FORCE=Strings::string_to_double(value);
     }
 
-    else if(name=="gravitational_constant"){
-        Game_Constants::GRAVITATIONAL_CONSTANT=Strings::string_to_double(value);
-    }
     else if(name=="star_radius"){
         Game_Constants::STAR_RADIUS=Strings::string_to_double(value);
-    }
-    else if(name=="star_mass"){
-        Game_Constants::STAR_MASS=Strings::string_to_double(value);
     }
 
     else if(name=="notoriety_max"){

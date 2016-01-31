@@ -361,9 +361,6 @@ void Game_Data::load_upgrade_type(File_IO_Load* load){
         else if(Data_Reader::check_prefix(line,"energy_damage_mod:")){
             upgrades.back().energy_damage_mod=Strings::string_to_long(line);
         }
-        else if(Data_Reader::check_prefix(line,"anti_gravity:")){
-            upgrades.back().anti_gravity=Strings::string_to_bool(line);
-        }
         else if(Data_Reader::check_prefix(line,"point_defense:")){
             upgrades.back().point_defense=Strings::string_to_bool(line);
         }

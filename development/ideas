@@ -61,11 +61,8 @@ Active upgrades have a cooldown
 
 There is a huge star in the center of the game world
 Planets are dotted about
-Star should have some kind of gravity, but only be dangerous really close to it (you CAN get caught in its gravity)
-Star is only object with gravity
 When really close to star, ships take energy damage over time
 Collision with star kills/destroys any ship, shot, or item instantly
-Star gravity affects ships, shots, and items
 
 Ships have hull and shields
 When a ship takes damage, it loses shields first, if it has any, and then hull
@@ -224,12 +221,10 @@ Explosive Damage Up: Increases explosive damage dealt by weapons
 Explosive Damage Down: Decreases explosive damage dealt by weapons
 Energy Damage Up: Increases energy damage dealt by weapons
 Energy Damage Down: Decreases energy damage dealt by weapons
-Anti-Gravity System: The effects of gravity are greatly reduced
 
 Passive Upgrades:
 Point Defense: A laser fires automatically on a cooldown at any nearby hostile missile or guided missile. Missiles and
 guided missiles hit by this laser instantly explode
-
 
 Ships:
 Player ship:

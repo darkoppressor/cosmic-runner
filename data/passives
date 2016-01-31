@@ -15,7 +15,6 @@
     solid_damage_mod:
     explosive_damage_mod:
     energy_damage_mod:
-    anti_gravity:
 	point_defense:
 </upgrade>*/
 
@@ -36,7 +35,6 @@
     cooldown_down:
     solid_damage_mod:
     explosive_damage_mod:
-    energy_damage_mod:
-    anti_gravity:*/
+    energy_damage_mod:*/
 	point_defense:true
 </upgrade>

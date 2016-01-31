@@ -20,10 +20,6 @@ Collision_Circ<double> Star::get_circle() const{
     return circle;
 }
 
-double Star::get_mass() const{
-    return Game_Constants::STAR_MASS;
-}
-
 void Star::render(){
     if(Collision::check_circ_rect(circle*Game_Manager::camera_zoom,Game_Manager::camera)){
         Render::render_circle(circle.x*Game_Manager::camera_zoom-Game_Manager::camera.x,circle.y*Game_Manager::camera_zoom-Game_Manager::camera.y,circle.r,1.0,"star_yellow");

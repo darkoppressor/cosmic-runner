@@ -53,7 +53,6 @@ public:
     //Returns false if the player was not in vacuuming range
     bool vacuum();
     void brake();
-    void gravitate();
     void accelerate();
     void rotation();
     void movement();

@@ -173,7 +173,6 @@ public:
 
     void thrust(std::uint32_t frame);
     void brake(std::uint32_t frame);
-    void gravitate();
 
     void accelerate(bool is_player,std::uint32_t frame);
     void movement(uint32_t own_index,const Quadtree<double,std::uint32_t>& quadtree_debris,const Quadtree<double,std::uint32_t>& quadtree_shots,

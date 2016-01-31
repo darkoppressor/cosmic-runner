@@ -80,7 +80,6 @@ public:
     void cooldown();
 
     void thrust(const Quadtree<double,std::uint32_t>& quadtree_ships);
-    void gravitate();
 
     void accelerate(const Quadtree<double,std::uint32_t>& quadtree_ships);
     void movement(const Quadtree<double,std::uint32_t>& quadtree_debris);

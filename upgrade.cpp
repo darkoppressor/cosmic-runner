@@ -34,7 +34,6 @@ Upgrade::Upgrade(){
     solid_damage_mod=0;
     explosive_damage_mod=0;
     energy_damage_mod=0;
-    anti_gravity=false;
     point_defense=false;
 }
 
@@ -60,8 +59,4 @@ bool Upgrade::spreads_evenly() const{
 
 bool Upgrade::gives_point_defense() const{
     return is_passive() && point_defense;
-}
-
-bool Upgrade::gives_anti_gravity() const{
-    return is_passive() && anti_gravity;
 }

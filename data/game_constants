@@ -130,21 +130,9 @@
 </game_constant>
 
 <game_constant>
-	//meters^3 / kilograms * seconds^2
-	name:gravitational_constant
-	value:0.0000000000667408
-</game_constant>
-
-<game_constant>
 	//meters (pixels)
 	name:star_radius
 	value:1536.0
-</game_constant>
-
-<game_constant>
-	//kilograms
-	name:star_mass
-	value:59720000000000000.0
 </game_constant>
 
 <game_constant>

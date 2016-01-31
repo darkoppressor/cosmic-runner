@@ -51,7 +51,6 @@ public:
     std::int32_t solid_damage_mod;
     std::int32_t explosive_damage_mod;
     std::int32_t energy_damage_mod;
-    bool anti_gravity;
     bool point_defense;
 
     Upgrade();
@@ -64,7 +63,6 @@ public:
     bool spreads_evenly() const;
 
     bool gives_point_defense() const;
-    bool gives_anti_gravity() const;
 };
 
 #endif
