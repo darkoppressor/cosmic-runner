@@ -1,10 +1,3 @@
-****
-For each positive passive feature (except for point defense and anti gravity), make two passives
-One that gives a little of the feature
-And one that gives more, but also gives a little of a negative feature
-Never combine matching positive and negative features obviously
-****
-
 Note: Should homing shots ignore the player when he is being tractored?
 Note: Should the player ignore collisions when being tractored?
 
@@ -14,19 +7,11 @@ Note: change map screen to a minimap? It would be like now and show the star and
 
 Add star
 
-Note: Balance idea:
-I could decide on a base amount for each stat
-Then assign a stat point value to each stat (might just be 1 for all stats)
-Then, give each ship a stat point pool
-Then spend the stat points for each ship, to design it
-
 Add distinction between planetary and deep space
 Add planetary space background
 
 Add upgrades to ships
 Add cooldown for active upgrade
-
-Add all passives
 
 Add all actives
 
@@ -35,6 +20,16 @@ Make sure ship disabled status is fully implemented
 Design ships
 
 Add all ships
+
+Add descriptions to upgrades
+
+Give all weapons good display names
+Give all passives good display names
+Give all actives good display names
+
+Give all weapons descriptions
+Give all passives descriptions
+Give all actives descriptions
 
 Improve world generation
 Improve item generation amount/type

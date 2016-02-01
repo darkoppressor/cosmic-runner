@@ -86,6 +86,7 @@ public:
     static void generate_world();
 
     static std::uint32_t get_ship_count();
+    static std::uint32_t get_item_count();
     static std::uint32_t get_debris_count();
     static std::uint32_t get_effect_count();
     static std::uint32_t get_planet_count();

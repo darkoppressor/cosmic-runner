@@ -37,17 +37,22 @@ public:
 
     //Passive-specific values:
     std::int32_t max_shields;
+
     //ms
+    //As the names imply, increasing the rate means shields recharge faster, while decreasing the rate means shields recharge slower
     std::uint32_t shield_recharge_rate_up;
-    //ms
     std::uint32_t shield_recharge_rate_down;
+
     std::int32_t max_hull;
     //N
     double thrust_decel;
+
     //ms
+    //As the names imply, increasing the cooldown means the thing takes longer to be ready for use,
+    //while decreasing the cooldown means the thing is ready for use more quickly
     std::uint32_t cooldown_up;
-    //ms
     std::uint32_t cooldown_down;
+
     std::int32_t solid_damage_mod;
     std::int32_t explosive_damage_mod;
     std::int32_t energy_damage_mod;

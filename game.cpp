@@ -19,6 +19,7 @@
 #include <window_manager.h>
 
 #include <ctime>
+#include <unordered_set>
 
 using namespace std;
 
@@ -204,6 +205,10 @@ void Game::generate_world(){
 
 uint32_t Game::get_ship_count(){
     return ships.size();
+}
+
+uint32_t Game::get_item_count(){
+    return items.size();
 }
 
 uint32_t Game::get_debris_count(){

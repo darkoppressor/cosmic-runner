@@ -85,22 +85,22 @@ int32_t Ship::get_shields() const{
 uint32_t Ship::get_shield_recharge_rate() const{
     uint32_t value=Game_Constants::SHIELD_RECHARGE_RATE;
 
-    //First, add all shield_recharge_rate_up's
+    //First, add all shield_recharge_rate_down's
     for(size_t i=0;i<upgrades.size();i++){
         Upgrade* upgrade=Game_Data::get_upgrade_type(upgrades[i]);
 
         if(upgrade->is_passive()){
-            value+=upgrade->shield_recharge_rate_up;
+            value+=upgrade->shield_recharge_rate_down;
         }
     }
 
-    //Then, subtract all shield_recharge_rate_down's
+    //Then, subtract all shield_recharge_rate_up's
     for(size_t i=0;i<upgrades.size();i++){
         Upgrade* upgrade=Game_Data::get_upgrade_type(upgrades[i]);
 
         if(upgrade->is_passive()){
-            if(upgrade->shield_recharge_rate_down<=value){
-                value-=upgrade->shield_recharge_rate_down;
+            if(upgrade->shield_recharge_rate_up<=value){
+                value-=upgrade->shield_recharge_rate_up;
             }
             else{
                 value=0;
@@ -910,19 +910,28 @@ bool Ship::fire_weapon(const Quadtree<double,uint32_t>& quadtree_ships,RNG& rng,
 
                 string damage_type=Game_Data::get_shot_type(upgrade->shot_type)->damage_type;
 
-                int32_t damage_mod=0;
+                int32_t damage_mod_for_one_shot=0;
 
                 if(damage_type=="solid"){
-                    damage_mod=get_damage_mod_solid();
+                    damage_mod_for_one_shot=get_damage_mod_solid();
                 }
                 else if(damage_type=="explosive"){
-                    damage_mod=get_damage_mod_explosive();
+                    damage_mod_for_one_shot=get_damage_mod_explosive();
                 }
                 else if(damage_type=="energy"){
-                    damage_mod=get_damage_mod_energy();
+                    damage_mod_for_one_shot=get_damage_mod_energy();
                 }
 
-                Game::create_shot(own_index,upgrade->shot_type,get_faction(),upgrade->name,Coords<double>(box.center_x(),box.center_y()),box.get_angle_to_rect(ship.get_box())+angle_variation,damage_mod);
+                int32_t actual_damage_mod=damage_mod_for_one_shot/(int32_t)upgrade->shots;
+
+                if(damage_mod_for_one_shot>0 && actual_damage_mod<1){
+                    actual_damage_mod=1;
+                }
+                else if(damage_mod_for_one_shot<0 && actual_damage_mod>-1){
+                    actual_damage_mod=-1;
+                }
+
+                Game::create_shot(own_index,upgrade->shot_type,get_faction(),upgrade->name,Coords<double>(box.center_x(),box.center_y()),box.get_angle_to_rect(ship.get_box())+angle_variation,actual_damage_mod);
             }
 
             if(upgrade->sound.length()>0){

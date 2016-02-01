@@ -231,15 +231,35 @@ Energy Damage Down: Decreases energy damage dealt by weapons
 Passive Upgrades:
 Point Defense: A laser fires automatically on a cooldown at any nearby hostile missile or guided missile. Missiles and
 guided missiles hit by this laser instantly explode
+All other passive upgrades are described in the file passives.ods
 
-Ships:
-Player ship:
-Civilian ships:
+--Stat Balancing--
 
-Pirate ships:
+Stat base values:
+Max Hull: 0
+Max Shields: 0
+Shield Recharge Rate (ms): 1000
+Acceleration Thrust: 0
+Deceleration Thrust: 0
+Max Speed: 0
+Cooldown (ms): varies
+Solid Damage: 10 damage for a single shot (rounded normally, minimum of 2)
+Explosive Damage: 7 damage for a single shot (rounded normally, minimum of 2)
+Energy Damage: 10 damage for a single shot (rounded normally, minimum of 2)
 
-Police ships:
+Stat tier values:
+Max Hull: 25
+Max Shields: 5
+Shield Recharge Rate (ms): -150
+Acceleration Thrust: 500
+Deceleration Thrust: 1000
+Max Speed: 50
+Cooldown (ms): -250
+Solid Damage: 3 damage for a single shot (rounded down, minimum of 1)
+Explosive Damage: 2 damage for a single shot (rounded down, minimum of 1)
+Energy Damage: 3 damage for a single shot (rounded down, minimum of 1)
 
+----
 
 Polish ideas:
 Sound and graphical effect for police ship tractoring player or chasing player with intent to tractor

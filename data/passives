@@ -1,40 +1,178 @@
-/**<upgrade>
-	name:cannon_shotgun
-	display_name:Shotgun Cannon
-	type:passive
-
-	max_shields:
-    shield_recharge_rate_up:
-    shield_recharge_rate_down:
-    max_hull:
-	thrust_accel:
-    thrust_decel:
-	max_speed:
-    cooldown_up:
-    cooldown_down:
-    solid_damage_mod:
-    explosive_damage_mod:
-    energy_damage_mod:
-	point_defense:
-</upgrade>*/
-
 <upgrade>
 	name:point_defense
 	display_name:Point Defense
 	type:passive
 	cooldown:4000
 
-	/**max_shields:
-    shield_recharge_rate_up:
-    shield_recharge_rate_down:
-    max_hull:
-	thrust_accel:
-    thrust_decel:
-	max_speed:
-    cooldown_up:
-    cooldown_down:
-    solid_damage_mod:
-    explosive_damage_mod:
-    energy_damage_mod:*/
 	point_defense:true
+</upgrade>
+
+<upgrade>
+	name:max_shields_0
+	display_name:Max Shields Up 0
+	type:passive
+
+	max_shields:5
+</upgrade>
+
+<upgrade>
+	name:max_shields_1
+	display_name:Max Shields Up 1
+	type:passive
+
+	max_shields:10
+    shield_recharge_rate_down:150
+</upgrade>
+
+<upgrade>
+	name:shield_recharge_rate_0
+	display_name:Shield Recharge Rate Up 0
+	type:passive
+
+    shield_recharge_rate_up:150
+</upgrade>
+
+<upgrade>
+	name:shield_recharge_rate_1
+	display_name:Shield Recharge Rate Up 1
+	type:passive
+
+    shield_recharge_rate_up:300
+	max_shields:-5
+</upgrade>
+
+<upgrade>
+	name:max_hull_0
+	display_name:Max Hull Up 0
+	type:passive
+
+    max_hull:25
+</upgrade>
+
+<upgrade>
+	name:max_hull_1
+	display_name:Max Hull Up 1
+	type:passive
+
+    max_hull:50
+	max_speed:-50.0
+</upgrade>
+
+<upgrade>
+	name:accel_thrust_0
+	display_name:Acceleration Thrust Up 0
+	type:passive
+
+	thrust_accel:500.0
+</upgrade>
+
+<upgrade>
+	name:accel_thrust_1
+	display_name:Acceleration Thrust Up 1
+	type:passive
+
+	thrust_accel:1000.0
+    cooldown_up:250
+</upgrade>
+
+<upgrade>
+	name:decel_thrust_0
+	display_name:Deceleration Thrust Up 0
+	type:passive
+
+    thrust_decel:1000.0
+</upgrade>
+
+<upgrade>
+	name:decel_thrust_1
+	display_name:Deceleration Thrust Up 1
+	type:passive
+
+    thrust_decel:2000.0
+	max_hull:-25
+</upgrade>
+
+<upgrade>
+	name:max_speed_0
+	display_name:Max Speed Up 0
+	type:passive
+
+	max_speed:50.0
+</upgrade>
+
+<upgrade>
+	name:max_speed_1
+	display_name:Max Speed Up 1
+	type:passive
+
+	max_speed:100.0
+    thrust_decel:-1000.0
+</upgrade>
+
+<upgrade>
+	name:cooldown_0
+	display_name:Cooldown Reduction 0
+	type:passive
+
+    cooldown_down:250
+</upgrade>
+
+<upgrade>
+	name:cooldown_1
+	display_name:Cooldown Reduction 1
+	type:passive
+
+    cooldown_down:500
+	thrust_accel:-500.0
+</upgrade>
+
+<upgrade>
+	name:solid_damage_0
+	display_name:Solid Damage Up 0
+	type:passive
+
+    solid_damage_mod:3
+</upgrade>
+
+<upgrade>
+	name:solid_damage_1
+	display_name:Solid Damage Up 1
+	type:passive
+
+    solid_damage_mod:6
+    explosive_damage_mod:-2
+</upgrade>
+
+<upgrade>
+	name:explosive_damage_0
+	display_name:Explosive Damage Up 0
+	type:passive
+
+    explosive_damage_mod:2
+</upgrade>
+
+<upgrade>
+	name:explosive_damage_1
+	display_name:Explosive Damage Up 1
+	type:passive
+
+    explosive_damage_mod:4
+    energy_damage_mod:-3
+</upgrade>
+
+<upgrade>
+	name:energy_damage_0
+	display_name:Energy Damage Up 0
+	type:passive
+
+    energy_damage_mod:3
+</upgrade>
+
+<upgrade>
+	name:energy_damage_1
+	display_name:Energy Damage Up 1
+	type:passive
+
+    energy_damage_mod:6
+	solid_damage_mod:-3
 </upgrade>

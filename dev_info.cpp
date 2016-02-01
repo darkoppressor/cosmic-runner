@@ -40,9 +40,10 @@ void Engine::render_dev_info(){
         msg+=" ("+Strings::num_to_string(Game::get_notoriety())+"/"+Strings::num_to_string(Game_Constants::NOTORIETY_MAX*Engine::UPDATE_RATE)+")\n";
 
         msg+="\n-----Universe-----\n";
-        msg+="Ships: "+Strings::num_to_string(Game::get_ship_count())+"\n";
-        msg+="Debris: "+Strings::num_to_string(Game::get_debris_count())+"\n";
         msg+="Planets: "+Strings::num_to_string(Game::get_planet_count())+"\n";
+        msg+="Debris: "+Strings::num_to_string(Game::get_debris_count())+"\n";
+        msg+="Ships: "+Strings::num_to_string(Game::get_ship_count())+"\n";
+        msg+="Items: "+Strings::num_to_string(Game::get_item_count())+"\n";
 
         msg+="\n-----Ship-----\n";
         msg+="Position: "+Strings::num_to_string(Game::get_player_const().get_box().center_x())+" , "+Strings::num_to_string(Game::get_player_const().get_box().center_y())+"\n";
