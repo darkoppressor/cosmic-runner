@@ -72,6 +72,7 @@ private:
 
     static std::uint32_t frame;
     static std::uint32_t ship_spawn_check;
+    static std::uint32_t item_spawn_check;
 
     static Ship& get_player();
 
@@ -167,7 +168,15 @@ public:
     static void kill_item(std::uint32_t index);
     static void create_item(const Coords<double>& position,const Vector& base_velocity);
 
+    //Returns true if the passed rectangle collides with any debris or the star
+    static bool collides_with_game_world(const Collision_Rect<double>& box);
+
+    //Returns a random point within an area on a randomly selected side of the player
+    //This function can fail, in which case it returns coordinates of -1.0,-1.0
+    static Coords<double> get_spawn_point(double width,double height);
+
     static void generate_ships();
+    static void generate_items();
 
     static void game_over();
 

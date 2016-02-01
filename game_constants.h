@@ -51,9 +51,12 @@ public:
     static std::uint32_t WEAPON_SPREAD_DISTANCE;
 
     static double DESPAWN_DISTANCE;
-    static std::uint32_t SHIP_SPAWN_DISTANCE_MAX;
-    static std::uint32_t SHIP_SPAWN_DISTANCE_MIN;
+    static std::uint32_t SPAWN_DISTANCE_MAX;
+    static std::uint32_t SPAWN_DISTANCE_MIN;
     static std::uint32_t SHIP_SPAWN_RATE;
+    static std::uint32_t ITEM_SPAWN_RATE;
+
+    static std::uint32_t MAX_ATTEMPTS_SPAWN;
 
     static double AI_RANGE;
     static double AI_FOLLOW_DISTANCE;

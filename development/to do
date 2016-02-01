@@ -3,16 +3,6 @@ For each positive passive feature (except for point defense and anti gravity), m
 One that gives a little of the feature
 And one that gives more, but also gives a little of a negative feature
 Never combine matching positive and negative features obviously
-
-Consider making items work like ships
-None genned during world gen
-Genned over time by "director"
-Also, maybe make items disappear when out of range of player
-
-What purpose does dropping cargo serve? I forget, make sure it makes sense
-
-Maybe being cloaked should prevent weapons from firing (also point defense)
-When decloaking, all cooldowns are reset, so you have to wait to fire weapons and point defense
 ****
 
 Note: Should homing shots ignore the player when he is being tractored?
@@ -23,10 +13,6 @@ Lift off animation complementing landing?
 Note: change map screen to a minimap? It would be like now and show the star and planets
 
 Add star
-
-Note: Should items gravitate?
-
-Implement antigravity passive feature
 
 Note: Balance idea:
 I could decide on a base amount for each stat
@@ -51,8 +37,8 @@ Design ships
 Add all ships
 
 Improve world generation
-Improve item generation weighting?
-Improve ship generation
+Improve item generation amount/type
+Improve ship generation amount/type
 
 Note: high score board
 

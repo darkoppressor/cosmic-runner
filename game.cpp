@@ -65,6 +65,7 @@ RNG Game::rng;
 
 uint32_t Game::frame=0;
 uint32_t Game::ship_spawn_check=0;
+uint32_t Game::item_spawn_check=0;
 
 double Game::world_width=0.0;
 double Game::world_height=0.0;
@@ -125,6 +126,7 @@ void Game::clear_world(){
 
     frame=0;
     ship_spawn_check=0;
+    item_spawn_check=0;
 }
 
 void Game::generate_world(){
@@ -173,25 +175,9 @@ void Game::generate_world(){
         debris.push_back(Debris(type,Coords<double>((double)x,(double)y),rng.random_range(0,359),Vector(0.01*rng.random_range(0,75),rng.random_range(0,359))));
     }
 
-    //Generate items
-    uint32_t item_count=((world_width+world_height)/2.0)/256.0;
-    for(uint32_t i=0;i<item_count;i++){
-        string type=get_random_item_type();
-
-        Sprite sprite;
-        sprite.set_name(Game_Data::get_item_type(type)->sprite);
-
-        uint32_t x=rng.random_range(0,(uint32_t)world_width-(uint32_t)sprite.get_width());
-        uint32_t y=rng.random_range(0,(uint32_t)world_height-(uint32_t)sprite.get_height());
-
-        items.push_back(Item(type,Coords<double>((double)x,(double)y),Vector(0.0,0.0),rng.random_range(0,359),Vector(0.0,0.0)));
-    }
-
     ///QQQ Try to get number of planets desired, but don't allow any too near the star, and don't allow any to touch each other
     ///QQQ If debris is too near the star or touching other debris, skip it
-    ///QQQ If item is too near the star or touching a planet, or touching another item, skip it
     ///QQQ If player is touching any debris, erase that debris
-    ///QQQ If player is within vacuum range of any item, erase that item
 
     //Generate the player's ship
     string ship_type="player";
@@ -668,6 +654,8 @@ void Game::create_explosion(string sprite,string sound,const Coords<double>& pos
 }
 
 string Game::get_random_item_type(){
+    ///QQQ item type is determined by player needs
+
     uint32_t random_item=rng.random_range(0,99);
 
     if(random_item<50){
@@ -697,94 +685,212 @@ void Game::create_item(const Coords<double>& position,const Vector& base_velocit
                          rng.random_range(0,359),Vector(0.01*rng.random_range(0,150),rng.random_range(0,359))));
 }
 
+bool Game::collides_with_game_world(const Collision_Rect<double>& box){
+    for(size_t i=0;i<stars.size();i++){
+        if(Collision::check_rect_circ(box,stars[i].get_circle())){
+            return true;
+        }
+    }
+
+    vector<uint32_t> nearby_debris;
+    quadtree_debris.get_objects(nearby_debris,box);
+
+    unordered_set<uint32_t> collisions;
+
+    for(size_t i=0;i<nearby_debris.size();i++){
+        if(!collisions.count(nearby_debris[i])){
+            collisions.emplace(nearby_debris[i]);
+
+            if(Collision::check_rect(box,get_debris(nearby_debris[i]).get_box())){
+                return true;
+            }
+        }
+    }
+
+    return false;
+}
+
+Coords<double> Game::get_spawn_point(double width,double height){
+    uint32_t attempts=0;
+
+    double x=-1.0;
+    double y=-1.0;
+
+    do{
+        const Ship& player=get_player_const();
+
+        double angle_of_interest=0.0;
+
+        if(player_has_contract()){
+            const Planet& planet=get_contract_planet();
+
+            //Angle of interest is the angle from the player to the contract planet
+            angle_of_interest=player.get_box().get_angle_to_circ(planet.get_circle());
+        }
+        else{
+            //Angle of interest is simply the player's current facing angle
+            angle_of_interest=player.get_angle();
+        }
+
+        uint32_t preferred_side=0;
+
+        Math::clamp_angle(angle_of_interest);
+
+        if(angle_of_interest>=315.0 && angle_of_interest<=45.0){
+            preferred_side=2;
+        }
+        else if(angle_of_interest>=135.0 && angle_of_interest<=225.0){
+            preferred_side=0;
+        }
+        else if(angle_of_interest>45.0 && angle_of_interest<135.0){
+            preferred_side=1;
+        }
+        else{
+            preferred_side=3;
+        }
+
+        uint32_t random_side_num=rng.weighted_random_range(0,3,preferred_side);
+
+        string random_side="";
+
+        if(random_side_num==0){
+            random_side="left";
+        }
+        else if(random_side_num==1){
+            random_side="up";
+        }
+        else if(random_side_num==2){
+            random_side="right";
+        }
+        else{
+            random_side="down";
+        }
+
+        if(random_side=="left"){
+            x=player.get_box().x-(double)rng.random_range(Game_Constants::SPAWN_DISTANCE_MIN,Game_Constants::SPAWN_DISTANCE_MAX);
+            if(rng.random_range(0,99)<50){
+                y=player.get_box().y-(double)rng.random_range(0,Game_Constants::SPAWN_DISTANCE_MAX);
+            }
+            else{
+                y=player.get_box().y+(double)rng.random_range(0,Game_Constants::SPAWN_DISTANCE_MAX);
+            }
+        }
+        else if(random_side=="right"){
+            x=player.get_box().x+player.get_box().w+(double)rng.random_range(Game_Constants::SPAWN_DISTANCE_MIN,Game_Constants::SPAWN_DISTANCE_MAX);
+            if(rng.random_range(0,99)<50){
+                y=player.get_box().y-(double)rng.random_range(0,Game_Constants::SPAWN_DISTANCE_MAX);
+            }
+            else{
+                y=player.get_box().y+(double)rng.random_range(0,Game_Constants::SPAWN_DISTANCE_MAX);
+            }
+        }
+        else if(random_side=="up"){
+            y=player.get_box().y-(double)rng.random_range(Game_Constants::SPAWN_DISTANCE_MIN,Game_Constants::SPAWN_DISTANCE_MAX);
+            if(rng.random_range(0,99)<50){
+                x=player.get_box().x-(double)rng.random_range(0,Game_Constants::SPAWN_DISTANCE_MAX);
+            }
+            else{
+                x=player.get_box().x+(double)rng.random_range(0,Game_Constants::SPAWN_DISTANCE_MAX);
+            }
+        }
+        else if(random_side=="down"){
+            y=player.get_box().y+player.get_box().h+(double)rng.random_range(Game_Constants::SPAWN_DISTANCE_MIN,Game_Constants::SPAWN_DISTANCE_MAX);
+            if(rng.random_range(0,99)<50){
+                x=player.get_box().x-(double)rng.random_range(0,Game_Constants::SPAWN_DISTANCE_MAX);
+            }
+            else{
+                x=player.get_box().x+(double)rng.random_range(0,Game_Constants::SPAWN_DISTANCE_MAX);
+            }
+        }
+
+        //Ensure the point is inside the world
+        if(x<0.0){
+            x+=(double)Game_Constants::SPAWN_DISTANCE_MAX*2.0;
+        }
+        if(y<0.0){
+            y+=(double)Game_Constants::SPAWN_DISTANCE_MAX*2.0;
+        }
+        if(x>=world_width){
+            x-=(double)Game_Constants::SPAWN_DISTANCE_MAX*2.0;
+        }
+        if(y>=world_height){
+            y-=(double)Game_Constants::SPAWN_DISTANCE_MAX*2.0;
+        }
+    }while(++attempts<Game_Constants::MAX_ATTEMPTS_SPAWN && collides_with_game_world(Collision_Rect<double>(x,y,width,height)));
+
+    //If a valid point was not found
+    if(attempts==Game_Constants::MAX_ATTEMPTS_SPAWN){
+        x=-1.0;
+        y=-1.0;
+    }
+
+    return Coords<double>(x,y);
+}
+
 void Game::generate_ships(){
     uint32_t ship_count=ships.size()-1;
 
-    ///QQQ maximum number of ships determined by notoriety and score multiplier
-    uint32_t MAX_SHIP_COUNT=50;
+    ///QQQ desired ships is determined by score multiplier
+    uint32_t desired_ships=25;
 
-    for(uint32_t i=ship_count;i<MAX_SHIP_COUNT;i++){
-        ///QQQ chance per ship to spawn is also determined by notoriety and score multiplier
-        if(rng.random_range(0,99)<100){
-            ///QQQ ship type is determined by player's current area and notoriety
-            string ship_type="test_civilian";
-            uint32_t random_ship=rng.random_range(0,99);
-            if(random_ship>=25 && random_ship<50){
-                ship_type="test_pirate";
-            }
-            else if(random_ship>=50 && random_ship<75){
-                ship_type="test_bounty_hunter";
-            }
-            else if(random_ship>=75){
-                ship_type="test_police";
-            }
+    if(ship_count<=desired_ships){
+        desired_ships-=ship_count;
+    }
+    else{
+        desired_ships=0;
+    }
 
-            Sprite ship_sprite;
-            ship_sprite.set_name(Game_Data::get_ship_type(ship_type)->sprite);
+    for(uint32_t i=0;i<desired_ships;i++){
+        ///QQQ ship type is determined by player's current area and notoriety
+        string type="test_civilian";
+        uint32_t random_ship=rng.random_range(0,99);
+        if(random_ship>=25 && random_ship<50){
+            type="test_pirate";
+        }
+        else if(random_ship>=50 && random_ship<75){
+            type="test_bounty_hunter";
+        }
+        else if(random_ship>=75){
+            type="test_police";
+        }
 
-            const Ship& player=get_player_const();
+        Sprite sprite;
+        sprite.set_name(Game_Data::get_ship_type(type)->sprite);
 
-            double x=0.0;
-            double y=0.0;
+        Coords<double> spawn_point=get_spawn_point(sprite.get_width(),sprite.get_height());
 
-            ///QQQ weight side selection to prefer the contract direction, or if no contract, the player's current facing direction
-            //Select a random side of the player, and select a random point within that side that conforms to the minimum and maximum ship spawn distances
-            string random_side=Game_Manager::get_random_direction_cardinal(rng);
-            if(random_side=="left"){
-                x=player.get_box().x-(double)rng.random_range(Game_Constants::SHIP_SPAWN_DISTANCE_MIN,Game_Constants::SHIP_SPAWN_DISTANCE_MAX);
-                if(rng.random_range(0,99)<50){
-                    y=player.get_box().y-(double)rng.random_range(0,Game_Constants::SHIP_SPAWN_DISTANCE_MAX);
-                }
-                else{
-                    y=player.get_box().y+(double)rng.random_range(0,Game_Constants::SHIP_SPAWN_DISTANCE_MAX);
-                }
-            }
-            else if(random_side=="right"){
-                x=player.get_box().x+player.get_box().w+(double)rng.random_range(Game_Constants::SHIP_SPAWN_DISTANCE_MIN,Game_Constants::SHIP_SPAWN_DISTANCE_MAX);
-                if(rng.random_range(0,99)<50){
-                    y=player.get_box().y-(double)rng.random_range(0,Game_Constants::SHIP_SPAWN_DISTANCE_MAX);
-                }
-                else{
-                    y=player.get_box().y+(double)rng.random_range(0,Game_Constants::SHIP_SPAWN_DISTANCE_MAX);
-                }
-            }
-            else if(random_side=="up"){
-                y=player.get_box().y-(double)rng.random_range(Game_Constants::SHIP_SPAWN_DISTANCE_MIN,Game_Constants::SHIP_SPAWN_DISTANCE_MAX);
-                if(rng.random_range(0,99)<50){
-                    x=player.get_box().x-(double)rng.random_range(0,Game_Constants::SHIP_SPAWN_DISTANCE_MAX);
-                }
-                else{
-                    x=player.get_box().x+(double)rng.random_range(0,Game_Constants::SHIP_SPAWN_DISTANCE_MAX);
-                }
-            }
-            else if(random_side=="down"){
-                y=player.get_box().y+player.get_box().h+(double)rng.random_range(Game_Constants::SHIP_SPAWN_DISTANCE_MIN,Game_Constants::SHIP_SPAWN_DISTANCE_MAX);
-                if(rng.random_range(0,99)<50){
-                    x=player.get_box().x-(double)rng.random_range(0,Game_Constants::SHIP_SPAWN_DISTANCE_MAX);
-                }
-                else{
-                    x=player.get_box().x+(double)rng.random_range(0,Game_Constants::SHIP_SPAWN_DISTANCE_MAX);
-                }
-            }
-
-            //Ensure the point is inside the world
-            if(x<0.0){
-                x+=(double)Game_Constants::SHIP_SPAWN_DISTANCE_MAX*2.0;
-            }
-            if(y<0.0){
-                y+=(double)Game_Constants::SHIP_SPAWN_DISTANCE_MAX*2.0;
-            }
-            if(x>=world_width){
-                x-=(double)Game_Constants::SHIP_SPAWN_DISTANCE_MAX*2.0;
-            }
-            if(y>=world_height){
-                y-=(double)Game_Constants::SHIP_SPAWN_DISTANCE_MAX*2.0;
-            }
-
-            ///QQQ make sure the ship won't spawn inside debris or the star
-
-            ships.push_back(Ship(ship_type,Coords<double>(x,y),rng.random_range(0,359)));
+        if(spawn_point.x>=0.0 && spawn_point.y>=0.0){
+            ships.push_back(Ship(type,spawn_point,rng.random_range(0,359)));
             ships.back().ai_select_target((uint32_t)ships.size()-1,rng);
+        }
+    }
+}
+
+void Game::generate_items(){
+    uint32_t item_count=items.size();
+
+    ///QQQ desired items is determined by score multiplier
+    ///This will be the inverse, though
+    ///The higher the score multiplier, the less items spawn
+    uint32_t desired_items=4;
+
+    if(item_count<=desired_items){
+        desired_items-=item_count;
+    }
+    else{
+        desired_items=0;
+    }
+
+    for(uint32_t i=0;i<desired_items;i++){
+        string type=get_random_item_type();
+
+        Sprite sprite;
+        sprite.set_name(Game_Data::get_item_type(type)->sprite);
+
+        Coords<double> spawn_point=get_spawn_point(sprite.get_width(),sprite.get_height());
+
+        if(spawn_point.x>=0.0 && spawn_point.y>=0.0){
+            items.push_back(Item(type,spawn_point,Vector(0.0,0.0),rng.random_range(0,359),Vector(0.0,0.0)));
         }
     }
 }
@@ -804,6 +910,12 @@ void Game::tick(){
         ship_spawn_check=0;
 
         generate_ships();
+    }
+
+    if(++item_spawn_check>=Game_Constants::ITEM_SPAWN_RATE*Engine::UPDATE_RATE){
+        item_spawn_check=0;
+
+        generate_items();
     }
 
     if(power>0 && --power==0){
@@ -968,7 +1080,7 @@ void Game::events(){
     }
 
     for(size_t i=0;i<items.size();){
-        if(!items[i].is_alive()){
+        if(!items[i].is_alive() || items[i].get_distance_to_player()>=Game_Constants::DESPAWN_DISTANCE){
             items.erase(items.begin()+i);
         }
         else{

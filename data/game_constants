@@ -173,13 +173,13 @@
 
 <game_constant>
 	//meters (pixels)
-	name:ship_spawn_distance_max
+	name:spawn_distance_max
 	value:2432
 </game_constant>
 
 <game_constant>
 	//meters (pixels)
-	name:ship_spawn_distance_min
+	name:spawn_distance_min
 	value:1408
 </game_constant>
 
@@ -187,6 +187,17 @@
 	//seconds
 	name:ship_spawn_rate
 	value:30
+</game_constant>
+
+<game_constant>
+	//seconds
+	name:item_spawn_rate
+	value:45
+</game_constant>
+
+<game_constant>
+	name:max_attempts_spawn
+	value:10
 </game_constant>
 
 <game_constant>

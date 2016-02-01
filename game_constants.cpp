@@ -51,9 +51,12 @@ uint32_t Game_Constants::NOTORIETY_INCREASE=0;
 uint32_t Game_Constants::WEAPON_SPREAD_DISTANCE=0;
 
 double Game_Constants::DESPAWN_DISTANCE=0.0;
-uint32_t Game_Constants::SHIP_SPAWN_DISTANCE_MAX=0;
-uint32_t Game_Constants::SHIP_SPAWN_DISTANCE_MIN=0;
+uint32_t Game_Constants::SPAWN_DISTANCE_MAX=0;
+uint32_t Game_Constants::SPAWN_DISTANCE_MIN=0;
 uint32_t Game_Constants::SHIP_SPAWN_RATE=0;
+uint32_t Game_Constants::ITEM_SPAWN_RATE=0;
+
+uint32_t Game_Constants::MAX_ATTEMPTS_SPAWN=0;
 
 double Game_Constants::AI_RANGE=0.0;
 double Game_Constants::AI_FOLLOW_DISTANCE=0.0;
@@ -175,14 +178,21 @@ void Game_Constants_Loader::set_game_constant(string name,string value){
     else if(name=="despawn_distance"){
         Game_Constants::DESPAWN_DISTANCE=Strings::string_to_double(value);
     }
-    else if(name=="ship_spawn_distance_max"){
-        Game_Constants::SHIP_SPAWN_DISTANCE_MAX=Strings::string_to_unsigned_long(value);
+    else if(name=="spawn_distance_max"){
+        Game_Constants::SPAWN_DISTANCE_MAX=Strings::string_to_unsigned_long(value);
     }
-    else if(name=="ship_spawn_distance_min"){
-        Game_Constants::SHIP_SPAWN_DISTANCE_MIN=Strings::string_to_unsigned_long(value);
+    else if(name=="spawn_distance_min"){
+        Game_Constants::SPAWN_DISTANCE_MIN=Strings::string_to_unsigned_long(value);
     }
     else if(name=="ship_spawn_rate"){
         Game_Constants::SHIP_SPAWN_RATE=Strings::string_to_unsigned_long(value);
+    }
+    else if(name=="item_spawn_rate"){
+        Game_Constants::ITEM_SPAWN_RATE=Strings::string_to_unsigned_long(value);
+    }
+
+    else if(name=="max_attempts_spawn"){
+        Game_Constants::MAX_ATTEMPTS_SPAWN=Strings::string_to_unsigned_long(value);
     }
 
     else if(name=="ai_range"){
