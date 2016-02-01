@@ -4,7 +4,7 @@
 	collect_sound:item_restore_hull
 	mass:10.0
 	thrust_decel:32.0
-	point_value:5
+	point_value:1
 </item>
 
 <item>
@@ -13,5 +13,5 @@
 	collect_sound:item_restore_power
 	mass:10.0
 	thrust_decel:32.0
-	point_value:10
+	point_value:2
 </item>

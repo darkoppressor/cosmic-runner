@@ -51,6 +51,8 @@ private:
 
     static std::uint32_t notoriety;
 
+    static std::uint32_t kills;
+
     static bool player_tractored;
     static std::uint32_t tractoring_ship;
     static double tractor_angle;
@@ -138,6 +140,9 @@ public:
     static bool notoriety_tier_2();
     static void increase_notoriety();
     static void reset_notoriety();
+
+    static std::uint32_t get_kills();
+    static void add_kill();
 
     static bool is_player_tractored();
     static std::uint32_t get_tractoring_ship_index();

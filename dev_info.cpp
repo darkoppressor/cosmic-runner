@@ -27,6 +27,7 @@ void Engine::render_dev_info(){
 
         msg+="\n-----Game-----\n";
         msg+="Score: "+Strings::num_to_string(Game::get_score())+" (x"+Strings::num_to_string(Game::get_score_multiplier())+" multiplier)\n";
+        msg+="Kills: "+Strings::num_to_string(Game::get_kills())+"\n";
         msg+="Power: "+Strings::num_to_string(Game::get_power())+"/"+Strings::num_to_string(Game_Constants::MAX_POWER*Engine::UPDATE_RATE)+"\n";
         if(Game::notoriety_tier_2()){
             msg+="Notoriety: Tier 2";

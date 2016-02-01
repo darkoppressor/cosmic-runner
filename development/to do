@@ -1,3 +1,7 @@
+Try adding side wings/engine thingies to each ship?
+Add the other ship graphics
+Overhaul other graphics
+
 Note: Should homing shots ignore the player when he is being tractored?
 Note: Should the player ignore collisions when being tractored?
 
@@ -16,10 +20,6 @@ Add cooldown for active upgrade
 Add all actives
 
 Make sure ship disabled status is fully implemented
-
-Design ships
-
-Add all ships
 
 Add descriptions to upgrades
 

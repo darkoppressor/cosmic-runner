@@ -41,7 +41,7 @@
 
 <game_constant>
 	name:point_value_contract
-	value:10000
+	value:100
 </game_constant>
 
 <game_constant>
@@ -156,7 +156,7 @@
 <game_constant>
 	//seconds
 	name:notoriety_increase
-	value:35
+	value:20
 </game_constant>
 
 <game_constant>

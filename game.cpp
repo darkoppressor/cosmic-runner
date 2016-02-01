@@ -46,6 +46,8 @@ uint32_t Game::power=0;
 
 uint32_t Game::notoriety=0;
 
+uint32_t Game::kills=0;
+
 bool Game::player_tractored=false;
 uint32_t Game::tractoring_ship=0;
 double Game::tractor_angle=0.0;
@@ -103,6 +105,8 @@ void Game::clear_world(){
     power=Game_Constants::MAX_POWER*Engine::UPDATE_RATE;
 
     notoriety=0;
+
+    kills=0;
 
     clear_tractor();
     tractor_sprite.set_name("tractor_beam");
@@ -181,7 +185,7 @@ void Game::generate_world(){
     ///QQQ If player is touching any debris, erase that debris
 
     //Generate the player's ship
-    string ship_type="player";
+    string ship_type="player_0";
     Sprite ship_sprite;
     ship_sprite.set_name(Game_Data::get_ship_type(ship_type)->sprite);
     uint32_t random_planet_index=rng.random_range(0,planets.size()-1);
@@ -569,6 +573,14 @@ void Game::reset_notoriety(){
     notoriety=0;
 }
 
+uint32_t Game::get_kills(){
+    return kills;
+}
+
+void Game::add_kill(){
+    kills++;
+}
+
 bool Game::is_player_tractored(){
     return player_tractored;
 }
@@ -847,16 +859,16 @@ void Game::generate_ships(){
 
     for(uint32_t i=0;i<desired_ships;i++){
         ///QQQ ship type is determined by player's current area and notoriety
-        string type="test_civilian";
+        string type="civilian_0";
         uint32_t random_ship=rng.random_range(0,99);
         if(random_ship>=25 && random_ship<50){
-            type="test_pirate";
+            type="pirate_0";
         }
         else if(random_ship>=50 && random_ship<75){
-            type="test_bounty_hunter";
+            type="bounty_hunter_0";
         }
         else if(random_ship>=75){
-            type="test_police";
+            type="police_0";
         }
 
         Sprite sprite;

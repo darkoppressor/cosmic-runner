@@ -650,6 +650,8 @@ void Ship::take_damage(bool is_player,int32_t damage,string damage_type,const Co
                 else{
                     if(damage_faction=="player"){
                         Game::increase_score(get_ship_type()->point_value);
+
+                        Game::add_kill();
                     }
                 }
             }

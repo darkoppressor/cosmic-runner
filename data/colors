@@ -2,54 +2,54 @@
 
 <color>
 	name:space
-	rgb:26,26,26
+	rgb:51,51,51
 </color>
 
 <color>
 	name:star_blue
-	rgb:12,127,242
+	rgb:138,230,230
 </color>
 
 <color>
 	name:star_white
-	rgb:230,230,230
+	rgb:217,217,217
 </color>
 
 <color>
 	name:star_yellow
-	rgb:242,242,12
+	rgb:230,230,138
 </color>
 
 <color>
 	name:star_orange
-	rgb:242,128,12
+	rgb:230,184,138
 </color>
 
 <color>
 	name:star_red
-	rgb:204,10,10
+	rgb:230,138,138
 </color>
 
 <color>
 	name:laser
-	rgb:10,204,204
+	rgb:255,153,204
 </color>
 
 <color>
 	name:point_defense
-	rgb:242,242,12
+	rgb:255,255,153
 </color>
 
 //** Engine Colors **//
 
 <color>
 	name:ui_white
-	rgb:230,230,230
+	rgb:242,242,242
 </color>
 
 <color>
 	name:ui_black
-	rgb:26,26,26
+	rgb:51,51,51
 </color>
 
 <color>
@@ -59,22 +59,22 @@
 
 <color>
 	name:ui_0
-	rgb:230,230,230
+	rgb:242,242,242
 </color>
 
 <color>
 	name:ui_1
-	rgb:10,204,204
+	rgb:138,184,230
 </color>
 
 <color>
 	name:ui_2
-	rgb:12,127,242
+	rgb:138,138,230
 </color>
 
 <color>
 	name:ui_3
-	rgb:10,107,204
+	rgb:184,138,230
 </color>
 
 <color>
