@@ -99,8 +99,10 @@ void Effect::animate(){
 
 void Effect::render(){
     if(!is_done()){
-        if(!line && Collision::check_rect(box*Game_Manager::camera_zoom,Game_Manager::camera)){
-            sprite.render(box.x*Game_Manager::camera_zoom-Game_Manager::camera.x,box.y*Game_Manager::camera_zoom-Game_Manager::camera.y,1.0,scale,scale,angle);
+        if(!line){
+            if(Collision::check_rect(box*Game_Manager::camera_zoom,Game_Manager::camera)){
+                sprite.render(box.x*Game_Manager::camera_zoom-Game_Manager::camera.x,box.y*Game_Manager::camera_zoom-Game_Manager::camera.y,1.0,scale,scale,angle);
+            }
         }
         else if(Collision::check_rect(Collision_Rect<double>(box.x,box.y,1.0,1.0)*Game_Manager::camera_zoom,Game_Manager::camera) ||
                 Collision::check_rect(Collision_Rect<double>(box.w,box.h,1.0,1.0)*Game_Manager::camera_zoom,Game_Manager::camera)){
