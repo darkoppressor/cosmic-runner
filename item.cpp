@@ -6,13 +6,12 @@
 #include "game_data.h"
 #include "game.h"
 #include "game_constants.h"
+#include "game_options.h"
 
 #include <game_manager.h>
 #include <sound_manager.h>
 #include <engine.h>
-///QQQ includes
-///#include <render.h>
-///
+#include <render.h>
 
 using namespace std;
 
@@ -161,9 +160,9 @@ void Item::render(){
         if(Collision::check_rect(box*Game_Manager::camera_zoom,Game_Manager::camera)){
             sprite.render(box.x*Game_Manager::camera_zoom-Game_Manager::camera.x,box.y*Game_Manager::camera_zoom-Game_Manager::camera.y,1.0,1.0,1.0,angle);
 
-            ///QQQ render collision box
-            ///Render::render_rectangle(box.x*Game_Manager::camera_zoom-Game_Manager::camera.x,box.y*Game_Manager::camera_zoom-Game_Manager::camera.y,box.w,box.h,0.25,"red");
-            ///
+            if(Game_Options::show_collision_outlines){
+                Render::render_rectangle_empty(box.x*Game_Manager::camera_zoom-Game_Manager::camera.x,box.y*Game_Manager::camera_zoom-Game_Manager::camera.y,box.w,box.h,1.0,"red",1.0);
+            }
         }
     }
 }

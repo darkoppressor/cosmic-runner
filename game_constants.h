@@ -36,6 +36,8 @@ public:
 
     static double SHIP_MANEUVER_ANGLE;
 
+    static double POLICE_LIGHTS_ANGULAR_SPEED;
+
     static double POINT_DEFENSE_RANGE;
 
     static double ITEM_VACUUM_RANGE;

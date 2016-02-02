@@ -6,12 +6,11 @@
 #include "ship.h"
 #include "game.h"
 #include "game_data.h"
+#include "game_options.h"
 
 #include <game_manager.h>
 #include <sound_manager.h>
-///QQQ includes
-///#include <render.h>
-///
+#include <render.h>
 
 using namespace std;
 
@@ -65,9 +64,9 @@ void Explosion::render(){
         if(Collision::check_circ_rect(circle*Game_Manager::camera_zoom,Game_Manager::camera)){
             sprite.render((circle.x-circle.r)*Game_Manager::camera_zoom-Game_Manager::camera.x,(circle.y-circle.r)*Game_Manager::camera_zoom-Game_Manager::camera.y);
 
-            ///QQQ render collision circle
-            ///Render::render_circle(circle.x*Game_Manager::camera_zoom-Game_Manager::camera.x,circle.y*Game_Manager::camera_zoom-Game_Manager::camera.y,circle.r,0.5,"red");
-            ///
+            if(Game_Options::show_collision_outlines){
+                Render::render_circle_empty(circle.x*Game_Manager::camera_zoom-Game_Manager::camera.x,circle.y*Game_Manager::camera_zoom-Game_Manager::camera.y,circle.r,1.0,"red");
+            }
         }
     }
 }

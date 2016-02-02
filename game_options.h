@@ -12,6 +12,8 @@ public:
 
     static uint32_t backgrounds;
 
+    static bool show_collision_outlines;
+
     static bool get_option(std::string name,std::string& value);
     static void set_option(std::string name,std::string value);
 };

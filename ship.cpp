@@ -6,6 +6,7 @@
 #include "game_data.h"
 #include "game.h"
 #include "game_constants.h"
+#include "game_options.h"
 
 #include <engine.h>
 #include <game_manager.h>
@@ -483,8 +484,12 @@ string Ship::get_faction() const{
 }
 
 Collision_Rect<double> Ship::get_collision_box() const{
-    return Collision_Rect<double>(box.x+box.w/2.0-box.w*get_ship_type()->collision_percentage/2.0,box.y+box.h/2.0-box.h*get_ship_type()->collision_percentage/2.0,
-                                  box.w*get_ship_type()->collision_percentage,box.h*get_ship_type()->collision_percentage);
+    Collision_Rect<double> box_collision=get_ship_type()->box_collision;
+
+    box_collision.x+=box.x;
+    box_collision.y+=box.y;
+
+    return box_collision;
 }
 
 bool Ship::is_alive() const{
@@ -1092,6 +1097,10 @@ bool Ship::ai_proximity_check_allowed(uint32_t frame,uint32_t own_index) const{
     }
 }
 
+bool Ship::ai_proximity_target_is_player() const{
+    return ai_has_proximity_target && ai_proximity_target==0;
+}
+
 void Ship::ai(const Quadtree<double,uint32_t>& quadtree_ships,const Quadtree<double,uint32_t>& quadtree_planets,uint32_t frame,uint32_t own_index,RNG& rng){
     if(is_alive() && !is_landing() && !is_disabled(false)){
         if(ai_proximity_check_allowed(frame,own_index)){
@@ -1113,7 +1122,9 @@ void Ship::ai(const Quadtree<double,uint32_t>& quadtree_ships,const Quadtree<dou
 
                     const Planet& planet=Game::get_planet(nearby_planets[i]);
 
-                    if(Collision::check_rect_circ(box,planet.get_circle())){
+                    Coords<double> center=box.get_center();
+
+                    if(Collision::check_rect_circ(Collision_Rect<double>(center.x,center.y,1.0,1.0),planet.get_circle())){
                         commence_landing(nearby_planets[i]);
 
                         return;
@@ -1129,7 +1140,7 @@ void Ship::ai(const Quadtree<double,uint32_t>& quadtree_ships,const Quadtree<dou
                 angle+=180.0;
             }
 
-            if(get_faction()=="police" && ai_proximity_target==0 && Game::notoriety_tier_1() && get_distance_to_player()<=Game_Constants::TRACTOR_RANGE){
+            if(get_faction()=="police" && ai_proximity_target_is_player() && Game::notoriety_tier_1() && get_distance_to_player()<=Game_Constants::TRACTOR_RANGE){
                 Game::tractor_player(angle+180.0,own_index);
 
                 set_braking(true);
@@ -1378,7 +1389,9 @@ void Ship::animate(){
 
 void Ship::render(bool tractoring){
     if(is_alive()){
-        if(Collision::check_rect(box*Game_Manager::camera_zoom,Game_Manager::camera)){
+        bool in_camera=Collision::check_rect(box*Game_Manager::camera_zoom,Game_Manager::camera);
+
+        if(in_camera){
             double scale=1.0;
             if(is_landing()){
                 scale=landing_scale;
@@ -1386,22 +1399,24 @@ void Ship::render(bool tractoring){
 
             sprite.render(box.x*Game_Manager::camera_zoom-Game_Manager::camera.x,box.y*Game_Manager::camera_zoom-Game_Manager::camera.y,1.0,scale,scale,angle);
 
-            ///QQQ render collision boxes
-            /**Collision_Rect<double> col_box=get_collision_box();
-            ///Render::render_rectangle(box.x*Game_Manager::camera_zoom-Game_Manager::camera.x,box.y*Game_Manager::camera_zoom-Game_Manager::camera.y,box.w,box.h,0.25,"white");
-            ///Render::render_rectangle(col_box.x*Game_Manager::camera_zoom-Game_Manager::camera.x,col_box.y*Game_Manager::camera_zoom-Game_Manager::camera.y,col_box.w,col_box.h,0.25,"red");
+            if(Game_Options::show_collision_outlines){
+                Collision_Rect<double> col_box=get_collision_box();
 
-            vector<Coords<double>> vertices;
-            col_box.get_vertices(vertices,angle);
+                ///QQQ render extra collision boxes
+                /**Render::render_rectangle(box.x*Game_Manager::camera_zoom-Game_Manager::camera.x,box.y*Game_Manager::camera_zoom-Game_Manager::camera.y,box.w,box.h,0.25,"white");
+                Render::render_rectangle(col_box.x*Game_Manager::camera_zoom-Game_Manager::camera.x,col_box.y*Game_Manager::camera_zoom-Game_Manager::camera.y,col_box.w,col_box.h,0.25,"red");*/
 
-            for(size_t i=0;i<vertices.size();i++){
-                uint32_t start_vertex=(uint32_t)i;
-                uint32_t end_vertex=(i<vertices.size()-1) ? start_vertex+1 : 0;
+                vector<Coords<double>> vertices;
+                col_box.get_vertices(vertices,angle);
 
-                Render::render_line(vertices[start_vertex].x*Game_Manager::camera_zoom-Game_Manager::camera.x,vertices[start_vertex].y*Game_Manager::camera_zoom-Game_Manager::camera.y,
-                                    vertices[end_vertex].x*Game_Manager::camera_zoom-Game_Manager::camera.x,vertices[end_vertex].y*Game_Manager::camera_zoom-Game_Manager::camera.y,1.0,"red");
-            }*/
-            ///
+                for(size_t i=0;i<vertices.size();i++){
+                    uint32_t start_vertex=(uint32_t)i;
+                    uint32_t end_vertex=(i<vertices.size()-1) ? start_vertex+1 : 0;
+
+                    Render::render_line(vertices[start_vertex].x*Game_Manager::camera_zoom-Game_Manager::camera.x,vertices[start_vertex].y*Game_Manager::camera_zoom-Game_Manager::camera.y,
+                                        vertices[end_vertex].x*Game_Manager::camera_zoom-Game_Manager::camera.x,vertices[end_vertex].y*Game_Manager::camera_zoom-Game_Manager::camera.y,1.0,"red");
+                }
+            }
         }
 
         if(tractoring){
@@ -1419,6 +1434,17 @@ void Ship::render(bool tractoring){
             y+=vc.b;
 
             tractor_sprite.render(x*Game_Manager::camera_zoom-Game_Manager::camera.x,y*Game_Manager::camera_zoom-Game_Manager::camera.y,1.0,1.0,1.0,angle);
+        }
+
+        if(in_camera && get_faction()=="police" && ai_proximity_target_is_player() && !is_disabled(false) && (Game::notoriety_tier_1() || Game::notoriety_tier_2())){
+            const Sprite& police_lights_sprite=Game::get_police_lights_sprite();
+
+            double x=box.center_x()-police_lights_sprite.get_width()/2.0;
+            double y=box.center_y()-police_lights_sprite.get_height()/2.0;
+
+            double light_angle=Game::get_police_lights_angle()+angle;
+
+            police_lights_sprite.render(x*Game_Manager::camera_zoom-Game_Manager::camera.x,y*Game_Manager::camera_zoom-Game_Manager::camera.y,1.0,1.0,1.0,light_angle);
         }
     }
 }

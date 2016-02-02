@@ -10,9 +10,16 @@ using namespace std;
 
 uint32_t Game_Options::backgrounds=0;
 
+bool Game_Options::show_collision_outlines=false;
+
 bool Game_Options::get_option(string name,string& value){
     if(name=="cl_backgrounds"){
         value=Strings::num_to_string(backgrounds);
+
+        return true;
+    }
+    else if(name=="cl_show_collision_outlines"){
+        value=Strings::bool_to_string(show_collision_outlines);
 
         return true;
     }
@@ -23,5 +30,8 @@ bool Game_Options::get_option(string name,string& value){
 void Game_Options::set_option(string name,string value){
     if(name=="cl_backgrounds"){
         backgrounds=Strings::string_to_unsigned_long(value);
+    }
+    else if(name=="cl_show_collision_outlines"){
+        show_collision_outlines=Strings::string_to_bool(value);
     }
 }

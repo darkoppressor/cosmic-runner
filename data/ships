@@ -2,7 +2,7 @@
 	name:player_0
 	faction:player
 	sprite:ship_player_0
-	collision_percentage:0.8
+	box_collision:2,5,36,35
 	upgrades:guided_missile_swarm
 	mass:300.0
 	hull_max:100
@@ -19,7 +19,7 @@
 	name:civilian_0
 	faction:civilian
 	sprite:ship_civilian_0
-	collision_percentage:0.8
+	box_collision:3,3,117,35
 	upgrades:
 	mass:300.0
 	hull_max:25
@@ -36,7 +36,7 @@
 	name:pirate_0
 	faction:pirate
 	sprite:ship_pirate_0
-	collision_percentage:0.8
+	box_collision:2,2,36,41
 	upgrades:cannon_shotgun
 	mass:300.0
 	hull_max:50
@@ -53,7 +53,7 @@
 	name:pirate_1
 	faction:pirate
 	sprite:ship_pirate_1
-	collision_percentage:0.8
+	box_collision:2,2,33,54
 	upgrades:cannon_shotgun
 	mass:300.0
 	hull_max:75
@@ -70,7 +70,7 @@
 	name:pirate_2
 	faction:pirate
 	sprite:ship_pirate_2
-	collision_percentage:0.8
+	box_collision:6,5,53,35
 	upgrades:cannon_shotgun
 	mass:300.0
 	hull_max:100
@@ -87,7 +87,7 @@
 	name:bounty_hunter_0
 	faction:bounty_hunter
 	sprite:ship_bounty_hunter_0
-	collision_percentage:0.8
+	box_collision:5,4,44,21
 	upgrades:missile_single
 	mass:300.0
 	hull_max:25
@@ -104,7 +104,7 @@
 	name:bounty_hunter_1
 	faction:bounty_hunter
 	sprite:ship_bounty_hunter_1
-	collision_percentage:0.8
+	box_collision:2,4,35,29
 	upgrades:missile_spread
 	mass:300.0
 	hull_max:25
@@ -121,7 +121,7 @@
 	name:bounty_hunter_2
 	faction:bounty_hunter
 	sprite:ship_bounty_hunter_2
-	collision_percentage:0.8
+	box_collision:2,5,40,65
 	upgrades:guided_missile_single
 	mass:300.0
 	hull_max:25
@@ -138,7 +138,7 @@
 	name:police_0
 	faction:police
 	sprite:ship_police_0
-	collision_percentage:0.8
+	box_collision:2,3,38,29
 	upgrades:cannon_sniper
 	mass:300.0
 	hull_max:100
@@ -155,7 +155,7 @@
 	name:police_1
 	faction:police
 	sprite:ship_police_1
-	collision_percentage:0.8
+	box_collision:2,3,32,35
 	upgrades:cannon_sniper
 	mass:300.0
 	hull_max:150
@@ -172,7 +172,7 @@
 	name:police_2
 	faction:police
 	sprite:ship_police_2
-	collision_percentage:0.8
+	box_collision:2,3,38,33
 	upgrades:cannon_sniper
 	mass:300.0
 	hull_max:200

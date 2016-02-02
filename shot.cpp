@@ -6,12 +6,11 @@
 #include "game_data.h"
 #include "game.h"
 #include "game_constants.h"
+#include "game_options.h"
 
 #include <engine.h>
 #include <game_manager.h>
-///QQQ includes
-///#include <render.h>
-///
+#include <render.h>
 
 #include <unordered_set>
 
@@ -270,22 +269,24 @@ void Shot::render(){
         if(Collision::check_rect(box*Game_Manager::camera_zoom,Game_Manager::camera)){
             sprite.render(box.x*Game_Manager::camera_zoom-Game_Manager::camera.x,box.y*Game_Manager::camera_zoom-Game_Manager::camera.y,1.0,1.0,1.0,angle);
 
-            ///QQQ render collision boxes
-            /**Collision_Rect<double> col_box=get_collision_box();
-            ///Render::render_rectangle(box.x*Game_Manager::camera_zoom-Game_Manager::camera.x,box.y*Game_Manager::camera_zoom-Game_Manager::camera.y,box.w,box.h,0.25,"white");
-            ///Render::render_rectangle(col_box.x*Game_Manager::camera_zoom-Game_Manager::camera.x,col_box.y*Game_Manager::camera_zoom-Game_Manager::camera.y,col_box.w,col_box.h,0.25,"red");
+            if(Game_Options::show_collision_outlines){
+                Collision_Rect<double> col_box=get_collision_box();
 
-            vector<Coords<double>> vertices;
-            col_box.get_vertices(vertices,angle);
+                ///QQQ render extra collision boxes
+                /**Render::render_rectangle(box.x*Game_Manager::camera_zoom-Game_Manager::camera.x,box.y*Game_Manager::camera_zoom-Game_Manager::camera.y,box.w,box.h,0.25,"white");
+                Render::render_rectangle(col_box.x*Game_Manager::camera_zoom-Game_Manager::camera.x,col_box.y*Game_Manager::camera_zoom-Game_Manager::camera.y,col_box.w,col_box.h,0.25,"red");*/
 
-            for(size_t i=0;i<vertices.size();i++){
-                uint32_t start_vertex=(uint32_t)i;
-                uint32_t end_vertex=(i<vertices.size()-1) ? start_vertex+1 : 0;
+                vector<Coords<double>> vertices;
+                col_box.get_vertices(vertices,angle);
 
-                Render::render_line(vertices[start_vertex].x*Game_Manager::camera_zoom-Game_Manager::camera.x,vertices[start_vertex].y*Game_Manager::camera_zoom-Game_Manager::camera.y,
-                                    vertices[end_vertex].x*Game_Manager::camera_zoom-Game_Manager::camera.x,vertices[end_vertex].y*Game_Manager::camera_zoom-Game_Manager::camera.y,1.0,"red");
-            }*/
-            ///
+                for(size_t i=0;i<vertices.size();i++){
+                    uint32_t start_vertex=(uint32_t)i;
+                    uint32_t end_vertex=(i<vertices.size()-1) ? start_vertex+1 : 0;
+
+                    Render::render_line(vertices[start_vertex].x*Game_Manager::camera_zoom-Game_Manager::camera.x,vertices[start_vertex].y*Game_Manager::camera_zoom-Game_Manager::camera.y,
+                                        vertices[end_vertex].x*Game_Manager::camera_zoom-Game_Manager::camera.x,vertices[end_vertex].y*Game_Manager::camera_zoom-Game_Manager::camera.y,1.0,"red");
+                }
+            }
         }
     }
 }

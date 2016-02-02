@@ -112,6 +112,12 @@
 </game_constant>
 
 <game_constant>
+	//degrees/second
+	name:police_lights_angular_speed
+	value:12.0
+</game_constant>
+
+<game_constant>
 	//meters (pixels)
 	name:point_defense_range
 	value:128.0

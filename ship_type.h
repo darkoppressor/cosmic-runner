@@ -5,6 +5,8 @@
 #ifndef ship_type_h
 #define ship_type_h
 
+#include <collision.h>
+
 #include <string>
 #include <cstdint>
 #include <vector>
@@ -18,7 +20,7 @@ public:
 
     std::string sprite;
 
-    double collision_percentage;
+    Collision_Rect<double> box_collision;
 
     std::vector<std::string> upgrades;
 

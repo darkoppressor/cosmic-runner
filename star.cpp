@@ -4,6 +4,7 @@
 
 #include "star.h"
 #include "game_constants.h"
+#include "game_options.h"
 
 #include <game_manager.h>
 #include <render.h>
@@ -22,10 +23,10 @@ Collision_Circ<double> Star::get_circle() const{
 
 void Star::render(){
     if(Collision::check_circ_rect(circle*Game_Manager::camera_zoom,Game_Manager::camera)){
-        Render::render_circle(circle.x*Game_Manager::camera_zoom-Game_Manager::camera.x,circle.y*Game_Manager::camera_zoom-Game_Manager::camera.y,circle.r,1.0,"star_yellow");
+        Render::render_circle_empty(circle.x*Game_Manager::camera_zoom-Game_Manager::camera.x,circle.y*Game_Manager::camera_zoom-Game_Manager::camera.y,circle.r,1.0,"star_yellow");
 
-        ///QQQ render collision circle
-        ///Render::render_circle(circle.x*Game_Manager::camera_zoom-Game_Manager::camera.x,circle.y*Game_Manager::camera_zoom-Game_Manager::camera.y,circle.r,0.5,"red");
-        ///
+        if(Game_Options::show_collision_outlines){
+            Render::render_circle_empty(circle.x*Game_Manager::camera_zoom-Game_Manager::camera.x,circle.y*Game_Manager::camera_zoom-Game_Manager::camera.y,circle.r,1.0,"red");
+        }
     }
 }

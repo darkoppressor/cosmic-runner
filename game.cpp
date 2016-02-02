@@ -37,6 +37,10 @@ int32_t Game::contract=0;
 Sprite Game::contract_sprite;
 Sprite Game::no_contract_sprite;
 
+Sprite Game::police_lights_sprite;
+Vector Game::police_lights_angular_velocity;
+double Game::police_lights_angle=0.0;
+
 int32_t Game::landed_planet=0;
 
 uint64_t Game::score=0;
@@ -117,8 +121,13 @@ void Game::clear_world(){
 
     contract=-1;
 
-    contract_sprite.reset_animation();
-    no_contract_sprite.reset_animation();
+    contract_sprite.set_name("contract_indicator_arrow");
+    no_contract_sprite.set_name("contract_indicator_none");
+
+    police_lights_sprite.set_name("police_lights");
+    police_lights_angular_velocity.magnitude=Game_Constants::POLICE_LIGHTS_ANGULAR_SPEED;
+    police_lights_angular_velocity.direction=0.0;
+    police_lights_angle=0.0;
 
     landed_planet=-1;
 
@@ -136,9 +145,6 @@ void Game::clear_world(){
 
 void Game::generate_world(){
     clear_world();
-
-    contract_sprite.set_name("contract_indicator_arrow");
-    no_contract_sprite.set_name("contract_indicator_none");
 
     rng.seed((uint32_t)time(0));
 
@@ -531,6 +537,14 @@ const Planet& Game::get_landed_planet(){
     else{
         return planets[0];
     }
+}
+
+const Sprite& Game::get_police_lights_sprite(){
+    return police_lights_sprite;
+}
+
+double Game::get_police_lights_angle(){
+    return police_lights_angle;
 }
 
 uint32_t Game::get_power(){
@@ -1151,6 +1165,14 @@ void Game::animate(){
         no_contract_sprite.animate();
     }
 
+    police_lights_sprite.animate();
+    if(police_lights_angular_velocity.direction>=0 && police_lights_angular_velocity.direction<180){
+        police_lights_angle+=police_lights_angular_velocity.magnitude;
+    }
+    else{
+        police_lights_angle-=police_lights_angular_velocity.magnitude;
+    }
+
     if(is_player_tractored()){
         tractor_sprite.animate();
     }
@@ -1217,7 +1239,7 @@ void Game::update_background(){
 }
 
 void Game::render_background(){
-    Render::render_rectangle(0,0,Game_Window::width(),Game_Window::height(),1.0,"space");
+    Render::render_rectangle(0.0,0.0,Game_Window::width(),Game_Window::height(),1.0,"space");
 
     Background::render();
 }

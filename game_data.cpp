@@ -82,8 +82,22 @@ void Game_Data::load_ship_type(File_IO_Load* load){
         else if(Data_Reader::check_prefix(line,"sprite:")){
             ship_types.back().sprite=line;
         }
-        else if(Data_Reader::check_prefix(line,"collision_percentage:")){
-            ship_types.back().collision_percentage=Strings::string_to_double(line);
+        else if(Data_Reader::check_prefix(line,"box_collision:")){
+            vector<string> dimensions;
+            boost::algorithm::split(dimensions,line,boost::algorithm::is_any_of(","));
+
+            if(dimensions.size()>=1){
+                ship_types.back().box_collision.x=Strings::string_to_double(dimensions[0]);
+            }
+            if(dimensions.size()>=2){
+                ship_types.back().box_collision.y=Strings::string_to_double(dimensions[1]);
+            }
+            if(dimensions.size()>=3){
+                ship_types.back().box_collision.w=Strings::string_to_double(dimensions[2]);
+            }
+            if(dimensions.size()>=4){
+                ship_types.back().box_collision.h=Strings::string_to_double(dimensions[3]);
+            }
         }
         else if(Data_Reader::check_prefix(line,"upgrades:")){
             vector<string> upgrade_strings;

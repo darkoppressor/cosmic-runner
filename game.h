@@ -18,6 +18,7 @@
 #include <rng.h>
 #include <coords.h>
 #include <sprite.h>
+#include <math_vector.h>
 
 #include <vector>
 #include <cstdint>
@@ -40,6 +41,10 @@ private:
 
     static Sprite contract_sprite;
     static Sprite no_contract_sprite;
+
+    static Sprite police_lights_sprite;
+    static Vector police_lights_angular_velocity;
+    static double police_lights_angle;
 
     //landed planet index
     static std::int32_t landed_planet;
@@ -130,6 +135,9 @@ public:
     static bool player_is_landing();
     static bool player_is_landed();
     static const Planet& get_landed_planet();
+
+    static const Sprite& get_police_lights_sprite();
+    static double get_police_lights_angle();
 
     static std::uint32_t get_power();
     static bool player_is_out_of_power();

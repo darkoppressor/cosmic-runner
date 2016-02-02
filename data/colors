@@ -59,22 +59,22 @@
 
 <color>
 	name:ui_0
-	rgb:242,242,242
+	rgb:230,138,184
 </color>
 
 <color>
 	name:ui_1
-	rgb:138,184,230
+	rgb:153,255,255
 </color>
 
 <color>
 	name:ui_2
-	rgb:138,138,230
+	rgb:138,230,230
 </color>
 
 <color>
 	name:ui_3
-	rgb:184,138,230
+	rgb:242,242,242
 </color>
 
 <color>

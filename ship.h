@@ -169,6 +169,7 @@ public:
     void ai_select_target(std::uint32_t own_index,RNG& rng);
     void ai_check_for_proximity_target(const Quadtree<double,std::uint32_t>& quadtree_ships,std::uint32_t own_index);
     bool ai_proximity_check_allowed(std::uint32_t frame,std::uint32_t own_index) const;
+    bool ai_proximity_target_is_player() const;
     void ai(const Quadtree<double,std::uint32_t>& quadtree_ships,const Quadtree<double,std::uint32_t>& quadtree_planets,std::uint32_t frame,std::uint32_t own_index,RNG& rng);
 
     void thrust(std::uint32_t frame);

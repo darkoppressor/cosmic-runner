@@ -198,10 +198,12 @@ bool Game_Manager::handle_game_command(string command_name){
             const Ship& player=Game::get_player_const();
 
             if(!Game::player_is_landing() && !Game::player_is_landed() && !player.is_disabled(true)){
+                Coords<double> player_center=player.get_box().get_center();
+
                 if(Game::player_has_contract()){
                     const Planet& planet=Game::get_contract_planet();
 
-                    if(Collision::check_circ_rect(planet.get_circle(),player.get_box())){
+                    if(Collision::check_circ_rect(planet.get_circle(),Collision_Rect<double>(player_center.x,player_center.y,1.0,1.0))){
                         Game::commence_landing(Game::get_contract_planet_index());
                     }
                 }
@@ -210,7 +212,7 @@ bool Game_Manager::handle_game_command(string command_name){
 
                     const Planet& planet=Game::get_planet(nearest_planet_index);
 
-                    if(Collision::check_circ_rect(planet.get_circle(),player.get_box())){
+                    if(Collision::check_circ_rect(planet.get_circle(),Collision_Rect<double>(player_center.x,player_center.y,1.0,1.0))){
                         Game::commence_landing(nearest_planet_index);
                     }
                 }

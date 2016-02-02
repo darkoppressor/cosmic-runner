@@ -1,6 +1,8 @@
-Try adding side wings/engine thingies to each ship?
-Add the other ship graphics
 Overhaul other graphics
+
+Consider lowering the value of a health tier just a little (maybe 25 -> 20)
+
+Test all passive upgrades
 
 Note: Should homing shots ignore the player when he is being tractored?
 Note: Should the player ignore collisions when being tractored?

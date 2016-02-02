@@ -41,6 +41,12 @@
 </game_option>
 
 <game_option>
+	name:cl_show_collision_outlines
+	default:false
+	description:show collision outlines on game objects
+</game_option>
+
+<game_option>
 	name:cl_name
 	default:Newbie
 	description:your name
