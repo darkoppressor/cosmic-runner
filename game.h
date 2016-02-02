@@ -13,6 +13,7 @@
 #include "shot.h"
 #include "explosion.h"
 #include "item.h"
+#include "title.h"
 
 #include <quadtree.h>
 #include <rng.h>
@@ -26,6 +27,8 @@
 
 class Game{
 private:
+
+    static Title title;
 
     static std::vector<Ship> ships;
     static std::vector<Debris> debris;
@@ -108,6 +111,8 @@ public:
     static std::uint64_t get_score();
     static std::uint64_t get_score_multiplier();
     static std::vector<std::string> get_upgrade_list();
+
+    static Title& get_title();
 
     static RNG& get_rng();
 

@@ -153,13 +153,10 @@ void Background_Layer::render(){
 
 vector<Background_Layer> Background::background_layers;
 
-void Background::setup(){
+void Background::setup(RNG& rng){
     for(uint32_t i=0;i<Game_Options::backgrounds;i++){
         background_layers.push_back(Background_Layer(Game_Window::width(),Game_Window::height(),2.0+2.0*(double)i,2.0+2.0*(double)i));
     }
-
-    //Generate the background layer textures
-    RNG rng;
 
     for(size_t i=0;i<background_layers.size();i++){
         background_layers[i].generate_texture_background(i,rng);

@@ -423,6 +423,8 @@
 		<Unit filename="special_info.cpp" />
 		<Unit filename="star.cpp" />
 		<Unit filename="star.h" />
+		<Unit filename="title.cpp" />
+		<Unit filename="title.h" />
 		<Unit filename="upgrade.cpp" />
 		<Unit filename="upgrade.h" />
 		<Unit filename="version.cpp" />

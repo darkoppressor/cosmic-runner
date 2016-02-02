@@ -18,10 +18,11 @@
 #include <engine_strings.h>
 #include <window_manager.h>
 
-#include <ctime>
 #include <unordered_set>
 
 using namespace std;
+
+Title Game::title;
 
 vector<Ship> Game::ships;
 vector<Debris> Game::debris;
@@ -146,9 +147,9 @@ void Game::clear_world(){
 void Game::generate_world(){
     clear_world();
 
-    rng.seed((uint32_t)time(0));
+    rng.seed(title.get_seed());
 
-    Background::setup();
+    Background::setup(rng);
 
     world_width=10000.0;
     world_height=10000.0;
@@ -331,6 +332,10 @@ uint64_t Game::get_score_multiplier(){
 
 vector<string> Game::get_upgrade_list(){
     return upgrade_list;
+}
+
+Title& Game::get_title(){
+    return title;
 }
 
 RNG& Game::get_rng(){

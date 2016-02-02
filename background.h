@@ -50,7 +50,7 @@ private:
 
 public:
 
-    static void setup();
+    static void setup(RNG& rng);
 
     static void unload();
 

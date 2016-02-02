@@ -3,6 +3,7 @@
 /* See the file docs/LICENSE.txt for the full license text. */
 
 #include "game.h"
+#include "background.h"
 
 #include <game_manager.h>
 #include <options.h>
@@ -124,13 +125,49 @@ string Game_Manager::get_game_window_caption(){
 }
 
 void Game_Manager::clear_title(){
+    Background::unload();
 }
 
 void Game_Manager::setup_title(){
     clear_title();
+
+    Title& title=Game::get_title();
+
+    title.reseed();
+
+    RNG& rng=Game::get_rng();
+
+    rng.seed(title.get_seed());
+
+    Background::setup(rng);
 }
 
 void Game_Manager::update_title_background(){
+    RNG& rng=Game::get_rng();
+
+    Title& title=Game::get_title();
+
+    title.accelerate(rng);
+    Coords<double> position_change=title.movement();
+
+    Background::update(position_change.x,position_change.y);
+}
+
+void Game_Manager::render_title_background(){
+    Render::render_rectangle(0.0,0.0,Game_Window::width(),Game_Window::height(),1.0,"space");
+
+    Background::render();
+
+    Bitmap_Font* font=Object_Manager::get_font("standard");
+
+    font->show(0.0,Game_Window::height()-font->spacing_y*2.0,"Version: "+Engine_Version::get_version()+" "+Engine_Version::get_status()+"\nChecksum: "+Engine::CHECKSUM,"ui_0");
+
+    Image_Data* logo=Image_Manager::get_image("logo");
+
+    double logo_scale_x=(double)Game_Window::width()/(double)1280.0;
+    double logo_scale_y=(double)Game_Window::height()/(double)720.0;
+
+    Render::render_texture(Game_Window::width()-logo->w*logo_scale_x,Game_Window::height()-logo->h*logo_scale_y,logo,1.0,logo_scale_x,logo_scale_y);
 }
 
 void Game_Manager::render_scoreboard(){
@@ -145,21 +182,6 @@ void Game_Manager::render_scoreboard(){
         font->show(72.0,(Game_Window::height()-(Strings::newline_count(name_list)+1)*font->spacing_y)/2.0,name_list,"ui_white");
         font->show(168.0,(Game_Window::height()-(Strings::newline_count(ping_list)+1)*font->spacing_y)/2.0,ping_list,"ui_white");
     }
-}
-
-void Game_Manager::render_title_background(){
-    Bitmap_Font* font=Object_Manager::get_font("standard");
-
-    Render::render_rectangle(0.0,0.0,Game_Window::width(),Game_Window::height(),1.0,"space");
-
-    font->show(0.0,Game_Window::height()-font->spacing_y*2.0,"Version: "+Engine_Version::get_version()+" "+Engine_Version::get_status()+"\nChecksum: "+Engine::CHECKSUM,"ui_0");
-
-    Image_Data* logo=Image_Manager::get_image("logo");
-
-    double logo_scale_x=(double)Game_Window::width()/(double)1280.0;
-    double logo_scale_y=(double)Game_Window::height()/(double)720.0;
-
-    Render::render_texture(Game_Window::width()-logo->w*logo_scale_x,Game_Window::height()-logo->h*logo_scale_y,logo,1.0,logo_scale_x,logo_scale_y);
 }
 
 void Game_Manager::render_pause(){
