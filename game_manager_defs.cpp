@@ -162,6 +162,10 @@ void Game_Manager::render_title_background(){
 
     font->show(0.0,Game_Window::height()-font->spacing_y*2.0,"Version: "+Engine_Version::get_version()+" "+Engine_Version::get_status()+"\nChecksum: "+Engine::CHECKSUM,"ui_0");
 
+    string message="Cosmic Runner";
+    double scale=4.0;
+    font->show(Game_Window::width()/2.0-(font->spacing_x*scale*message.length())/2.0,font->spacing_y,message,"title",1.0,scale,scale);
+
     Image_Data* logo=Image_Manager::get_image("logo");
 
     double logo_scale_x=(double)Game_Window::width()/(double)1280.0;
