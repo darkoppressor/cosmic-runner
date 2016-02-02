@@ -59,7 +59,7 @@ void Item::die(){
 double Item::get_distance_to_player() const{
     const Ship& player=Game::get_player_const();
 
-    return Math::distance_between_points(box.center_x(),box.center_y(),player.get_box().center_x(),player.get_box().center_y());
+    return Math::get_distance_between_points(box.get_center(),player.get_box().get_center());
 }
 
 void Item::play_collection_sound() const{

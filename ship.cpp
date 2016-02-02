@@ -499,14 +499,14 @@ bool Ship::is_alive() const{
 double Ship::get_distance_to_player() const{
     const Ship& player=Game::get_player_const();
 
-    return Math::distance_between_points(box.center_x(),box.center_y(),player.get_box().center_x(),player.get_box().center_y());
+    return Math::get_distance_between_points(box.get_center(),player.get_box().get_center());
 }
 
 double Ship::get_distance_to_proximity_target() const{
     if(ai_has_proximity_target){
         const Ship& ship=Game::get_ship(ai_proximity_target);
 
-        return Math::distance_between_points(box.center_x(),box.center_y(),ship.get_box().center_x(),ship.get_box().center_y());
+        return Math::get_distance_between_points(box.get_center(),ship.get_box().get_center());
     }
     else{
         return 0.0;
@@ -702,18 +702,6 @@ void Ship::set_braking(bool new_braking){
     braking=new_braking;
 }
 
-double Ship::get_distance_between_angles(double angle_a,double angle_b) const{
-    int32_t a=(int32_t)angle_a;
-    int32_t b=(int32_t)angle_b;
-
-    int32_t difference=Math::abs(a,b)%360;
-    if(difference>180){
-        difference=360-difference;
-    }
-
-    return (double)difference;
-}
-
 void Ship::stop(){
     velocity*=0.0;
     force*=0.0;
@@ -872,7 +860,7 @@ int32_t Ship::get_nearest_valid_target_ship(const Quadtree<double,uint32_t>& qua
     for(size_t i=0;i<valid_targets.size();i++){
         const Ship& ship=Game::get_ship(valid_targets[i]);
 
-        double new_distance=Math::distance_between_points(box.center_x(),box.center_y(),ship.get_box().center_x(),ship.get_box().center_y());
+        double new_distance=Math::get_distance_between_points(box.get_center(),ship.get_box().get_center());
 
         if(nearest_index==-1 || new_distance<nearest_distance){
             nearest_index=valid_targets[i];
@@ -984,7 +972,7 @@ int32_t Ship::get_nearest_valid_target_shot(const Quadtree<double,uint32_t>& qua
     for(size_t i=0;i<valid_targets.size();i++){
         const Shot& shot=Game::get_shot(valid_targets[i]);
 
-        double new_distance=Math::distance_between_points(box.center_x(),box.center_y(),shot.get_box().center_x(),shot.get_box().center_y());
+        double new_distance=Math::get_distance_between_points(box.get_center(),shot.get_box().get_center());
 
         if(nearest_index==-1 || new_distance<nearest_distance){
             nearest_index=valid_targets[i];
@@ -1173,7 +1161,7 @@ void Ship::thrust(uint32_t frame){
     if(thrusting){
         double thrust_magnitude=get_thrust_accel();
 
-        if(get_distance_between_angles(velocity.direction,angle)>=Game_Constants::SHIP_MANEUVER_ANGLE){
+        if(Math::get_distance_between_angles(velocity.direction,angle)>=Game_Constants::SHIP_MANEUVER_ANGLE){
             thrust_magnitude=get_thrust_decel();
         }
 
@@ -1428,7 +1416,7 @@ void Ship::render(bool tractoring){
             Coords<double> box_side(box.x+box.w,box.center_y());
             box_side=Math::rotate_point(box_side,box.get_center(),angle);
 
-            Vector move_sprite(Math::distance_between_points(box.center_x(),box.center_y(),box_side.x,box_side.y),angle);
+            Vector move_sprite(Math::get_distance_between_points(box.get_center(),box_side),angle);
             Vector_Components vc=move_sprite.get_components();
             x+=vc.a;
             y+=vc.b;

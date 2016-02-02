@@ -81,7 +81,7 @@ bool Shot::is_alive() const{
 double Shot::get_distance_to_player() const{
     const Ship& player=Game::get_player_const();
 
-    return Math::distance_between_points(box.center_x(),box.center_y(),player.get_box().center_x(),player.get_box().center_y());
+    return Math::get_distance_between_points(box.get_center(),player.get_box().get_center());
 }
 
 bool Shot::has_owner() const{
@@ -183,7 +183,7 @@ void Shot::thrust(const Quadtree<double,uint32_t>& quadtree_ships){
         for(size_t i=0;i<valid_targets.size();i++){
             const Ship& ship=Game::get_ship(valid_targets[i]);
 
-            double new_distance=Math::distance_between_points(box.center_x(),box.center_y(),ship.get_box().center_x(),ship.get_box().center_y());
+            double new_distance=Math::get_distance_between_points(box.get_center(),ship.get_box().get_center());
 
             if(nearest_index==-1 || new_distance<nearest_distance){
                 nearest_index=valid_targets[i];

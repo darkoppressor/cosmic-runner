@@ -123,6 +123,16 @@ string Game_Manager::get_game_window_caption(){
     return msg;
 }
 
+void Game_Manager::clear_title(){
+}
+
+void Game_Manager::setup_title(){
+    clear_title();
+}
+
+void Game_Manager::update_title_background(){
+}
+
 void Game_Manager::render_scoreboard(){
     if(display_scoreboard){
         Bitmap_Font* font=Object_Manager::get_font("small");
@@ -130,10 +140,10 @@ void Game_Manager::render_scoreboard(){
         string name_list=Network_Engine::get_name_list();
         string ping_list=Network_Engine::get_ping_list();
 
-        Render::render_rectangle(0,0,Game_Window::width(),Game_Window::height(),0.5,"ui_black");
+        Render::render_rectangle(0.0,0.0,Game_Window::width(),Game_Window::height(),0.5,"ui_black");
 
-        font->show(72,(Game_Window::height()-(Strings::newline_count(name_list)+1)*font->spacing_y)/2.0,name_list,"ui_white");
-        font->show(168,(Game_Window::height()-(Strings::newline_count(ping_list)+1)*font->spacing_y)/2.0,ping_list,"ui_white");
+        font->show(72.0,(Game_Window::height()-(Strings::newline_count(name_list)+1)*font->spacing_y)/2.0,name_list,"ui_white");
+        font->show(168.0,(Game_Window::height()-(Strings::newline_count(ping_list)+1)*font->spacing_y)/2.0,ping_list,"ui_white");
     }
 }
 
@@ -142,7 +152,7 @@ void Game_Manager::render_title_background(){
 
     Render::render_rectangle(0.0,0.0,Game_Window::width(),Game_Window::height(),1.0,"space");
 
-    font->show(0,Game_Window::height()-font->spacing_y*2.0,"Version: "+Engine_Version::get_version()+" "+Engine_Version::get_status()+"\nChecksum: "+Engine::CHECKSUM,"ui_0");
+    font->show(0.0,Game_Window::height()-font->spacing_y*2.0,"Version: "+Engine_Version::get_version()+" "+Engine_Version::get_status()+"\nChecksum: "+Engine::CHECKSUM,"ui_0");
 
     Image_Data* logo=Image_Manager::get_image("logo");
 
@@ -156,11 +166,11 @@ void Game_Manager::render_pause(){
     Bitmap_Font* font=Object_Manager::get_font("standard");
 
     string msg="Paused";
-    font->show((Game_Window::width()-(font->spacing_x*msg.length()))/2,(Game_Window::height()-font->spacing_y)/2,msg,"ui_0");
+    font->show((Game_Window::width()-(font->spacing_x*msg.length()))/2.0,(Game_Window::height()-font->spacing_y)/2.0,msg,"ui_0");
 }
 
 void Game_Manager::render_fps(int render_rate,double ms_per_frame,int logic_frame_rate){
-    Object_Manager::get_font("standard")->show(2,2,"FPS: "+Strings::num_to_string(render_rate)+"\n"+Network_Engine::get_stats(),"ui_0");
+    Object_Manager::get_font("standard")->show(2.0,2.0,"FPS: "+Strings::num_to_string(render_rate)+"\n"+Network_Engine::get_stats(),"ui_0");
 }
 
 void Game_Manager::render_loading_screen(const Progress_Bar& bar,string message){

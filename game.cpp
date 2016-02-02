@@ -383,7 +383,7 @@ uint32_t Game::get_nearest_planet(uint32_t ship_index){
     for(size_t i=0;i<planets.size();i++){
         const Planet& planet=planets[i];
 
-        double new_distance=Math::distance_between_points(ship.get_box().center_x(),ship.get_box().center_y(),planet.get_circle().x,planet.get_circle().y);
+        double new_distance=Math::get_distance_between_points(ship.get_box().get_center(),planet.get_circle().get_center());
 
         if(nearest_index==-1 || new_distance<nearest_distance){
             nearest_index=i;
