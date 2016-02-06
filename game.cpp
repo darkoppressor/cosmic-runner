@@ -22,6 +22,10 @@
 
 using namespace std;
 
+#ifdef GAME_OS_ANDROID
+const uint64_t Game::UINT64_MAX=18446744073709551615;
+#endif
+
 Title Game::title;
 
 vector<Ship> Game::ships;

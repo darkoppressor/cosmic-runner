@@ -28,6 +28,10 @@
 class Game{
 private:
 
+    #ifdef GAME_OS_ANDROID
+    static const std::uint64_t UINT64_MAX;
+    #endif
+
     static Title title;
 
     static std::vector<Ship> ships;
