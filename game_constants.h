@@ -44,6 +44,7 @@ public:
     static double ITEM_VACUUM_FORCE;
 
     static double STAR_RADIUS;
+    static double MINIMUM_GEN_DISTANCE_FROM_STAR;
 
     static std::uint32_t NOTORIETY_MAX;
     static std::uint32_t NOTORIETY_TIER_2;

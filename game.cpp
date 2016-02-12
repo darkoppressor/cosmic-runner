@@ -158,15 +158,19 @@ void Game::generate_world(){
     world_width=10000.0;
     world_height=10000.0;
 
+    uint32_t max_attempts=10000;
+
     //Generate star
     stars.push_back(Star(Coords<double>(world_width/2.0,world_height/2.0)));
 
     //Generate planets
+    uint32_t minimum_planets=2;
     uint32_t planet_count=((world_width+world_height)/2.0)/2048.0;
-    if(planet_count<2){
-        planet_count=2;
+    if(planet_count<minimum_planets){
+        planet_count=minimum_planets;
     }
-    for(uint32_t i=0;i<planet_count;i++){
+
+    for(uint32_t i=0,attempts=0;i<planet_count && (planets.size()<minimum_planets || attempts<max_attempts);attempts++){
         Sprite sprite;
         sprite.set_name("planet_"+Strings::num_to_string(rng.random_range(0,0)));
 
@@ -175,11 +179,32 @@ void Game::generate_world(){
         uint32_t x=rng.random_range(radius,(uint32_t)world_width-radius);
         uint32_t y=rng.random_range(radius,(uint32_t)world_height-radius);
 
-        planets.push_back(Planet(sprite.name,Coords<double>((double)x,(double)y)));
+        Coords<double> position((double)x,(double)y);
+
+        double minimum_distance_from_star=Game_Constants::MINIMUM_GEN_DISTANCE_FROM_STAR+Game_Constants::STAR_RADIUS+(double)radius;
+
+        if(attempts>=max_attempts || Math::get_distance_between_points(position,stars.back().get_circle().get_center())>=minimum_distance_from_star){
+            bool touching_planet=false;
+
+            for(size_t j=0;j<planets.size();j++){
+                if(Collision::check_circ(Collision_Circ<double>((double)x,(double)y,(double)radius),planets[j].get_circle())){
+                    touching_planet=true;
+
+                    break;
+                }
+            }
+
+            if(attempts>=max_attempts || !touching_planet){
+                planets.push_back(Planet(sprite.name,position));
+
+                i++;
+            }
+        }
     }
 
     //Generate debris
     uint32_t asteroid_count=((world_width+world_height)/2.0)/24.0;
+
     for(uint32_t i=0;i<asteroid_count;i++){
         string type="asteroid_"+Strings::num_to_string(rng.random_range(0,3));
         Sprite sprite;
@@ -191,7 +216,6 @@ void Game::generate_world(){
         debris.push_back(Debris(type,Coords<double>((double)x,(double)y),rng.random_range(0,359),Vector(0.01*rng.random_range(0,75),rng.random_range(0,359))));
     }
 
-    ///QQQ Try to get number of planets desired, but don't allow any too near the star, and don't allow any to touch each other
     ///QQQ If debris is too near the star or touching other debris, skip it
     ///QQQ If player is touching any debris, erase that debris
 
