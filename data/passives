@@ -46,7 +46,7 @@
 	display_name:Max Hull Up 0
 	type:passive
 
-    max_hull:25
+    max_hull:20
 </upgrade>
 
 <upgrade>
@@ -54,7 +54,7 @@
 	display_name:Max Hull Up 1
 	type:passive
 
-    max_hull:50
+    max_hull:40
 	max_speed:-50.0
 </upgrade>
 
@@ -89,7 +89,7 @@
 	type:passive
 
     thrust_decel:2000.0
-	max_hull:-25
+	max_hull:-20
 </upgrade>
 
 <upgrade>
