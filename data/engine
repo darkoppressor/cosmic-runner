@@ -18,7 +18,7 @@
 	touch_finger_size:4.0
 	touch_controller_shoulders:false
 	touch_controller_guide:false
-	touch_controller_xy:false
+	touch_controller_xy:true
 	default_font:standard
 	tooltip_font:small
 	toast_font:small
