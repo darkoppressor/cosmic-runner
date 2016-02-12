@@ -148,6 +148,12 @@
 </game_constant>
 
 <game_constant>
+	//meters (pixels)
+	name:gen_player_start_clean_distance
+	value:512.0
+</game_constant>
+
+<game_constant>
 	//seconds
 	name:notoriety_max
 	value:600

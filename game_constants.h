@@ -46,6 +46,8 @@ public:
     static double STAR_RADIUS;
     static double MINIMUM_GEN_DISTANCE_FROM_STAR;
 
+    static double GEN_PLAYER_START_CLEAN_DISTANCE;
+
     static std::uint32_t NOTORIETY_MAX;
     static std::uint32_t NOTORIETY_TIER_2;
     static std::uint32_t NOTORIETY_TIER_1;

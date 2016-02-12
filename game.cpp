@@ -213,11 +213,27 @@ void Game::generate_world(){
         uint32_t x=rng.random_range(0,(uint32_t)world_width-(uint32_t)sprite.get_width());
         uint32_t y=rng.random_range(0,(uint32_t)world_height-(uint32_t)sprite.get_height());
 
-        debris.push_back(Debris(type,Coords<double>((double)x,(double)y),rng.random_range(0,359),Vector(0.01*rng.random_range(0,75),rng.random_range(0,359))));
-    }
+        Coords<double> position((double)x,(double)y);
 
-    ///QQQ If debris is too near the star or touching other debris, skip it
-    ///QQQ If player is touching any debris, erase that debris
+        double radius=(sprite.get_width()+sprite.get_height())/4.0;
+        double minimum_distance_from_star=Game_Constants::MINIMUM_GEN_DISTANCE_FROM_STAR+Game_Constants::STAR_RADIUS+radius;
+
+        if(Math::get_distance_between_points(position,stars.back().get_circle().get_center())>=minimum_distance_from_star){
+            bool touching_debris=false;
+
+            for(size_t j=0;j<debris.size();j++){
+                if(Collision::check_rect(Collision_Rect<double>((double)x,(double)y,sprite.get_width(),sprite.get_height()),debris[j].get_box())){
+                    touching_debris=true;
+
+                    break;
+                }
+            }
+
+            if(!touching_debris){
+                debris.push_back(Debris(type,position,rng.random_range(0,359),Vector(0.01*rng.random_range(0,75),rng.random_range(0,359))));
+            }
+        }
+    }
 
     //Generate the player's ship
     string ship_type="player_0";
@@ -228,6 +244,21 @@ void Game::generate_world(){
     ships.push_back(Ship(ship_type,Coords<double>(planet.get_circle().x-ship_sprite.get_width()/2.0,planet.get_circle().y-ship_sprite.get_height()/2.0),rng.random_range(0,359)));
     ships.back().ai_select_target(0,rng);
     ships.back().toggle_weapons();
+
+    //Clear player's starting area of debris
+    for(size_t i=0;i<debris.size();){
+        Coords<double> player_position=ships.back().get_box().get_center();
+
+        if(Collision::check_rect(Collision_Rect<double>(player_position.x-Game_Constants::GEN_PLAYER_START_CLEAN_DISTANCE,
+                                                        player_position.y-Game_Constants::GEN_PLAYER_START_CLEAN_DISTANCE,
+                                                        Game_Constants::GEN_PLAYER_START_CLEAN_DISTANCE*2.0,
+                                                        Game_Constants::GEN_PLAYER_START_CLEAN_DISTANCE*2.0),debris[i].get_box())){
+            debris.erase(debris.begin()+i);
+        }
+        else{
+            i++;
+        }
+    }
 
     //Setup initial contract
     assign_new_contract(get_nearest_planet());
