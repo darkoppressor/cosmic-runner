@@ -23,6 +23,7 @@ Collision_Circ<double> Star::get_circle() const{
 
 void Star::render(){
     if(Collision::check_circ_rect(circle*Game_Manager::camera_zoom,Game_Manager::camera)){
+        Render::render_circle(circle.x*Game_Manager::camera_zoom-Game_Manager::camera.x,circle.y*Game_Manager::camera_zoom-Game_Manager::camera.y,circle.r,0.75,"star_yellow");
         Render::render_circle_empty(circle.x*Game_Manager::camera_zoom-Game_Manager::camera.x,circle.y*Game_Manager::camera_zoom-Game_Manager::camera.y,circle.r,1.0,"star_yellow");
 
         if(Game_Options::show_collision_outlines){

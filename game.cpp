@@ -206,7 +206,7 @@ void Game::generate_world(){
     uint32_t asteroid_count=((world_width+world_height)/2.0)/24.0;
 
     for(uint32_t i=0;i<asteroid_count;i++){
-        string type="asteroid_"+Strings::num_to_string(rng.random_range(0,3));
+        string type="asteroid_"+Strings::num_to_string(rng.random_range(0,2));
         Sprite sprite;
         sprite.set_name(Game_Data::get_debris_type(type)->sprite);
 
