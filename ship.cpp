@@ -35,6 +35,8 @@ Ship::Ship(string new_type,const Coords<double>& position,double new_angle){
     landing_scale=1.0;
     landing_planet_index=0;
 
+    star_damage=0;
+
     shield_recharge=0;
 
     weapons_enabled=true;
@@ -559,6 +561,35 @@ void Ship::notify_of_ship_death(uint32_t index){
     }
 }
 
+void Ship::die(bool is_player,string damage_faction,RNG& rng){
+    if(is_alive()){
+        if(damage_faction=="player" && !is_player && (get_faction()=="civilian" || get_faction()=="police")){
+            Game::increase_notoriety();
+        }
+
+        hull=0;
+
+        Game::create_explosion("explosion_ship","explosion_ship",Coords<double>(box.center_x(),box.center_y()),Game_Constants::EXPLOSION_DAMAGE_SHIP,damage_faction);
+
+        uint32_t items_to_drop=rng.random_range(get_ship_type()->item_drop_min,get_ship_type()->item_drop_max);
+
+        for(uint32_t i=0;i<items_to_drop;i++){
+            Game::create_item(Coords<double>(box.center_x(),box.center_y()),velocity);
+        }
+
+        if(is_player){
+            Game::game_over();
+        }
+        else{
+            if(damage_faction=="player"){
+                Game::increase_score(get_ship_type()->point_value);
+
+                Game::add_kill();
+            }
+        }
+    }
+}
+
 void Ship::take_damage(bool is_player,int32_t damage,string damage_type,const Coords<double>& location,string damage_faction,RNG& rng){
     if(is_alive()){
         if(damage_faction=="player" && !is_player && (get_faction()=="civilian" || get_faction()=="police")){
@@ -735,6 +766,23 @@ void Ship::land(bool is_player){
                 else{
                     hull=0;
                 }
+            }
+        }
+    }
+}
+
+void Ship::take_star_damage(bool is_player,RNG& rng){
+    if(is_alive() && !is_landing() && (!is_player || !Game::player_is_landed())){
+        if(++star_damage>=Game_Constants::STAR_DAMAGE_RATE*Engine::UPDATE_RATE/1000){
+            star_damage=0;
+
+            Coords<double> world_center(Game::world_width/2.0,Game::world_height/2.0);
+
+            if(Math::get_distance_between_points(box.get_center(),world_center)<=(box.w+box.h)/4.0+Game_Constants::STAR_RADIUS+Game_Constants::STAR_DAMAGE_RANGE){
+                Collision_Rect<double> box_collision=get_collision_box();
+
+                take_damage(is_player,Game_Constants::STAR_DAMAGE,"energy",
+                            Coords<double>(box_collision.x+rng.random_range(0,(uint32_t)box_collision.w),box_collision.y+rng.random_range(0,(uint32_t)box_collision.h)),"world",rng);
             }
         }
     }
@@ -1229,6 +1277,22 @@ void Ship::movement(uint32_t own_index,const Quadtree<double,uint32_t>& quadtree
         box.y+=vc.b/(double)Engine::UPDATE_RATE;
 
         Collision_Rect<double> box_collision=get_collision_box();
+
+        const Star& star=Game::get_star();
+        Collision_Circ<double> circle_star=star.get_circle();
+
+        if(Collision::check_rect_circ(box_collision,circle_star)){
+            string damage_faction="world";
+
+            //If we are either fleeing from or chasing a ship, it is blamed for this damage
+            if(!is_player && ai_has_proximity_target){
+                damage_faction=Game::get_ship(ai_proximity_target).get_faction();
+            }
+
+            die(is_player,damage_faction,rng);
+
+            return;
+        }
 
         vector<uint32_t> nearby_debris;
         quadtree_debris.get_objects(nearby_debris,box_collision);

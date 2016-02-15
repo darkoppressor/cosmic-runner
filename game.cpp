@@ -1086,6 +1086,7 @@ void Game::movement(){
     for(size_t i=0;i<ships.size();i++){
         ships[i].land(i==0);
 
+        ships[i].take_star_damage(i==0,rng);
         ships[i].regenerate_shields(i==0);
         ships[i].cooldown(quadtree_ships,quadtree_shots,rng,(uint32_t)i);
         ships[i].calculate_laser_target(quadtree_ships,(uint32_t)i);

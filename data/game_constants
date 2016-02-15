@@ -154,6 +154,23 @@
 
 <game_constant>
 	//meters (pixels)
+	name:star_damage_range
+	value:128.0
+</game_constant>
+
+<game_constant>
+	//milliseconds
+	name:star_damage_rate
+	value:500
+</game_constant>
+
+<game_constant>
+	name:star_damage
+	value:10
+</game_constant>
+
+<game_constant>
+	//meters (pixels)
 	name:minimum_gen_distance_from_star
 	value:1024.0
 </game_constant>

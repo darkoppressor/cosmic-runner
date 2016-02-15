@@ -41,6 +41,8 @@ private:
     double landing_scale;
     std::uint32_t landing_planet_index;
 
+    std::uint32_t star_damage;
+
     std::uint32_t shield_recharge;
 
     std::vector<std::string> upgrades;
@@ -137,6 +139,8 @@ public:
     void clear_proximity_target();
     void notify_of_ship_death(std::uint32_t index);
 
+    //Bypass the damage system and just die
+    void die(bool is_player,std::string damage_faction,RNG& rng);
     void take_damage(bool is_player,std::int32_t damage,std::string damage_type,const Coords<double>& location,std::string damage_faction,RNG& rng);
 
     void set_thrust_angle(std::string direction);
@@ -148,6 +152,7 @@ public:
     bool is_landing() const;
     void land(bool is_player);
 
+    void take_star_damage(bool is_player,RNG& rng);
     void regenerate_shields(bool is_player);
     void cooldown(const Quadtree<double,std::uint32_t>& quadtree_ships,const Quadtree<double,std::uint32_t>& quadtree_shots,RNG& rng,std::uint32_t own_index);
 
