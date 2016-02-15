@@ -155,7 +155,7 @@
 <game_constant>
 	//meters (pixels)
 	name:minimum_gen_distance_from_star
-	value:2048.0
+	value:1024.0
 </game_constant>
 
 <game_constant>
