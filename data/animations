@@ -15,14 +15,6 @@
 </animation>
 
 <animation>
-	name:shot_missile
-	frame_count:2
-	animation_speed:50
-	frame_width:12
-	end_behavior:continue
-</animation>
-
-<animation>
 	name:effect_shot_death_bullet
 	frame_count:3
 	animation_speed:50
@@ -40,7 +32,7 @@
 
 <animation>
 	name:explosion_missile
-	frame_count:3
+	frame_count:4
 	animation_speed:100
 	frame_width:184
 	end_behavior:stop
@@ -48,7 +40,7 @@
 
 <animation>
 	name:explosion_ship
-	frame_count:3
+	frame_count:4
 	animation_speed:100
 	frame_width:184
 	end_behavior:stop
@@ -56,7 +48,7 @@
 
 <animation>
 	name:effect_explosion_shields
-	frame_count:3
+	frame_count:4
 	animation_speed:100
 	frame_width:23
 	end_behavior:stop
@@ -64,7 +56,7 @@
 
 <animation>
 	name:effect_explosion_hull
-	frame_count:3
+	frame_count:4
 	animation_speed:100
 	frame_width:23
 	end_behavior:stop
