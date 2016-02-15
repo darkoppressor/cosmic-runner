@@ -6,7 +6,7 @@
 
 <game_constant>
 	name:title_max_ships
-	value:12
+	value:15
 </game_constant>
 
 <game_constant>
