@@ -5,31 +5,36 @@
 #ifndef title_h
 #define title_h
 
-#include <math_vector.h>
-#include <rng.h>
-#include <coords.h>
+#include "title_ship.h"
+#include "title_sun.h"
 
+#include <rng.h>
+
+#include <vector>
 #include <cstdint>
 
 class Title{
 private:
 
-    //The seed for the game-wide RNG is stored here
-    //Each time the title is setup, this is changed using the current time
-    std::uint32_t seed;
+    std::vector<Title_Sun> suns;
+    std::vector<Title_Ship> ships;
+
+    std::uint32_t ship_spawn_check;
 
 public:
 
-    Vector velocity;
-
     Title();
 
-    void reseed();
-    std::uint32_t get_seed() const;
+    void clear_title();
+    void setup(RNG& rng);
 
-    void accelerate(RNG& rng);
-    //Returns the change in x and y as coords
-    Coords<double> movement();
+    void generate_ship(RNG& rng);
+
+    void movement();
+    void check_ships(RNG& rng);
+
+    void animate(RNG& rng);
+    void render();
 };
 
 #endif

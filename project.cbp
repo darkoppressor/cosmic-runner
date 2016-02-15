@@ -425,6 +425,10 @@
 		<Unit filename="star.h" />
 		<Unit filename="title.cpp" />
 		<Unit filename="title.h" />
+		<Unit filename="title_ship.cpp" />
+		<Unit filename="title_ship.h" />
+		<Unit filename="title_sun.cpp" />
+		<Unit filename="title_sun.h" />
 		<Unit filename="upgrade.cpp" />
 		<Unit filename="upgrade.h" />
 		<Unit filename="version.cpp" />

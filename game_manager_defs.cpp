@@ -21,6 +21,8 @@
 #include <engine_strings.h>
 #include <engine_math.h>
 
+#include <ctime>
+
 using namespace std;
 
 bool Game_Manager::effect_allowed(){
@@ -125,46 +127,41 @@ string Game_Manager::get_game_window_caption(){
 }
 
 void Game_Manager::clear_title(){
-    Background::unload();
+    Title& title=Game::get_title();
+
+    title.clear_title();
 }
 
 void Game_Manager::setup_title(){
     clear_title();
 
     Title& title=Game::get_title();
-
-    title.reseed();
-
     RNG& rng=Game::get_rng();
 
-    rng.seed(title.get_seed());
+    rng.seed((uint32_t)time(0));
 
-    Background::setup(rng);
+    title.setup(rng);
 }
 
 void Game_Manager::update_title_background(){
+    Title& title=Game::get_title();
     RNG& rng=Game::get_rng();
 
-    Title& title=Game::get_title();
-
-    title.accelerate(rng);
-    Coords<double> position_change=title.movement();
-
-    Background::update(position_change.x,position_change.y);
+    title.movement();
+    title.check_ships(rng);
+    title.animate(rng);
 }
 
 void Game_Manager::render_title_background(){
-    Render::render_rectangle(0.0,0.0,Game_Window::width(),Game_Window::height(),1.0,"space");
-
-    Background::render();
+    Title& title=Game::get_title();
+    title.render();
 
     Bitmap_Font* font=Object_Manager::get_font("standard");
 
     font->show(0.0,Game_Window::height()-font->spacing_y*2.0,"Version: "+Engine_Version::get_version()+" "+Engine_Version::get_status()+"\nChecksum: "+Engine::CHECKSUM,"ui_0");
 
-    string message="Cosmic Runner";
-    double scale=4.0;
-    font->show(Game_Window::width()/2.0-(font->spacing_x*scale*message.length())/2.0,font->spacing_y,message,"title",1.0,scale,scale);
+    Image_Data* title_image=Image_Manager::get_image("title");
+    Render::render_texture(Game_Window::width()/2.0-title_image->w/2.0,24.0,title_image);
 
     Image_Data* logo=Image_Manager::get_image("logo");
 

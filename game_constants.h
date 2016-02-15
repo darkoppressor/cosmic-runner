@@ -10,6 +10,9 @@
 class Game_Constants{
 public:
 
+    static std::uint32_t TITLE_SHIP_SPAWN_RATE;
+    static std::uint32_t TITLE_MAX_SHIPS;
+
     static std::uint32_t MAX_BACKGROUND_STAR_SIZE;
     static std::uint32_t BASE_BACKGROUND_STARS;
 

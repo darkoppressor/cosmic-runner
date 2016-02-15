@@ -10,6 +10,9 @@
 
 using namespace std;
 
+uint32_t Game_Constants::TITLE_SHIP_SPAWN_RATE=0;
+uint32_t Game_Constants::TITLE_MAX_SHIPS=0;
+
 uint32_t Game_Constants::MAX_BACKGROUND_STAR_SIZE=0;
 uint32_t Game_Constants::BASE_BACKGROUND_STARS=0;
 
@@ -86,6 +89,13 @@ void Game_Constants_Loader::set_game_constant(string name,string value){
     }
     else if(name=="zoom_max"){
         Engine_Data::ZOOM_MAX=Strings::string_to_double(value);
+    }
+
+    else if(name=="title_ship_spawn_rate"){
+        Game_Constants::TITLE_SHIP_SPAWN_RATE=Strings::string_to_unsigned_long(value);
+    }
+    else if(name=="title_max_ships"){
+        Game_Constants::TITLE_MAX_SHIPS=Strings::string_to_unsigned_long(value);
     }
 
     else if(name=="max_background_star_size"){

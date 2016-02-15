@@ -1,11 +1,6 @@
 //** Game Colors **//
 
 <color>
-	name:title
-	rgb:230,138,184
-</color>
-
-<color>
 	name:space
 	rgb:51,51,51
 </color>

@@ -18,6 +18,7 @@
 #include <engine_strings.h>
 #include <window_manager.h>
 
+#include <ctime>
 #include <unordered_set>
 
 using namespace std;
@@ -151,7 +152,7 @@ void Game::clear_world(){
 void Game::generate_world(){
     clear_world();
 
-    rng.seed(title.get_seed());
+    rng.seed((uint32_t)time(0));
 
     Background::setup(rng);
 
