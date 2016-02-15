@@ -166,7 +166,7 @@ void Game::generate_world(){
 
     //Generate planets
     uint32_t minimum_planets=2;
-    uint32_t planet_count=((world_width+world_height)/2.0)/2048.0;
+    uint32_t planet_count=((world_width+world_height)/2.0)/1024.0;
     if(planet_count<minimum_planets){
         planet_count=minimum_planets;
     }
