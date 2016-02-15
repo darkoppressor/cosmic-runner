@@ -13,6 +13,7 @@ public:
 
     std::string name;
     std::string display_name;
+    std::string description;
 
     std::string type;
 

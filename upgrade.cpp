@@ -9,6 +9,7 @@ using namespace std;
 Upgrade::Upgrade(){
     name="";
     display_name="";
+    description="";
 
     type="";
 

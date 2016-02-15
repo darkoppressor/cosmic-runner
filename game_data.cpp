@@ -315,6 +315,9 @@ void Game_Data::load_upgrade_type(File_IO_Load* load){
         else if(Data_Reader::check_prefix(line,"display_name:")){
             upgrades.back().display_name=line;
         }
+        else if(Data_Reader::check_prefix(line,"description:")){
+            upgrades.back().description=line;
+        }
         else if(Data_Reader::check_prefix(line,"type:")){
             upgrades.back().type=line;
         }

@@ -1,6 +1,7 @@
 <upgrade>
 	name:cannon_shotgun
 	display_name:Shotgun Cannon
+	description:
 	type:weapon
 	sound:weapon_cannon_shotgun
 	cooldown:3000
@@ -16,6 +17,7 @@
 <upgrade>
 	name:cannon_sniper
 	display_name:Sniper Cannon
+	description:
 	type:weapon
 	sound:weapon_cannon_sniper
 	cooldown:3000
@@ -31,6 +33,7 @@
 <upgrade>
 	name:cannon_quad
 	display_name:Quad Cannon
+	description:
 	type:weapon
 	sound:weapon_cannon_quad
 	cooldown:3000
@@ -46,6 +49,7 @@
 <upgrade>
 	name:plasma_gun
 	display_name:Plasma Gun
+	description:
 	type:weapon
 	sound:weapon_plasma_gun
 	cooldown:3000
@@ -61,6 +65,7 @@
 <upgrade>
 	name:missile_single
 	display_name:Single Missile
+	description:
 	type:weapon
 	sound:weapon_missile_single
 	cooldown:3000
@@ -76,6 +81,7 @@
 <upgrade>
 	name:missile_spread
 	display_name:Spread Missile
+	description:
 	type:weapon
 	sound:weapon_missile_spread
 	cooldown:3000
@@ -91,6 +97,7 @@
 <upgrade>
 	name:missile_circle
 	display_name:Circle Missile
+	description:
 	type:weapon
 	sound:weapon_missile_circle
 	cooldown:3000
@@ -106,6 +113,7 @@
 <upgrade>
 	name:guided_missile_single
 	display_name:Single Guided Missile
+	description:
 	type:weapon
 	sound:weapon_guided_missile_single
 	cooldown:3000
@@ -121,6 +129,7 @@
 <upgrade>
 	name:guided_missile_triple
 	display_name:Triple Guided Missile
+	description:
 	type:weapon
 	sound:weapon_guided_missile_triple
 	cooldown:3000
@@ -136,6 +145,7 @@
 <upgrade>
 	name:guided_missile_swarm
 	display_name:Swarm Guided Missile
+	description:
 	type:weapon
 	sound:weapon_guided_missile_swarm
 	cooldown:3000
