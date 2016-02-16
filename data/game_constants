@@ -192,6 +192,12 @@
 
 <game_constant>
 	//meters (pixels)
+	name:minimum_gen_distance_between_planets
+	value:1024.0
+</game_constant>
+
+<game_constant>
+	//meters (pixels)
 	name:planetary_space_range
 	value:1024.0
 </game_constant>

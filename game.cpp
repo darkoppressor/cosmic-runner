@@ -196,17 +196,19 @@ void Game::generate_world(){
         double minimum_distance_from_star=Game_Constants::MINIMUM_GEN_DISTANCE_FROM_STAR+Game_Constants::STAR_RADIUS+(double)radius;
 
         if(attempts>=max_attempts || Math::get_distance_between_points(position,stars.back().get_circle().get_center())>=minimum_distance_from_star){
-            bool touching_planet=false;
+            bool too_close_to_planet=false;
 
             for(size_t j=0;j<planets.size();j++){
-                if(Collision::check_circ(Collision_Circ<double>((double)x,(double)y,(double)radius),planets[j].get_circle())){
-                    touching_planet=true;
+                double minimum_distance_between_planets=Game_Constants::MINIMUM_GEN_DISTANCE_BETWEEN_PLANETS+planets[j].get_circle().r+(double)radius;
+
+                if(Math::get_distance_between_points(position,planets[j].get_circle().get_center())<minimum_distance_between_planets){
+                    too_close_to_planet=true;
 
                     break;
                 }
             }
 
-            if(attempts>=max_attempts || !touching_planet){
+            if(attempts>=max_attempts || !too_close_to_planet){
                 planets.push_back(Planet(sprite.name,position));
 
                 i++;

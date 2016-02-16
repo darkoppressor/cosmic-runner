@@ -54,6 +54,7 @@ public:
     static std::uint32_t STAR_DAMAGE_RATE;
     static std::int32_t STAR_DAMAGE;
     static double MINIMUM_GEN_DISTANCE_FROM_STAR;
+    static double MINIMUM_GEN_DISTANCE_BETWEEN_PLANETS;
 
     static double PLANETARY_SPACE_RANGE;
 

@@ -54,6 +54,7 @@ double Game_Constants::STAR_DAMAGE_RANGE=0.0;
 uint32_t Game_Constants::STAR_DAMAGE_RATE=0;
 int32_t Game_Constants::STAR_DAMAGE=0;
 double Game_Constants::MINIMUM_GEN_DISTANCE_FROM_STAR=0.0;
+double Game_Constants::MINIMUM_GEN_DISTANCE_BETWEEN_PLANETS=0.0;
 
 double Game_Constants::PLANETARY_SPACE_RANGE=0.0;
 
@@ -217,6 +218,9 @@ void Game_Constants_Loader::set_game_constant(string name,string value){
     }
     else if(name=="minimum_gen_distance_from_star"){
         Game_Constants::MINIMUM_GEN_DISTANCE_FROM_STAR=Strings::string_to_double(value);
+    }
+    else if(name=="minimum_gen_distance_between_planets"){
+        Game_Constants::MINIMUM_GEN_DISTANCE_BETWEEN_PLANETS=Strings::string_to_double(value);
     }
 
     else if(name=="planetary_space_range"){
