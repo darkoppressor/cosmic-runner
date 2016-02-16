@@ -217,7 +217,7 @@ void Game::generate_world(){
     }
 
     //Generate debris
-    uint32_t asteroid_count=((world_width+world_height)/2.0)/24.0;
+    uint32_t asteroid_count=((world_width+world_height)/2.0)/8.0;
 
     for(uint32_t i=0;i<asteroid_count;i++){
         string type="asteroid_"+Strings::num_to_string(rng.random_range(0,2));
@@ -785,11 +785,17 @@ void Game::create_explosion(string sprite,string sound,const Coords<double>& pos
 }
 
 string Game::get_random_item_type(){
-    ///QQQ item type is determined by player needs
+    double hull_percentage=get_player_const().get_hull()/get_player_const().get_hull_max();
+    double power_percentage=power/(Game_Constants::MAX_POWER*Engine::UPDATE_RATE);
 
-    uint32_t random_item=rng.random_range(0,99);
+    uint32_t weighted_towards=0;
+    if(power_percentage<hull_percentage){
+        weighted_towards=1;
+    }
 
-    if(random_item<50){
+    uint32_t random_item=rng.weighted_random_range(0,1,weighted_towards);
+
+    if(random_item==0){
         return "restore_hull";
     }
     else{
@@ -1049,12 +1055,9 @@ void Game::generate_ships(){
 }
 
 void Game::generate_items(){
-    uint32_t item_count=items.size();
+    uint64_t item_count=items.size();
 
-    ///QQQ desired items is determined by score multiplier
-    ///This will be the inverse, though
-    ///The higher the score multiplier, the less items spawn
-    uint32_t desired_items=4;
+    uint64_t desired_items=uint64_t(Game_Constants::DESIRED_ITEMS_BASE/((double)score_multiplier*Game_Constants::DESIRED_ITEMS_SCORE_MULTIPLIER_ADJUSTMENT));
 
     if(item_count<=desired_items){
         desired_items-=item_count;
@@ -1063,7 +1066,7 @@ void Game::generate_items(){
         desired_items=0;
     }
 
-    for(uint32_t i=0;i<desired_items;i++){
+    for(uint64_t i=0;i<desired_items;i++){
         string type=get_random_item_type();
 
         Sprite sprite;

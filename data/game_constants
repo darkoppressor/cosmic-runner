@@ -170,7 +170,7 @@
 <game_constant>
 	//meters (pixels)
 	name:star_damage_range
-	value:128.0
+	value:512.0
 </game_constant>
 
 <game_constant>
@@ -193,7 +193,7 @@
 <game_constant>
 	//meters (pixels)
 	name:minimum_gen_distance_between_planets
-	value:1024.0
+	value:2048.0
 </game_constant>
 
 <game_constant>
@@ -331,6 +331,16 @@
 <game_constant>
 	name:ship_weight_bounty_hunter_notoriety_tier_2
 	value:2
+</game_constant>
+
+<game_constant>
+	name:desired_items_base
+	value:5.0
+</game_constant>
+
+<game_constant>
+	name:desired_items_score_multiplier_adjustment
+	value:0.5
 </game_constant>
 
 <game_constant>

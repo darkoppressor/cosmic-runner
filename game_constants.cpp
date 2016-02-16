@@ -88,6 +88,9 @@ uint32_t Game_Constants::SHIP_WEIGHT_POLICE_NOTORIETY_TIER_2=0;
 uint32_t Game_Constants::SHIP_WEIGHT_BOUNTY_HUNTER_NOTORIETY_TIER_1=0;
 uint32_t Game_Constants::SHIP_WEIGHT_BOUNTY_HUNTER_NOTORIETY_TIER_2=0;
 
+double Game_Constants::DESIRED_ITEMS_BASE=0.0;
+double Game_Constants::DESIRED_ITEMS_SCORE_MULTIPLIER_ADJUSTMENT=0.0;
+
 double Game_Constants::AI_RANGE=0.0;
 double Game_Constants::AI_FOLLOW_DISTANCE=0.0;
 double Game_Constants::AI_PATROL_DISTANCE=0.0;
@@ -303,6 +306,13 @@ void Game_Constants_Loader::set_game_constant(string name,string value){
     }
     else if(name=="ship_weight_bounty_hunter_notoriety_tier_2"){
         Game_Constants::SHIP_WEIGHT_BOUNTY_HUNTER_NOTORIETY_TIER_2=Strings::string_to_unsigned_long(value);
+    }
+
+    else if(name=="desired_items_base"){
+        Game_Constants::DESIRED_ITEMS_BASE=Strings::string_to_double(value);
+    }
+    else if(name=="desired_items_score_multiplier_adjustment"){
+        Game_Constants::DESIRED_ITEMS_SCORE_MULTIPLIER_ADJUSTMENT=Strings::string_to_double(value);
     }
 
     else if(name=="ai_range"){

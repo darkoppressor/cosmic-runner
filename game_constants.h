@@ -88,6 +88,9 @@ public:
     static std::uint32_t SHIP_WEIGHT_BOUNTY_HUNTER_NOTORIETY_TIER_1;
     static std::uint32_t SHIP_WEIGHT_BOUNTY_HUNTER_NOTORIETY_TIER_2;
 
+    static double DESIRED_ITEMS_BASE;
+    static double DESIRED_ITEMS_SCORE_MULTIPLIER_ADJUSTMENT;
+
     static double AI_RANGE;
     static double AI_FOLLOW_DISTANCE;
     static double AI_PATROL_DISTANCE;
