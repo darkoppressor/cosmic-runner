@@ -10,7 +10,8 @@
 class Game_Options{
 public:
 
-    static uint32_t backgrounds;
+    static uint32_t background_layers_stars;
+    static uint32_t background_layers_planetary;
 
     static bool show_collision_outlines;
 

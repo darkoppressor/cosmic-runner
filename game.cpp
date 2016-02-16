@@ -4,7 +4,6 @@
 
 #include "game.h"
 #include "game_data.h"
-#include "background.h"
 #include "game_constants.h"
 
 #include <render.h>
@@ -25,9 +24,15 @@ using namespace std;
 
 #ifdef GAME_OS_ANDROID
 const uint64_t Game::UINT64_MAX=18446744073709551615;
+const uint32_t Game::UINT32_MAX=4294967295U;
 #endif
 
 Title Game::title;
+
+Background Game::background_stars;
+Background Game::background_planetary;
+
+double Game::background_opacity_planetary=0.0;
 
 vector<Ship> Game::ships;
 vector<Debris> Game::debris;
@@ -95,7 +100,10 @@ Ship& Game::get_player(){
 }
 
 void Game::clear_world(){
-    Background::unload();
+    background_stars.unload();
+    background_planetary.unload();
+
+    background_opacity_planetary=0.0;
 
     ships.clear();
     debris.clear();
@@ -154,7 +162,10 @@ void Game::generate_world(){
 
     rng.seed((uint32_t)time(0));
 
-    Background::setup(rng);
+    background_stars.setup("stars",rng);
+    background_planetary.setup("planetary",rng);
+
+    background_opacity_planetary=1.0;
 
     world_width=10000.0;
     world_height=10000.0;
@@ -461,6 +472,28 @@ uint32_t Game::get_nearest_planet(uint32_t ship_index){
 
 uint32_t Game::get_nearest_planet(){
     return get_nearest_planet(0);
+}
+
+bool Game::is_player_in_deep_space(){
+    const Ship& player=get_player_const();
+
+    int32_t nearest_index=-1;
+    double nearest_distance=0.0;
+
+    for(size_t i=0;i<planets.size();i++){
+        const Planet& planet=planets[i];
+
+        double new_distance=Math::get_distance_between_points(player.get_box().get_center(),planet.get_circle().get_center());
+
+        if(nearest_index==-1 || new_distance<nearest_distance){
+            nearest_index=i;
+            nearest_distance=new_distance;
+        }
+    }
+
+    const Planet& planet=get_planet((uint32_t)nearest_index);
+
+    return nearest_distance>(player.get_box().w+player.get_box().h)/4.0+planet.get_circle().r+Game_Constants::PLANETARY_SPACE_RANGE;
 }
 
 void Game::assign_new_contract(uint32_t current_planet){
@@ -924,10 +957,12 @@ Coords<double> Game::get_spawn_point(double width,double height){
 }
 
 void Game::generate_ships(){
-    uint32_t ship_count=ships.size()-1;
+    uint64_t ship_count=ships.size()-1;
 
-    ///QQQ desired ships is determined by score multiplier
-    uint32_t desired_ships=25;
+    uint64_t desired_ships=score_multiplier*Game_Constants::DESIRED_SHIPS_MULTIPLIER;
+    if(desired_ships>Game_Constants::DESIRED_SHIPS_MAX){
+        desired_ships=Game_Constants::DESIRED_SHIPS_MAX;
+    }
 
     if(ship_count<=desired_ships){
         desired_ships-=ship_count;
@@ -936,19 +971,68 @@ void Game::generate_ships(){
         desired_ships=0;
     }
 
-    for(uint32_t i=0;i<desired_ships;i++){
-        ///QQQ ship type is determined by player's current area and notoriety
-        string type="civilian_0";
-        uint32_t random_ship=rng.random_range(0,99);
-        if(random_ship>=25 && random_ship<50){
-            type="pirate_0";
+    bool player_in_deep_space=is_player_in_deep_space();
+
+    for(uint64_t i=0;i<desired_ships;i++){
+        uint32_t tier=0;
+
+        if(score_multiplier>=Game_Constants::MIN_SCORE_MULTIPLIER_TIER_1){
+            uint32_t score_multiplier_32=score_multiplier<(uint64_t)UINT32_MAX ? (uint32_t)score_multiplier : UINT32_MAX;
+
+            uint32_t weight=score_multiplier_32/Game_Constants::SCORE_MULTIPLIER_TIER_DENOMINATOR;
+            if(weight<2){
+                weight=2;
+            }
+            else if(weight>256){
+                weight=256;
+            }
+
+            if(score_multiplier>=Game_Constants::MIN_SCORE_MULTIPLIER_TIER_2){
+                tier=rng.weighted_random_range(0,2,2,weight);
+            }
+            else{
+                tier=rng.weighted_random_range(0,1,1,weight);
+            }
         }
-        else if(random_ship>=50 && random_ship<75){
-            type="bounty_hunter_0";
+
+        vector<string> types;
+
+        for(uint32_t j=0;j<Game_Constants::SHIP_WEIGHT_CIVILIAN;j++){
+            types.push_back("civilian_0");
         }
-        else if(random_ship>=75){
-            type="police_0";
+
+        uint32_t ship_weight_bounty_hunter=0;
+        if(notoriety_tier_2()){
+            ship_weight_bounty_hunter=Game_Constants::SHIP_WEIGHT_BOUNTY_HUNTER_NOTORIETY_TIER_2;
         }
+        else if(notoriety_tier_1()){
+            ship_weight_bounty_hunter=Game_Constants::SHIP_WEIGHT_BOUNTY_HUNTER_NOTORIETY_TIER_1;
+        }
+
+        for(uint32_t j=0;j<ship_weight_bounty_hunter;j++){
+            types.push_back("bounty_hunter_"+Strings::num_to_string(tier));
+        }
+
+        if(player_in_deep_space){
+            for(uint32_t j=0;j<Game_Constants::SHIP_WEIGHT_PIRATE;j++){
+                types.push_back("pirate_"+Strings::num_to_string(tier));
+            }
+        }
+        else{
+            uint32_t ship_weight_police=Game_Constants::SHIP_WEIGHT_POLICE_NOTORIETY_TIER_0;
+            if(notoriety_tier_2()){
+                ship_weight_police=Game_Constants::SHIP_WEIGHT_POLICE_NOTORIETY_TIER_2;
+            }
+            else if(notoriety_tier_1()){
+                ship_weight_police=Game_Constants::SHIP_WEIGHT_POLICE_NOTORIETY_TIER_1;
+            }
+
+            for(uint32_t j=0;j<ship_weight_police;j++){
+                types.push_back("police_"+Strings::num_to_string(tier));
+            }
+        }
+
+        string type=types[rng.random_range(0,types.size()-1)];
 
         Sprite sprite;
         sprite.set_name(Game_Data::get_ship_type(type)->sprite);
@@ -1301,13 +1385,37 @@ void Game::render_to_textures(){
 }
 
 void Game::update_background(){
-    Background::update(Game_Manager::camera_delta_x,Game_Manager::camera_delta_y);
+    background_stars.update(Game_Manager::camera_delta_x,Game_Manager::camera_delta_y);
+    background_planetary.update(Game_Manager::camera_delta_x,Game_Manager::camera_delta_y);
+
+    if(is_player_in_deep_space()){
+        if(background_opacity_planetary>0.0){
+            background_opacity_planetary-=Game_Constants::BACKGROUND_FADE_RATE;
+
+            if(background_opacity_planetary<0.0){
+                background_opacity_planetary=0.0;
+            }
+        }
+    }
+    else{
+        if(background_opacity_planetary<1.0){
+            background_opacity_planetary+=Game_Constants::BACKGROUND_FADE_RATE;
+
+            if(background_opacity_planetary>1.0){
+                background_opacity_planetary=1.0;
+            }
+        }
+    }
 }
 
 void Game::render_background(){
     Render::render_rectangle(0.0,0.0,Game_Window::width(),Game_Window::height(),1.0,"space");
 
-    Background::render();
+    background_stars.render(1.0);
+
+    if(background_opacity_planetary>0.0){
+        background_planetary.render(background_opacity_planetary);
+    }
 }
 
 bool Game::move_input_state(string direction){

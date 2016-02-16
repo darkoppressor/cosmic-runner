@@ -35,9 +35,15 @@
 </game_option>
 
 <game_option>
-	name:cl_backgrounds
+	name:cl_background_layers_stars
 	default:16
-	description:the number of background layers to render
+	description:the number of background layers to render for deep space
+</game_option>
+
+<game_option>
+	name:cl_background_layers_planetary
+	default:3
+	description:the number of background layers to render for planetary space
 </game_option>
 
 <game_option>

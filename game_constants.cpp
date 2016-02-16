@@ -15,6 +15,9 @@ uint32_t Game_Constants::TITLE_MAX_SHIPS=0;
 
 uint32_t Game_Constants::MAX_BACKGROUND_STAR_SIZE=0;
 uint32_t Game_Constants::BASE_BACKGROUND_STARS=0;
+uint32_t Game_Constants::MAX_BACKGROUND_DEBRIS_SIZE=0;
+uint32_t Game_Constants::BASE_BACKGROUND_DEBRIS=0;
+double Game_Constants::BACKGROUND_FADE_RATE=0.0;
 
 uint32_t Game_Constants::COLLISION_CHANCE_DEBRIS=0;
 
@@ -52,6 +55,8 @@ uint32_t Game_Constants::STAR_DAMAGE_RATE=0;
 int32_t Game_Constants::STAR_DAMAGE=0;
 double Game_Constants::MINIMUM_GEN_DISTANCE_FROM_STAR=0.0;
 
+double Game_Constants::PLANETARY_SPACE_RANGE=0.0;
+
 double Game_Constants::GEN_PLAYER_START_CLEAN_DISTANCE=0.0;
 
 uint32_t Game_Constants::NOTORIETY_MAX=0;
@@ -68,6 +73,19 @@ uint32_t Game_Constants::SHIP_SPAWN_RATE=0;
 uint32_t Game_Constants::ITEM_SPAWN_RATE=0;
 
 uint32_t Game_Constants::MAX_ATTEMPTS_SPAWN=0;
+
+uint64_t Game_Constants::DESIRED_SHIPS_MULTIPLIER=0;
+uint64_t Game_Constants::DESIRED_SHIPS_MAX=0;
+uint64_t Game_Constants::MIN_SCORE_MULTIPLIER_TIER_1=0;
+uint64_t Game_Constants::MIN_SCORE_MULTIPLIER_TIER_2=0;
+uint32_t Game_Constants::SCORE_MULTIPLIER_TIER_DENOMINATOR=0;
+uint32_t Game_Constants::SHIP_WEIGHT_CIVILIAN=0;
+uint32_t Game_Constants::SHIP_WEIGHT_PIRATE=0;
+uint32_t Game_Constants::SHIP_WEIGHT_POLICE_NOTORIETY_TIER_0=0;
+uint32_t Game_Constants::SHIP_WEIGHT_POLICE_NOTORIETY_TIER_1=0;
+uint32_t Game_Constants::SHIP_WEIGHT_POLICE_NOTORIETY_TIER_2=0;
+uint32_t Game_Constants::SHIP_WEIGHT_BOUNTY_HUNTER_NOTORIETY_TIER_1=0;
+uint32_t Game_Constants::SHIP_WEIGHT_BOUNTY_HUNTER_NOTORIETY_TIER_2=0;
 
 double Game_Constants::AI_RANGE=0.0;
 double Game_Constants::AI_FOLLOW_DISTANCE=0.0;
@@ -106,6 +124,15 @@ void Game_Constants_Loader::set_game_constant(string name,string value){
     }
     else if(name=="base_background_stars"){
         Game_Constants::BASE_BACKGROUND_STARS=Strings::string_to_unsigned_long(value);
+    }
+    else if(name=="max_background_debris_size"){
+        Game_Constants::MAX_BACKGROUND_DEBRIS_SIZE=Strings::string_to_unsigned_long(value);
+    }
+    else if(name=="base_background_debris"){
+        Game_Constants::BASE_BACKGROUND_DEBRIS=Strings::string_to_unsigned_long(value);
+    }
+    else if(name=="background_fade_rate"){
+        Game_Constants::BACKGROUND_FADE_RATE=Strings::string_to_double(value);
     }
 
     else if(name=="collision_chance_debris"){
@@ -192,6 +219,10 @@ void Game_Constants_Loader::set_game_constant(string name,string value){
         Game_Constants::MINIMUM_GEN_DISTANCE_FROM_STAR=Strings::string_to_double(value);
     }
 
+    else if(name=="planetary_space_range"){
+        Game_Constants::PLANETARY_SPACE_RANGE=Strings::string_to_double(value);
+    }
+
     else if(name=="gen_player_start_clean_distance"){
         Game_Constants::GEN_PLAYER_START_CLEAN_DISTANCE=Strings::string_to_double(value);
     }
@@ -231,6 +262,43 @@ void Game_Constants_Loader::set_game_constant(string name,string value){
 
     else if(name=="max_attempts_spawn"){
         Game_Constants::MAX_ATTEMPTS_SPAWN=Strings::string_to_unsigned_long(value);
+    }
+
+    else if(name=="desired_ships_multiplier"){
+        Game_Constants::DESIRED_SHIPS_MULTIPLIER=Strings::string_to_unsigned_long(value);
+    }
+    else if(name=="desired_ships_max"){
+        Game_Constants::DESIRED_SHIPS_MAX=Strings::string_to_unsigned_long(value);
+    }
+    else if(name=="min_score_multiplier_tier_1"){
+        Game_Constants::MIN_SCORE_MULTIPLIER_TIER_1=Strings::string_to_unsigned_long(value);
+    }
+    else if(name=="min_score_multiplier_tier_2"){
+        Game_Constants::MIN_SCORE_MULTIPLIER_TIER_2=Strings::string_to_unsigned_long(value);
+    }
+    else if(name=="score_multiplier_tier_denominator"){
+        Game_Constants::SCORE_MULTIPLIER_TIER_DENOMINATOR=Strings::string_to_unsigned_long(value);
+    }
+    else if(name=="ship_weight_civilian"){
+        Game_Constants::SHIP_WEIGHT_CIVILIAN=Strings::string_to_unsigned_long(value);
+    }
+    else if(name=="ship_weight_pirate"){
+        Game_Constants::SHIP_WEIGHT_PIRATE=Strings::string_to_unsigned_long(value);
+    }
+    else if(name=="ship_weight_police_notoriety_tier_0"){
+        Game_Constants::SHIP_WEIGHT_POLICE_NOTORIETY_TIER_0=Strings::string_to_unsigned_long(value);
+    }
+    else if(name=="ship_weight_police_notoriety_tier_1"){
+        Game_Constants::SHIP_WEIGHT_POLICE_NOTORIETY_TIER_1=Strings::string_to_unsigned_long(value);
+    }
+    else if(name=="ship_weight_police_notoriety_tier_2"){
+        Game_Constants::SHIP_WEIGHT_POLICE_NOTORIETY_TIER_2=Strings::string_to_unsigned_long(value);
+    }
+    else if(name=="ship_weight_bounty_hunter_notoriety_tier_1"){
+        Game_Constants::SHIP_WEIGHT_BOUNTY_HUNTER_NOTORIETY_TIER_1=Strings::string_to_unsigned_long(value);
+    }
+    else if(name=="ship_weight_bounty_hunter_notoriety_tier_2"){
+        Game_Constants::SHIP_WEIGHT_BOUNTY_HUNTER_NOTORIETY_TIER_2=Strings::string_to_unsigned_long(value);
     }
 
     else if(name=="ai_range"){

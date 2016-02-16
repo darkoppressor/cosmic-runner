@@ -14,6 +14,7 @@
 #include "explosion.h"
 #include "item.h"
 #include "title.h"
+#include "background.h"
 
 #include <quadtree.h>
 #include <rng.h>
@@ -30,9 +31,15 @@ private:
 
     #ifdef GAME_OS_ANDROID
     static const std::uint64_t UINT64_MAX;
+    static const std::uint32_t UINT32_MAX;
     #endif
 
     static Title title;
+
+    static Background background_stars;
+    static Background background_planetary;
+
+    static double background_opacity_planetary;
 
     static std::vector<Ship> ships;
     static std::vector<Debris> debris;
@@ -128,6 +135,8 @@ public:
     static std::uint32_t get_nearest_planet(std::uint32_t ship_index);
     //Returns the index of the planet nearest to the player's ship
     static std::uint32_t get_nearest_planet();
+
+    static bool is_player_in_deep_space();
 
     static void assign_new_contract(std::uint32_t current_planet);
     static bool player_has_contract();

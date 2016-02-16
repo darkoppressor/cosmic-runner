@@ -116,7 +116,7 @@ NPC ships are spawned "near" the player
 NPC ships far away from the player are despawned
 Every set number of seconds, a ship spawn occurs
 A number of ships to try to place around the player (minus any existing ships) is determined using the score multiplier
-The type of ships spawned are determined by the player's current area and notoriety
+The type of ships spawned are determined by the player's current area, score multiplier, and notoriety
 
 Items are spawned near the player in much the same way that NPC ships are
 The number of items to try to place around the player is determined using the score multiplier

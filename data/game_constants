@@ -35,6 +35,21 @@
 </game_constant>
 
 <game_constant>
+	name:max_background_debris_size
+	value:5
+</game_constant>
+
+<game_constant>
+	name:base_background_debris
+	value:500
+</game_constant>
+
+<game_constant>
+	name:background_fade_rate
+	value:0.05
+</game_constant>
+
+<game_constant>
 	//integer percentage
 	name:collision_chance_debris
 	value:30
@@ -177,6 +192,12 @@
 
 <game_constant>
 	//meters (pixels)
+	name:planetary_space_range
+	value:1024.0
+</game_constant>
+
+<game_constant>
+	//meters (pixels)
 	name:gen_player_start_clean_distance
 	value:512.0
 </game_constant>
@@ -244,6 +265,66 @@
 <game_constant>
 	name:max_attempts_spawn
 	value:10
+</game_constant>
+
+<game_constant>
+	name:desired_ships_multiplier
+	value:5
+</game_constant>
+
+<game_constant>
+	name:desired_ships_max
+	value:100
+</game_constant>
+
+<game_constant>
+	name:min_score_multiplier_tier_1
+	value:10
+</game_constant>
+
+<game_constant>
+	name:min_score_multiplier_tier_2
+	value:30
+</game_constant>
+
+<game_constant>
+	name:score_multiplier_tier_denominator
+	value:2
+</game_constant>
+
+<game_constant>
+	name:ship_weight_civilian
+	value:2
+</game_constant>
+
+<game_constant>
+	name:ship_weight_pirate
+	value:1
+</game_constant>
+
+<game_constant>
+	name:ship_weight_police_notoriety_tier_0
+	value:1
+</game_constant>
+
+<game_constant>
+	name:ship_weight_police_notoriety_tier_1
+	value:3
+</game_constant>
+
+<game_constant>
+	name:ship_weight_police_notoriety_tier_2
+	value:4
+</game_constant>
+
+<game_constant>
+	name:ship_weight_bounty_hunter_notoriety_tier_1
+	value:1
+</game_constant>
+
+<game_constant>
+	name:ship_weight_bounty_hunter_notoriety_tier_2
+	value:2
 </game_constant>
 
 <game_constant>

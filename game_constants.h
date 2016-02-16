@@ -15,6 +15,9 @@ public:
 
     static std::uint32_t MAX_BACKGROUND_STAR_SIZE;
     static std::uint32_t BASE_BACKGROUND_STARS;
+    static std::uint32_t MAX_BACKGROUND_DEBRIS_SIZE;
+    static std::uint32_t BASE_BACKGROUND_DEBRIS;
+    static double BACKGROUND_FADE_RATE;
 
     static std::uint32_t COLLISION_CHANCE_DEBRIS;
 
@@ -52,6 +55,8 @@ public:
     static std::int32_t STAR_DAMAGE;
     static double MINIMUM_GEN_DISTANCE_FROM_STAR;
 
+    static double PLANETARY_SPACE_RANGE;
+
     static double GEN_PLAYER_START_CLEAN_DISTANCE;
 
     static std::uint32_t NOTORIETY_MAX;
@@ -68,6 +73,19 @@ public:
     static std::uint32_t ITEM_SPAWN_RATE;
 
     static std::uint32_t MAX_ATTEMPTS_SPAWN;
+
+    static std::uint64_t DESIRED_SHIPS_MULTIPLIER;
+    static std::uint64_t DESIRED_SHIPS_MAX;
+    static std::uint64_t MIN_SCORE_MULTIPLIER_TIER_1;
+    static std::uint64_t MIN_SCORE_MULTIPLIER_TIER_2;
+    static std::uint32_t SCORE_MULTIPLIER_TIER_DENOMINATOR;
+    static std::uint32_t SHIP_WEIGHT_CIVILIAN;
+    static std::uint32_t SHIP_WEIGHT_PIRATE;
+    static std::uint32_t SHIP_WEIGHT_POLICE_NOTORIETY_TIER_0;
+    static std::uint32_t SHIP_WEIGHT_POLICE_NOTORIETY_TIER_1;
+    static std::uint32_t SHIP_WEIGHT_POLICE_NOTORIETY_TIER_2;
+    static std::uint32_t SHIP_WEIGHT_BOUNTY_HUNTER_NOTORIETY_TIER_1;
+    static std::uint32_t SHIP_WEIGHT_BOUNTY_HUNTER_NOTORIETY_TIER_2;
 
     static double AI_RANGE;
     static double AI_FOLLOW_DISTANCE;

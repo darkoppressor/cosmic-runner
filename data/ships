@@ -3,7 +3,7 @@
 	faction:player
 	sprite:ship_player_0
 	box_collision:2,5,36,35
-	upgrades:guided_missile_swarm
+	upgrades:
 	mass:300.0
 	hull_max:80
 	shields_max:0

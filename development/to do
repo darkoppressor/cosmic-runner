@@ -1,13 +1,10 @@
 Test all passive upgrades
 
-Note: Should homing shots ignore the player when he is being tractored?
-
 Lift off animation complementing landing?
 
 Note: change map screen to a minimap? It would be like now and show the star and planets
 
-Add distinction between planetary and deep space
-Add planetary space background
+Planets should try not to gen too close to other planets
 
 Add upgrades to ships
 Add cooldown for active upgrade
@@ -25,7 +22,6 @@ Give all passives descriptions
 Give all actives descriptions
 
 Improve item generation amount/type
-Improve ship generation amount/type
 
 Note: high score board
 

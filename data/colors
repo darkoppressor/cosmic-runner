@@ -31,6 +31,21 @@
 </color>
 
 <color>
+	name:debris_brown
+	rgb:230,184,138
+</color>
+
+<color>
+	name:debris_gray
+	rgb:191,191,191
+</color>
+
+<color>
+	name:debris_light_gray
+	rgb:217,217,217
+</color>
+
+<color>
 	name:laser
 	rgb:255,153,204
 </color>

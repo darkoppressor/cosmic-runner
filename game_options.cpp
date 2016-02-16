@@ -8,13 +8,19 @@
 
 using namespace std;
 
-uint32_t Game_Options::backgrounds=0;
+uint32_t Game_Options::background_layers_stars=0;
+uint32_t Game_Options::background_layers_planetary=0;
 
 bool Game_Options::show_collision_outlines=false;
 
 bool Game_Options::get_option(string name,string& value){
-    if(name=="cl_backgrounds"){
-        value=Strings::num_to_string(backgrounds);
+    if(name=="cl_background_layers_stars"){
+        value=Strings::num_to_string(background_layers_stars);
+
+        return true;
+    }
+    else if(name=="cl_background_layers_planetary"){
+        value=Strings::num_to_string(background_layers_planetary);
 
         return true;
     }
@@ -28,8 +34,11 @@ bool Game_Options::get_option(string name,string& value){
 }
 
 void Game_Options::set_option(string name,string value){
-    if(name=="cl_backgrounds"){
-        backgrounds=Strings::string_to_unsigned_long(value);
+    if(name=="cl_background_layers_stars"){
+        background_layers_stars=Strings::string_to_unsigned_long(value);
+    }
+    else if(name=="cl_background_layers_planetary"){
+        background_layers_planetary=Strings::string_to_unsigned_long(value);
     }
     else if(name=="cl_show_collision_outlines"){
         show_collision_outlines=Strings::string_to_bool(value);

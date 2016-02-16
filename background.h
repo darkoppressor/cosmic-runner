@@ -36,27 +36,29 @@ public:
 
     Background_Layer(double get_width,double get_height,double get_parallax_speed_x,double get_parallax_speed_y);
 
-    void generate_texture_background(int layer_number,RNG& rng);
+    void generate_texture_background(std::string type,int layer_number,RNG& rng);
 
     void update(double camera_delta_x,double camera_delta_y);
 
-    void render();
+    void render(double opacity);
 };
 
 class Background{
 private:
 
-    static std::vector<Background_Layer> background_layers;
+    std::vector<Background_Layer> background_layers;
 
 public:
 
-    static void setup(RNG& rng);
+    Background();
 
-    static void unload();
+    void setup(std::string type,RNG& rng);
 
-    static void update(double camera_delta_x,double camera_delta_y);
+    void unload();
 
-    static void render();
+    void update(double camera_delta_x,double camera_delta_y);
+
+    void render(double opacity);
 };
 
 #endif
