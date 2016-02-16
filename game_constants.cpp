@@ -13,6 +13,16 @@ using namespace std;
 uint32_t Game_Constants::TITLE_SHIP_SPAWN_RATE=0;
 uint32_t Game_Constants::TITLE_MAX_SHIPS=0;
 
+uint32_t Game_Constants::TITLE_MAX_SUN_SHIMMERS=0;
+uint32_t Game_Constants::TITLE_SUN_SHIMMER_SPAWN_RATE=0;
+uint32_t Game_Constants::TITLE_SUN_SHIMMER_SPAWN_CHANCE=0;
+uint32_t Game_Constants::TITLE_SUN_SHIMMER_Y_RIGHT_MOD_MIN=0;
+uint32_t Game_Constants::TITLE_SUN_SHIMMER_Y_RIGHT_MOD_MAX=0;
+uint32_t Game_Constants::TITLE_SUN_SHIMMER_SPEED_MIN=0;
+uint32_t Game_Constants::TITLE_SUN_SHIMMER_SPEED_MAX=0;
+uint32_t Game_Constants::TITLE_SUN_SHIMMER_RADIUS_MIN=0;
+uint32_t Game_Constants::TITLE_SUN_SHIMMER_RADIUS_MAX=0;
+
 uint32_t Game_Constants::MAX_BACKGROUND_STAR_SIZE=0;
 uint32_t Game_Constants::BASE_BACKGROUND_STARS=0;
 uint32_t Game_Constants::MAX_BACKGROUND_DEBRIS_SIZE=0;
@@ -121,6 +131,34 @@ void Game_Constants_Loader::set_game_constant(string name,string value){
     }
     else if(name=="title_max_ships"){
         Game_Constants::TITLE_MAX_SHIPS=Strings::string_to_unsigned_long(value);
+    }
+
+    else if(name=="title_max_sun_shimmers"){
+        Game_Constants::TITLE_MAX_SUN_SHIMMERS=Strings::string_to_unsigned_long(value);
+    }
+    else if(name=="title_sun_shimmer_spawn_rate"){
+        Game_Constants::TITLE_SUN_SHIMMER_SPAWN_RATE=Strings::string_to_unsigned_long(value);
+    }
+    else if(name=="title_sun_shimmer_spawn_chance"){
+        Game_Constants::TITLE_SUN_SHIMMER_SPAWN_CHANCE=Strings::string_to_unsigned_long(value);
+    }
+    else if(name=="title_sun_shimmer_y_right_mod_min"){
+        Game_Constants::TITLE_SUN_SHIMMER_Y_RIGHT_MOD_MIN=Strings::string_to_unsigned_long(value);
+    }
+    else if(name=="title_sun_shimmer_y_right_mod_max"){
+        Game_Constants::TITLE_SUN_SHIMMER_Y_RIGHT_MOD_MAX=Strings::string_to_unsigned_long(value);
+    }
+    else if(name=="title_sun_shimmer_speed_min"){
+        Game_Constants::TITLE_SUN_SHIMMER_SPEED_MIN=Strings::string_to_unsigned_long(value);
+    }
+    else if(name=="title_sun_shimmer_speed_max"){
+        Game_Constants::TITLE_SUN_SHIMMER_SPEED_MAX=Strings::string_to_unsigned_long(value);
+    }
+    else if(name=="title_sun_shimmer_radius_min"){
+        Game_Constants::TITLE_SUN_SHIMMER_RADIUS_MIN=Strings::string_to_unsigned_long(value);
+    }
+    else if(name=="title_sun_shimmer_radius_max"){
+        Game_Constants::TITLE_SUN_SHIMMER_RADIUS_MAX=Strings::string_to_unsigned_long(value);
     }
 
     else if(name=="max_background_star_size"){

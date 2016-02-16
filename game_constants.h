@@ -13,6 +13,16 @@ public:
     static std::uint32_t TITLE_SHIP_SPAWN_RATE;
     static std::uint32_t TITLE_MAX_SHIPS;
 
+    static std::uint32_t TITLE_MAX_SUN_SHIMMERS;
+    static std::uint32_t TITLE_SUN_SHIMMER_SPAWN_RATE;
+    static std::uint32_t TITLE_SUN_SHIMMER_SPAWN_CHANCE;
+    static std::uint32_t TITLE_SUN_SHIMMER_Y_RIGHT_MOD_MIN;
+    static std::uint32_t TITLE_SUN_SHIMMER_Y_RIGHT_MOD_MAX;
+    static std::uint32_t TITLE_SUN_SHIMMER_SPEED_MIN;
+    static std::uint32_t TITLE_SUN_SHIMMER_SPEED_MAX;
+    static std::uint32_t TITLE_SUN_SHIMMER_RADIUS_MIN;
+    static std::uint32_t TITLE_SUN_SHIMMER_RADIUS_MAX;
+
     static std::uint32_t MAX_BACKGROUND_STAR_SIZE;
     static std::uint32_t BASE_BACKGROUND_STARS;
     static std::uint32_t MAX_BACKGROUND_DEBRIS_SIZE;

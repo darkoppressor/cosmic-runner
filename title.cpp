@@ -30,7 +30,8 @@ void Title::setup(RNG& rng){
 
     Coords<double> position((double)Game_Window::width()/4.0-sprite.get_width()/2.0,(double)Game_Window::height()-sprite.get_height()*0.9);
 
-    suns.push_back(Title_Sun(sprite.name,position));
+    suns.push_back(Title_Sun(position));
+    suns.back().setup(sprite.name);
 
     generate_ship(rng);
 }

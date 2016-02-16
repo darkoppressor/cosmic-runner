@@ -1,15 +1,4 @@
 <game_constant>
-	//seconds
-	name:title_ship_spawn_rate
-	value:10
-</game_constant>
-
-<game_constant>
-	name:title_max_ships
-	value:15
-</game_constant>
-
-<game_constant>
 	name:zoom_rate
 	value:0.1
 </game_constant>
@@ -22,6 +11,62 @@
 <game_constant>
 	name:zoom_max
 	value:2.0
+</game_constant>
+
+<game_constant>
+	//seconds
+	name:title_ship_spawn_rate
+	value:10
+</game_constant>
+
+<game_constant>
+	name:title_max_ships
+	value:15
+</game_constant>
+
+<game_constant>
+	name:title_max_sun_shimmers
+	value:16
+</game_constant>
+
+<game_constant>
+	name:title_sun_shimmer_spawn_rate
+	value:500
+</game_constant>
+
+<game_constant>
+	name:title_sun_shimmer_spawn_chance
+	value:50
+</game_constant>
+
+<game_constant>
+	name:title_sun_shimmer_y_right_mod_min
+	value:0
+</game_constant>
+
+<game_constant>
+	name:title_sun_shimmer_y_right_mod_max
+	value:32
+</game_constant>
+
+<game_constant>
+	name:title_sun_shimmer_speed_min
+	value:20
+</game_constant>
+
+<game_constant>
+	name:title_sun_shimmer_speed_max
+	value:30
+</game_constant>
+
+<game_constant>
+	name:title_sun_shimmer_radius_min
+	value:4
+</game_constant>
+
+<game_constant>
+	name:title_sun_shimmer_radius_max
+	value:8
 </game_constant>
 
 <game_constant>
