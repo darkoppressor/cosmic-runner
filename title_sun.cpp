@@ -41,7 +41,9 @@ void Title_Sun_Shimmer::draw_circle(SDL_Surface* surface,int32_t x_coord,int32_t
         for(int32_t y=y_coord-radius;y<y_coord+radius;y++){
             if(x>=0 && x<surface->w && y>=0 && y<surface->h){
                 if(Collision::check_circ(Collision_Circ<double>(x,y,0.0),Collision_Circ<double>(x_coord,y_coord,radius))){
-                    Pixels::surface_put_pixel(surface,x,y,Color(0,0,0,0));
+                    Color current_color=Pixels::surface_get_pixel(surface,x,y);
+                    current_color.set(current_color.get_red(),current_color.get_green(),current_color.get_blue(),short(current_color.get_alpha()/2));
+                    Pixels::surface_put_pixel(surface,x,y,current_color);
                 }
             }
         }

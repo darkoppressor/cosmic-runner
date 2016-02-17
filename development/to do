@@ -4,9 +4,10 @@ Note: change map screen to a minimap? It would be like now and show the star and
 
 Rotated rectangle objects don't always render if part of them is on screen
 
-Try making the sun shimmers only reduce alpha, not make it 0
 Try sorting order of sun shimmers by height?
 Flickering might be caused by rounding issues
+
+Title screen ships need a minimum spawn height
 
 Make asteroids look better
 Make a better, more unique sprite for shield damage, with the same colors
