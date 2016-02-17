@@ -1116,6 +1116,10 @@ void Game::tick(){
 
     clear_tractor();
 
+    for(size_t i=0;i<ships.size();i++){
+        ships[i].check_processing_range(i==0);
+    }
+
     quadtree_debris.clear_tree();
     for(size_t i=0;i<debris.size();i++){
         quadtree_debris.insert_object(debris[i].get_collision_box(),(uint32_t)i);

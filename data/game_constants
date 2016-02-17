@@ -315,6 +315,12 @@
 
 <game_constant>
 	//meters (pixels)
+	name:npc_process_range
+	value:1408.0
+</game_constant>
+
+<game_constant>
+	//meters (pixels)
 	name:spawn_distance_max
 	value:2432
 </game_constant>

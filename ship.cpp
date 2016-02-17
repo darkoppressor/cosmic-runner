@@ -48,6 +48,8 @@ Ship::Ship(string new_type,const Coords<double>& position,double new_angle){
 
     point_defense_cooldown=0;
 
+    in_processing_range=false;
+
     sprite.set_name(get_ship_type()->sprite);
 
     box.w=sprite.get_width();
@@ -284,7 +286,7 @@ bool Ship::has_laser() const{
 void Ship::calculate_laser_target(const Quadtree<double,uint32_t>& quadtree_ships,uint32_t own_index){
     bool is_player=own_index==0;
 
-    if(is_alive() && !is_landing() && (!is_player || !Game::player_is_landed()) && !is_disabled(is_player)){
+    if(is_alive() && !is_landing() && (!is_player || !Game::player_is_landed()) && !is_disabled(is_player) && is_in_processing_range()){
         if(weapons_enabled && has_laser()){
             Collision_Rect<double> box_targeting=box;
 
@@ -496,6 +498,14 @@ Collision_Rect<double> Ship::get_collision_box() const{
 
 bool Ship::is_alive() const{
     return hull>0;
+}
+
+void Ship::check_processing_range(bool is_player){
+    in_processing_range=(is_player || get_distance_to_player()<=Game_Constants::NPC_PROCESS_RANGE);
+}
+
+bool Ship::is_in_processing_range() const{
+    return in_processing_range;
 }
 
 double Ship::get_distance_to_player() const{
@@ -736,7 +746,7 @@ bool Ship::is_landing() const{
 }
 
 void Ship::land(bool is_player){
-    if(is_alive()){
+    if(is_alive() && is_in_processing_range()){
         if(landing){
             landing_scale-=Game_Constants::SHIP_LANDING_RATE;
 
@@ -757,7 +767,7 @@ void Ship::land(bool is_player){
 }
 
 void Ship::take_star_damage(bool is_player,RNG& rng){
-    if(is_alive() && !is_landing() && (!is_player || !Game::player_is_landed())){
+    if(is_alive() && !is_landing() && (!is_player || !Game::player_is_landed()) && is_in_processing_range()){
         if(++star_damage>=Game_Constants::STAR_DAMAGE_RATE*Engine::UPDATE_RATE/1000){
             star_damage=0;
 
@@ -774,7 +784,7 @@ void Ship::take_star_damage(bool is_player,RNG& rng){
 }
 
 void Ship::regenerate_shields(bool is_player){
-    if(is_alive() && !is_disabled(is_player)){
+    if(is_alive() && !is_disabled(is_player) && is_in_processing_range()){
         if(shields<get_shields_max() && ++shield_recharge>=get_shield_recharge_rate()*Engine::UPDATE_RATE/1000){
             shield_recharge=0;
 
@@ -786,7 +796,7 @@ void Ship::regenerate_shields(bool is_player){
 void Ship::cooldown(const Quadtree<double,uint32_t>& quadtree_ships,const Quadtree<double,uint32_t>& quadtree_shots,RNG& rng,uint32_t own_index){
     bool is_player=own_index==0;
 
-    if(is_alive()){
+    if(is_alive() && is_in_processing_range()){
         if(disabled_cooldown>0){
             disabled_cooldown--;
         }
@@ -1123,7 +1133,7 @@ bool Ship::ai_proximity_target_is_player() const{
 }
 
 void Ship::ai(const Quadtree<double,uint32_t>& quadtree_ships,const Quadtree<double,uint32_t>& quadtree_planets,uint32_t frame,uint32_t own_index,RNG& rng){
-    if(is_alive() && !is_landing() && !is_disabled(false)){
+    if(is_alive() && !is_landing() && !is_disabled(false) && is_in_processing_range()){
         if(ai_proximity_check_allowed(frame,own_index)){
             ai_check_for_proximity_target(quadtree_ships,own_index);
         }
@@ -1227,7 +1237,7 @@ void Ship::brake(uint32_t frame){
 }
 
 void Ship::accelerate(bool is_player,uint32_t frame){
-    if(is_alive() && !is_landing() && (!is_player || !Game::player_is_landed())){
+    if(is_alive() && !is_landing() && (!is_player || !Game::player_is_landed()) && is_in_processing_range()){
         thrust(frame);
         brake(frame);
 
@@ -1255,7 +1265,7 @@ void Ship::movement(uint32_t own_index,const Quadtree<double,uint32_t>& quadtree
                     const Quadtree<double,uint32_t>& quadtree_explosions,const Quadtree<double,uint32_t>& quadtree_items,RNG& rng){
     bool is_player=own_index==0;
 
-    if(is_alive() && !is_landing() && (!is_player || !Game::player_is_landed())){
+    if(is_alive() && !is_landing() && (!is_player || !Game::player_is_landed()) && is_in_processing_range()){
         Vector_Components vc=velocity.get_components();
 
         box.x+=vc.a/(double)Engine::UPDATE_RATE;

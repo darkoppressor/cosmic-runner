@@ -83,6 +83,7 @@ uint32_t Game_Constants::NOTORIETY_INCREASE=0;
 uint32_t Game_Constants::WEAPON_SPREAD_DISTANCE=0;
 
 double Game_Constants::DESPAWN_DISTANCE=0.0;
+double Game_Constants::NPC_PROCESS_RANGE=0.0;
 uint32_t Game_Constants::SPAWN_DISTANCE_MAX=0;
 uint32_t Game_Constants::SPAWN_DISTANCE_MIN=0;
 uint32_t Game_Constants::SHIP_SPAWN_RATE=0;
@@ -309,6 +310,9 @@ void Game_Constants_Loader::set_game_constant(string name,string value){
 
     else if(name=="despawn_distance"){
         Game_Constants::DESPAWN_DISTANCE=Strings::string_to_double(value);
+    }
+    else if(name=="npc_process_range"){
+        Game_Constants::NPC_PROCESS_RANGE=Strings::string_to_double(value);
     }
     else if(name=="spawn_distance_max"){
         Game_Constants::SPAWN_DISTANCE_MAX=Strings::string_to_unsigned_long(value);

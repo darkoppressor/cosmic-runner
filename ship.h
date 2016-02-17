@@ -67,6 +67,8 @@ private:
     bool ai_has_proximity_target;
     bool ai_proximity_target_flee;
 
+    bool in_processing_range;
+
     Sprite sprite;
 
 public:
@@ -128,6 +130,9 @@ public:
     Collision_Rect<double> get_collision_box() const;
 
     bool is_alive() const;
+
+    void check_processing_range(bool is_player);
+    bool is_in_processing_range() const;
 
     double get_distance_to_player() const;
     double get_distance_to_proximity_target() const;

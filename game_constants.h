@@ -83,6 +83,7 @@ public:
     static std::uint32_t WEAPON_SPREAD_DISTANCE;
 
     static double DESPAWN_DISTANCE;
+    static double NPC_PROCESS_RANGE;
     static std::uint32_t SPAWN_DISTANCE_MAX;
     static std::uint32_t SPAWN_DISTANCE_MIN;
     static std::uint32_t SHIP_SPAWN_RATE;
