@@ -6,10 +6,10 @@
 	box_collision:2,5,36,35
 	upgrades:
 	mass:300.0
-	hull_max:80
+	hull_max:60
 	shields_max:0
-	thrust_accel:2000.0
-	thrust_decel:4000.0
+	thrust_accel:1000.0
+	thrust_decel:1000.0
 	max_speed:200.0
 	item_drop_min:0
 	item_drop_max:0
