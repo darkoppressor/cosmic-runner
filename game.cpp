@@ -543,6 +543,9 @@ void Game::complete_contract(){
 
     Game_Manager::paused=false;
 
+    generate_ships();
+    generate_items();
+
     Engine::make_toast("Contract completed\nScore multiplier +"+Strings::num_to_string(Game_Constants::SCORE_MULTIPLIER_INCREASE));
 
     Sound_Manager::play_sound("contract_completed");

@@ -7,10 +7,10 @@ Flickering might be caused by rounding issues
 
 Make asteroids look better
 
+Remove the sun entirely?
+
 NPC ships should not move, collide, cooldown, or run AI when outside a certain range of the player
 This range should be well outside the screen, but well within the despawn distance
-
-Do a new ship/item spawn when the player completes a contract?
 
 Add upgrades to ships
 Add cooldown for active upgrade
