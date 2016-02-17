@@ -12,10 +12,11 @@
 
 using namespace std;
 
-Effect::Effect(std::string new_sprite,double new_scale,const Coords<double>& position,string sound,const Vector& new_velocity,double new_angle,
+Effect::Effect(std::string new_sprite,bool new_fade,double new_scale,const Coords<double>& position,string sound,const Vector& new_velocity,double new_angle,
                const Vector& new_angular_velocity,uint32_t seconds,bool new_line,const Coords<double>& end_point,string new_color){
     done=false;
     opacity=1.0;
+    fade=new_fade;
 
     line=new_line;
 
@@ -108,7 +109,12 @@ void Effect::animate(){
         }
 
         if(is_fading()){
-            opacity-=Game_Constants::EFFECT_FADE_RATE;
+            if(fade){
+                opacity-=Game_Constants::EFFECT_FADE_RATE;
+            }
+            else{
+                opacity=0.0;
+            }
 
             if(opacity<=0.0){
                 opacity=0.0;

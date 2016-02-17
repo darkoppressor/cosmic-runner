@@ -228,7 +228,7 @@ bool Game_Manager::handle_game_command(string command_name){
                     Game::cancel_contract();
 
                     for(uint32_t i=0;i<5;i++){
-                        Game::create_effect("effect_cargo_"+Strings::num_to_string(Game::get_rng().random_range(0,0)),1.0,
+                        Game::create_effect("effect_cargo_"+Strings::num_to_string(Game::get_rng().random_range(0,0)),true,1.0,
                                             Coords<double>(player.get_box().center_x(),player.get_box().center_y()),"",
                                             Vector(Game::get_rng().random_range(0,10),Game::get_rng().random_range(0,359)),
                                             Game::get_rng().random_range(0,359),Vector(0.01*Game::get_rng().random_range(0,50),Game::get_rng().random_range(0,359)),

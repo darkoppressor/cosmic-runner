@@ -130,7 +130,7 @@ void Shot::die(){
         alive=false;
 
         if(get_shot_type()->death_sprite.length()>0){
-            Game::create_effect(get_shot_type()->death_sprite,1.0,Coords<double>(box.center_x(),box.center_y()),get_shot_type()->death_sound,Vector(),0.0,Vector(),0,false,Coords<double>());
+            Game::create_effect(get_shot_type()->death_sprite,false,1.0,Coords<double>(box.center_x(),box.center_y()),get_shot_type()->death_sound,Vector(),angle,Vector(),0,false,Coords<double>());
         }
     }
 }

@@ -180,7 +180,7 @@ public:
     static Vector get_player_acceleration();
     static void set_player_acceleration(const Vector& acceleration);
 
-    static void create_effect(std::string sprite,double scale,const Coords<double>& position,std::string sound,const Vector& velocity,double angle,
+    static void create_effect(std::string sprite,bool fade,double scale,const Coords<double>& position,std::string sound,const Vector& velocity,double angle,
                               const Vector& angular_velocity,std::uint32_t seconds,bool line,const Coords<double>& end_point,std::string color="white");
 
     static void player_thrust(std::string direction);

@@ -18,6 +18,7 @@ private:
 
     bool done;
     double opacity;
+    bool fade;
 
     //If line is true:
     //box.x,box.y == start point
@@ -42,7 +43,7 @@ private:
 
 public:
 
-    Effect(std::string new_sprite,double new_scale,const Coords<double>& position,std::string sound,const Vector& new_velocity,double new_angle,
+    Effect(std::string new_sprite,bool new_fade,double new_scale,const Coords<double>& position,std::string sound,const Vector& new_velocity,double new_angle,
            const Vector& new_angular_velocity,std::uint32_t seconds,bool new_line,const Coords<double>& end_point,std::string new_color);
 
     bool is_fading() const;

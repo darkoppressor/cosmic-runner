@@ -610,7 +610,7 @@ void Ship::take_damage(bool is_player,int32_t damage,string damage_type,const Co
             }
 
             if(effective_damage>0){
-                Game::create_effect("effect_explosion_shields",1.0,location,"effect_explosion_shields",
+                Game::create_effect("effect_explosion_shields",false,1.0,location,"effect_explosion_shields",
                                     Vector(0.0,0.0),0.0,Vector(0.0,0.0),0,false,Coords<double>());
 
                 if(effective_damage<=shields){
@@ -650,7 +650,7 @@ void Ship::take_damage(bool is_player,int32_t damage,string damage_type,const Co
         }
 
         if(effective_damage>0){
-            Game::create_effect("effect_hull_damage",0.1*(double)rng.random_range(1,10),location,"effect_hull_damage",
+            Game::create_effect("effect_hull_damage",true,0.1*(double)rng.random_range(1,10),location,"effect_hull_damage",
                                 Vector(rng.random_range(0,10),rng.random_range(0,359)),rng.random_range(0,359),
                                 Vector(0.01*rng.random_range(0,50),rng.random_range(0,359)),Game_Constants::EFFECT_LENGTH_HULL_DAMAGE,false,Coords<double>(),get_ship_type()->color);
 
@@ -738,7 +738,7 @@ bool Ship::is_landing() const{
 void Ship::land(bool is_player){
     if(is_alive()){
         if(landing){
-            landing_scale-=1.0/(double)Engine::UPDATE_RATE;
+            landing_scale-=Game_Constants::SHIP_LANDING_RATE;
 
             if(landing_scale<=0.0){
                 if(is_player){
@@ -1033,7 +1033,7 @@ bool Ship::fire_point_defense(const Quadtree<double,uint32_t>& quadtree_shots){
 
             Game::create_explosion("explosion_missile","explosion_missile",Coords<double>(shot.get_box().center_x(),shot.get_box().center_y()),shot.get_damage(),shot.get_faction());
 
-            Game::create_effect("",1.0,box.get_center(),"point_defense",Vector(),0.0,Vector(),1,true,shot.get_box().get_center(),"point_defense");
+            Game::create_effect("",true,1.0,box.get_center(),"point_defense",Vector(),0.0,Vector(),1,true,shot.get_box().get_center(),"point_defense");
 
             Game::kill_shot((uint32_t)nearest_index);
 

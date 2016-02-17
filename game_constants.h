@@ -55,6 +55,8 @@ public:
 
     static double SHIP_MANEUVER_ANGLE;
 
+    static double SHIP_LANDING_RATE;
+
     static double POLICE_LIGHTS_ANGULAR_SPEED;
 
     static double POINT_DEFENSE_RANGE;
