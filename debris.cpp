@@ -58,7 +58,7 @@ void Debris::animate(){
 }
 
 void Debris::render(){
-    if(Collision::check_rect(box*Game_Manager::camera_zoom,Game_Manager::camera)){
+    if(Collision::check_rect_rotated(box*Game_Manager::camera_zoom,Game_Manager::camera,angle,0.0)){
         sprite.render(box.x*Game_Manager::camera_zoom-Game_Manager::camera.x,box.y*Game_Manager::camera_zoom-Game_Manager::camera.y,1.0,1.0,1.0,angle);
 
         if(Game_Options::show_collision_outlines){

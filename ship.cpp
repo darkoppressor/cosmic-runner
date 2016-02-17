@@ -1426,7 +1426,7 @@ void Ship::animate(){
 
 void Ship::render(bool tractoring){
     if(is_alive()){
-        bool in_camera=Collision::check_rect(box*Game_Manager::camera_zoom,Game_Manager::camera);
+        bool in_camera=Collision::check_rect_rotated(box*Game_Manager::camera_zoom,Game_Manager::camera,angle,0.0);
 
         if(in_camera){
             double scale=1.0;
