@@ -7,6 +7,10 @@ Flickering might be caused by rounding issues
 
 Make asteroids look better
 
+Make shots bigger and slower, with longer cooldowns and farther range
+
+Maybe the plasma blast could be a rectangle thing
+
 Add upgrades to ships
 Add cooldown for active upgrade
 
@@ -21,6 +25,8 @@ Give all actives good display names
 Give all weapons descriptions
 Give all passives descriptions
 Give all actives descriptions
+
+Design and implement HUD
 
 Note: high score board
 
@@ -45,7 +51,7 @@ missile explosion
 ship explosion
 1 per item collected
 disabled (played continuously)?
-tractoring (played continuously)?
+tractoring/chasing player with intent to tractor (played continuously)?
 game over
 
 Images:
