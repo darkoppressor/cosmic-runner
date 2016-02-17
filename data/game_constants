@@ -137,7 +137,7 @@
 <game_constant>
 	//seconds
 	name:effect_length_hull_damage
-	value:10
+	value:15
 </game_constant>
 
 <game_constant>
@@ -199,6 +199,11 @@
 	//thrust_decel will be used instead of thrust_accel
 	name:ship_maneuver_angle
 	value:90.0
+</game_constant>
+
+<game_constant>
+	name:ship_landing_rate
+	value:0.03
 </game_constant>
 
 <game_constant>
@@ -299,7 +304,7 @@
 <game_constant>
 	//degrees
 	name:weapon_spread_distance
-	value:10
+	value:20
 </game_constant>
 
 <game_constant>

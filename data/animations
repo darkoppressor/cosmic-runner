@@ -8,25 +8,25 @@
 
 <animation>
 	name:shot_plasma_blast
-	frame_count:4
-	animation_speed:50
-	frame_width:12
+	frame_count:6
+	animation_speed:75
+	frame_width:24
 	end_behavior:continue
 </animation>
 
 <animation>
 	name:effect_shot_death_bullet
 	frame_count:3
-	animation_speed:50
-	frame_width:10
+	animation_speed:100
+	frame_width:20
 	end_behavior:stop
 </animation>
 
 <animation>
 	name:effect_shot_death_plasma_blast
 	frame_count:3
-	animation_speed:50
-	frame_width:12
+	animation_speed:100
+	frame_width:24
 	end_behavior:stop
 </animation>
 
