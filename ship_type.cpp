@@ -13,6 +13,8 @@ Ship_Type::Ship_Type(){
 
     sprite="";
 
+    color="";
+
     mass=0.0;
     thrust_accel=0.0;
     thrust_decel=0.0;

@@ -8,9 +8,6 @@ Try sorting order of sun shimmers by height?
 Flickering might be caused by rounding issues
 
 Make asteroids look better
-Make a better, more unique sprite for shield damage, with the same colors
-Change the effect from hull damage to something like chunks (small empty rectangles) floating off of the damaged ship
-These chunks should be the color of the damaged ship, and persists a bit longer than an explosion effect
 
 Add upgrades to ships
 Add cooldown for active upgrade

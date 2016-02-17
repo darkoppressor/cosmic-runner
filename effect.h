@@ -16,6 +16,9 @@
 class Effect{
 private:
 
+    bool done;
+    double opacity;
+
     //If line is true:
     //box.x,box.y == start point
     //box.w,box.h == end point
@@ -35,11 +38,14 @@ private:
 
     bool line;
 
+    std::string color;
+
 public:
 
     Effect(std::string new_sprite,double new_scale,const Coords<double>& position,std::string sound,const Vector& new_velocity,double new_angle,
-           const Vector& new_angular_velocity,std::uint32_t seconds,bool new_line,const Coords<double>& end_point);
+           const Vector& new_angular_velocity,std::uint32_t seconds,bool new_line,const Coords<double>& end_point,std::string new_color);
 
+    bool is_fading() const;
     bool is_done() const;
 
     void countdown();

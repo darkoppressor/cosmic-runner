@@ -39,6 +39,8 @@ uint64_t Game_Constants::POINT_VALUE_CONTRACT=0;
 uint32_t Game_Constants::UPGRADE_LIST_SIZE=0;
 
 uint32_t Game_Constants::EFFECT_LENGTH_CARGO=0;
+uint32_t Game_Constants::EFFECT_LENGTH_HULL_DAMAGE=0;
+double Game_Constants::EFFECT_FADE_RATE=0.0;
 
 uint32_t Game_Constants::SHIELD_RECHARGE_RATE=0;
 uint32_t Game_Constants::DISABLED_LENGTH=0;
@@ -201,6 +203,12 @@ void Game_Constants_Loader::set_game_constant(string name,string value){
 
     else if(name=="effect_length_cargo"){
         Game_Constants::EFFECT_LENGTH_CARGO=Strings::string_to_unsigned_long(value);
+    }
+    else if(name=="effect_length_hull_damage"){
+        Game_Constants::EFFECT_LENGTH_HULL_DAMAGE=Strings::string_to_unsigned_long(value);
+    }
+    else if(name=="effect_fade_rate"){
+        Game_Constants::EFFECT_FADE_RATE=Strings::string_to_double(value);
     }
 
     else if(name=="shield_recharge_rate"){

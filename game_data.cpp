@@ -82,6 +82,9 @@ void Game_Data::load_ship_type(File_IO_Load* load){
         else if(Data_Reader::check_prefix(line,"sprite:")){
             ship_types.back().sprite=line;
         }
+        else if(Data_Reader::check_prefix(line,"color:")){
+            ship_types.back().color=line;
+        }
         else if(Data_Reader::check_prefix(line,"box_collision:")){
             vector<string> dimensions;
             boost::algorithm::split(dimensions,line,boost::algorithm::is_any_of(","));

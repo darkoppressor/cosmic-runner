@@ -39,6 +39,8 @@ public:
     static std::uint32_t UPGRADE_LIST_SIZE;
 
     static std::uint32_t EFFECT_LENGTH_CARGO;
+    static std::uint32_t EFFECT_LENGTH_HULL_DAMAGE;
+    static double EFFECT_FADE_RATE;
 
     static std::uint32_t SHIELD_RECHARGE_RATE;
     static std::uint32_t DISABLED_LENGTH;

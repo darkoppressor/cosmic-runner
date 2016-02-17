@@ -20,6 +20,8 @@ public:
 
     std::string sprite;
 
+    std::string color;
+
     Collision_Rect<double> box_collision;
 
     std::vector<std::string> upgrades;

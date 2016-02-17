@@ -732,9 +732,9 @@ void Game::set_player_acceleration(const Vector& acceleration){
 }
 
 void Game::create_effect(string sprite,double scale,const Coords<double>& position,string sound,const Vector& velocity,double angle,
-                         const Vector& angular_velocity,uint32_t seconds,bool line,const Coords<double>& end_point){
+                         const Vector& angular_velocity,uint32_t seconds,bool line,const Coords<double>& end_point,string color){
     if(Game_Manager::effect_allowed()){
-        effects.push_back(Effect(sprite,scale,position,sound,velocity,angle,angular_velocity,seconds,line,end_point));
+        effects.push_back(Effect(sprite,scale,position,sound,velocity,angle,angular_velocity,seconds,line,end_point,color));
     }
 }
 

@@ -55,14 +55,6 @@
 </animation>
 
 <animation>
-	name:effect_explosion_hull
-	frame_count:4
-	animation_speed:100
-	frame_width:23
-	end_behavior:stop
-</animation>
-
-<animation>
 	name:contract_indicator_arrow
 	frame_count:3
 	animation_speed:300

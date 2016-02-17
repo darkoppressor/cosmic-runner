@@ -3,6 +3,7 @@
 /* See the file docs/LICENSE.txt for the full license text. */
 
 #include "effect.h"
+#include "game_constants.h"
 
 #include <game_manager.h>
 #include <sound_manager.h>
@@ -12,7 +13,10 @@
 using namespace std;
 
 Effect::Effect(std::string new_sprite,double new_scale,const Coords<double>& position,string sound,const Vector& new_velocity,double new_angle,
-               const Vector& new_angular_velocity,uint32_t seconds,bool new_line,const Coords<double>& end_point){
+               const Vector& new_angular_velocity,uint32_t seconds,bool new_line,const Coords<double>& end_point,string new_color){
+    done=false;
+    opacity=1.0;
+
     line=new_line;
 
     if(new_sprite.length()>0){
@@ -42,6 +46,8 @@ Effect::Effect(std::string new_sprite,double new_scale,const Coords<double>& pos
 
     angular_velocity=new_angular_velocity;
 
+    color=new_color;
+
     if(seconds>0){
         timed=true;
 
@@ -58,13 +64,17 @@ Effect::Effect(std::string new_sprite,double new_scale,const Coords<double>& pos
     }
 }
 
-bool Effect::is_done() const{
+bool Effect::is_fading() const{
     if(timed){
         return counter==0;
     }
     else{
         return !sprite.animating;
     }
+}
+
+bool Effect::is_done() const{
+    return done;
 }
 
 void Effect::countdown(){
@@ -92,8 +102,20 @@ void Effect::movement(){
 }
 
 void Effect::animate(){
-    if(!is_done() && !line){
-        sprite.animate();
+    if(!is_done()){
+        if(!line){
+            sprite.animate();
+        }
+
+        if(is_fading()){
+            opacity-=Game_Constants::EFFECT_FADE_RATE;
+
+            if(opacity<=0.0){
+                opacity=0.0;
+
+                done=true;
+            }
+        }
     }
 }
 
@@ -101,13 +123,13 @@ void Effect::render(){
     if(!is_done()){
         if(!line){
             if(Collision::check_rect(box*Game_Manager::camera_zoom,Game_Manager::camera)){
-                sprite.render(box.x*Game_Manager::camera_zoom-Game_Manager::camera.x,box.y*Game_Manager::camera_zoom-Game_Manager::camera.y,1.0,scale,scale,angle);
+                sprite.render(box.x*Game_Manager::camera_zoom-Game_Manager::camera.x,box.y*Game_Manager::camera_zoom-Game_Manager::camera.y,opacity,scale,scale,angle,color);
             }
         }
         else if(Collision::check_rect(Collision_Rect<double>(box.x,box.y,1.0,1.0)*Game_Manager::camera_zoom,Game_Manager::camera) ||
                 Collision::check_rect(Collision_Rect<double>(box.w,box.h,1.0,1.0)*Game_Manager::camera_zoom,Game_Manager::camera)){
             Render::render_line(box.x*Game_Manager::camera_zoom-Game_Manager::camera.x,box.y*Game_Manager::camera_zoom-Game_Manager::camera.y,
-                                box.w*Game_Manager::camera_zoom-Game_Manager::camera.x,box.h*Game_Manager::camera_zoom-Game_Manager::camera.y,1.0,"point_defense");
+                                box.w*Game_Manager::camera_zoom-Game_Manager::camera.x,box.h*Game_Manager::camera_zoom-Game_Manager::camera.y,opacity,color);
         }
     }
 }

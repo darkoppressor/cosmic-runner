@@ -2,6 +2,7 @@
 	name:player_0
 	faction:player
 	sprite:ship_player_0
+	color:ship_player
 	box_collision:2,5,36,35
 	upgrades:
 	mass:300.0
@@ -19,6 +20,7 @@
 	name:civilian_0
 	faction:civilian
 	sprite:ship_civilian_0
+	color:ship_civilian
 	box_collision:3,3,117,35
 	upgrades:
 	mass:300.0
@@ -36,6 +38,7 @@
 	name:pirate_0
 	faction:pirate
 	sprite:ship_pirate_0
+	color:ship_pirate
 	box_collision:2,2,36,41
 	upgrades:cannon_shotgun
 	mass:300.0
@@ -53,6 +56,7 @@
 	name:pirate_1
 	faction:pirate
 	sprite:ship_pirate_1
+	color:ship_pirate
 	box_collision:2,2,33,54
 	upgrades:cannon_shotgun
 	mass:300.0
@@ -70,6 +74,7 @@
 	name:pirate_2
 	faction:pirate
 	sprite:ship_pirate_2
+	color:ship_pirate
 	box_collision:6,5,53,35
 	upgrades:cannon_shotgun
 	mass:300.0
@@ -87,6 +92,7 @@
 	name:bounty_hunter_0
 	faction:bounty_hunter
 	sprite:ship_bounty_hunter_0
+	color:ship_bounty_hunter
 	box_collision:5,4,44,21
 	upgrades:missile_single
 	mass:300.0
@@ -104,6 +110,7 @@
 	name:bounty_hunter_1
 	faction:bounty_hunter
 	sprite:ship_bounty_hunter_1
+	color:ship_bounty_hunter
 	box_collision:2,4,35,29
 	upgrades:missile_spread
 	mass:300.0
@@ -121,6 +128,7 @@
 	name:bounty_hunter_2
 	faction:bounty_hunter
 	sprite:ship_bounty_hunter_2
+	color:ship_bounty_hunter
 	box_collision:2,5,40,65
 	upgrades:guided_missile_single
 	mass:300.0
@@ -138,6 +146,7 @@
 	name:police_0
 	faction:police
 	sprite:ship_police_0
+	color:ship_police
 	box_collision:2,3,38,29
 	upgrades:cannon_sniper
 	mass:300.0
@@ -155,6 +164,7 @@
 	name:police_1
 	faction:police
 	sprite:ship_police_1
+	color:ship_police
 	box_collision:2,3,32,35
 	upgrades:cannon_sniper
 	mass:300.0
@@ -172,6 +182,7 @@
 	name:police_2
 	faction:police
 	sprite:ship_police_2
+	color:ship_police
 	box_collision:2,3,38,33
 	upgrades:cannon_sniper
 	mass:300.0
