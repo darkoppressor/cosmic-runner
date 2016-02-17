@@ -25,6 +25,14 @@
 </game_constant>
 
 <game_constant>
+	//pixels
+	//This is the lowest point on the screen a title ship can spawn,
+	//so a higher number corresponds to a lower minimum height
+	name:title_ship_minimum_height
+	value:650
+</game_constant>
+
+<game_constant>
 	name:title_max_sun_shimmers
 	value:16
 </game_constant>

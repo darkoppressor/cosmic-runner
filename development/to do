@@ -7,8 +7,6 @@ Rotated rectangle objects don't always render if part of them is on screen
 Try sorting order of sun shimmers by height?
 Flickering might be caused by rounding issues
 
-Title screen ships need a minimum spawn height
-
 Make asteroids look better
 Make a better, more unique sprite for shield damage, with the same colors
 Change the effect from hull damage to something like chunks (small empty rectangles) floating off of the damaged ship

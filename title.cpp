@@ -56,7 +56,12 @@ void Title::generate_ship(RNG& rng){
             velocity.direction=180.0;
         }
 
-        position.y=rng.random_range(0,(uint32_t)(Game_Window::height()-sprite.get_height()));
+        uint32_t minimum_height=(uint32_t)(Game_Window::height()-sprite.get_height());
+        if(minimum_height>Game_Constants::TITLE_SHIP_MINIMUM_HEIGHT){
+            minimum_height=Game_Constants::TITLE_SHIP_MINIMUM_HEIGHT;
+        }
+
+        position.y=rng.random_range(0,minimum_height);
 
         ships.push_back(Title_Ship(sprite.name,position,velocity,distance_scale));
     }
