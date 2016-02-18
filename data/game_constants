@@ -297,8 +297,14 @@
 
 <game_constant>
 	//seconds
-	name:notoriety_increase
+	name:notoriety_increase_damage
 	value:20
+</game_constant>
+
+<game_constant>
+	//seconds
+	name:notoriety_increase_scan
+	value:60
 </game_constant>
 
 <game_constant>

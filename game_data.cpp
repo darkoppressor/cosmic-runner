@@ -324,6 +324,9 @@ void Game_Data::load_upgrade_type(File_IO_Load* load){
         else if(Data_Reader::check_prefix(line,"type:")){
             upgrades.back().type=line;
         }
+        else if(Data_Reader::check_prefix(line,"banned:")){
+            upgrades.back().banned=Strings::string_to_bool(line);
+        }
         else if(Data_Reader::check_prefix(line,"sound:")){
             upgrades.back().sound=line;
         }
@@ -350,6 +353,9 @@ void Game_Data::load_upgrade_type(File_IO_Load* load){
         }
         else if(Data_Reader::check_prefix(line,"range:")){
             upgrades.back().range=Strings::string_to_double(line);
+        }
+        else if(Data_Reader::check_prefix(line,"power_use:")){
+            upgrades.back().power_use=Strings::string_to_unsigned_long(line);
         }
         else if(Data_Reader::check_prefix(line,"max_shields:")){
             upgrades.back().max_shields=Strings::string_to_long(line);

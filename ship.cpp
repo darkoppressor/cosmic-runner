@@ -42,6 +42,10 @@ Ship::Ship(string new_type,const Coords<double>& position,double new_angle){
     weapons_enabled=true;
     weapon_cooldown=0;
 
+    active_cooldown=0;
+    scanner_startup_sprite.set_name("scanner_startup");
+    scanner_startup_sprite.animating=false;
+
     laser_has_target=false;
 
     disabled_cooldown=0;
@@ -354,6 +358,11 @@ void Ship::disable(){
     disabled_cooldown=Game_Constants::DISABLED_LENGTH*Engine::UPDATE_RATE;
 
     thrusting=false;
+
+    //Disable scanner startup
+    if(scanner_startup_sprite.animating){
+        scanner_startup_sprite.animating=false;
+    }
 }
 
 bool Ship::can_use_item(Item_Type* item_type) const{
@@ -574,7 +583,7 @@ void Ship::notify_of_ship_death(uint32_t index){
 void Ship::die(bool is_player,string damage_faction,RNG& rng){
     if(is_alive()){
         if(damage_faction=="player" && !is_player && (get_faction()=="civilian" || get_faction()=="police")){
-            Game::increase_notoriety();
+            Game::increase_notoriety(Game_Constants::NOTORIETY_INCREASE_DAMAGE);
         }
 
         hull=0;
@@ -603,7 +612,7 @@ void Ship::die(bool is_player,string damage_faction,RNG& rng){
 void Ship::take_damage(bool is_player,int32_t damage,string damage_type,const Coords<double>& location,string damage_faction,RNG& rng){
     if(is_alive()){
         if(damage_faction=="player" && !is_player && (get_faction()=="civilian" || get_faction()=="police")){
-            Game::increase_notoriety();
+            Game::increase_notoriety(Game_Constants::NOTORIETY_INCREASE_DAMAGE);
         }
 
         int32_t effective_damage=damage;
@@ -815,7 +824,13 @@ void Ship::cooldown(const Quadtree<double,uint32_t>& quadtree_ships,const Quadtr
             }
         }
 
-        ///QQQ cooldown active
+        if(has_active()){
+            uint32_t cool_point=get_cooldown(Game_Data::get_upgrade_type(get_active_name())->cooldown)*Engine::UPDATE_RATE/1000;
+
+            if(active_cooldown<cool_point){
+                active_cooldown++;
+            }
+        }
 
         if(has_point_defense()){
             uint32_t cool_point=get_cooldown(Game_Data::get_upgrade_type(get_point_defense_name())->cooldown)*Engine::UPDATE_RATE/1000;
@@ -981,6 +996,44 @@ bool Ship::fire_weapon(const Quadtree<double,uint32_t>& quadtree_ships,RNG& rng,
     }
 
     return false;
+}
+
+bool Ship::can_use_active(bool is_player) const{
+    if(has_active() && !is_disabled(is_player)){
+        Upgrade* upgrade=Game_Data::get_upgrade_type(get_active_name());
+
+        uint32_t cool_point=get_cooldown(upgrade->cooldown)*Engine::UPDATE_RATE/1000;
+
+        if(active_cooldown>=cool_point){
+            if(!is_player || upgrade->power_use*Engine::UPDATE_RATE<=Game::get_power()){
+                return true;
+            }
+        }
+    }
+
+    return false;
+}
+
+void Ship::use_active(bool is_player){
+    if(can_use_active(is_player)){
+        string active_name=get_active_name();
+        Upgrade* upgrade=Game_Data::get_upgrade_type(active_name);
+
+        if(active_name=="scanner"){
+            if(is_player){
+                Game::use_power(upgrade->power_use*Engine::UPDATE_RATE);
+            }
+
+            scanner_startup_sprite.reset_animation();
+            scanner_startup_sprite.animating=true;
+        }
+
+        active_cooldown=0;
+
+        if(upgrade->sound.length()>0){
+            Sound_Manager::play_sound(upgrade->sound,box.center_x(),box.center_y());
+        }
+    }
 }
 
 int32_t Ship::get_nearest_valid_target_shot(const Quadtree<double,uint32_t>& quadtree_shots,const Collision_Rect<double>& box_targeting){
@@ -1197,6 +1250,12 @@ void Ship::ai(const Quadtree<double,uint32_t>& quadtree_ships,const Quadtree<dou
             angle=Math::get_angle_to_point(box.get_center(),ai_target);
             thrusting=true;
         }
+
+        //If not a police ship, use active
+        //If a police ship, only use active if not currently tractoring the player
+        if(get_faction()!="police" || !Game::is_player_tractored() || Game::get_tractoring_ship_index()!=own_index){
+            use_active(false);
+        }
     }
 }
 
@@ -1367,8 +1426,20 @@ void Ship::movement(uint32_t own_index,const Quadtree<double,uint32_t>& quadtree
                     if(explosion.is_alive() && !was_damaged_by_explosion(nearby_explosions[i]) && Collision::check_circ_rect(circle_explosion,box_collision)){
                         damaged_by_explosion(nearby_explosions[i]);
 
-                        take_damage(is_player,explosion.get_damage(),"explosive",
-                                    Coords<double>(box_collision.x+rng.random_range(0,(uint32_t)box_collision.w),box_collision.y+rng.random_range(0,(uint32_t)box_collision.h)),explosion.get_faction(),rng);
+                        if(!explosion.is_scan()){
+                            take_damage(is_player,explosion.get_damage(),"explosive",
+                                        Coords<double>(box_collision.x+rng.random_range(0,(uint32_t)box_collision.w),box_collision.y+rng.random_range(0,(uint32_t)box_collision.h)),
+                                        explosion.get_faction(),rng);
+                        }
+                        else{
+                            if(is_player){
+                                ///QQQ disable cloak
+
+                                if(Game::player_has_contract()){
+                                    Game::increase_notoriety(Game_Constants::NOTORIETY_INCREASE_SCAN);
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -1423,6 +1494,17 @@ void Ship::movement(uint32_t own_index,const Quadtree<double,uint32_t>& quadtree
     }
 }
 
+void Ship::animate_scanner_startup(){
+    if(scanner_startup_sprite.animating){
+        scanner_startup_sprite.animate();
+
+        //If we just finished the scanner startup animation
+        if(!scanner_startup_sprite.animating){
+            Game::create_explosion("scanner_scan","scanner",box.get_center(),0,"",true);
+        }
+    }
+}
+
 void Ship::animate(){
     if(is_alive()){
         if(thrusting){
@@ -1431,6 +1513,8 @@ void Ship::animate(){
         else{
             sprite.reset_animation();
         }
+
+        animate_scanner_startup();
     }
 }
 
@@ -1492,6 +1576,13 @@ void Ship::render(bool tractoring){
             double light_angle=Game::get_police_lights_angle()+angle;
 
             police_lights_sprite.render(x*Game_Manager::camera_zoom-Game_Manager::camera.x,y*Game_Manager::camera_zoom-Game_Manager::camera.y,1.0,1.0,1.0,light_angle);
+        }
+
+        if(in_camera && scanner_startup_sprite.animating){
+            double x=box.center_x()-scanner_startup_sprite.get_width()/2.0;
+            double y=box.center_y()-scanner_startup_sprite.get_height()/2.0;
+
+            scanner_startup_sprite.render(x*Game_Manager::camera_zoom-Game_Manager::camera.x,y*Game_Manager::camera_zoom-Game_Manager::camera.y,1.0,1.0,1.0,angle);
         }
     }
 }

@@ -9,8 +9,7 @@ Make asteroids look better
 
 Remove the sun entirely?
 
-Add upgrades to ships
-Add cooldown for active upgrade
+Landing should only be possible when the entire ship is over the planet
 
 Add all actives
 
@@ -42,12 +41,16 @@ Contract completed
 New contract acquired (with no previous one)
 Arrested
 Weapons toggled
+Active upgrade unusable
 1 per shot death effect
 1 per weapon upgrade fire
+1 per active upgrade use
+Scanner scan
 point defense
 missile explosion
 ship explosion
 1 per item collected
+low hull (played continuously)?
 disabled (played continuously)?
 tractoring/chasing player with intent to tractor (played continuously)?
 game over

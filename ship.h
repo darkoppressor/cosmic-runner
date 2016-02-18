@@ -49,6 +49,9 @@ private:
     bool weapons_enabled;
     std::uint32_t weapon_cooldown;
 
+    std::uint32_t active_cooldown;
+    Sprite scanner_startup_sprite;
+
     //Indices of explosions that have hit this ship
     std::vector<std::uint32_t> explosions;
 
@@ -168,6 +171,9 @@ public:
     //Returns true if the weapon found a target and fired upon it
     bool fire_weapon(const Quadtree<double,std::uint32_t>& quadtree_ships,RNG& rng,std::uint32_t own_index);
 
+    bool can_use_active(bool is_player) const;
+    void use_active(bool is_player);
+
     std::int32_t get_nearest_valid_target_shot(const Quadtree<double,std::uint32_t>& quadtree_shots,const Collision_Rect<double>& box_targeting);
 
     //Returns true if the point defense found a target and fired upon it
@@ -185,6 +191,8 @@ public:
     void accelerate(bool is_player,std::uint32_t frame);
     void movement(uint32_t own_index,const Quadtree<double,std::uint32_t>& quadtree_debris,const Quadtree<double,std::uint32_t>& quadtree_shots,
                   const Quadtree<double,std::uint32_t>& quadtree_explosions,const Quadtree<double,std::uint32_t>& quadtree_items,RNG& rng);
+
+    void animate_scanner_startup();
 
     void animate();
     void render(bool tractoring);

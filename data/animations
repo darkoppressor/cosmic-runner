@@ -7,6 +7,22 @@
 </animation>
 
 <animation>
+	name:scanner_startup
+	frame_count:6
+	animation_speed:80
+	frame_width:21
+	end_behavior:stop
+</animation>
+
+<animation>
+	name:scanner_scan
+	frame_count:4
+	animation_speed:100
+	frame_width:256
+	end_behavior:stop
+</animation>
+
+<animation>
 	name:shot_plasma_blast
 	frame_count:6
 	animation_speed:75

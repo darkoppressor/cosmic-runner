@@ -78,7 +78,8 @@ public:
     static std::uint32_t NOTORIETY_MAX;
     static std::uint32_t NOTORIETY_TIER_2;
     static std::uint32_t NOTORIETY_TIER_1;
-    static std::uint32_t NOTORIETY_INCREASE;
+    static std::uint32_t NOTORIETY_INCREASE_DAMAGE;
+    static std::uint32_t NOTORIETY_INCREASE_SCAN;
 
     static std::uint32_t WEAPON_SPREAD_DISTANCE;
 

@@ -148,7 +148,7 @@
 	sprite:ship_police_0
 	color:ship_police
 	box_collision:2,3,38,29
-	upgrades:cannon_sniper
+	upgrades:cannon_sniper,scanner
 	mass:300.0
 	hull_max:80
 	shields_max:5
@@ -166,7 +166,7 @@
 	sprite:ship_police_1
 	color:ship_police
 	box_collision:2,3,32,35
-	upgrades:cannon_sniper
+	upgrades:cannon_sniper,scanner
 	mass:300.0
 	hull_max:120
 	shields_max:10
@@ -184,7 +184,7 @@
 	sprite:ship_police_2
 	color:ship_police
 	box_collision:2,3,38,33
-	upgrades:cannon_sniper
+	upgrades:cannon_sniper,scanner
 	mass:300.0
 	hull_max:160
 	shields_max:15

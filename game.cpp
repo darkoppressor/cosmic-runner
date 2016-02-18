@@ -579,9 +579,9 @@ void Game::build_upgrade_list(){
     //Begin with a list of all upgrades
     vector<string> upgrades=Game_Data::get_upgrade_names();
 
-    //Erase the upgrades that the player currently has
+    //Erase the upgrades that are not allowed
     for(size_t i=0;i<upgrades.size();){
-        if(get_player_const().has_upgrade(upgrades[i])){
+        if(Game_Data::get_upgrade_type(upgrades[i])->banned || get_player_const().has_upgrade(upgrades[i])){
             upgrades.erase(upgrades.begin()+i);
         }
         else{
@@ -666,6 +666,15 @@ void Game::increase_power(){
     }
 }
 
+void Game::use_power(uint32_t amount){
+    if(amount<=power){
+        power-=amount;
+    }
+    else{
+        power=0;
+    }
+}
+
 uint32_t Game::get_notoriety(){
     return notoriety;
 }
@@ -678,8 +687,8 @@ bool Game::notoriety_tier_2(){
     return notoriety>=Game_Constants::NOTORIETY_TIER_2*Engine::UPDATE_RATE;
 }
 
-void Game::increase_notoriety(){
-    notoriety+=Game_Constants::NOTORIETY_INCREASE*Engine::UPDATE_RATE;
+void Game::increase_notoriety(uint32_t amount){
+    notoriety+=amount*Engine::UPDATE_RATE;
 
     if(notoriety>Game_Constants::NOTORIETY_MAX*Engine::UPDATE_RATE){
         notoriety=Game_Constants::NOTORIETY_MAX*Engine::UPDATE_RATE;
@@ -759,6 +768,10 @@ void Game::player_toggle_weapons(){
     Sound_Manager::play_sound("toggle_weapons");
 }
 
+void Game::player_use_active(){
+    get_player().use_active(true);
+}
+
 void Game::player_add_upgrade(string name){
     get_player().add_upgrade(name);
 }
@@ -783,8 +796,8 @@ void Game::create_shot(uint32_t owner_index,string type,string faction,string fi
     shots.push_back(Shot(owner_index,type,faction,firing_upgrade,position,angle,damage_mod));
 }
 
-void Game::create_explosion(string sprite,string sound,const Coords<double>& position,int32_t damage,string faction){
-    explosions.push_back(Explosion(sprite,sound,position,damage,faction));
+void Game::create_explosion(string sprite,string sound,const Coords<double>& position,int32_t damage,string faction,bool scan){
+    explosions.push_back(Explosion(sprite,sound,position,damage,faction,scan));
 }
 
 string Game::get_random_item_type(){

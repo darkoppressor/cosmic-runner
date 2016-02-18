@@ -78,7 +78,8 @@ double Game_Constants::GEN_PLAYER_START_CLEAN_DISTANCE=0.0;
 uint32_t Game_Constants::NOTORIETY_MAX=0;
 uint32_t Game_Constants::NOTORIETY_TIER_2=0;
 uint32_t Game_Constants::NOTORIETY_TIER_1=0;
-uint32_t Game_Constants::NOTORIETY_INCREASE=0;
+uint32_t Game_Constants::NOTORIETY_INCREASE_DAMAGE=0;
+uint32_t Game_Constants::NOTORIETY_INCREASE_SCAN=0;
 
 uint32_t Game_Constants::WEAPON_SPREAD_DISTANCE=0;
 
@@ -300,8 +301,11 @@ void Game_Constants_Loader::set_game_constant(string name,string value){
     else if(name=="notoriety_tier_1"){
         Game_Constants::NOTORIETY_TIER_1=Strings::string_to_unsigned_long(value);
     }
-    else if(name=="notoriety_increase"){
-        Game_Constants::NOTORIETY_INCREASE=Strings::string_to_unsigned_long(value);
+    else if(name=="notoriety_increase_damage"){
+        Game_Constants::NOTORIETY_INCREASE_DAMAGE=Strings::string_to_unsigned_long(value);
+    }
+    else if(name=="notoriety_increase_scan"){
+        Game_Constants::NOTORIETY_INCREASE_SCAN=Strings::string_to_unsigned_long(value);
     }
 
     else if(name=="weapon_spread_distance"){

@@ -23,17 +23,21 @@ private:
 
     std::string faction;
 
+    bool scan;
+
     Sprite sprite;
 
 public:
 
-    Explosion(std::string new_sprite,std::string sound,const Coords<double>& position,std::int32_t new_damage,std::string new_faction);
+    Explosion(std::string new_sprite,std::string sound,const Coords<double>& position,std::int32_t new_damage,std::string new_faction,bool new_scan);
 
     Collision_Circ<double> get_circle() const;
 
     std::int32_t get_damage() const;
 
     std::string get_faction() const;
+
+    bool is_scan() const;
 
     bool is_alive() const;
 

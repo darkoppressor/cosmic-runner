@@ -107,3 +107,13 @@
 	controller_button:x
 	controller_axis:
 </game_command>
+
+<game_command>
+	name:use_active
+	title:Use Active Upgrade
+	description:Use the current active upgrade
+	developer:false
+	key:Return
+	controller_button:rightshoulder
+	controller_axis:
+</game_command>

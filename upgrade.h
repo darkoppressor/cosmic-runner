@@ -17,6 +17,9 @@ public:
 
     std::string type;
 
+    //If true, this upgrade will never be available to the player
+    bool banned;
+
     std::string sound;
 
     //ms
@@ -35,6 +38,10 @@ public:
     std::uint32_t shots;
     //m (pixels)
     double range;
+
+    //Active-specific values:
+    //seconds
+    std::uint32_t power_use;
 
     //Passive-specific values:
     std::int32_t max_shields;

@@ -160,11 +160,12 @@ public:
     static std::uint32_t get_power();
     static bool player_is_out_of_power();
     static void increase_power();
+    static void use_power(std::uint32_t amount);
 
     static std::uint32_t get_notoriety();
     static bool notoriety_tier_1();
     static bool notoriety_tier_2();
-    static void increase_notoriety();
+    static void increase_notoriety(std::uint32_t amount);
     static void reset_notoriety();
 
     static std::uint32_t get_kills();
@@ -186,6 +187,7 @@ public:
     static void player_thrust(std::string direction);
     static void player_brake(bool brake);
     static void player_toggle_weapons();
+    static void player_use_active();
     static void player_add_upgrade(std::string name);
     static void player_remove_upgrade(std::string name);
 
@@ -194,7 +196,7 @@ public:
     static void kill_shot(std::uint32_t index);
     static void create_shot(std::uint32_t owner_index,std::string type,std::string faction,std::string firing_upgrade,const Coords<double>& position,double angle,std::int32_t damage_mod);
 
-    static void create_explosion(std::string sprite,std::string sound,const Coords<double>& position,std::int32_t damage,std::string faction);
+    static void create_explosion(std::string sprite,std::string sound,const Coords<double>& position,std::int32_t damage,std::string faction,bool scan=false);
 
     static std::string get_random_item_type();
     static void kill_item(std::uint32_t index);

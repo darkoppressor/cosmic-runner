@@ -1,0 +1,10 @@
+<upgrade>
+	name:scanner
+	display_name:Scanner
+	description:
+	type:active
+	banned:true
+	sound:active_scanner
+	cooldown:5000
+	power_use:0
+</upgrade>

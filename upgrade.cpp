@@ -13,6 +13,8 @@ Upgrade::Upgrade(){
 
     type="";
 
+    banned=false;
+
     sound="";
 
     cooldown=0;
@@ -24,6 +26,8 @@ Upgrade::Upgrade(){
     damage=0;
     shots=0;
     range=0.0;
+
+    power_use=0;
 
     max_shields=0;
     shield_recharge_rate_up=0;

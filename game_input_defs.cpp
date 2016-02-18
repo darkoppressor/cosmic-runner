@@ -251,6 +251,16 @@ bool Game_Manager::handle_game_command(string command_name){
 
             return true;
         }
+        else if(command_name=="use_active"){
+            if(Game::get_player_const().can_use_active(true)){
+                Game::player_use_active();
+            }
+            else{
+                Sound_Manager::play_sound("cannot_use_active");
+            }
+
+            return true;
+        }
 
         //Example multiplayer command input
         /**if(command_name=="some_command"){
