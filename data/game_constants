@@ -314,6 +314,17 @@
 </game_constant>
 
 <game_constant>
+	//milliseconds
+	name:active_power_drain_rate
+	value:500
+</game_constant>
+
+<game_constant>
+	name:cloak_opacity
+	value:0.25
+</game_constant>
+
+<game_constant>
 	//meters (pixels)
 	name:despawn_distance
 	value:4608.0

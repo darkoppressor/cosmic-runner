@@ -18,3 +18,13 @@
 	cooldown:10000
 	power_use:25
 </upgrade>
+
+<upgrade>
+	name:cloak
+	display_name:Cloaking Device
+	description:
+	type:active
+	sound:active_cloak
+	cooldown:2000
+	power_use:5
+</upgrade>

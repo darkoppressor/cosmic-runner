@@ -46,6 +46,9 @@ Ship::Ship(string new_type,const Coords<double>& position,double new_angle){
     scanner_startup_sprite.set_name("scanner_startup");
     scanner_startup_sprite.animating=false;
 
+    cloaked=false;
+    power_drain=0;
+
     laser_has_target=false;
 
     disabled_cooldown=0;
@@ -263,9 +266,13 @@ void Ship::add_upgrade(string name){
 
         if(upgrade->is_weapon()){
             remove_weapon();
+
+            weapon_cooldown=0;
         }
         else if(upgrade->is_active()){
             remove_active();
+
+            active_cooldown=0;
         }
 
         upgrades.push_back(name);
@@ -350,6 +357,22 @@ string Ship::get_point_defense_name() const{
     return "";
 }
 
+bool Ship::is_cloaked() const{
+    return cloaked;
+}
+
+void Ship::toggle_cloak(){
+    cloaked=!cloaked;
+
+    if(!cloaked){
+        active_cooldown=0;
+        weapon_cooldown=0;
+        point_defense_cooldown=0;
+    }
+
+    power_drain=0;
+}
+
 bool Ship::is_disabled(bool is_player) const{
     return disabled_cooldown>0 || (is_player && Game::player_is_out_of_power());
 }
@@ -364,7 +387,10 @@ void Ship::disable(){
         scanner_startup_sprite.animating=false;
     }
 
-    ///QQQ disable cloak
+    //Disable cloak
+    if(is_cloaked()){
+        toggle_cloak();
+    }
 }
 
 bool Ship::can_use_item(Item_Type* item_type) const{
@@ -588,6 +614,11 @@ void Ship::die(bool is_player,string damage_faction,RNG& rng){
             Game::increase_notoriety(Game_Constants::NOTORIETY_INCREASE_DAMAGE);
         }
 
+        //Disable cloak
+        if(is_cloaked()){
+            toggle_cloak();
+        }
+
         hull=0;
 
         Game::create_explosion("explosion_ship","explosion_ship",Coords<double>(box.center_x(),box.center_y()),Game_Constants::EXPLOSION_DAMAGE_SHIP,damage_faction);
@@ -615,6 +646,11 @@ void Ship::take_damage(bool is_player,int32_t damage,string damage_type,const Co
     if(is_alive()){
         if(damage_faction=="player" && !is_player && (get_faction()=="civilian" || get_faction()=="police")){
             Game::increase_notoriety(Game_Constants::NOTORIETY_INCREASE_DAMAGE);
+        }
+
+        //Disable cloak
+        if(is_cloaked()){
+            toggle_cloak();
         }
 
         int32_t effective_damage=damage;
@@ -804,6 +840,18 @@ void Ship::regenerate_shields(bool is_player){
     }
 }
 
+void Ship::drain_power(bool is_player){
+    if(is_player){
+        if(is_cloaked()){
+            if(++power_drain>=Game_Constants::ACTIVE_POWER_DRAIN_RATE*Engine::UPDATE_RATE/1000){
+                Game::use_power(Game_Data::get_upgrade_type(get_active_name())->power_use*Engine::UPDATE_RATE);
+
+                power_drain=0;
+            }
+        }
+    }
+}
+
 void Ship::cooldown(const Quadtree<double,uint32_t>& quadtree_ships,const Quadtree<double,uint32_t>& quadtree_shots,RNG& rng,uint32_t own_index){
     bool is_player=own_index==0;
 
@@ -819,7 +867,7 @@ void Ship::cooldown(const Quadtree<double,uint32_t>& quadtree_ships,const Quadtr
                 weapon_cooldown++;
             }
 
-            if(weapons_enabled && !is_disabled(is_player) && weapon_cooldown>=cool_point){
+            if(weapons_enabled && !is_disabled(is_player) && !is_cloaked() && weapon_cooldown>=cool_point){
                 if(fire_weapon(quadtree_ships,rng,own_index)){
                     weapon_cooldown=0;
                 }
@@ -841,7 +889,7 @@ void Ship::cooldown(const Quadtree<double,uint32_t>& quadtree_ships,const Quadtr
                 point_defense_cooldown++;
             }
 
-            if(!is_disabled(is_player) && point_defense_cooldown>=cool_point){
+            if(!is_disabled(is_player) && !is_cloaked() && point_defense_cooldown>=cool_point){
                 if(fire_point_defense(quadtree_shots)){
                     point_defense_cooldown=0;
                 }
@@ -903,7 +951,7 @@ int32_t Ship::get_nearest_valid_target_ship(const Quadtree<double,uint32_t>& qua
 
             const Ship& ship=Game::get_ship(nearby_ships[i]);
 
-            if(ship.is_alive() && own_index!=nearby_ships[i] && !ship.is_landing() && (nearby_ships[i]!=0 || !Game::player_is_landed())){
+            if(ship.is_alive() && own_index!=nearby_ships[i] && !ship.is_landing() && (nearby_ships[i]!=0 || !Game::player_is_landed()) && !ship.is_cloaked()){
                 Collision_Rect<double> box_ship=ship.get_box();
 
                 if(faction_is_valid(ship.get_faction(),weapon_check) && Collision::check_rect(box_targeting,box_ship)){
@@ -1000,14 +1048,25 @@ bool Ship::fire_weapon(const Quadtree<double,uint32_t>& quadtree_ships,RNG& rng,
     return false;
 }
 
+bool Ship::does_active_need_power(string active_name) const{
+    //If we would be toggling the cloak off
+    if(active_name=="cloak" && is_cloaked()){
+        return false;
+    }
+    else{
+        return true;
+    }
+}
+
 bool Ship::can_use_active(bool is_player) const{
     if(has_active() && !is_disabled(is_player)){
-        Upgrade* upgrade=Game_Data::get_upgrade_type(get_active_name());
+        string active_name=get_active_name();
+        Upgrade* upgrade=Game_Data::get_upgrade_type(active_name);
 
         uint32_t cool_point=get_cooldown(upgrade->cooldown)*Engine::UPDATE_RATE/1000;
 
         if(active_cooldown>=cool_point){
-            if(!is_player || upgrade->power_use*Engine::UPDATE_RATE<=Game::get_power()){
+            if(!is_player || !does_active_need_power(active_name) || upgrade->power_use*Engine::UPDATE_RATE<=Game::get_power()){
                 return true;
             }
         }
@@ -1026,6 +1085,8 @@ void Ship::use_active(bool is_player){
                 Game::use_power(upgrade->power_use*Engine::UPDATE_RATE);
             }
 
+            active_cooldown=0;
+
             scanner_startup_sprite.reset_animation();
             scanner_startup_sprite.animating=true;
         }
@@ -1034,13 +1095,20 @@ void Ship::use_active(bool is_player){
                 Game::use_power(upgrade->power_use*Engine::UPDATE_RATE);
             }
 
+            active_cooldown=0;
+
             Game::create_explosion("emp","emp",box.get_center(),0,get_faction(),false,true);
 
             //We don't want this explosion to affect its user
             damaged_by_explosion(Game::get_explosion_count()-1);
         }
+        else if(active_name=="cloak"){
+            if(is_player && !is_cloaked()){
+                Game::use_power(upgrade->power_use*Engine::UPDATE_RATE);
+            }
 
-        active_cooldown=0;
+            toggle_cloak();
+        }
 
         if(upgrade->sound.length()>0){
             Sound_Manager::play_sound(upgrade->sound,box.center_x(),box.center_y());
@@ -1450,7 +1518,10 @@ void Ship::movement(uint32_t own_index,const Quadtree<double,uint32_t>& quadtree
 
                         if(explosion.is_scan()){
                             if(is_player){
-                                ///QQQ disable cloak
+                                //Disable cloak
+                                if(is_cloaked()){
+                                    toggle_cloak();
+                                }
 
                                 if(Game::player_has_contract()){
                                     Game::increase_notoriety(Game_Constants::NOTORIETY_INCREASE_SCAN);
@@ -1546,17 +1617,24 @@ void Ship::animate(){
     }
 }
 
-void Ship::render(bool tractoring){
+void Ship::render(bool tractoring,bool is_player){
     if(is_alive()){
         bool in_camera=Collision::check_rect_rotated(box*Game_Manager::camera_zoom,Game_Manager::camera,angle,0.0);
 
         if(in_camera){
-            double scale=1.0;
-            if(is_landing()){
-                scale=landing_scale;
-            }
+            if(is_player || !is_cloaked()){
+                double opacity=1.0;
+                if(is_cloaked()){
+                    opacity=Game_Constants::CLOAK_OPACITY;
+                }
 
-            sprite.render(box.x*Game_Manager::camera_zoom-Game_Manager::camera.x,box.y*Game_Manager::camera_zoom-Game_Manager::camera.y,1.0,scale,scale,angle);
+                double scale=1.0;
+                if(is_landing()){
+                    scale=landing_scale;
+                }
+
+                sprite.render(box.x*Game_Manager::camera_zoom-Game_Manager::camera.x,box.y*Game_Manager::camera_zoom-Game_Manager::camera.y,opacity,scale,scale,angle);
+            }
 
             if(Game_Options::show_collision_outlines){
                 Collision_Rect<double> col_box=get_collision_box();

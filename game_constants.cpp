@@ -83,6 +83,9 @@ uint32_t Game_Constants::NOTORIETY_INCREASE_SCAN=0;
 
 uint32_t Game_Constants::WEAPON_SPREAD_DISTANCE=0;
 
+uint32_t Game_Constants::ACTIVE_POWER_DRAIN_RATE=0;
+double Game_Constants::CLOAK_OPACITY=0.0;
+
 double Game_Constants::DESPAWN_DISTANCE=0.0;
 double Game_Constants::NPC_PROCESS_RANGE=0.0;
 uint32_t Game_Constants::SPAWN_DISTANCE_MAX=0;
@@ -310,6 +313,13 @@ void Game_Constants_Loader::set_game_constant(string name,string value){
 
     else if(name=="weapon_spread_distance"){
         Game_Constants::WEAPON_SPREAD_DISTANCE=Strings::string_to_unsigned_long(value);
+    }
+
+    else if(name=="active_power_drain_rate"){
+        Game_Constants::ACTIVE_POWER_DRAIN_RATE=Strings::string_to_unsigned_long(value);
+    }
+    else if(name=="cloak_opacity"){
+        Game_Constants::CLOAK_OPACITY=Strings::string_to_double(value);
     }
 
     else if(name=="despawn_distance"){

@@ -166,7 +166,7 @@ void Shot::thrust(const Quadtree<double,uint32_t>& quadtree_ships){
 
                 const Ship& ship=Game::get_ship(nearby_ships[i]);
 
-                if(ship.is_alive() && !ship.is_landing() && (nearby_ships[i]!=0 || !Game::player_is_landed())){
+                if(ship.is_alive() && !ship.is_landing() && (nearby_ships[i]!=0 || !Game::player_is_landed()) && !ship.is_cloaked()){
                     Collision_Rect<double> box_ship=ship.get_box();
 
                     if(faction!=ship.get_faction() && Collision::check_rect(box_targeting,box_ship)){

@@ -28,7 +28,8 @@ void Engine::render_dev_info(){
         msg+="\n-----Game-----\n";
         msg+="Score: "+Strings::num_to_string(Game::get_score())+" (x"+Strings::num_to_string(Game::get_score_multiplier())+" multiplier)\n";
         msg+="Kills: "+Strings::num_to_string(Game::get_kills())+"\n";
-        msg+="Power: "+Strings::num_to_string(Game::get_power())+"/"+Strings::num_to_string(Game_Constants::MAX_POWER*Engine::UPDATE_RATE)+"\n";
+        msg+="Power: "+Strings::num_to_string(Game::get_power())+"/"+Strings::num_to_string(Game_Constants::MAX_POWER*Engine::UPDATE_RATE);
+        msg+=" ("+Strings::num_to_string(Game::get_power()/Engine::UPDATE_RATE)+" seconds)\n";
         if(Game::notoriety_tier_2()){
             msg+="Notoriety: Tier 2";
         }
@@ -38,7 +39,8 @@ void Engine::render_dev_info(){
         else{
             msg+="Notoriety: Tier 0";
         }
-        msg+=" ("+Strings::num_to_string(Game::get_notoriety())+"/"+Strings::num_to_string(Game_Constants::NOTORIETY_MAX*Engine::UPDATE_RATE)+")\n";
+        msg+=" ("+Strings::num_to_string(Game::get_notoriety())+"/"+Strings::num_to_string(Game_Constants::NOTORIETY_MAX*Engine::UPDATE_RATE);
+        msg+=", "+Strings::num_to_string(Game::get_notoriety()/Engine::UPDATE_RATE)+" seconds)\n";
 
         msg+="\n-----Universe-----\n";
         msg+="Planets: "+Strings::num_to_string(Game::get_planet_count())+"\n";

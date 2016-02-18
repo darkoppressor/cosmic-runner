@@ -83,6 +83,9 @@ public:
 
     static std::uint32_t WEAPON_SPREAD_DISTANCE;
 
+    static std::uint32_t ACTIVE_POWER_DRAIN_RATE;
+    static double CLOAK_OPACITY;
+
     static double DESPAWN_DISTANCE;
     static double NPC_PROCESS_RANGE;
     static std::uint32_t SPAWN_DISTANCE_MAX;

@@ -1201,6 +1201,7 @@ void Game::movement(){
 
         ships[i].take_star_damage(i==0,rng);
         ships[i].regenerate_shields(i==0);
+        ships[i].drain_power(i==0);
         ships[i].cooldown(quadtree_ships,quadtree_shots,rng,(uint32_t)i);
         ships[i].calculate_laser_target(quadtree_ships,(uint32_t)i);
 
@@ -1375,7 +1376,7 @@ void Game::render(){
     }
 
     for(size_t i=0;i<ships.size();i++){
-        ships[i].render(is_player_tractored() && (uint32_t)i==tractoring_ship);
+        ships[i].render((is_player_tractored() && (uint32_t)i==tractoring_ship),i==0);
         ships[i].render_laser(i==0);
     }
 

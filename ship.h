@@ -52,6 +52,9 @@ private:
     std::uint32_t active_cooldown;
     Sprite scanner_startup_sprite;
 
+    bool cloaked;
+    std::uint32_t power_drain;
+
     //Indices of explosions that have hit this ship
     std::vector<std::uint32_t> explosions;
 
@@ -114,6 +117,9 @@ public:
     bool has_point_defense() const;
     std::string get_point_defense_name() const;
 
+    bool is_cloaked() const;
+    void toggle_cloak();
+
     bool is_disabled(bool is_player) const;
     void disable();
 
@@ -162,6 +168,7 @@ public:
 
     void take_star_damage(bool is_player,RNG& rng);
     void regenerate_shields(bool is_player);
+    void drain_power(bool is_player);
     void cooldown(const Quadtree<double,std::uint32_t>& quadtree_ships,const Quadtree<double,std::uint32_t>& quadtree_shots,RNG& rng,std::uint32_t own_index);
 
     bool faction_is_valid(std::string faction,bool weapon_check) const;
@@ -171,6 +178,7 @@ public:
     //Returns true if the weapon found a target and fired upon it
     bool fire_weapon(const Quadtree<double,std::uint32_t>& quadtree_ships,RNG& rng,std::uint32_t own_index);
 
+    bool does_active_need_power(std::string active_name) const;
     bool can_use_active(bool is_player) const;
     void use_active(bool is_player);
 
@@ -195,7 +203,7 @@ public:
     void animate_scanner_startup();
 
     void animate();
-    void render(bool tractoring);
+    void render(bool tractoring,bool is_player);
 };
 
 #endif

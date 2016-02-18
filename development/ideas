@@ -198,7 +198,7 @@ Weapon and point defense firing is disabled while this is enabled
 This upgrade begins cooling down when the cloak is disabled
 Also, when the cloak is disabled, the weapon and point defense cooldowns (if any) are restarted
 This upgrade consumes power at a set rate while it is active
-This upgrade is disabled if the ship takes any damage
+This upgrade is disabled if the ship takes any damage (this applies even if the effective damage done is 0)
 Warp Drive: While this is active, all collision is ignored,
 and no ships or shots can see the ship at all for AI purposes. Ship controls do not respond while this is active,
 with the exception of disabling the Warp Drive. Separate "warp" acceleration thrust and max velocity are used,
