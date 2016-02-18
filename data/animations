@@ -18,7 +18,15 @@
 	name:scanner_scan
 	frame_count:4
 	animation_speed:100
-	frame_width:256
+	frame_width:512
+	end_behavior:stop
+</animation>
+
+<animation>
+	name:emp
+	frame_count:4
+	animation_speed:100
+	frame_width:512
 	end_behavior:stop
 </animation>
 

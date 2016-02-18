@@ -307,6 +307,10 @@ uint32_t Game::get_planet_count(){
     return planets.size();
 }
 
+uint32_t Game::get_explosion_count(){
+    return explosions.size();
+}
+
 const Ship& Game::get_player_const(){
     if(!ships.empty()){
         return ships.front();
@@ -796,8 +800,8 @@ void Game::create_shot(uint32_t owner_index,string type,string faction,string fi
     shots.push_back(Shot(owner_index,type,faction,firing_upgrade,position,angle,damage_mod));
 }
 
-void Game::create_explosion(string sprite,string sound,const Coords<double>& position,int32_t damage,string faction,bool scan){
-    explosions.push_back(Explosion(sprite,sound,position,damage,faction,scan));
+void Game::create_explosion(string sprite,string sound,const Coords<double>& position,int32_t damage,string faction,bool scan,bool emp){
+    explosions.push_back(Explosion(sprite,sound,position,damage,faction,scan,emp));
 }
 
 string Game::get_random_item_type(){

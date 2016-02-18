@@ -154,7 +154,7 @@
 <game_constant>
 	//seconds
 	name:disabled_length
-	value:3
+	value:5
 </game_constant>
 
 <game_constant>

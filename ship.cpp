@@ -363,6 +363,8 @@ void Ship::disable(){
     if(scanner_startup_sprite.animating){
         scanner_startup_sprite.animating=false;
     }
+
+    ///QQQ disable cloak
 }
 
 bool Ship::can_use_item(Item_Type* item_type) const{
@@ -1027,6 +1029,16 @@ void Ship::use_active(bool is_player){
             scanner_startup_sprite.reset_animation();
             scanner_startup_sprite.animating=true;
         }
+        else if(active_name=="emp"){
+            if(is_player){
+                Game::use_power(upgrade->power_use*Engine::UPDATE_RATE);
+            }
+
+            Game::create_explosion("emp","emp",box.get_center(),0,get_faction(),false,true);
+
+            //We don't want this explosion to affect its user
+            damaged_by_explosion(Game::get_explosion_count()-1);
+        }
 
         active_cooldown=0;
 
@@ -1436,12 +1448,7 @@ void Ship::movement(uint32_t own_index,const Quadtree<double,uint32_t>& quadtree
                     if(explosion.is_alive() && !was_damaged_by_explosion(nearby_explosions[i]) && Collision::check_circ_rect(circle_explosion,box_collision)){
                         damaged_by_explosion(nearby_explosions[i]);
 
-                        if(!explosion.is_scan()){
-                            take_damage(is_player,explosion.get_damage(),"explosive",
-                                        Coords<double>(box_collision.x+rng.random_range(0,(uint32_t)box_collision.w),box_collision.y+rng.random_range(0,(uint32_t)box_collision.h)),
-                                        explosion.get_faction(),rng);
-                        }
-                        else{
+                        if(explosion.is_scan()){
                             if(is_player){
                                 ///QQQ disable cloak
 
@@ -1449,6 +1456,14 @@ void Ship::movement(uint32_t own_index,const Quadtree<double,uint32_t>& quadtree
                                     Game::increase_notoriety(Game_Constants::NOTORIETY_INCREASE_SCAN);
                                 }
                             }
+                        }
+                        else if(explosion.is_emp()){
+                            disable();
+                        }
+                        else{
+                            take_damage(is_player,explosion.get_damage(),"explosive",
+                                        Coords<double>(box_collision.x+rng.random_range(0,(uint32_t)box_collision.w),box_collision.y+rng.random_range(0,(uint32_t)box_collision.h)),
+                                        explosion.get_faction(),rng);
                         }
                     }
                 }
@@ -1510,7 +1525,10 @@ void Ship::animate_scanner_startup(){
 
         //If we just finished the scanner startup animation
         if(!scanner_startup_sprite.animating){
-            Game::create_explosion("scanner_scan","scanner",box.get_center(),0,"",true);
+            Game::create_explosion("scanner_scan","scanner",box.get_center(),0,get_faction(),true);
+
+            //We don't want this explosion to affect its user
+            damaged_by_explosion(Game::get_explosion_count()-1);
         }
     }
 }

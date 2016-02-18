@@ -8,3 +8,13 @@
 	cooldown:5000
 	power_use:0
 </upgrade>
+
+<upgrade>
+	name:emp
+	display_name:EMP
+	description:
+	type:active
+	sound:active_emp
+	cooldown:10000
+	power_use:25
+</upgrade>

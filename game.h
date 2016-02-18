@@ -111,6 +111,7 @@ public:
     static std::uint32_t get_debris_count();
     static std::uint32_t get_effect_count();
     static std::uint32_t get_planet_count();
+    static std::uint32_t get_explosion_count();
     static const Ship& get_player_const();
     static const Debris& get_debris(std::uint32_t index);
     static const Shot& get_shot(std::uint32_t index);
@@ -196,7 +197,7 @@ public:
     static void kill_shot(std::uint32_t index);
     static void create_shot(std::uint32_t owner_index,std::string type,std::string faction,std::string firing_upgrade,const Coords<double>& position,double angle,std::int32_t damage_mod);
 
-    static void create_explosion(std::string sprite,std::string sound,const Coords<double>& position,std::int32_t damage,std::string faction,bool scan=false);
+    static void create_explosion(std::string sprite,std::string sound,const Coords<double>& position,std::int32_t damage,std::string faction,bool scan=false,bool emp=false);
 
     static std::string get_random_item_type();
     static void kill_item(std::uint32_t index);
