@@ -16,12 +16,12 @@
 <game_constant>
 	//seconds
 	name:title_ship_spawn_rate
-	value:10
+	value:5
 </game_constant>
 
 <game_constant>
 	name:title_max_ships
-	value:15
+	value:20
 </game_constant>
 
 <game_constant>
