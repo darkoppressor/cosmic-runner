@@ -28,3 +28,13 @@
 	cooldown:2000
 	power_use:5
 </upgrade>
+
+<upgrade>
+	name:warp_drive
+	display_name:Warp Drive
+	description:
+	type:active
+	sound:active_warp_drive
+	cooldown:2000
+	power_use:10
+</upgrade>

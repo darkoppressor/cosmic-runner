@@ -199,7 +199,7 @@ bool Game_Manager::handle_game_command(string command_name){
 
             bool landed=false;
 
-            if(!Game::player_is_landing() && !Game::player_is_landed() && !player.is_disabled(true)){
+            if(!Game::player_is_landing() && !Game::player_is_landed() && !player.is_disabled(true) && !player.is_warping()){
                 vector<Coords<double>> vertices;
                 player.get_box().get_vertices(vertices,player.get_angle());
 
@@ -252,7 +252,9 @@ bool Game_Manager::handle_game_command(string command_name){
         else if(command_name=="drop_cargo"){
             const Ship& player=Game::get_player_const();
 
-            if(!player.is_disabled(true)){
+            bool dropped=false;
+
+            if(!player.is_disabled(true) && !player.is_warping()){
                 if(Game::player_has_contract()){
                     Game::cancel_contract();
 
@@ -264,18 +266,24 @@ bool Game_Manager::handle_game_command(string command_name){
                                             Game_Constants::EFFECT_LENGTH_CARGO,false,Coords<double>());
                     }
 
+                    dropped=true;
+
                     Sound_Manager::play_sound("drop_cargo");
                 }
-                else{
-                    Sound_Manager::play_sound("cannot_drop_cargo");
-                }
+            }
+
+            if(!dropped){
+                Sound_Manager::play_sound("cannot_drop_cargo");
             }
 
             return true;
         }
         else if(command_name=="toggle_weapons"){
-            if(!Game::get_player_const().is_disabled(true)){
+            if(!Game::get_player_const().is_disabled(true) && !Game::get_player_const().is_warping()){
                 Game::player_toggle_weapons();
+            }
+            else{
+                Sound_Manager::play_sound("cannot_toggle_weapons");
             }
 
             return true;

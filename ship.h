@@ -53,6 +53,7 @@ private:
     Sprite scanner_startup_sprite;
 
     bool cloaked;
+    bool warping;
     std::uint32_t power_drain;
 
     //Indices of explosions that have hit this ship
@@ -120,6 +121,9 @@ public:
     bool is_cloaked() const;
     void toggle_cloak();
 
+    bool is_warping() const;
+    void toggle_warp();
+
     bool is_disabled(bool is_player) const;
     void disable();
 
@@ -157,6 +161,8 @@ public:
     void die(bool is_player,std::string damage_faction,RNG& rng);
     void take_damage(bool is_player,std::int32_t damage,std::string damage_type,const Coords<double>& location,std::string damage_faction,RNG& rng);
 
+    //This is used to set the thrusting state without changing direction
+    void set_thrusting(bool new_thrusting);
     void set_thrust_angle(std::string direction);
     void set_braking(bool new_braking);
 

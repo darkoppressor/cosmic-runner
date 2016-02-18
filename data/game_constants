@@ -325,6 +325,24 @@
 </game_constant>
 
 <game_constant>
+	//newtons
+	name:warp_accel
+	value:10000.0
+</game_constant>
+
+<game_constant>
+	//newtons
+	name:warp_decel
+	value:20000.0
+</game_constant>
+
+<game_constant>
+	//meters/second
+	name:warp_max_speed
+	value:1000.0
+</game_constant>
+
+<game_constant>
 	//meters (pixels)
 	name:despawn_distance
 	value:4608.0

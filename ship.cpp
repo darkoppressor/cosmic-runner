@@ -47,6 +47,7 @@ Ship::Ship(string new_type,const Coords<double>& position,double new_angle){
     scanner_startup_sprite.animating=false;
 
     cloaked=false;
+    warping=false;
     power_drain=0;
 
     laser_has_target=false;
@@ -373,6 +374,20 @@ void Ship::toggle_cloak(){
     power_drain=0;
 }
 
+bool Ship::is_warping() const{
+    return warping;
+}
+
+void Ship::toggle_warp(){
+    warping=!warping;
+
+    if(!warping){
+        active_cooldown=0;
+    }
+
+    power_drain=0;
+}
+
 bool Ship::is_disabled(bool is_player) const{
     return disabled_cooldown>0 || (is_player && Game::player_is_out_of_power());
 }
@@ -390,6 +405,11 @@ void Ship::disable(){
     //Disable cloak
     if(is_cloaked()){
         toggle_cloak();
+    }
+
+    //Disable warp
+    if(is_warping()){
+        toggle_warp();
     }
 }
 
@@ -427,57 +447,72 @@ void Ship::apply_tractor(double force_angle){
 }
 
 double Ship::get_thrust_accel() const{
-    double value=get_ship_type()->thrust_accel;
+    if(!is_warping()){
+        double value=get_ship_type()->thrust_accel;
 
-    for(size_t i=0;i<upgrades.size();i++){
-        Upgrade* upgrade=Game_Data::get_upgrade_type(upgrades[i]);
+        for(size_t i=0;i<upgrades.size();i++){
+            Upgrade* upgrade=Game_Data::get_upgrade_type(upgrades[i]);
 
-        if(upgrade->is_passive()){
-            value+=upgrade->thrust_accel;
+            if(upgrade->is_passive()){
+                value+=upgrade->thrust_accel;
+            }
         }
-    }
 
-    if(value<1.0){
-        value=1.0;
-    }
+        if(value<1.0){
+            value=1.0;
+        }
 
-    return value;
+        return value;
+    }
+    else{
+        return Game_Constants::WARP_ACCEL;
+    }
 }
 
 double Ship::get_thrust_decel() const{
-    double value=get_ship_type()->thrust_decel;
+    if(!is_warping()){
+        double value=get_ship_type()->thrust_decel;
 
-    for(size_t i=0;i<upgrades.size();i++){
-        Upgrade* upgrade=Game_Data::get_upgrade_type(upgrades[i]);
+        for(size_t i=0;i<upgrades.size();i++){
+            Upgrade* upgrade=Game_Data::get_upgrade_type(upgrades[i]);
 
-        if(upgrade->is_passive()){
-            value+=upgrade->thrust_decel;
+            if(upgrade->is_passive()){
+                value+=upgrade->thrust_decel;
+            }
         }
-    }
 
-    if(value<1.0){
-        value=1.0;
-    }
+        if(value<1.0){
+            value=1.0;
+        }
 
-    return value;
+        return value;
+    }
+    else{
+        return Game_Constants::WARP_DECEL;
+    }
 }
 
 double Ship::get_max_speed() const{
-    double value=get_ship_type()->max_speed;
+    if(!is_warping()){
+        double value=get_ship_type()->max_speed;
 
-    for(size_t i=0;i<upgrades.size();i++){
-        Upgrade* upgrade=Game_Data::get_upgrade_type(upgrades[i]);
+        for(size_t i=0;i<upgrades.size();i++){
+            Upgrade* upgrade=Game_Data::get_upgrade_type(upgrades[i]);
 
-        if(upgrade->is_passive()){
-            value+=upgrade->max_speed;
+            if(upgrade->is_passive()){
+                value+=upgrade->max_speed;
+            }
         }
-    }
 
-    if(value<1.0){
-        value=1.0;
-    }
+        if(value<1.0){
+            value=1.0;
+        }
 
-    return value;
+        return value;
+    }
+    else{
+        return Game_Constants::WARP_MAX_SPEED;
+    }
 }
 
 int32_t Ship::get_hull_max() const{
@@ -737,6 +772,10 @@ void Ship::take_damage(bool is_player,int32_t damage,string damage_type,const Co
     }
 }
 
+void Ship::set_thrusting(bool new_thrusting){
+    thrusting=new_thrusting;
+}
+
 void Ship::set_thrust_angle(string direction){
     if(direction!="none"){
         if(direction=="left"){
@@ -814,7 +853,7 @@ void Ship::land(bool is_player){
 }
 
 void Ship::take_star_damage(bool is_player,RNG& rng){
-    if(is_alive() && !is_landing() && (!is_player || !Game::player_is_landed()) && is_in_processing_range()){
+    if(is_alive() && !is_landing() && (!is_player || !Game::player_is_landed()) && !is_warping() && is_in_processing_range()){
         if(++star_damage>=Game_Constants::STAR_DAMAGE_RATE*Engine::UPDATE_RATE/1000){
             star_damage=0;
 
@@ -842,7 +881,7 @@ void Ship::regenerate_shields(bool is_player){
 
 void Ship::drain_power(bool is_player){
     if(is_player){
-        if(is_cloaked()){
+        if(is_cloaked() || is_warping()){
             if(++power_drain>=Game_Constants::ACTIVE_POWER_DRAIN_RATE*Engine::UPDATE_RATE/1000){
                 Game::use_power(Game_Data::get_upgrade_type(get_active_name())->power_use*Engine::UPDATE_RATE);
 
@@ -867,7 +906,7 @@ void Ship::cooldown(const Quadtree<double,uint32_t>& quadtree_ships,const Quadtr
                 weapon_cooldown++;
             }
 
-            if(weapons_enabled && !is_disabled(is_player) && !is_cloaked() && weapon_cooldown>=cool_point){
+            if(weapons_enabled && !is_disabled(is_player) && !is_cloaked() && !is_warping() && weapon_cooldown>=cool_point){
                 if(fire_weapon(quadtree_ships,rng,own_index)){
                     weapon_cooldown=0;
                 }
@@ -889,7 +928,7 @@ void Ship::cooldown(const Quadtree<double,uint32_t>& quadtree_ships,const Quadtr
                 point_defense_cooldown++;
             }
 
-            if(!is_disabled(is_player) && !is_cloaked() && point_defense_cooldown>=cool_point){
+            if(!is_disabled(is_player) && !is_cloaked() && !is_warping() && point_defense_cooldown>=cool_point){
                 if(fire_point_defense(quadtree_shots)){
                     point_defense_cooldown=0;
                 }
@@ -951,7 +990,7 @@ int32_t Ship::get_nearest_valid_target_ship(const Quadtree<double,uint32_t>& qua
 
             const Ship& ship=Game::get_ship(nearby_ships[i]);
 
-            if(ship.is_alive() && own_index!=nearby_ships[i] && !ship.is_landing() && (nearby_ships[i]!=0 || !Game::player_is_landed()) && !ship.is_cloaked()){
+            if(ship.is_alive() && own_index!=nearby_ships[i] && !ship.is_landing() && (nearby_ships[i]!=0 || !Game::player_is_landed()) && !ship.is_cloaked() && !ship.is_warping()){
                 Collision_Rect<double> box_ship=ship.get_box();
 
                 if(faction_is_valid(ship.get_faction(),weapon_check) && Collision::check_rect(box_targeting,box_ship)){
@@ -1053,6 +1092,10 @@ bool Ship::does_active_need_power(string active_name) const{
     if(active_name=="cloak" && is_cloaked()){
         return false;
     }
+    //If we would be toggling the warp drive off
+    else if(active_name=="warp_drive" && is_warping()){
+        return false;
+    }
     else{
         return true;
     }
@@ -1108,6 +1151,13 @@ void Ship::use_active(bool is_player){
             }
 
             toggle_cloak();
+        }
+        else if(active_name=="warp_drive"){
+            if(is_player && !is_warping()){
+                Game::use_power(upgrade->power_use*Engine::UPDATE_RATE);
+            }
+
+            toggle_warp();
         }
 
         if(upgrade->sound.length()>0){
@@ -1420,157 +1470,159 @@ void Ship::movement(uint32_t own_index,const Quadtree<double,uint32_t>& quadtree
         box.x+=vc.a/(double)Engine::UPDATE_RATE;
         box.y+=vc.b/(double)Engine::UPDATE_RATE;
 
-        Collision_Rect<double> box_collision=get_collision_box();
+        if(!is_warping()){
+            Collision_Rect<double> box_collision=get_collision_box();
 
-        const Star& star=Game::get_star();
-        Collision_Circ<double> circle_star=star.get_circle();
+            const Star& star=Game::get_star();
+            Collision_Circ<double> circle_star=star.get_circle();
 
-        if(Collision::check_rect_circ(box_collision,circle_star)){
-            string damage_faction="world";
+            if(Collision::check_rect_circ(box_collision,circle_star)){
+                string damage_faction="world";
 
-            //If we are either fleeing from or chasing a ship, it is blamed for this damage
-            if(!is_player && ai_has_proximity_target){
-                damage_faction=Game::get_ship(ai_proximity_target).get_faction();
-            }
-
-            die(is_player,damage_faction,rng);
-
-            return;
-        }
-
-        vector<uint32_t> nearby_debris;
-        quadtree_debris.get_objects(nearby_debris,box_collision);
-
-        unordered_set<uint32_t> collisions;
-
-        for(size_t i=0;i<nearby_debris.size();i++){
-            if(is_alive()){
-                if(!collisions.count(nearby_debris[i])){
-                    collisions.emplace(nearby_debris[i]);
-
-                    const Debris& debris=Game::get_debris(nearby_debris[i]);
-                    Collision_Rect<double> box_debris=debris.get_collision_box();
-
-                    if(rng.random_range(0,99)<Game_Constants::COLLISION_CHANCE_DEBRIS && Collision::check_rect_rotated(box_collision,box_debris,angle,debris.get_angle())){
-                        string damage_faction="world";
-
-                        //If we are either fleeing from or chasing a ship, it is blamed for this damage
-                        if(!is_player && ai_has_proximity_target){
-                            damage_faction=Game::get_ship(ai_proximity_target).get_faction();
-                        }
-
-                        take_damage(is_player,debris.get_debris_type()->damage,debris.get_debris_type()->damage_type,
-                                    Coords<double>(box_collision.x+rng.random_range(0,(uint32_t)box_collision.w),box_collision.y+rng.random_range(0,(uint32_t)box_collision.h)),damage_faction,rng);
-                    }
+                //If we are either fleeing from or chasing a ship, it is blamed for this damage
+                if(!is_player && ai_has_proximity_target){
+                    damage_faction=Game::get_ship(ai_proximity_target).get_faction();
                 }
-            }
-            else{
+
+                die(is_player,damage_faction,rng);
+
                 return;
             }
-        }
 
-        vector<uint32_t> nearby_shots;
-        quadtree_shots.get_objects(nearby_shots,box_collision);
+            vector<uint32_t> nearby_debris;
+            quadtree_debris.get_objects(nearby_debris,box_collision);
 
-        collisions.clear();
+            unordered_set<uint32_t> collisions;
 
-        for(size_t i=0;i<nearby_shots.size();i++){
-            if(is_alive()){
-                if(!collisions.count(nearby_shots[i])){
-                    collisions.emplace(nearby_shots[i]);
+            for(size_t i=0;i<nearby_debris.size();i++){
+                if(is_alive()){
+                    if(!collisions.count(nearby_debris[i])){
+                        collisions.emplace(nearby_debris[i]);
 
-                    const Shot& shot=Game::get_shot(nearby_shots[i]);
-                    Collision_Rect<double> box_shot=shot.get_collision_box();
+                        const Debris& debris=Game::get_debris(nearby_debris[i]);
+                        Collision_Rect<double> box_debris=debris.get_collision_box();
 
-                    if(shot.is_alive() && (!shot.has_owner() || own_index!=shot.get_owner_index()) && Collision::check_rect_rotated(box_collision,box_shot,angle,shot.get_angle())){
-                        if(shot.get_shot_type()->damage_type=="explosive"){
-                            Game::create_explosion("explosion_missile","explosion_missile",Coords<double>(box_shot.center_x(),box_shot.center_y()),shot.get_damage(),shot.get_faction());
-                        }
-                        else{
-                            take_damage(is_player,shot.get_damage(),shot.get_shot_type()->damage_type,
-                                        Coords<double>(box_collision.x+rng.random_range(0,(uint32_t)box_collision.w),box_collision.y+rng.random_range(0,(uint32_t)box_collision.h)),shot.get_faction(),rng);
-                        }
+                        if(rng.random_range(0,99)<Game_Constants::COLLISION_CHANCE_DEBRIS && Collision::check_rect_rotated(box_collision,box_debris,angle,debris.get_angle())){
+                            string damage_faction="world";
 
-                        Game::kill_shot(nearby_shots[i]);
-                    }
-                }
-            }
-            else{
-                return;
-            }
-        }
-
-        vector<uint32_t> nearby_explosions;
-        quadtree_explosions.get_objects(nearby_explosions,box_collision);
-
-        collisions.clear();
-
-        for(size_t i=0;i<nearby_explosions.size();i++){
-            if(is_alive()){
-                if(!collisions.count(nearby_explosions[i])){
-                    collisions.emplace(nearby_explosions[i]);
-
-                    const Explosion& explosion=Game::get_explosion(nearby_explosions[i]);
-                    Collision_Circ<double> circle_explosion=explosion.get_circle();
-
-                    if(explosion.is_alive() && !was_damaged_by_explosion(nearby_explosions[i]) && Collision::check_circ_rect(circle_explosion,box_collision)){
-                        damaged_by_explosion(nearby_explosions[i]);
-
-                        if(explosion.is_scan()){
-                            if(is_player){
-                                //Disable cloak
-                                if(is_cloaked()){
-                                    toggle_cloak();
-                                }
-
-                                if(Game::player_has_contract()){
-                                    Game::increase_notoriety(Game_Constants::NOTORIETY_INCREASE_SCAN);
-                                }
+                            //If we are either fleeing from or chasing a ship, it is blamed for this damage
+                            if(!is_player && ai_has_proximity_target){
+                                damage_faction=Game::get_ship(ai_proximity_target).get_faction();
                             }
-                        }
-                        else if(explosion.is_emp()){
-                            disable();
-                        }
-                        else{
-                            take_damage(is_player,explosion.get_damage(),"explosive",
-                                        Coords<double>(box_collision.x+rng.random_range(0,(uint32_t)box_collision.w),box_collision.y+rng.random_range(0,(uint32_t)box_collision.h)),
-                                        explosion.get_faction(),rng);
+
+                            take_damage(is_player,debris.get_debris_type()->damage,debris.get_debris_type()->damage_type,
+                                        Coords<double>(box_collision.x+rng.random_range(0,(uint32_t)box_collision.w),box_collision.y+rng.random_range(0,(uint32_t)box_collision.h)),damage_faction,rng);
                         }
                     }
                 }
+                else{
+                    return;
+                }
             }
-            else{
-                return;
-            }
-        }
 
-        if(is_player){
-            vector<uint32_t> nearby_items;
-            quadtree_items.get_objects(nearby_items,box);
+            vector<uint32_t> nearby_shots;
+            quadtree_shots.get_objects(nearby_shots,box_collision);
 
             collisions.clear();
 
-            for(size_t i=0;i<nearby_items.size();i++){
-                if(!collisions.count(nearby_items[i])){
-                    collisions.emplace(nearby_items[i]);
+            for(size_t i=0;i<nearby_shots.size();i++){
+                if(is_alive()){
+                    if(!collisions.count(nearby_shots[i])){
+                        collisions.emplace(nearby_shots[i]);
 
-                    const Item& item=Game::get_item(nearby_items[i]);
+                        const Shot& shot=Game::get_shot(nearby_shots[i]);
+                        Collision_Rect<double> box_shot=shot.get_collision_box();
 
-                    if(item.is_alive() && can_use_item(item.get_item_type()) && Collision::check_rect(item.get_box(),box)){
-                        use_item(item.get_item_type());
+                        if(shot.is_alive() && (!shot.has_owner() || own_index!=shot.get_owner_index()) && Collision::check_rect_rotated(box_collision,box_shot,angle,shot.get_angle())){
+                            if(shot.get_shot_type()->damage_type=="explosive"){
+                                Game::create_explosion("explosion_missile","explosion_missile",Coords<double>(box_shot.center_x(),box_shot.center_y()),shot.get_damage(),shot.get_faction());
+                            }
+                            else{
+                                take_damage(is_player,shot.get_damage(),shot.get_shot_type()->damage_type,
+                                            Coords<double>(box_collision.x+rng.random_range(0,(uint32_t)box_collision.w),box_collision.y+rng.random_range(0,(uint32_t)box_collision.h)),shot.get_faction(),rng);
+                            }
 
-                        item.play_collection_sound();
-
-                        Game::kill_item(nearby_items[i]);
+                            Game::kill_shot(nearby_shots[i]);
+                        }
                     }
+                }
+                else{
+                    return;
                 }
             }
 
-            if(Game::is_player_tractored()){
-                const Ship& ship=Game::get_ship(Game::get_tractoring_ship_index());
+            vector<uint32_t> nearby_explosions;
+            quadtree_explosions.get_objects(nearby_explosions,box_collision);
 
-                if(Collision::check_rect_rotated(box_collision,ship.get_collision_box(),angle,ship.get_angle())){
-                    Game::arrest_player();
+            collisions.clear();
+
+            for(size_t i=0;i<nearby_explosions.size();i++){
+                if(is_alive()){
+                    if(!collisions.count(nearby_explosions[i])){
+                        collisions.emplace(nearby_explosions[i]);
+
+                        const Explosion& explosion=Game::get_explosion(nearby_explosions[i]);
+                        Collision_Circ<double> circle_explosion=explosion.get_circle();
+
+                        if(explosion.is_alive() && !was_damaged_by_explosion(nearby_explosions[i]) && Collision::check_circ_rect(circle_explosion,box_collision)){
+                            damaged_by_explosion(nearby_explosions[i]);
+
+                            if(explosion.is_scan()){
+                                if(is_player){
+                                    //Disable cloak
+                                    if(is_cloaked()){
+                                        toggle_cloak();
+                                    }
+
+                                    if(Game::player_has_contract()){
+                                        Game::increase_notoriety(Game_Constants::NOTORIETY_INCREASE_SCAN);
+                                    }
+                                }
+                            }
+                            else if(explosion.is_emp()){
+                                disable();
+                            }
+                            else{
+                                take_damage(is_player,explosion.get_damage(),"explosive",
+                                            Coords<double>(box_collision.x+rng.random_range(0,(uint32_t)box_collision.w),box_collision.y+rng.random_range(0,(uint32_t)box_collision.h)),
+                                            explosion.get_faction(),rng);
+                            }
+                        }
+                    }
+                }
+                else{
+                    return;
+                }
+            }
+
+            if(is_player){
+                vector<uint32_t> nearby_items;
+                quadtree_items.get_objects(nearby_items,box);
+
+                collisions.clear();
+
+                for(size_t i=0;i<nearby_items.size();i++){
+                    if(!collisions.count(nearby_items[i])){
+                        collisions.emplace(nearby_items[i]);
+
+                        const Item& item=Game::get_item(nearby_items[i]);
+
+                        if(item.is_alive() && can_use_item(item.get_item_type()) && Collision::check_rect(item.get_box(),box)){
+                            use_item(item.get_item_type());
+
+                            item.play_collection_sound();
+
+                            Game::kill_item(nearby_items[i]);
+                        }
+                    }
+                }
+
+                if(Game::is_player_tractored()){
+                    const Ship& ship=Game::get_ship(Game::get_tractoring_ship_index());
+
+                    if(Collision::check_rect_rotated(box_collision,ship.get_collision_box(),angle,ship.get_angle())){
+                        Game::arrest_player();
+                    }
                 }
             }
         }

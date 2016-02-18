@@ -10,6 +10,11 @@ Make asteroids look better
 Remove the sun entirely?
 
 Note: Should you be able to kill yourself (via power drain) using active upgrades?
+Should the brake input drop out of warp?
+
+Should warp drive be a bit faster still?
+
+Warp drive drained power, but did not cause game over when power hit 0
 
 Add all actives
 
@@ -42,6 +47,7 @@ New contract acquired (with no previous one)
 Arrested
 Cannot land
 Weapons toggled
+Cannot toggle weapons
 Active upgrade unusable
 1 per shot death effect
 1 per weapon upgrade fire

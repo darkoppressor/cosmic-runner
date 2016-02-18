@@ -85,6 +85,9 @@ public:
 
     static std::uint32_t ACTIVE_POWER_DRAIN_RATE;
     static double CLOAK_OPACITY;
+    static double WARP_ACCEL;
+    static double WARP_DECEL;
+    static double WARP_MAX_SPEED;
 
     static double DESPAWN_DISTANCE;
     static double NPC_PROCESS_RANGE;

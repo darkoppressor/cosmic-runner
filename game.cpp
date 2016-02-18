@@ -756,13 +756,24 @@ void Game::create_effect(string sprite,bool fade,double scale,const Coords<doubl
 
 void Game::player_thrust(string direction){
     if(!get_player().is_disabled(true)){
-        get_player().set_thrust_angle(direction);
+        if(!get_player().is_warping()){
+            get_player().set_thrust_angle(direction);
+        }
+        else{
+            get_player().set_thrusting(true);
+        }
+    }
+    else{
+        get_player().set_thrust_angle("none");
     }
 }
 
 void Game::player_brake(bool brake){
-    if(!get_player().is_disabled(true)){
+    if(!get_player().is_disabled(true) && !get_player().is_warping()){
         get_player().set_braking(brake);
+    }
+    else{
+        get_player().set_braking(false);
     }
 }
 
