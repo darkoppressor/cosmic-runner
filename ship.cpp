@@ -1206,9 +1206,19 @@ void Ship::ai(const Quadtree<double,uint32_t>& quadtree_ships,const Quadtree<dou
 
                     const Planet& planet=Game::get_planet(nearby_planets[i]);
 
-                    Coords<double> center=box.get_center();
+                    vector<Coords<double>> vertices;
+                    box.get_vertices(vertices,angle);
 
-                    if(Collision::check_rect_circ(Collision_Rect<double>(center.x,center.y,1.0,1.0),planet.get_circle())){
+                    bool over_planet=true;
+                    for(size_t v=0;v<vertices.size();v++){
+                        if(!Collision::check_circ_rect(planet.get_circle(),Collision_Rect<double>(vertices[v].x,vertices[v].y,1.0,1.0))){
+                            over_planet=false;
+
+                            break;
+                        }
+                    }
+
+                    if(over_planet){
                         commence_landing(nearby_planets[i]);
 
                         return;
