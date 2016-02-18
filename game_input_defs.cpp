@@ -197,6 +197,8 @@ bool Game_Manager::handle_game_command(string command_name){
         if(command_name=="land"){
             const Ship& player=Game::get_player_const();
 
+            bool landed=false;
+
             if(!Game::player_is_landing() && !Game::player_is_landed() && !player.is_disabled(true)){
                 vector<Coords<double>> vertices;
                 player.get_box().get_vertices(vertices,player.get_angle());
@@ -215,6 +217,8 @@ bool Game_Manager::handle_game_command(string command_name){
 
                     if(over_planet){
                         Game::commence_landing(Game::get_contract_planet_index());
+
+                        landed=true;
                     }
                 }
                 else{
@@ -233,8 +237,14 @@ bool Game_Manager::handle_game_command(string command_name){
 
                     if(over_planet){
                         Game::commence_landing(nearest_planet_index);
+
+                        landed=true;
                     }
                 }
+            }
+
+            if(!landed){
+                Sound_Manager::play_sound("cannot_land");
             }
 
             return true;
