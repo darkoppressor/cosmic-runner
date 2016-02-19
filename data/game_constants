@@ -327,19 +327,19 @@
 <game_constant>
 	//newtons
 	name:warp_accel
-	value:10000.0
+	value:20000.0
 </game_constant>
 
 <game_constant>
 	//newtons
 	name:warp_decel
-	value:20000.0
+	value:40000.0
 </game_constant>
 
 <game_constant>
 	//meters/second
 	name:warp_max_speed
-	value:1000.0
+	value:2000.0
 </game_constant>
 
 <game_constant>
