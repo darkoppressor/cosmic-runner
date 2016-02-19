@@ -670,12 +670,22 @@ void Game::increase_power(){
     }
 }
 
+void Game::decrease_power(){
+    if(power>0 && --power==0){
+        game_over();
+    }
+}
+
 void Game::use_power(uint32_t amount){
     if(amount<=power){
         power-=amount;
     }
     else{
         power=0;
+    }
+
+    if(player_is_out_of_power()){
+        game_over();
     }
 }
 
@@ -1134,9 +1144,7 @@ void Game::tick(){
         generate_items();
     }
 
-    if(power>0 && --power==0){
-        game_over();
-    }
+    decrease_power();
 
     if(notoriety>0){
         notoriety--;

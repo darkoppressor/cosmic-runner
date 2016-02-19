@@ -161,6 +161,7 @@ public:
     static std::uint32_t get_power();
     static bool player_is_out_of_power();
     static void increase_power();
+    static void decrease_power();
     static void use_power(std::uint32_t amount);
 
     static std::uint32_t get_notoriety();
