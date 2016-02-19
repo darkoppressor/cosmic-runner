@@ -34,25 +34,29 @@
 
 <game_constant>
 	name:title_max_sun_shimmers
-	value:16
+	value:24
 </game_constant>
 
 <game_constant>
+	//milliseconds
 	name:title_sun_shimmer_spawn_rate
-	value:500
+	value:250
 </game_constant>
 
 <game_constant>
+	//integer percentage
 	name:title_sun_shimmer_spawn_chance
 	value:50
 </game_constant>
 
 <game_constant>
+	//pixels
 	name:title_sun_shimmer_y_right_mod_min
 	value:0
 </game_constant>
 
 <game_constant>
+	//pixels
 	name:title_sun_shimmer_y_right_mod_max
 	value:32
 </game_constant>
