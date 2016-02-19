@@ -396,6 +396,7 @@ void Ship::disable(){
     disabled_cooldown=Game_Constants::DISABLED_LENGTH*Engine::UPDATE_RATE;
 
     thrusting=false;
+    braking=false;
 
     //Disable scanner startup
     if(scanner_startup_sprite.animating){
