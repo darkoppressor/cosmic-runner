@@ -28,6 +28,7 @@ Upgrade::Upgrade(){
     range=0.0;
 
     power_use=0;
+    off_sound="";
 
     max_shields=0;
     shield_recharge_rate_up=0;

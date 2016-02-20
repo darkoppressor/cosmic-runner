@@ -42,6 +42,7 @@ public:
     //Active-specific values:
     //seconds
     std::uint32_t power_use;
+    std::string off_sound;
 
     //Passive-specific values:
     std::int32_t max_shields;

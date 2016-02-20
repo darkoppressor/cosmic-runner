@@ -1124,6 +1124,8 @@ void Ship::use_active(bool is_player){
         string active_name=get_active_name();
         Upgrade* upgrade=Game_Data::get_upgrade_type(active_name);
 
+        string sound=upgrade->sound;
+
         if(active_name=="scanner"){
             if(is_player){
                 Game::use_power(upgrade->power_use*Engine::UPDATE_RATE);
@@ -1152,6 +1154,10 @@ void Ship::use_active(bool is_player){
             }
 
             toggle_cloak();
+
+            if(!is_cloaked()){
+                sound=upgrade->off_sound;
+            }
         }
         else if(active_name=="warp_drive"){
             if(is_player && !is_warping()){
@@ -1159,10 +1165,14 @@ void Ship::use_active(bool is_player){
             }
 
             toggle_warp();
+
+            if(!is_warping()){
+                sound=upgrade->off_sound;
+            }
         }
 
-        if(upgrade->sound.length()>0){
-            Sound_Manager::play_sound(upgrade->sound,box.center_x(),box.center_y());
+        if(sound.length()>0){
+            Sound_Manager::play_sound(sound,box.center_x(),box.center_y());
         }
     }
 }

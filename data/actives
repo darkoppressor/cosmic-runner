@@ -1,6 +1,7 @@
 <upgrade>
 	name:scanner
-	display_name:Scanner
+	//No fancy display name or description required, as this is for NPC police ships only
+	display_name:
 	description:
 	type:active
 	banned:true
@@ -24,7 +25,8 @@
 	display_name:Cloaking Device
 	description:
 	type:active
-	sound:active_cloak
+	sound:active_cloak_on
+	off_sound:active_cloak_off
 	cooldown:2000
 	power_use:5
 </upgrade>
@@ -34,7 +36,8 @@
 	display_name:Warp Drive
 	description:
 	type:active
-	sound:active_warp_drive
+	sound:active_warp_drive_on
+	off_sound:active_warp_drive_off
 	cooldown:2000
 	power_use:10
 </upgrade>

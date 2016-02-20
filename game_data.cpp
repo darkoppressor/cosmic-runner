@@ -357,6 +357,9 @@ void Game_Data::load_upgrade_type(File_IO_Load* load){
         else if(Data_Reader::check_prefix(line,"power_use:")){
             upgrades.back().power_use=Strings::string_to_unsigned_long(line);
         }
+        else if(Data_Reader::check_prefix(line,"off_sound:")){
+            upgrades.back().off_sound=line;
+        }
         else if(Data_Reader::check_prefix(line,"max_shields:")){
             upgrades.back().max_shields=Strings::string_to_long(line);
         }
