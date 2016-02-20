@@ -64,11 +64,6 @@ public:
     static double ITEM_VACUUM_RANGE;
     static double ITEM_VACUUM_FORCE;
 
-    static double STAR_RADIUS;
-    static double STAR_DAMAGE_RANGE;
-    static std::uint32_t STAR_DAMAGE_RATE;
-    static std::int32_t STAR_DAMAGE;
-    static double MINIMUM_GEN_DISTANCE_FROM_STAR;
     static double MINIMUM_GEN_DISTANCE_BETWEEN_PLANETS;
 
     static double PLANETARY_SPACE_RANGE;

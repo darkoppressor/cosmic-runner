@@ -1,6 +1,6 @@
 Arcade style, you play until you quit or lose
 Single player
-A game takes place in a pcg star system of set size
+A game takes place in a pcg planetary system of set size
 Game world is static (world objects don't move)
 Player is a smuggler
 Player controls a single spaceship
@@ -28,7 +28,7 @@ Player can land on a planet if he has a contract targeting it
 Player can also land on a planet if he has no contract, and he will be assigned a new one
 Landing ships are invisible to other ships and shots for AI and collision purposes, and do not move
 
-Player can view a map of the star system
+Player can view a map of the planetary system
 The current contract target is shown on the map
 A directional indicator pointing from the player to the contract target is shown on the map
 A directional indicator is also shown in the game world
@@ -59,10 +59,7 @@ If the player selects an active upgrade, and already has one, the old active upg
 A ship can use its active upgrade
 Active upgrades have a cooldown
 
-There is a huge star in the center of the game world
 Planets are dotted about
-When really close to star, ships take energy damage over time
-Collision with star kills/destroys any ship, shot, or item instantly
 
 Ships have hull and shields
 When a ship takes damage, it loses shields first, if it has any, and then hull
@@ -271,8 +268,6 @@ Bigger windows/fonts
 Fancy graphics for windows/buttons?
 Gussy up the scrolling buttons window for buying upgrades
 Clouds floating over planets
-Star stuff (sunspots?) floating over the star
-Solar flares erupting from the edges of the star
 Ship shadows on planet below ship
 Fire/smoke effects for ship engines and missiles/guided missiles
 Effects for weapons firing

@@ -134,15 +134,6 @@ void Item::movement(){
         box.x+=vc.a/(double)Engine::UPDATE_RATE;
         box.y+=vc.b/(double)Engine::UPDATE_RATE;
 
-        const Star& star=Game::get_star();
-        Collision_Circ<double> circle_star=star.get_circle();
-
-        if(Collision::check_rect_circ(box,circle_star)){
-            die();
-
-            return;
-        }
-
         if(box.x+box.w<0.0){
             die();
 

@@ -36,7 +36,6 @@ double Game::background_opacity_planetary=0.0;
 
 vector<Ship> Game::ships;
 vector<Debris> Game::debris;
-vector<Star> Game::stars;
 vector<Effect> Game::effects;
 vector<Planet> Game::planets;
 vector<Shot> Game::shots;
@@ -107,7 +106,6 @@ void Game::clear_world(){
 
     ships.clear();
     debris.clear();
-    stars.clear();
     effects.clear();
     planets.clear();
     shots.clear();
@@ -172,9 +170,6 @@ void Game::generate_world(){
 
     uint32_t max_attempts=10000;
 
-    //Generate star
-    stars.push_back(Star(Coords<double>(world_width/2.0,world_height/2.0)));
-
     //Generate planets
     uint32_t minimum_planets=2;
     uint32_t planet_count=((world_width+world_height)/2.0)/1024.0;
@@ -193,26 +188,22 @@ void Game::generate_world(){
 
         Coords<double> position((double)x,(double)y);
 
-        double minimum_distance_from_star=Game_Constants::MINIMUM_GEN_DISTANCE_FROM_STAR+Game_Constants::STAR_RADIUS+(double)radius;
+        bool too_close_to_planet=false;
 
-        if(attempts>=max_attempts || Math::get_distance_between_points(position,stars.back().get_circle().get_center())>=minimum_distance_from_star){
-            bool too_close_to_planet=false;
+        for(size_t j=0;j<planets.size();j++){
+            double minimum_distance_between_planets=Game_Constants::MINIMUM_GEN_DISTANCE_BETWEEN_PLANETS+planets[j].get_circle().r+(double)radius;
 
-            for(size_t j=0;j<planets.size();j++){
-                double minimum_distance_between_planets=Game_Constants::MINIMUM_GEN_DISTANCE_BETWEEN_PLANETS+planets[j].get_circle().r+(double)radius;
+            if(Math::get_distance_between_points(position,planets[j].get_circle().get_center())<minimum_distance_between_planets){
+                too_close_to_planet=true;
 
-                if(Math::get_distance_between_points(position,planets[j].get_circle().get_center())<minimum_distance_between_planets){
-                    too_close_to_planet=true;
-
-                    break;
-                }
+                break;
             }
+        }
 
-            if(attempts>=max_attempts || !too_close_to_planet){
-                planets.push_back(Planet(sprite.name,position));
+        if(attempts>=max_attempts || !too_close_to_planet){
+            planets.push_back(Planet(sprite.name,position));
 
-                i++;
-            }
+            i++;
         }
     }
 
@@ -229,23 +220,18 @@ void Game::generate_world(){
 
         Coords<double> position((double)x,(double)y);
 
-        double radius=(sprite.get_width()+sprite.get_height())/4.0;
-        double minimum_distance_from_star=Game_Constants::MINIMUM_GEN_DISTANCE_FROM_STAR+Game_Constants::STAR_RADIUS+radius;
+        bool touching_debris=false;
 
-        if(Math::get_distance_between_points(position,stars.back().get_circle().get_center())>=minimum_distance_from_star){
-            bool touching_debris=false;
+        for(size_t j=0;j<debris.size();j++){
+            if(Collision::check_rect(Collision_Rect<double>((double)x,(double)y,sprite.get_width(),sprite.get_height()),debris[j].get_box())){
+                touching_debris=true;
 
-            for(size_t j=0;j<debris.size();j++){
-                if(Collision::check_rect(Collision_Rect<double>((double)x,(double)y,sprite.get_width(),sprite.get_height()),debris[j].get_box())){
-                    touching_debris=true;
-
-                    break;
-                }
+                break;
             }
+        }
 
-            if(!touching_debris){
-                debris.push_back(Debris(type,position,rng.random_range(0,359),Vector(0.01*rng.random_range(0,75),rng.random_range(0,359))));
-            }
+        if(!touching_debris){
+            debris.push_back(Debris(type,position,rng.random_range(0,359),Vector(0.01*rng.random_range(0,75),rng.random_range(0,359))));
         }
     }
 
@@ -383,17 +369,6 @@ const Item& Game::get_item(uint32_t index){
     }
     else{
         Log::add_error("Error accessing item '"+Strings::num_to_string(index)+"'");
-
-        Engine::quit();
-    }
-}
-
-const Star& Game::get_star(){
-    if(!stars.empty()){
-        return stars.front();
-    }
-    else{
-        Log::add_error("Error accessing star");
 
         Engine::quit();
     }
@@ -870,12 +845,6 @@ void Game::create_item(const Coords<double>& position,const Vector& base_velocit
 }
 
 bool Game::collides_with_game_world(const Collision_Rect<double>& box){
-    for(size_t i=0;i<stars.size();i++){
-        if(Collision::check_rect_circ(box,stars[i].get_circle())){
-            return true;
-        }
-    }
-
     vector<uint32_t> nearby_debris;
     quadtree_debris.get_objects(nearby_debris,box);
 
@@ -1224,7 +1193,6 @@ void Game::movement(){
     for(size_t i=0;i<ships.size();i++){
         ships[i].land(i==0);
 
-        ships[i].take_star_damage(i==0,rng);
         ships[i].regenerate_shields(i==0);
         ships[i].drain_power(i==0);
         ships[i].cooldown(quadtree_ships,quadtree_shots,rng,(uint32_t)i);
@@ -1384,10 +1352,6 @@ void Game::animate(){
 }
 
 void Game::render(){
-    for(size_t i=0;i<stars.size();i++){
-        stars[i].render();
-    }
-
     for(size_t i=0;i<planets.size();i++){
         planets[i].render();
     }

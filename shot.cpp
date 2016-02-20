@@ -229,19 +229,6 @@ void Shot::movement(const Quadtree<double,uint32_t>& quadtree_debris){
 
         Collision_Rect<double> box_collision=get_collision_box();
 
-        const Star& star=Game::get_star();
-        Collision_Circ<double> circle_star=star.get_circle();
-
-        if(Collision::check_rect_circ(box_collision,circle_star)){
-            if(get_shot_type()->damage_type=="explosive"){
-                Game::create_explosion("explosion_missile","explosion_missile",Coords<double>(box.center_x(),box.center_y()),get_damage(),faction);
-            }
-
-            die();
-
-            return;
-        }
-
         vector<uint32_t> nearby_debris;
         quadtree_debris.get_objects(nearby_debris,box_collision);
 

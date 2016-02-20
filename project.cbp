@@ -421,8 +421,6 @@
 		<Unit filename="shot_type.cpp" />
 		<Unit filename="shot_type.h" />
 		<Unit filename="special_info.cpp" />
-		<Unit filename="star.cpp" />
-		<Unit filename="star.h" />
 		<Unit filename="title.cpp" />
 		<Unit filename="title.h" />
 		<Unit filename="title_ship.cpp" />

@@ -35,8 +35,6 @@ Ship::Ship(string new_type,const Coords<double>& position,double new_angle){
     landing_scale=1.0;
     landing_planet_index=0;
 
-    star_damage=0;
-
     shield_recharge=0;
 
     weapons_enabled=true;
@@ -853,23 +851,6 @@ void Ship::land(bool is_player){
     }
 }
 
-void Ship::take_star_damage(bool is_player,RNG& rng){
-    if(is_alive() && !is_landing() && (!is_player || !Game::player_is_landed()) && !is_warping() && is_in_processing_range()){
-        if(++star_damage>=Game_Constants::STAR_DAMAGE_RATE*Engine::UPDATE_RATE/1000){
-            star_damage=0;
-
-            Coords<double> world_center(Game::world_width/2.0,Game::world_height/2.0);
-
-            if(Math::get_distance_between_points(box.get_center(),world_center)<=(box.w+box.h)/4.0+Game_Constants::STAR_RADIUS+Game_Constants::STAR_DAMAGE_RANGE){
-                Collision_Rect<double> box_collision=get_collision_box();
-
-                take_damage(is_player,Game_Constants::STAR_DAMAGE,"energy",
-                            Coords<double>(box_collision.x+rng.random_range(0,(uint32_t)box_collision.w),box_collision.y+rng.random_range(0,(uint32_t)box_collision.h)),"world",rng);
-            }
-        }
-    }
-}
-
 void Ship::regenerate_shields(bool is_player){
     if(is_alive() && !is_disabled(is_player) && is_in_processing_range()){
         if(shields<get_shields_max() && ++shield_recharge>=get_shield_recharge_rate()*Engine::UPDATE_RATE/1000){
@@ -1483,22 +1464,6 @@ void Ship::movement(uint32_t own_index,const Quadtree<double,uint32_t>& quadtree
 
         if(!is_warping()){
             Collision_Rect<double> box_collision=get_collision_box();
-
-            const Star& star=Game::get_star();
-            Collision_Circ<double> circle_star=star.get_circle();
-
-            if(Collision::check_rect_circ(box_collision,circle_star)){
-                string damage_faction="world";
-
-                //If we are either fleeing from or chasing a ship, it is blamed for this damage
-                if(!is_player && ai_has_proximity_target){
-                    damage_faction=Game::get_ship(ai_proximity_target).get_faction();
-                }
-
-                die(is_player,damage_faction,rng);
-
-                return;
-            }
 
             vector<uint32_t> nearby_debris;
             quadtree_debris.get_objects(nearby_debris,box_collision);

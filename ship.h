@@ -41,8 +41,6 @@ private:
     double landing_scale;
     std::uint32_t landing_planet_index;
 
-    std::uint32_t star_damage;
-
     std::uint32_t shield_recharge;
 
     std::vector<std::string> upgrades;
@@ -172,7 +170,6 @@ public:
     bool is_landing() const;
     void land(bool is_player);
 
-    void take_star_damage(bool is_player,RNG& rng);
     void regenerate_shields(bool is_player);
     void drain_power(bool is_player);
     void cooldown(const Quadtree<double,std::uint32_t>& quadtree_ships,const Quadtree<double,std::uint32_t>& quadtree_shots,RNG& rng,std::uint32_t own_index);

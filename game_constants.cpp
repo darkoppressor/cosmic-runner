@@ -64,11 +64,6 @@ double Game_Constants::POINT_DEFENSE_RANGE=0.0;
 double Game_Constants::ITEM_VACUUM_RANGE=0.0;
 double Game_Constants::ITEM_VACUUM_FORCE=0.0;
 
-double Game_Constants::STAR_RADIUS=0.0;
-double Game_Constants::STAR_DAMAGE_RANGE=0.0;
-uint32_t Game_Constants::STAR_DAMAGE_RATE=0;
-int32_t Game_Constants::STAR_DAMAGE=0;
-double Game_Constants::MINIMUM_GEN_DISTANCE_FROM_STAR=0.0;
 double Game_Constants::MINIMUM_GEN_DISTANCE_BETWEEN_PLANETS=0.0;
 
 double Game_Constants::PLANETARY_SPACE_RANGE=0.0;
@@ -271,21 +266,6 @@ void Game_Constants_Loader::set_game_constant(string name,string value){
         Game_Constants::ITEM_VACUUM_FORCE=Strings::string_to_double(value);
     }
 
-    else if(name=="star_radius"){
-        Game_Constants::STAR_RADIUS=Strings::string_to_double(value);
-    }
-    else if(name=="star_damage_range"){
-        Game_Constants::STAR_DAMAGE_RANGE=Strings::string_to_double(value);
-    }
-    else if(name=="star_damage_rate"){
-        Game_Constants::STAR_DAMAGE_RATE=Strings::string_to_unsigned_long(value);
-    }
-    else if(name=="star_damage"){
-        Game_Constants::STAR_DAMAGE=Strings::string_to_long(value);
-    }
-    else if(name=="minimum_gen_distance_from_star"){
-        Game_Constants::MINIMUM_GEN_DISTANCE_FROM_STAR=Strings::string_to_double(value);
-    }
     else if(name=="minimum_gen_distance_between_planets"){
         Game_Constants::MINIMUM_GEN_DISTANCE_BETWEEN_PLANETS=Strings::string_to_double(value);
     }
