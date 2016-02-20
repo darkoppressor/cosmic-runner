@@ -2,14 +2,6 @@ Test all passive upgrades
 
 Note: change map screen to a minimap? It would be like now and show the star and planets
 
-Make asteroids look better
-
-Remove the sun entirely?
-
-Note: Should you be able to kill yourself (via power drain) using active upgrades?
-
-Should the brake input drop out of warp?
-
 Give all weapons good display names
 Give all passives good display names
 Give all actives good display names
@@ -20,6 +12,8 @@ Give all actives descriptions
 
 Design and implement HUD
 
+Remove the sun entirely?
+Should you be able to kill yourself (via power drain) using active upgrades?
 Note: high score board
 
 Music:

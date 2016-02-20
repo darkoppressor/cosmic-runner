@@ -779,8 +779,14 @@ void Game::player_thrust(string direction){
 }
 
 void Game::player_brake(bool brake){
-    if(!get_player().is_disabled(true) && !get_player().is_warping()){
-        get_player().set_braking(brake);
+    if(!get_player().is_disabled(true)){
+        if(!get_player().is_warping()){
+            get_player().set_braking(brake);
+        }
+        else if(brake){
+            //If we are warping and braking, drop out of warp
+            player_use_active();
+        }
     }
     else{
         get_player().set_braking(false);
