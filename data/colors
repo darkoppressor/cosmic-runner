@@ -80,6 +80,21 @@
 	rgb:255,255,153
 </color>
 
+<color>
+	name:hud_hull
+	rgb:255,153,153
+</color>
+
+<color>
+	name:hud_shields
+	rgb:153,255,204
+</color>
+
+<color>
+	name:hud_power
+	rgb:255,255,153
+</color>
+
 //** Engine Colors **//
 
 <color>

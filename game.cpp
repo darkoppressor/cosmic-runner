@@ -5,6 +5,7 @@
 #include "game.h"
 #include "game_data.h"
 #include "game_constants.h"
+#include "hud.h"
 
 #include <render.h>
 #include <game_window.h>
@@ -164,6 +165,8 @@ void Game::generate_world(){
     background_planetary.setup("planetary",rng);
 
     background_opacity_planetary=1.0;
+
+    Hud::setup();
 
     world_width=10000.0;
     world_height=10000.0;
@@ -1349,6 +1352,8 @@ void Game::animate(){
     if(is_player_tractored()){
         tractor_sprite.animate();
     }
+
+    Hud::animate();
 }
 
 void Game::render(){
@@ -1395,6 +1400,8 @@ void Game::render(){
     else{
         no_contract_sprite.render((Game_Window::width()-no_contract_sprite.get_width())/2.0,(Game_Window::height()/4.0-no_contract_sprite.get_height())/2.0);
     }
+
+    Hud::render();
 }
 
 void Game::render_to_textures(){

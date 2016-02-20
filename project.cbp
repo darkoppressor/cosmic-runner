@@ -402,6 +402,8 @@
 		<Unit filename="game_manager_defs.cpp" />
 		<Unit filename="game_options.cpp" />
 		<Unit filename="game_options.h" />
+		<Unit filename="hud.cpp" />
+		<Unit filename="hud.h" />
 		<Unit filename="item.cpp" />
 		<Unit filename="item.h" />
 		<Unit filename="item_type.cpp" />

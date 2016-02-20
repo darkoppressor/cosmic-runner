@@ -79,6 +79,14 @@
 </animation>
 
 <animation>
+	name:hud_notoriety_tier
+	frame_count:2
+	animation_speed:500
+	frame_width:40
+	end_behavior:continue
+</animation>
+
+<animation>
 	name:contract_indicator_arrow
 	frame_count:3
 	animation_speed:300
