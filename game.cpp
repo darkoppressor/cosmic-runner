@@ -168,7 +168,7 @@ void Game::generate_world(){
     world_width=10000.0;
     world_height=10000.0;
 
-    uint32_t max_attempts=10000;
+    uint32_t max_attempts=100000;
 
     //Generate planets
     uint32_t minimum_planets=2;
