@@ -4,6 +4,15 @@ Note: change map screen to a minimap? It would be like now and show the star and
 
 Design and implement HUD
 
+Police should not use their scanners when chasing the player
+
+If player start speed/maneuvering stays as is, tractor beams need to be weakened
+
+Initial number of ships need to be a little higher
+
+Add a window for viewing all acquired upgrades
+
+Idea: Gain points for narrowly dodging debris
 Should you be able to kill yourself (via power drain) using active upgrades?
 Note: high score board
 
