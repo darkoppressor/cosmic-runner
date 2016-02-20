@@ -273,7 +273,7 @@
 <game_constant>
 	//seconds
 	name:notoriety_increase_damage
-	value:20
+	value:10
 </game_constant>
 
 <game_constant>
