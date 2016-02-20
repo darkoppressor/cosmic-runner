@@ -1,7 +1,7 @@
 <upgrade>
 	name:cannon_shotgun
-	display_name:Shotgun Cannon
-	description:
+	display_name:Fresh One
+	description:Weapon - fires a cluster of bullets
 	type:weapon
 	sound:weapon_cannon_shotgun
 	cooldown:3000
@@ -16,8 +16,8 @@
 
 <upgrade>
 	name:cannon_sniper
-	display_name:Sniper Cannon
-	description:
+	display_name:Gun
+	description:Weapon - it is a gun
 	type:weapon
 	sound:weapon_cannon_sniper
 	cooldown:3000
@@ -33,7 +33,7 @@
 <upgrade>
 	name:cannon_quad
 	display_name:Quad Cannon
-	description:
+	description:Weapon - fires not one, not two, but four bullets
 	type:weapon
 	sound:weapon_cannon_quad
 	cooldown:3000
@@ -48,8 +48,8 @@
 
 <upgrade>
 	name:plasma_gun
-	display_name:Plasma Gun
-	description:
+	display_name:Plasma Zapper
+	description:Weapon - zaps bad things with plasma
 	type:weapon
 	sound:weapon_plasma_gun
 	cooldown:3000
@@ -64,8 +64,8 @@
 
 <upgrade>
 	name:missile_single
-	display_name:Single Missile
-	description:
+	display_name:Simple Launcher
+	description:Weapon - launches a single missile
 	type:weapon
 	sound:weapon_missile_single
 	cooldown:3000
@@ -80,8 +80,8 @@
 
 <upgrade>
 	name:missile_spread
-	display_name:Spread Missile
-	description:
+	display_name:Triple Simple Launcher
+	description:Weapon - launches three missiles (for the price of one!)
 	type:weapon
 	sound:weapon_missile_spread
 	cooldown:3000
@@ -96,8 +96,9 @@
 
 <upgrade>
 	name:missile_circle
-	display_name:Circle Missile
-	description:
+	//Get it? Pie? Like pi? Because 2*pi = a circle? And this launches missiles in a circle?
+	display_name:Pie Launcher
+	description:Weapon - launches missiles in a circle\nGet it? Pie? Pi? 2*pi is like a circle? I'm so sorry...
 	type:weapon
 	sound:weapon_missile_circle
 	cooldown:3000
@@ -112,8 +113,8 @@
 
 <upgrade>
 	name:guided_missile_single
-	display_name:Single Guided Missile
-	description:
+	display_name:Stalker
+	description:Weapon - launches one very shiny guided missile
 	type:weapon
 	sound:weapon_guided_missile_single
 	cooldown:3000
@@ -128,8 +129,8 @@
 
 <upgrade>
 	name:guided_missile_triple
-	display_name:Triple Guided Missile
-	description:
+	display_name:Hunter
+	description:Weapon - launches more than two but less than four guided missiles
 	type:weapon
 	sound:weapon_guided_missile_triple
 	cooldown:3000
@@ -144,8 +145,8 @@
 
 <upgrade>
 	name:guided_missile_swarm
-	display_name:Swarm Guided Missile
-	description:
+	display_name:Swarmerator
+	description:Weapon - launches like, a lot of guided missiles
 	type:weapon
 	sound:weapon_guided_missile_swarm
 	cooldown:3000

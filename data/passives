@@ -1,7 +1,7 @@
 <upgrade>
 	name:point_defense
 	display_name:Point Defense
-	description:
+	description:Passive - defends against... points? Oh no wait, it was missiles! Right, defends against missiles
 	type:passive
 	cooldown:4000
 
@@ -10,8 +10,8 @@
 
 <upgrade>
 	name:max_shields_0
-	display_name:Max Shields Up 0
-	description:
+	display_name:Shields Up!
+	description:Passive - increases maximum shields
 	type:passive
 
 	max_shields:5
@@ -19,8 +19,8 @@
 
 <upgrade>
 	name:max_shields_1
-	display_name:Max Shields Up 1
-	description:
+	display_name:Shields Way Up!
+	description:Passive - increases maximum shields, decreases shield recharge rate
 	type:passive
 
 	max_shields:10
@@ -29,8 +29,8 @@
 
 <upgrade>
 	name:shield_recharge_rate_0
-	display_name:Shield Recharge Rate Up 0
-	description:
+	display_name:Chargin' Faster
+	description:Passive - increases shield recharge rate
 	type:passive
 
     shield_recharge_rate_up:150
@@ -38,8 +38,8 @@
 
 <upgrade>
 	name:shield_recharge_rate_1
-	display_name:Shield Recharge Rate Up 1
-	description:
+	display_name:Chargin' Faster and Faster
+	description:Passive - increases shield recharge rate, decreases maximum shields
 	type:passive
 
     shield_recharge_rate_up:300
@@ -48,8 +48,8 @@
 
 <upgrade>
 	name:max_hull_0
-	display_name:Max Hull Up 0
-	description:
+	display_name:Hull Plating
+	description:Passive - increases maximum hull
 	type:passive
 
     max_hull:20
@@ -57,8 +57,8 @@
 
 <upgrade>
 	name:max_hull_1
-	display_name:Max Hull Up 1
-	description:
+	display_name:Super Hull Plating
+	description:Passive - increases maximum hull, decreases maximum speed
 	type:passive
 
     max_hull:40
@@ -67,8 +67,8 @@
 
 <upgrade>
 	name:accel_thrust_0
-	display_name:Acceleration Thrust Up 0
-	description:
+	display_name:Accelerator
+	description:Passive - increases primary thrust
 	type:passive
 
 	thrust_accel:500.0
@@ -76,8 +76,8 @@
 
 <upgrade>
 	name:accel_thrust_1
-	display_name:Acceleration Thrust Up 1
-	description:
+	display_name:Mega Accelerator
+	description:Passive - increases primary thrust, decreases cooldown rates
 	type:passive
 
 	thrust_accel:1000.0
@@ -86,8 +86,8 @@
 
 <upgrade>
 	name:decel_thrust_0
-	display_name:Deceleration Thrust Up 0
-	description:
+	display_name:Maneuvering Thrusters
+	description:Passive - increases maneuvering thrust
 	type:passive
 
     thrust_decel:1000.0
@@ -95,8 +95,8 @@
 
 <upgrade>
 	name:decel_thrust_1
-	display_name:Deceleration Thrust Up 1
-	description:
+	display_name:Giant Maneuvering Thrusters
+	description:Passive - increases maneuvering thrust, decreases maximum hull
 	type:passive
 
     thrust_decel:2000.0
@@ -105,8 +105,8 @@
 
 <upgrade>
 	name:max_speed_0
-	display_name:Max Speed Up 0
-	description:
+	display_name:Speed De-Limiter Mark I
+	description:Passive - increases maximum speed
 	type:passive
 
 	max_speed:50.0
@@ -114,8 +114,8 @@
 
 <upgrade>
 	name:max_speed_1
-	display_name:Max Speed Up 1
-	description:
+	display_name:Speed De-Limiter Mark II
+	description:Passive - increases maximum speed, decreases maneuvering thrust
 	type:passive
 
 	max_speed:100.0
@@ -124,8 +124,8 @@
 
 <upgrade>
 	name:cooldown_0
-	display_name:Cooldown Reduction 0
-	description:
+	display_name:Heatsink
+	description:Passive - increases cooldown rate
 	type:passive
 
     cooldown_down:250
@@ -133,8 +133,8 @@
 
 <upgrade>
 	name:cooldown_1
-	display_name:Cooldown Reduction 1
-	description:
+	display_name:Liquid Cooling
+	description:Passive - increases cooldown rate, decreases primary thrust
 	type:passive
 
     cooldown_down:500
@@ -143,8 +143,8 @@
 
 <upgrade>
 	name:solid_damage_0
-	display_name:Solid Damage Up 0
-	description:
+	display_name:Cannon Alignment
+	description:Passive - increases bullet damage
 	type:passive
 
     solid_damage_mod:3
@@ -152,8 +152,8 @@
 
 <upgrade>
 	name:solid_damage_1
-	display_name:Solid Damage Up 1
-	description:
+	display_name:Cannon Stabilizers
+	description:Passive - increases bullet damage, decreases explosive damage
 	type:passive
 
     solid_damage_mod:6
@@ -162,8 +162,8 @@
 
 <upgrade>
 	name:explosive_damage_0
-	display_name:Explosive Damage Up 0
-	description:
+	display_name:Launch Tube Extensions
+	description:Passive - increases explosive damage
 	type:passive
 
     explosive_damage_mod:2
@@ -171,8 +171,8 @@
 
 <upgrade>
 	name:explosive_damage_1
-	display_name:Explosive Damage Up 1
-	description:
+	display_name:Choice Launch Tubes
+	description:Passive - increases explosive damage, decreases plasma damage
 	type:passive
 
     explosive_damage_mod:4
@@ -181,8 +181,8 @@
 
 <upgrade>
 	name:energy_damage_0
-	display_name:Energy Damage Up 0
-	description:
+	display_name:Plasma Accelerator
+	description:Passive - increases plasma damage
 	type:passive
 
     energy_damage_mod:3
@@ -190,8 +190,8 @@
 
 <upgrade>
 	name:energy_damage_1
-	display_name:Energy Damage Up 1
-	description:
+	display_name:Plasma Charging Array
+	description:Passive - increases plasma damage, decreases bullet damage
 	type:passive
 
     energy_damage_mod:6

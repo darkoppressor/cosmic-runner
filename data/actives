@@ -13,7 +13,7 @@
 <upgrade>
 	name:emp
 	display_name:EMP
-	description:
+	description:Active - makes an electromagnetic pulse go boom (don't worry, it probably won't affect your ship much)
 	type:active
 	sound:active_emp
 	cooldown:10000
@@ -23,7 +23,7 @@
 <upgrade>
 	name:cloak
 	display_name:Cloaking Device
-	description:
+	description:Active - you already know what this does
 	type:active
 	sound:active_cloak_on
 	off_sound:active_cloak_off
@@ -34,7 +34,7 @@
 <upgrade>
 	name:warp_drive
 	display_name:Warp Drive
-	description:
+	description:Active - makes you go really fast, using complicated physics that I won't go into here\nSeriously though, the physics behind this are totally legit, I wouldn't even worry about it
 	type:active
 	sound:active_warp_drive_on
 	off_sound:active_warp_drive_off
