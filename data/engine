@@ -20,8 +20,8 @@
 	touch_controller_guide:false
 	touch_controller_xy:true
 	default_font:standard
-	tooltip_font:small
-	toast_font:small
+	tooltip_font:standard_padded
+	toast_font:standard_padded
 	toast_length_short:3
 	toast_length_medium:5
 	toast_length_long:7
@@ -49,7 +49,8 @@
 
 	logical_screen_width:1280
 	logical_screen_height:720
-	scrolling_buttons_offset:44
+	scrolling_buttons_offset:58
+	scrolling_buttons_spacing:12
 	console_height:16
 	chat_height:16
 	console_max_command_length:181

@@ -3,13 +3,19 @@
 	starting_position:-1,-1
 	width:800
 	height:480
-	title:Contract Completed
+	title:Contract Completed!
 	scrolling_buttons:select_upgrade
 	disallow_closing:true
 
+	<info>
+		location:2,36
+		text:You may choose one upgrade below, or
+	</info>
+
 	<button>
-		location:-1,36
-		text:Skip Upgrade
+		location:418,36
+		text:Skip This Upgrade
+		tooltip_text:
 		event:skip_upgrade
 	</button>
 

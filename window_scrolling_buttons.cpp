@@ -35,7 +35,8 @@ void Window::build_scrolling_buttons(){
                 buttons.back().start_y=buttons.back().y;
                 buttons.back().text=Game_Data::get_upgrade_type(Game::get_upgrade_list()[i])->display_name;
                 buttons.back().tooltip_text=Game_Data::get_upgrade_type(Game::get_upgrade_list()[i])->description;
-                buttons.back().font="small";
+                buttons.back().font="standard_padded";
+                ///QQQ buttons.back().text_sprite.name="upgrade_"+Game::get_upgrade_list()[i];
                 buttons.back().event_function="select_upgrade_"+Game::get_upgrade_list()[i];
                 buttons.back().set_dimensions();
             }
