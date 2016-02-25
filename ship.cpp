@@ -65,6 +65,8 @@ Ship::Ship(string new_type,const Coords<double>& position,double new_angle){
         add_upgrade(get_ship_type()->upgrades[i]);
     }
 
+    reset_ai_ignore_angle_mods();
+
     ai_target_next=position;
     clear_proximity_target();
 }
@@ -623,6 +625,11 @@ void Ship::notify_of_explosion_death(uint32_t index){
             i++;
         }
     }
+}
+
+void Ship::reset_ai_ignore_angle_mods(){
+    time_without_moving=0;
+    ai_ignore_angle_mods=false;
 }
 
 void Ship::clear_proximity_target(){
@@ -1249,6 +1256,8 @@ void Ship::ai_select_target(uint32_t own_index,RNG& rng){
         ai_target.x+=vc.a;
         ai_target.y+=vc.b;
     }
+
+    reset_ai_ignore_angle_mods();
 }
 
 void Ship::ai_check_for_proximity_target(const Quadtree<double,uint32_t>& quadtree_ships,uint32_t own_index){
@@ -1307,7 +1316,8 @@ bool Ship::ai_proximity_target_is_player() const{
     return ai_has_proximity_target && ai_proximity_target==0;
 }
 
-void Ship::ai(const Quadtree<double,uint32_t>& quadtree_ships,const Quadtree<double,uint32_t>& quadtree_planets,uint32_t frame,uint32_t own_index,RNG& rng){
+void Ship::ai(const Quadtree<double,uint32_t>& quadtree_ships,const Quadtree<double,uint32_t>& quadtree_planets,const Quadtree<double,uint32_t>& quadtree_debris,
+              uint32_t frame,uint32_t own_index,RNG& rng){
     if(is_alive() && !is_landing() && !is_disabled(false) && is_in_processing_range()){
         if(ai_proximity_check_allowed(frame,own_index)){
             ai_check_for_proximity_target(quadtree_ships,own_index);
@@ -1371,6 +1381,8 @@ void Ship::ai(const Quadtree<double,uint32_t>& quadtree_ships,const Quadtree<dou
             if(get_faction()=="police"){
                 if(Collision::check_rect(box,Collision_Rect<double>(ai_target.x,ai_target.y,1.0,1.0))){
                     swap(ai_target,ai_target_next);
+
+                    reset_ai_ignore_angle_mods();
                 }
             }
             else if(get_faction()=="pirate" || get_faction()=="bounty_hunter"){
@@ -1379,7 +1391,8 @@ void Ship::ai(const Quadtree<double,uint32_t>& quadtree_ships,const Quadtree<dou
                 }
             }
 
-            angle=Math::get_angle_to_point(box.get_center(),ai_target);
+            ai_determine_angle(quadtree_debris);
+
             thrusting=true;
         }
 
@@ -1389,6 +1402,40 @@ void Ship::ai(const Quadtree<double,uint32_t>& quadtree_ships,const Quadtree<dou
             use_active(false);
         }
     }
+}
+
+void Ship::ai_determine_angle(const Quadtree<double,uint32_t>& quadtree_debris){
+    Vector angle_determinant(Game_Constants::AI_WEIGHT_TARGET,Math::get_angle_to_point(box.get_center(),ai_target));
+
+    if(!ai_ignore_angle_mods && Math::get_distance_between_points(box.get_center(),ai_target)>Game_Constants::AI_ANGLE_MOD_IGNORE_DISTANCE){
+        Collision_Rect<double> box_check(box.x-Game_Constants::AI_ANGLE_MOD_DISTANCE,box.y-Game_Constants::AI_ANGLE_MOD_DISTANCE,
+                                         box.w+Game_Constants::AI_ANGLE_MOD_DISTANCE*2.0,box.h+Game_Constants::AI_ANGLE_MOD_DISTANCE*2.0);
+
+        vector<uint32_t> nearby_debris;
+        quadtree_debris.get_objects(nearby_debris,box_check);
+
+        unordered_set<uint32_t> collisions;
+
+        for(size_t i=0;i<nearby_debris.size();i++){
+            if(!collisions.count(nearby_debris[i])){
+                collisions.emplace(nearby_debris[i]);
+
+                const Debris& debris=Game::get_debris(nearby_debris[i]);
+                Collision_Rect<double> box_debris=debris.get_box();
+
+                double object_size=(box_debris.w+box_debris.h)/2.0;
+
+                double object_distance=Math::get_distance_between_points(box.get_center(),box_debris.get_center());
+                if(object_distance<=0.0){
+                    object_distance=0.0000001;
+                }
+
+                angle_determinant+=Vector((Game_Constants::AI_WEIGHT_AVOID_DEBRIS*object_size)/(object_distance*object_distance),Math::get_angle_to_point(box_debris.get_center(),box.get_center()));
+            }
+        }
+    }
+
+    angle=angle_determinant.direction;
 }
 
 void Ship::thrust(uint32_t frame){
@@ -1457,10 +1504,26 @@ void Ship::movement(uint32_t own_index,const Quadtree<double,uint32_t>& quadtree
     bool is_player=own_index==0;
 
     if(is_alive() && !is_landing() && (!is_player || !Game::player_is_landed()) && is_in_processing_range()){
+        double last_x=box.x;
+        double last_y=box.y;
+
         Vector_Components vc=velocity.get_components();
 
         box.x+=vc.a/(double)Engine::UPDATE_RATE;
         box.y+=vc.b/(double)Engine::UPDATE_RATE;
+
+        if(!ai_ignore_angle_mods){
+            if(Math::abs(box.x-last_x)+Math::abs(box.y-last_y)<Game_Constants::AI_TIME_WITHOUT_MOVING_DISTANCE_THRESHOLD){
+                time_without_moving++;
+            }
+            else{
+                time_without_moving=0;
+            }
+
+            if(time_without_moving>=Game_Constants::AI_TIME_WITHOUT_MOVING_ALLOWED*Engine::UPDATE_RATE/1000){
+                ai_ignore_angle_mods=true;
+            }
+        }
 
         if(!is_warping()){
             Collision_Rect<double> box_collision=get_collision_box();

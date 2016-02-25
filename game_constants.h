@@ -114,6 +114,13 @@ public:
     static double AI_PATROL_DISTANCE;
     static double MISSILE_HOMING_RANGE;
 
+    static double AI_ANGLE_MOD_IGNORE_DISTANCE;
+    static double AI_ANGLE_MOD_DISTANCE;
+    static double AI_WEIGHT_TARGET;
+    static double AI_WEIGHT_AVOID_DEBRIS;
+    static std::uint32_t AI_TIME_WITHOUT_MOVING_ALLOWED;
+    static double AI_TIME_WITHOUT_MOVING_DISTANCE_THRESHOLD;
+
     static double TRACTOR_RANGE;
     static double TRACTOR_FORCE;
 

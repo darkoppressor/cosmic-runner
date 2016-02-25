@@ -1175,7 +1175,7 @@ void Game::tick(){
 
 void Game::ai(){
     for(size_t i=1;i<ships.size();i++){
-        ships[i].ai(quadtree_ships,quadtree_planets,frame,(uint32_t)i,rng);
+        ships[i].ai(quadtree_ships,quadtree_planets,quadtree_debris,frame,(uint32_t)i,rng);
     }
 }
 

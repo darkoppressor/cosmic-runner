@@ -114,6 +114,13 @@ double Game_Constants::AI_FOLLOW_DISTANCE=0.0;
 double Game_Constants::AI_PATROL_DISTANCE=0.0;
 double Game_Constants::MISSILE_HOMING_RANGE=0.0;
 
+double Game_Constants::AI_ANGLE_MOD_IGNORE_DISTANCE=0.0;
+double Game_Constants::AI_ANGLE_MOD_DISTANCE=0.0;
+double Game_Constants::AI_WEIGHT_TARGET=0.0;
+double Game_Constants::AI_WEIGHT_AVOID_DEBRIS=0.0;
+uint32_t Game_Constants::AI_TIME_WITHOUT_MOVING_ALLOWED=0;
+double Game_Constants::AI_TIME_WITHOUT_MOVING_DISTANCE_THRESHOLD=0.0;
+
 double Game_Constants::TRACTOR_RANGE=0.0;
 double Game_Constants::TRACTOR_FORCE=0.0;
 
@@ -392,6 +399,25 @@ void Game_Constants_Loader::set_game_constant(string name,string value){
     }
     else if(name=="missile_homing_range"){
         Game_Constants::MISSILE_HOMING_RANGE=Strings::string_to_double(value);
+    }
+
+    else if(name=="ai_angle_mod_ignore_distance"){
+        Game_Constants::AI_ANGLE_MOD_IGNORE_DISTANCE=Strings::string_to_double(value);
+    }
+    else if(name=="ai_angle_mod_distance"){
+        Game_Constants::AI_ANGLE_MOD_DISTANCE=Strings::string_to_double(value);
+    }
+    else if(name=="ai_weight_target"){
+        Game_Constants::AI_WEIGHT_TARGET=Strings::string_to_double(value);
+    }
+    else if(name=="ai_weight_avoid_debris"){
+        Game_Constants::AI_WEIGHT_AVOID_DEBRIS=Strings::string_to_double(value);
+    }
+    else if(name=="ai_time_without_moving_allowed"){
+        Game_Constants::AI_TIME_WITHOUT_MOVING_ALLOWED=Strings::string_to_unsigned_long(value);
+    }
+    else if(name=="ai_time_without_moving_distance_threshold"){
+        Game_Constants::AI_TIME_WITHOUT_MOVING_DISTANCE_THRESHOLD=Strings::string_to_double(value);
     }
 
     else if(name=="tractor_range"){

@@ -454,6 +454,41 @@
 
 <game_constant>
 	//meters (pixels)
+	name:ai_angle_mod_ignore_distance
+	value:256.0
+</game_constant>
+
+<game_constant>
+	//meters (pixels)
+	name:ai_angle_mod_distance
+	value:512.0
+</game_constant>
+
+<game_constant>
+	name:ai_weight_target
+	value:750.0
+</game_constant>
+
+<game_constant>
+	name:ai_weight_avoid_debris
+	value:100000.0
+</game_constant>
+
+<game_constant>
+	//milliseconds
+	name:ai_time_without_moving_allowed
+	value:750
+</game_constant>
+
+<game_constant>
+	//meters (pixels)
+	//This should be lower than the slowest ship's maximum pixels per frame speed
+	name:ai_time_without_moving_distance_threshold
+	value:0.5
+</game_constant>
+
+<game_constant>
+	//meters (pixels)
 	name:tractor_range
 	value:256.0
 </game_constant>
