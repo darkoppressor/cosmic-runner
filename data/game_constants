@@ -107,6 +107,31 @@
 </game_constant>
 
 <game_constant>
+	name:hud_spacing
+	value:24.0
+</game_constant>
+
+<game_constant>
+	name:hud_max_bar_width
+	value:128.0
+</game_constant>
+
+<game_constant>
+	name:hud_bar_height
+	value:24.0
+</game_constant>
+
+<game_constant>
+	name:hud_bar_offset_x
+	value:14.0
+</game_constant>
+
+<game_constant>
+	name:hud_bar_offset_y
+	value:7.0
+</game_constant>
+
+<game_constant>
 	//integer percentage
 	name:collision_chance_debris
 	value:30

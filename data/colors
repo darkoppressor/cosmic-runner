@@ -95,6 +95,36 @@
 	rgb:255,255,153
 </color>
 
+<color>
+	name:hud_weapons_on
+	rgb:153,255,204
+</color>
+
+<color>
+	name:hud_weapons_off
+	rgb:255,153,153
+</color>
+
+<color>
+	name:hud_active
+	rgb:153,204,255
+</color>
+
+<color>
+	name:hud_active_on
+	rgb:153,255,204
+</color>
+
+<color>
+	name:hud_active_off
+	rgb:255,153,153
+</color>
+
+<color>
+	name:hud_cooldown
+	rgb:255,153,153
+</color>
+
 //** Engine Colors **//
 
 <color>

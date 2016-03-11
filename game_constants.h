@@ -30,6 +30,12 @@ public:
     static std::uint32_t BASE_BACKGROUND_DEBRIS;
     static double BACKGROUND_FADE_RATE;
 
+    static double HUD_SPACING;
+    static double HUD_MAX_BAR_WIDTH;
+    static double HUD_BAR_HEIGHT;
+    static double HUD_BAR_OFFSET_X;
+    static double HUD_BAR_OFFSET_Y;
+
     static std::uint32_t COLLISION_CHANCE_DEBRIS;
 
     static std::uint64_t SCORE_MULTIPLIER_INCREASE;

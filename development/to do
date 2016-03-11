@@ -2,10 +2,6 @@ Test all passive upgrades
 
 Note: change map screen to a minimap? It would be like now and show the planets
 
-Design and implement HUD
-Weapon cooldown/weapon enabled status
-Active cooldown/active status (for actives that are enabled/disabled)
-
 Police should not use their scanners when chasing the player
 
 If player start speed/maneuvering stays as is, tractor beams need to be weakened

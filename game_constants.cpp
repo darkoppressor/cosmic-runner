@@ -30,6 +30,12 @@ uint32_t Game_Constants::MAX_BACKGROUND_DEBRIS_SIZE=0;
 uint32_t Game_Constants::BASE_BACKGROUND_DEBRIS=0;
 double Game_Constants::BACKGROUND_FADE_RATE=0.0;
 
+double Game_Constants::HUD_SPACING=0.0;
+double Game_Constants::HUD_MAX_BAR_WIDTH=0.0;
+double Game_Constants::HUD_BAR_HEIGHT=0.0;
+double Game_Constants::HUD_BAR_OFFSET_X=0.0;
+double Game_Constants::HUD_BAR_OFFSET_Y=0.0;
+
 uint32_t Game_Constants::COLLISION_CHANCE_DEBRIS=0;
 
 uint64_t Game_Constants::SCORE_MULTIPLIER_INCREASE=0;
@@ -193,6 +199,22 @@ void Game_Constants_Loader::set_game_constant(string name,string value){
     }
     else if(name=="background_fade_rate"){
         Game_Constants::BACKGROUND_FADE_RATE=Strings::string_to_double(value);
+    }
+
+    else if(name=="hud_spacing"){
+        Game_Constants::HUD_SPACING=Strings::string_to_double(value);
+    }
+    else if(name=="hud_max_bar_width"){
+        Game_Constants::HUD_MAX_BAR_WIDTH=Strings::string_to_double(value);
+    }
+    else if(name=="hud_bar_height"){
+        Game_Constants::HUD_BAR_HEIGHT=Strings::string_to_double(value);
+    }
+    else if(name=="hud_bar_offset_x"){
+        Game_Constants::HUD_BAR_OFFSET_X=Strings::string_to_double(value);
+    }
+    else if(name=="hud_bar_offset_y"){
+        Game_Constants::HUD_BAR_OFFSET_Y=Strings::string_to_double(value);
     }
 
     else if(name=="collision_chance_debris"){

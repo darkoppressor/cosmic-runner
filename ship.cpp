@@ -261,6 +261,14 @@ void Ship::toggle_weapons(){
     weapons_enabled=!weapons_enabled;
 }
 
+uint32_t Ship::get_weapon_cooldown() const{
+    return weapon_cooldown;
+}
+
+uint32_t Ship::get_active_cooldown() const{
+    return active_cooldown;
+}
+
 void Ship::add_upgrade(string name){
     if(!has_upgrade(name)){
         Upgrade* upgrade=Game_Data::get_upgrade_type(name);

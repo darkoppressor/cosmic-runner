@@ -109,6 +109,8 @@ public:
     void remove_active();
     bool are_weapons_enabled() const;
     void toggle_weapons();
+    std::uint32_t get_weapon_cooldown() const;
+    std::uint32_t get_active_cooldown() const;
     void add_upgrade(std::string name);
     void remove_upgrade(std::string name);
 
