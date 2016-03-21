@@ -107,6 +107,7 @@ uint32_t Game_Constants::ITEM_SPAWN_RATE=0;
 uint32_t Game_Constants::MAX_ATTEMPTS_SPAWN=0;
 
 uint64_t Game_Constants::DESIRED_SHIPS_MULTIPLIER=0;
+uint64_t Game_Constants::DESIRED_SHIPS_BASE=0;
 uint64_t Game_Constants::DESIRED_SHIPS_MAX=0;
 uint64_t Game_Constants::MIN_SCORE_MULTIPLIER_TIER_1=0;
 uint64_t Game_Constants::MIN_SCORE_MULTIPLIER_TIER_2=0;
@@ -394,6 +395,9 @@ void Game_Constants_Loader::set_game_constant(string name,string value){
 
     else if(name=="desired_ships_multiplier"){
         Game_Constants::DESIRED_SHIPS_MULTIPLIER=Strings::string_to_unsigned_long(value);
+    }
+    else if(name=="desired_ships_base"){
+        Game_Constants::DESIRED_SHIPS_BASE=Strings::string_to_unsigned_long(value);
     }
     else if(name=="desired_ships_max"){
         Game_Constants::DESIRED_SHIPS_MAX=Strings::string_to_unsigned_long(value);

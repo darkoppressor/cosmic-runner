@@ -1000,7 +1000,7 @@ Coords<double> Game::get_spawn_point(double width,double height){
 void Game::generate_ships(){
     uint64_t ship_count=ships.size()-1;
 
-    uint64_t desired_ships=score_multiplier*Game_Constants::DESIRED_SHIPS_MULTIPLIER;
+    uint64_t desired_ships=Game_Constants::DESIRED_SHIPS_BASE+score_multiplier*Game_Constants::DESIRED_SHIPS_MULTIPLIER;
     if(desired_ships>Game_Constants::DESIRED_SHIPS_MAX){
         desired_ships=Game_Constants::DESIRED_SHIPS_MAX;
     }

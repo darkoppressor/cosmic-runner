@@ -422,6 +422,11 @@
 </game_constant>
 
 <game_constant>
+	name:desired_ships_base
+	value:10
+</game_constant>
+
+<game_constant>
 	name:desired_ships_max
 	value:100
 </game_constant>

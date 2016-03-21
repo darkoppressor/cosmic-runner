@@ -107,6 +107,7 @@ public:
     static std::uint32_t MAX_ATTEMPTS_SPAWN;
 
     static std::uint64_t DESIRED_SHIPS_MULTIPLIER;
+    static std::uint64_t DESIRED_SHIPS_BASE;
     static std::uint64_t DESIRED_SHIPS_MAX;
     static std::uint64_t MIN_SCORE_MULTIPLIER_TIER_1;
     static std::uint64_t MIN_SCORE_MULTIPLIER_TIER_2;
