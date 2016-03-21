@@ -114,6 +114,8 @@ public:
     void add_upgrade(std::string name);
     void remove_upgrade(std::string name);
 
+    void clamp_stats();
+
     bool has_laser() const;
     void calculate_laser_target(const Quadtree<double,std::uint32_t>& quadtree_ships,std::uint32_t own_index);
     void render_laser(bool is_player);

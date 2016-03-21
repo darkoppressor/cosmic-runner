@@ -285,6 +285,8 @@ void Ship::add_upgrade(string name){
         }
 
         upgrades.push_back(name);
+
+        clamp_stats();
     }
 }
 
@@ -296,6 +298,18 @@ void Ship::remove_upgrade(string name){
         else{
             i++;
         }
+    }
+
+    clamp_stats();
+}
+
+void Ship::clamp_stats(){
+    if(hull>get_hull_max()){
+        hull=get_hull_max();
+    }
+
+    if(shields>get_shields_max()){
+        shields=get_shields_max();
     }
 }
 
