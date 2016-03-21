@@ -1396,8 +1396,8 @@ void Ship::ai(const Quadtree<double,uint32_t>& quadtree_ships,const Quadtree<dou
         }
 
         //If not a police ship, use active
-        //If a police ship, only use active if not currently tractoring the player
-        if(get_faction()!="police" || !Game::is_player_tractored() || Game::get_tractoring_ship_index()!=own_index){
+        //If a police ship, only use active if not currently following or tractoring the player
+        if(get_faction()!="police" || (!ai_proximity_target_is_player() && (!Game::is_player_tractored() || Game::get_tractoring_ship_index()!=own_index))){
             use_active(false);
         }
     }
