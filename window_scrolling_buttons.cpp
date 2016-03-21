@@ -41,6 +41,23 @@ void Window::build_scrolling_buttons(){
                 buttons.back().set_dimensions();
             }
         }
+        else if(scrolling_buttons=="view_upgrades"){
+            vector<string> upgrades=Game::get_player_const().get_upgrades();
+
+            for(size_t i=0;i<upgrades.size();i++){
+                buttons.push_back(Button());
+                buttons.back().x=Object_Manager::get_font(font)->spacing_x*2;
+                buttons.back().y=0;
+                buttons.back().start_x=buttons.back().x;
+                buttons.back().start_y=buttons.back().y;
+                buttons.back().text=Game_Data::get_upgrade_type(upgrades[i])->display_name;
+                buttons.back().tooltip_text=Game_Data::get_upgrade_type(upgrades[i])->description;
+                buttons.back().font="standard_padded";
+                ///QQQ buttons.back().text_sprite.name="upgrade_"+upgrades[i];
+                buttons.back().event_function="";
+                buttons.back().set_dimensions();
+            }
+        }
         else if(scrolling_buttons=="server_list"){
             for(size_t i=0;i<Network_Client::server_list.size();i++){
                 buttons.push_back(Button());

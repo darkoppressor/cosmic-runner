@@ -2,7 +2,7 @@
 	name:ingame_menu
 	starting_position:-1,-1
 	width:180
-	height:151
+	height:173
 	title:Main Menu
 
 	<button>
@@ -15,6 +15,14 @@
 
 	<button>
 		location:-1,58
+		text:View Upgrades
+		event:open_window_view_upgrades
+		sound_moused:moused_1
+		sound_click:click_1
+	</button>
+
+	<button>
+		location:-1,80
 		text:New Game
 		event:start_game
 		sound_moused:moused_1
@@ -22,7 +30,7 @@
 	</button>
 
 	<button>
-		location:-1,80
+		location:-1,102
 		text:Stop Playing
 		event:stop_game
 		sound_moused:moused_1
@@ -30,7 +38,7 @@
 	</button>
 
 	<button>
-		location:-1,102
+		location:-1,124
 		text:Options
 		event:options_window
 		sound_moused:moused_1
@@ -38,7 +46,7 @@
 	</button>
 
 	<button>
-		location:-1,124
+		location:-1,146
 		text:Quit
 		event:quit
 		sound_moused:moused_1
