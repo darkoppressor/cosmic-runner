@@ -36,6 +36,13 @@ double Game_Constants::HUD_BAR_HEIGHT=0.0;
 double Game_Constants::HUD_BAR_OFFSET_X=0.0;
 double Game_Constants::HUD_BAR_OFFSET_Y=0.0;
 
+double Game_Constants::MINIMAP_BORDER_THICKNESS=0.0;
+double Game_Constants::MINIMAP_SHIP_SCALE=0.0;
+double Game_Constants::MINIMAP_ARROW_MAGNITUDE=0.0;
+double Game_Constants::MINIMAP_ARROW_ANGLE_MOD=0.0;
+uint32_t Game_Constants::MINIMAP_SIZE=0;
+int32_t Game_Constants::MINIMAP_LINE_THICKNESS=0;
+
 uint32_t Game_Constants::COLLISION_CHANCE_DEBRIS=0;
 
 uint64_t Game_Constants::SCORE_MULTIPLIER_INCREASE=0;
@@ -215,6 +222,25 @@ void Game_Constants_Loader::set_game_constant(string name,string value){
     }
     else if(name=="hud_bar_offset_y"){
         Game_Constants::HUD_BAR_OFFSET_Y=Strings::string_to_double(value);
+    }
+
+    else if(name=="minimap_border_thickness"){
+        Game_Constants::MINIMAP_BORDER_THICKNESS=Strings::string_to_double(value);
+    }
+    else if(name=="minimap_ship_scale"){
+        Game_Constants::MINIMAP_SHIP_SCALE=Strings::string_to_double(value);
+    }
+    else if(name=="minimap_arrow_magnitude"){
+        Game_Constants::MINIMAP_ARROW_MAGNITUDE=Strings::string_to_double(value);
+    }
+    else if(name=="minimap_arrow_angle_mod"){
+        Game_Constants::MINIMAP_ARROW_ANGLE_MOD=Strings::string_to_double(value);
+    }
+    else if(name=="minimap_size"){
+        Game_Constants::MINIMAP_SIZE=Strings::string_to_unsigned_long(value);
+    }
+    else if(name=="minimap_line_thickness"){
+        Game_Constants::MINIMAP_LINE_THICKNESS=Strings::string_to_long(value);
     }
 
     else if(name=="collision_chance_debris"){

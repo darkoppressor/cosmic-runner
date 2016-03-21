@@ -15,6 +15,8 @@ public:
 
     static bool show_collision_outlines;
 
+    static double minimap_opacity;
+
     static bool get_option(std::string name,std::string& value);
     static void set_option(std::string name,std::string value);
 };

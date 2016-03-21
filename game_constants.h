@@ -36,6 +36,13 @@ public:
     static double HUD_BAR_OFFSET_X;
     static double HUD_BAR_OFFSET_Y;
 
+    static double MINIMAP_BORDER_THICKNESS;
+    static double MINIMAP_SHIP_SCALE;
+    static double MINIMAP_ARROW_MAGNITUDE;
+    static double MINIMAP_ARROW_ANGLE_MOD;
+    static std::uint32_t MINIMAP_SIZE;
+    static std::int32_t MINIMAP_LINE_THICKNESS;
+
     static std::uint32_t COLLISION_CHANCE_DEBRIS;
 
     static std::uint64_t SCORE_MULTIPLIER_INCREASE;

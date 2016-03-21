@@ -14,6 +14,7 @@
 #include "item.h"
 #include "title.h"
 #include "background.h"
+#include "minimap.h"
 
 #include <quadtree.h>
 #include <rng.h>
@@ -40,6 +41,9 @@ private:
 
     static double background_opacity_planetary;
 
+    static Minimap minimap;
+    static bool show_minimap;
+
     static std::vector<Ship> ships;
     static std::vector<Debris> debris;
     static std::vector<Effect> effects;
@@ -52,6 +56,7 @@ private:
     static std::int32_t contract;
 
     static Sprite contract_sprite;
+    static Sprite contract_sprite_check;
     static Sprite no_contract_sprite;
 
     static Sprite police_lights_sprite;
@@ -124,6 +129,8 @@ public:
     static Title& get_title();
 
     static RNG& get_rng();
+
+    static void toggle_minimap();
 
     static void increase_score(std::uint64_t amount);
     static void increase_score_multiplier(std::uint64_t amount);
@@ -226,6 +233,8 @@ public:
     static void render_background();
 
     static bool move_input_state(std::string direction);
+
+    static bool is_object_over_planet(const std::vector<Coords<double>>& vertices,const Planet& planet);
 };
 
 #endif

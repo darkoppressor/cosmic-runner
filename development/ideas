@@ -28,9 +28,10 @@ Player can land on a planet if he has a contract targeting it
 Player can also land on a planet if he has no contract, and he will be assigned a new one
 Landing ships are invisible to other ships and shots for AI and collision purposes, and do not move
 
-Player can view a map of the planetary system
-The current contract target is shown on the map
+Player can toggle a map overlay displaying the planetary system
+The player's current location is shown on the map
 A directional indicator pointing from the player to the contract target is shown on the map
+
 A directional indicator is also shown in the game world
 A notifier is shown when no contract is held
 A notification should pop up briefly when a contract is completed

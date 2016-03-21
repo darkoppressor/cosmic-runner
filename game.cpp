@@ -35,6 +35,9 @@ Background Game::background_planetary;
 
 double Game::background_opacity_planetary=0.0;
 
+Minimap Game::minimap;
+bool Game::show_minimap=false;
+
 vector<Ship> Game::ships;
 vector<Debris> Game::debris;
 vector<Effect> Game::effects;
@@ -46,6 +49,7 @@ vector<Item> Game::items;
 int32_t Game::contract=0;
 
 Sprite Game::contract_sprite;
+Sprite Game::contract_sprite_check;
 Sprite Game::no_contract_sprite;
 
 Sprite Game::police_lights_sprite;
@@ -105,6 +109,9 @@ void Game::clear_world(){
 
     background_opacity_planetary=0.0;
 
+    minimap.clear_map();
+    show_minimap=false;
+
     ships.clear();
     debris.clear();
     effects.clear();
@@ -135,6 +142,7 @@ void Game::clear_world(){
     contract=-1;
 
     contract_sprite.set_name("contract_indicator_arrow");
+    contract_sprite_check.set_name("contract_indicator_check");
     no_contract_sprite.set_name("contract_indicator_none");
 
     police_lights_sprite.set_name("police_lights");
@@ -262,6 +270,8 @@ void Game::generate_world(){
             i++;
         }
     }
+
+    minimap.generate_map(Game_Constants::MINIMAP_SIZE,Game_Constants::MINIMAP_SIZE);
 
     //Setup initial contract
     assign_new_contract(get_nearest_planet());
@@ -395,6 +405,10 @@ Title& Game::get_title(){
 
 RNG& Game::get_rng(){
     return rng;
+}
+
+void Game::toggle_minimap(){
+    show_minimap=!show_minimap;
 }
 
 void Game::increase_score(uint64_t amount){
@@ -1336,6 +1350,7 @@ void Game::animate(){
 
     if(player_has_contract()){
         contract_sprite.animate();
+        contract_sprite_check.animate();
     }
     else{
         no_contract_sprite.animate();
@@ -1386,16 +1401,28 @@ void Game::render(){
         effects[i].render();
     }
 
+    if(show_minimap){
+        minimap.render();
+    }
+
     if(player_has_contract()){
         const Planet& planet=get_contract_planet();
         const Ship& player=get_player_const();
 
-        Collision_Rect<double> box_contract_indicator(((Game_Window::width()-contract_sprite.get_width())/2.0)*Game_Manager::camera_zoom+Game_Manager::camera.x,
-                                                      ((Game_Window::height()/4.0-contract_sprite.get_height())/2.0)*Game_Manager::camera_zoom+Game_Manager::camera.y,
-                                                      contract_sprite.get_width(),contract_sprite.get_height());
+        vector<Coords<double>> vertices;
+        player.get_box().get_vertices(vertices,player.get_angle());
 
-        contract_sprite.render((Game_Window::width()-contract_sprite.get_width())/2.0,(Game_Window::height()/4.0-contract_sprite.get_height())/2.0,1.0,1.0,1.0,
-                               box_contract_indicator.get_angle_to_circ(planet.get_circle()));
+        if(is_object_over_planet(vertices,planet)){
+            contract_sprite_check.render((Game_Window::width()-contract_sprite.get_width())/2.0,(Game_Window::height()/4.0-contract_sprite.get_height())/2.0);
+        }
+        else{
+            Collision_Rect<double> box_contract_indicator(((Game_Window::width()-contract_sprite.get_width())/2.0)*Game_Manager::camera_zoom+Game_Manager::camera.x,
+                                                          ((Game_Window::height()/4.0-contract_sprite.get_height())/2.0)*Game_Manager::camera_zoom+Game_Manager::camera.y,
+                                                          contract_sprite.get_width(),contract_sprite.get_height());
+
+            contract_sprite.render((Game_Window::width()-contract_sprite.get_width())/2.0,(Game_Window::height()/4.0-contract_sprite.get_height())/2.0,1.0,1.0,1.0,
+                                   box_contract_indicator.get_angle_to_circ(planet.get_circle()));
+        }
     }
     else{
         no_contract_sprite.render((Game_Window::width()-no_contract_sprite.get_width())/2.0,(Game_Window::height()/4.0-no_contract_sprite.get_height())/2.0);
@@ -1463,4 +1490,14 @@ bool Game::move_input_state(string direction){
     }
 
     return false;
+}
+
+bool Game::is_object_over_planet(const vector<Coords<double>>& vertices,const Planet& planet){
+    for(size_t i=0;i<vertices.size();i++){
+        if(!Collision::check_circ_rect(planet.get_circle(),Collision_Rect<double>(vertices[i].x,vertices[i].y,1.0,1.0))){
+            return false;
+        }
+    }
+
+    return true;
 }

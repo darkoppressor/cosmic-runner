@@ -132,6 +132,39 @@
 </game_constant>
 
 <game_constant>
+	//pixels
+	name:minimap_border_thickness
+	value:0.0
+</game_constant>
+
+<game_constant>
+	name:minimap_ship_scale
+	value:250.0
+</game_constant>
+
+<game_constant>
+	name:minimap_arrow_magnitude
+	value:40.0
+</game_constant>
+
+<game_constant>
+	name:minimap_arrow_angle_mod
+	value:22.5
+</game_constant>
+
+<game_constant>
+	//pixels
+	name:minimap_size
+	value:640
+</game_constant>
+
+<game_constant>
+	//pixels
+	name:minimap_line_thickness
+	value:4
+</game_constant>
+
+<game_constant>
 	//integer percentage
 	name:collision_chance_debris
 	value:30

@@ -95,6 +95,14 @@
 </animation>
 
 <animation>
+	name:contract_indicator_check
+	frame_count:3
+	animation_speed:300
+	frame_width:39
+	end_behavior:continue
+</animation>
+
+<animation>
 	name:contract_indicator_none
 	frame_count:3
 	animation_speed:300

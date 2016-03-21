@@ -69,6 +69,16 @@
 </game_command>
 
 <game_command>
+	name:toggle_minimap
+	title:Toggle Minimap
+	description:Toggle the minimap
+	developer:false
+	key:M
+	controller_button:leftshoulder
+	controller_axis:
+</game_command>
+
+<game_command>
 	name:brake
 	title:Brake
 	description:Brake

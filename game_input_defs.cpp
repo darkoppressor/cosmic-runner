@@ -194,7 +194,12 @@ bool Game_Manager::handle_game_command(string command_name){
     ///END OF DEV COMMANDS
 
     if(!paused){
-        if(command_name=="land"){
+        if(command_name=="toggle_minimap"){
+            Game::toggle_minimap();
+
+            return true;
+        }
+        else if(command_name=="land"){
             const Ship& player=Game::get_player_const();
 
             bool landed=false;
@@ -206,16 +211,7 @@ bool Game_Manager::handle_game_command(string command_name){
                 if(Game::player_has_contract()){
                     const Planet& planet=Game::get_contract_planet();
 
-                    bool over_planet=true;
-                    for(size_t i=0;i<vertices.size();i++){
-                        if(!Collision::check_circ_rect(planet.get_circle(),Collision_Rect<double>(vertices[i].x,vertices[i].y,1.0,1.0))){
-                            over_planet=false;
-
-                            break;
-                        }
-                    }
-
-                    if(over_planet){
+                    if(Game::is_object_over_planet(vertices,planet)){
                         Game::commence_landing(Game::get_contract_planet_index());
 
                         landed=true;
@@ -226,16 +222,7 @@ bool Game_Manager::handle_game_command(string command_name){
 
                     const Planet& planet=Game::get_planet(nearest_planet_index);
 
-                    bool over_planet=true;
-                    for(size_t i=0;i<vertices.size();i++){
-                        if(!Collision::check_circ_rect(planet.get_circle(),Collision_Rect<double>(vertices[i].x,vertices[i].y,1.0,1.0))){
-                            over_planet=false;
-
-                            break;
-                        }
-                    }
-
-                    if(over_planet){
+                    if(Game::is_object_over_planet(vertices,planet)){
                         Game::commence_landing(nearest_planet_index);
 
                         landed=true;

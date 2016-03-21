@@ -13,6 +13,8 @@ uint32_t Game_Options::background_layers_planetary=0;
 
 bool Game_Options::show_collision_outlines=false;
 
+double Game_Options::minimap_opacity=0.0;
+
 bool Game_Options::get_option(string name,string& value){
     if(name=="cl_background_layers_stars"){
         value=Strings::num_to_string(background_layers_stars);
@@ -29,6 +31,11 @@ bool Game_Options::get_option(string name,string& value){
 
         return true;
     }
+    else if(name=="cl_minimap_opacity"){
+        value=Strings::num_to_string(minimap_opacity);
+
+        return true;
+    }
 
     return false;
 }
@@ -42,5 +49,8 @@ void Game_Options::set_option(string name,string value){
     }
     else if(name=="cl_show_collision_outlines"){
         show_collision_outlines=Strings::string_to_bool(value);
+    }
+    else if(name=="cl_minimap_opacity"){
+        minimap_opacity=Strings::string_to_double(value);
     }
 }

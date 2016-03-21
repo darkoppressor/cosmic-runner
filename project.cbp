@@ -410,6 +410,8 @@
 		<Unit filename="item_type.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="main.h" />
+		<Unit filename="minimap.cpp" />
+		<Unit filename="minimap.h" />
 		<Unit filename="network_game.cpp" />
 		<Unit filename="network_game.h" />
 		<Unit filename="planet.cpp" />

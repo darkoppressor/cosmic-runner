@@ -53,6 +53,12 @@
 </game_option>
 
 <game_option>
+	name:cl_minimap_opacity
+	default:0.75
+	description:the opacity level of the minimap
+</game_option>
+
+<game_option>
 	name:cl_name
 	default:Newbie
 	description:your name

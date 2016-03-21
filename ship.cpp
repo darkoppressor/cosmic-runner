@@ -1349,16 +1349,7 @@ void Ship::ai(const Quadtree<double,uint32_t>& quadtree_ships,const Quadtree<dou
                     vector<Coords<double>> vertices;
                     box.get_vertices(vertices,angle);
 
-                    bool over_planet=true;
-                    for(size_t v=0;v<vertices.size();v++){
-                        if(!Collision::check_circ_rect(planet.get_circle(),Collision_Rect<double>(vertices[v].x,vertices[v].y,1.0,1.0))){
-                            over_planet=false;
-
-                            break;
-                        }
-                    }
-
-                    if(over_planet){
+                    if(Game::is_object_over_planet(vertices,planet)){
                         commence_landing(nearby_planets[i]);
 
                         return;

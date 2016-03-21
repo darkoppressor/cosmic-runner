@@ -46,6 +46,26 @@
 </color>
 
 <color>
+	name:minimap_border
+	rgb:242,242,242
+</color>
+
+<color>
+	name:minimap_planet
+	rgb:138,230,184
+</color>
+
+<color>
+	name:minimap_asteroid
+	rgb:230,184,138
+</color>
+
+<color>
+	name:minimap_arrow
+	rgb:242,242,242
+</color>
+
+<color>
 	name:ship_player
 	rgb:242,242,242
 </color>
