@@ -74,6 +74,8 @@ Sprite Game::tractor_sprite;
 
 Vector Game::player_acceleration;
 
+Dodging Game::dodging;
+
 vector<string> Game::upgrade_list;
 
 Quadtree<double,uint32_t> Game::quadtree_debris;
@@ -100,6 +102,70 @@ Ship& Game::get_player(){
         Log::add_error("Error accessing player ship");
 
         Engine::quit();
+    }
+}
+
+void Game::dodge_check(){
+    const Ship& player=get_player_const();
+
+    if(player.is_alive()){
+        dodging.cooldown();
+
+        Collision_Rect<double> box=player.get_box();
+        box.x-=Game_Constants::DODGE_RANGE;
+        box.y-=Game_Constants::DODGE_RANGE;
+        box.w+=Game_Constants::DODGE_RANGE*2.0;
+        box.h+=Game_Constants::DODGE_RANGE*2.0;
+
+        vector<uint32_t> nearby_debris;
+        quadtree_debris.get_objects(nearby_debris,box);
+
+        unordered_set<uint32_t> collisions;
+
+        for(size_t i=0;i<nearby_debris.size();i++){
+            if(!collisions.count(nearby_debris[i])){
+                collisions.emplace(nearby_debris[i]);
+
+                const Debris& debris=get_debris(nearby_debris[i]);
+
+                if(!dodging.is_debris_tracked(nearby_debris[i]) && !dodging.is_debris_cooling(nearby_debris[i])){
+                    //If the debris is within the dodge range
+                    if(Collision::check_rect_rotated(box,debris.get_collision_box(),player.get_angle(),debris.get_angle())){
+                        //If the player is not touching the debris
+                        if(!Collision::check_rect_rotated(player.get_collision_box(),debris.get_collision_box(),player.get_angle(),debris.get_angle())){
+                            dodging.begin_tracking_debris(nearby_debris[i]);
+                        }
+                        else{
+                            dodging.begin_cooling_debris(nearby_debris[i]);
+                        }
+                    }
+                }
+            }
+        }
+
+        vector<uint32_t> tracking=dodging.get_tracking();
+
+        for(size_t i=0;i<tracking.size();i++){
+            const Debris& debris=get_debris(tracking[i]);
+
+            //If the player is touching the debris
+            if(Collision::check_rect_rotated(player.get_collision_box(),debris.get_collision_box(),player.get_angle(),debris.get_angle())){
+                dodging.stop_tracking_debris(tracking[i]);
+                dodging.begin_cooling_debris(tracking[i]);
+            }
+            //If the debris is not within the dodge range
+            else if(!Collision::check_rect_rotated(box,debris.get_collision_box(),player.get_angle(),debris.get_angle())){
+                dodging.stop_tracking_debris(tracking[i]);
+                dodging.begin_cooling_debris(tracking[i]);
+
+                if(player.get_velocity().magnitude>Game_Constants::DODGE_SPEED_THRESHOLD){
+                    increase_score(Game_Constants::POINT_VALUE_DODGE);
+                }
+            }
+        }
+    }
+    else{
+        dodging.clear_lists();
     }
 }
 
@@ -136,6 +202,8 @@ void Game::clear_world(){
     tractor_sprite.set_name("tractor_beam");
 
     player_acceleration*=0.0;
+
+    dodging.clear_lists();
 
     upgrade_list.clear();
 
@@ -1243,6 +1311,8 @@ void Game::events(){
     const Ship& player=get_player_const();
 
     Sound_Manager::set_listener(player.get_box().center_x(),player.get_box().center_y(),Game_Manager::camera_zoom);
+
+    dodge_check();
 
     for(size_t i=1;i<ships.size();){
         if(!ships[i].is_alive() || ships[i].get_distance_to_player()>=Game_Constants::DESPAWN_DISTANCE){

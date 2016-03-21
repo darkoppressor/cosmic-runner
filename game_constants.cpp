@@ -48,6 +48,11 @@ uint32_t Game_Constants::COLLISION_CHANCE_DEBRIS=0;
 uint64_t Game_Constants::SCORE_MULTIPLIER_INCREASE=0;
 uint64_t Game_Constants::SCORE_MULTIPLIER_DECREASE=0;
 uint64_t Game_Constants::POINT_VALUE_CONTRACT=0;
+uint64_t Game_Constants::POINT_VALUE_DODGE=0;
+
+uint32_t Game_Constants::DODGE_OBJECT_COOLDOWN=0;
+double Game_Constants::DODGE_RANGE=0.0;
+double Game_Constants::DODGE_SPEED_THRESHOLD=0.0;
 
 uint32_t Game_Constants::UPGRADE_LIST_SIZE=0;
 
@@ -256,6 +261,19 @@ void Game_Constants_Loader::set_game_constant(string name,string value){
     }
     else if(name=="point_value_contract"){
         Game_Constants::POINT_VALUE_CONTRACT=Strings::string_to_unsigned_long(value);
+    }
+    else if(name=="point_value_dodge"){
+        Game_Constants::POINT_VALUE_DODGE=Strings::string_to_unsigned_long(value);
+    }
+
+    else if(name=="dodge_object_cooldown"){
+        Game_Constants::DODGE_OBJECT_COOLDOWN=Strings::string_to_unsigned_long(value);
+    }
+    else if(name=="dodge_range"){
+        Game_Constants::DODGE_RANGE=Strings::string_to_double(value);
+    }
+    else if(name=="dodge_speed_threshold"){
+        Game_Constants::DODGE_SPEED_THRESHOLD=Strings::string_to_double(value);
     }
 
     else if(name=="upgrade_list_size"){

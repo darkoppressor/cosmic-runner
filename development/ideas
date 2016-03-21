@@ -42,6 +42,12 @@ Score increases when:
 Destroying ships, each ship has a point value
 Picking up an item, each item has a point value
 Completing a contract, this is a set number, and points are added before increasing the score multiplier
+Dodging debris (explained below)
+
+When a piece of debris is in dodge range and is not in the cooldown list or being tracked, begin tracking it
+If the debris is hit, add it to the cooldown list
+If tracked debris leaves the dodge range, add it to the cooldown list
+If the player's speed is over the threshold when debris stops being tracked, add score
 
 Player has a score multiplier
 The score multiplier cannot drop below 1

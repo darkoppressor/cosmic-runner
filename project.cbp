@@ -384,6 +384,8 @@
 		<Unit filename="debris_type.cpp" />
 		<Unit filename="debris_type.h" />
 		<Unit filename="dev_info.cpp" />
+		<Unit filename="dodging.cpp" />
+		<Unit filename="dodging.h" />
 		<Unit filename="effect.cpp" />
 		<Unit filename="effect.h" />
 		<Unit filename="engine_glue.cpp" />

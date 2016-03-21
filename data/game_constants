@@ -186,6 +186,29 @@
 </game_constant>
 
 <game_constant>
+	name:point_value_dodge
+	value:1
+</game_constant>
+
+<game_constant>
+	//milliseconds
+	name:dodge_object_cooldown
+	value:5000
+</game_constant>
+
+<game_constant>
+	//pixels
+	name:dodge_range
+	value:16.0
+</game_constant>
+
+<game_constant>
+	//meters/second
+	name:dodge_speed_threshold
+	value:25.0
+</game_constant>
+
+<game_constant>
 	name:upgrade_list_size
 	value:3
 </game_constant>

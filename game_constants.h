@@ -48,6 +48,11 @@ public:
     static std::uint64_t SCORE_MULTIPLIER_INCREASE;
     static std::uint64_t SCORE_MULTIPLIER_DECREASE;
     static std::uint64_t POINT_VALUE_CONTRACT;
+    static std::uint64_t POINT_VALUE_DODGE;
+
+    static std::uint32_t DODGE_OBJECT_COOLDOWN;
+    static double DODGE_RANGE;
+    static double DODGE_SPEED_THRESHOLD;
 
     static std::uint32_t UPGRADE_LIST_SIZE;
 

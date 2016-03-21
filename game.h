@@ -15,6 +15,7 @@
 #include "title.h"
 #include "background.h"
 #include "minimap.h"
+#include "dodging.h"
 
 #include <quadtree.h>
 #include <rng.h>
@@ -83,6 +84,8 @@ private:
     //Simply used for information purposes
     static Vector player_acceleration;
 
+    static Dodging dodging;
+
     static std::vector<std::string> upgrade_list;
 
     static Quadtree<double,std::uint32_t> quadtree_debris;
@@ -99,6 +102,8 @@ private:
     static std::uint32_t item_spawn_check;
 
     static Ship& get_player();
+
+    static void dodge_check();
 
 public:
 
