@@ -56,6 +56,8 @@ Ship::Ship(string new_type,const Coords<double>& position,double new_angle){
 
     in_processing_range=false;
 
+    sound_cooldown_chasing_player=0;
+
     sprite.set_name(get_ship_type()->sprite);
 
     box.w=sprite.get_width();
@@ -1708,7 +1710,7 @@ void Ship::animate_scanner_startup(){
     }
 }
 
-void Ship::animate(){
+void Ship::animate(bool tractoring){
     if(is_alive()){
         if(thrusting){
             sprite.animate();
@@ -1718,6 +1720,15 @@ void Ship::animate(){
         }
 
         animate_scanner_startup();
+
+        if(tractoring ||
+           (get_faction()=="police" && ai_proximity_target_is_player() && !is_disabled(false) && (Game::notoriety_tier_1() || Game::notoriety_tier_2()))){
+            if(++sound_cooldown_chasing_player>=Game_Constants::CHASING_PLAYER_SOUND_RATE*Engine::UPDATE_RATE/1000){
+                sound_cooldown_chasing_player=0;
+
+                Sound_Manager::play_sound("siren",box.center_x(),box.center_y());
+            }
+        }
     }
 }
 

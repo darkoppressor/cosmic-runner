@@ -15,7 +15,7 @@
 	display_name:EMP
 	description:Active - makes an electromagnetic pulse go boom (don't worry, it probably won't affect your ship much)
 	type:active
-	sound:active_emp
+	sound:
 	cooldown:10000
 	power_use:25
 </upgrade>

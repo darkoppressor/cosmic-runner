@@ -147,6 +147,11 @@ public:
 
     static std::uint32_t AI_PROXIMITY_CHECK_PERIOD;
 
+    static double LOW_HULL_THRESHOLD;
+    static std::uint32_t DISABLED_SOUND_RATE;
+    static std::uint32_t LOW_HULL_SOUND_RATE;
+    static std::uint32_t CHASING_PLAYER_SOUND_RATE;
+
     static std::int32_t EXPLOSION_DAMAGE_SHIP;
 };
 

@@ -101,6 +101,9 @@ private:
     static std::uint32_t ship_spawn_check;
     static std::uint32_t item_spawn_check;
 
+    static std::uint32_t sound_cooldown_disabled;
+    static std::uint32_t sound_cooldown_low_hull;
+
     static Ship& get_player();
 
     static void dodge_check();
@@ -224,6 +227,8 @@ public:
     static void generate_items();
 
     static void game_over();
+
+    static void handle_repeating_sounds();
 
     static void tick();
     static void ai();

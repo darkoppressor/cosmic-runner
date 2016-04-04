@@ -91,6 +91,9 @@ uint32_t Game::frame=0;
 uint32_t Game::ship_spawn_check=0;
 uint32_t Game::item_spawn_check=0;
 
+uint32_t Game::sound_cooldown_disabled=0;
+uint32_t Game::sound_cooldown_low_hull=0;
+
 double Game::world_width=0.0;
 double Game::world_height=0.0;
 
@@ -230,6 +233,9 @@ void Game::clear_world(){
     frame=0;
     ship_spawn_check=0;
     item_spawn_check=0;
+
+    sound_cooldown_disabled=0;
+    sound_cooldown_low_hull=0;
 }
 
 void Game::generate_world(){
@@ -1185,6 +1191,29 @@ void Game::game_over(){
     Game_Manager::paused=true;
 
     Window_Manager::get_window("game_over")->toggle_on(true,true);
+
+    Sound_Manager::play_sound("game_over");
+}
+
+void Game::handle_repeating_sounds(){
+    const Ship& player=get_player_const();
+
+    if(player.is_disabled(true)){
+        if(++sound_cooldown_disabled>=Game_Constants::DISABLED_SOUND_RATE*Engine::UPDATE_RATE/1000){
+            sound_cooldown_disabled=0;
+
+            Sound_Manager::play_sound("disabled");
+        }
+    }
+    else{
+        double player_hull_percentage=(double)player.get_hull()/(double)player.get_hull_max();
+
+        if(player_hull_percentage<Game_Constants::LOW_HULL_THRESHOLD && ++sound_cooldown_low_hull>=Game_Constants::LOW_HULL_SOUND_RATE*Engine::UPDATE_RATE/1000){
+            sound_cooldown_low_hull=0;
+
+            Sound_Manager::play_sound("low_hull");
+        }
+    }
 }
 
 void Game::tick(){
@@ -1312,6 +1341,8 @@ void Game::events(){
 
     Sound_Manager::set_listener(player.get_box().center_x(),player.get_box().center_y(),Game_Manager::camera_zoom);
 
+    handle_repeating_sounds();
+
     dodge_check();
 
     for(size_t i=1;i<ships.size();){
@@ -1403,7 +1434,7 @@ void Game::animate(){
     }
 
     for(size_t i=0;i<ships.size();i++){
-        ships[i].animate();
+        ships[i].animate(is_player_tractored() && (uint32_t)i==tractoring_ship);
     }
 
     for(size_t i=0;i<shots.size();i++){

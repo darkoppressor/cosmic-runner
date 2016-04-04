@@ -600,6 +600,29 @@
 </game_constant>
 
 <game_constant>
+	name:low_hull_threshold
+	value:0.25
+</game_constant>
+
+<game_constant>
+	//milliseconds
+	name:disabled_sound_rate
+	value:659
+</game_constant>
+
+<game_constant>
+	//milliseconds
+	name:low_hull_sound_rate
+	value:550
+</game_constant>
+
+<game_constant>
+	//milliseconds
+	name:chasing_player_sound_rate
+	value:889
+</game_constant>
+
+<game_constant>
 	name:explosion_damage_ship
 	value:2
 </game_constant>

@@ -116,7 +116,7 @@
 	display_name:Stalker
 	description:Weapon - launches one very shiny guided missile
 	type:weapon
-	sound:weapon_guided_missile_single
+	sound:weapon_missile_single
 	cooldown:3000
 	shot_type:guided_missile
 	spread_type:none
@@ -132,7 +132,7 @@
 	display_name:Hunter
 	description:Weapon - launches more than two but less than four guided missiles
 	type:weapon
-	sound:weapon_guided_missile_triple
+	sound:weapon_missile_spread
 	cooldown:3000
 	shot_type:guided_missile
 	spread_type:normal
@@ -148,7 +148,7 @@
 	display_name:Swarmerator
 	description:Weapon - launches like, a lot of guided missiles
 	type:weapon
-	sound:weapon_guided_missile_swarm
+	sound:weapon_missile_circle
 	cooldown:3000
 	shot_type:guided_missile
 	spread_type:normal

@@ -147,6 +147,11 @@ uint32_t Game_Constants::MISSILE_HOMING_DELAY=0;
 
 uint32_t Game_Constants::AI_PROXIMITY_CHECK_PERIOD=0;
 
+double Game_Constants::LOW_HULL_THRESHOLD=0.0;
+uint32_t Game_Constants::DISABLED_SOUND_RATE=0;
+uint32_t Game_Constants::LOW_HULL_SOUND_RATE=0;
+uint32_t Game_Constants::CHASING_PLAYER_SOUND_RATE=0;
+
 int32_t Game_Constants::EXPLOSION_DAMAGE_SHIP=0;
 
 void Game_Constants_Loader::set_game_constant(string name,string value){
@@ -503,6 +508,19 @@ void Game_Constants_Loader::set_game_constant(string name,string value){
 
     else if(name=="ai_proximity_check_period"){
         Game_Constants::AI_PROXIMITY_CHECK_PERIOD=Strings::string_to_unsigned_long(value);
+    }
+
+    else if(name=="low_hull_threshold"){
+        Game_Constants::LOW_HULL_THRESHOLD=Strings::string_to_double(value);
+    }
+    else if(name=="disabled_sound_rate"){
+        Game_Constants::DISABLED_SOUND_RATE=Strings::string_to_unsigned_long(value);
+    }
+    else if(name=="low_hull_sound_rate"){
+        Game_Constants::LOW_HULL_SOUND_RATE=Strings::string_to_unsigned_long(value);
+    }
+    else if(name=="chasing_player_sound_rate"){
+        Game_Constants::CHASING_PLAYER_SOUND_RATE=Strings::string_to_unsigned_long(value);
     }
 
     else if(name=="explosion_damage_ship"){

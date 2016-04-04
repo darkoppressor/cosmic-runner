@@ -75,6 +75,8 @@ private:
     std::uint32_t time_without_moving;
     bool ai_ignore_angle_mods;
 
+    std::uint32_t sound_cooldown_chasing_player;
+
     bool in_processing_range;
 
     Sprite sprite;
@@ -216,7 +218,7 @@ public:
 
     void animate_scanner_startup();
 
-    void animate();
+    void animate(bool tractoring);
     void render(bool tractoring,bool is_player);
 };
 
