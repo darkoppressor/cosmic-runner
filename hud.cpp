@@ -50,7 +50,7 @@ void Hud::render_bar(string font_name,string font_color,string bar_color,const C
     string msg=Strings::num_to_string((int32_t)a)+"/"+Strings::num_to_string((int32_t)b);
 
     if(font!=0){
-        font->show(position.x+Game_Constants::HUD_BAR_OFFSET_X+bar_width/2.0-(msg.length()*font->spacing_x)/2.0,position.y+Game_Constants::HUD_BAR_OFFSET_Y+Game_Constants::HUD_BAR_HEIGHT/2.0-font->spacing_y/3.0,msg,font_color);
+        font->show(position.x+Game_Constants::HUD_BAR_OFFSET_X+Game_Constants::HUD_MAX_BAR_WIDTH/2.0-(msg.length()*font->spacing_x)/2.0,position.y+Game_Constants::HUD_BAR_OFFSET_Y+Game_Constants::HUD_BAR_HEIGHT/2.0-font->spacing_y/3.0,msg,font_color);
     }
 }
 
