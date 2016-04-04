@@ -170,9 +170,11 @@ void Minimap::render(){
         Collision_Rect<double> box=get_box();
 
         //Render the border
-        Render::render_rectangle_empty(box.x-Game_Constants::MINIMAP_BORDER_THICKNESS,box.y-Game_Constants::MINIMAP_BORDER_THICKNESS,
-                                 (double)width+Game_Constants::MINIMAP_BORDER_THICKNESS*2.0,(double)height+Game_Constants::MINIMAP_BORDER_THICKNESS*2.0,
-                                 Game_Options::minimap_opacity,"minimap_border",Game_Constants::MINIMAP_BORDER_THICKNESS);
+        if(Game_Constants::MINIMAP_BORDER_THICKNESS>0.0){
+            Render::render_rectangle_empty(box.x-Game_Constants::MINIMAP_BORDER_THICKNESS,box.y-Game_Constants::MINIMAP_BORDER_THICKNESS,
+                                           (double)width+Game_Constants::MINIMAP_BORDER_THICKNESS*2.0,(double)height+Game_Constants::MINIMAP_BORDER_THICKNESS*2.0,
+                                           Game_Options::minimap_opacity,"minimap_border",Game_Constants::MINIMAP_BORDER_THICKNESS);
+        }
 
         //Render the texture
         Render::render_texture(box.x,box.y,&image_data,Game_Options::minimap_opacity);
