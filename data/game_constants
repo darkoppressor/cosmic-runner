@@ -582,7 +582,7 @@
 <game_constant>
 	//N
 	name:tractor_force
-	value:3000.0
+	value:2000.0
 </game_constant>
 
 <game_constant>

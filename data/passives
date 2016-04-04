@@ -71,7 +71,7 @@
 	description:Passive - increases primary thrust
 	type:passive
 
-	thrust_accel:500.0
+	thrust_accel:1000.0
 </upgrade>
 
 <upgrade>
@@ -80,7 +80,7 @@
 	description:Passive - increases primary thrust, decreases cooldown rates
 	type:passive
 
-	thrust_accel:1000.0
+	thrust_accel:2000.0
     cooldown_up:250
 </upgrade>
 
@@ -90,7 +90,7 @@
 	description:Passive - increases maneuvering thrust
 	type:passive
 
-    thrust_decel:1000.0
+    thrust_decel:2000.0
 </upgrade>
 
 <upgrade>
@@ -99,7 +99,7 @@
 	description:Passive - increases maneuvering thrust, decreases maximum hull
 	type:passive
 
-    thrust_decel:2000.0
+    thrust_decel:4000.0
 	max_hull:-20
 </upgrade>
 
@@ -119,7 +119,7 @@
 	type:passive
 
 	max_speed:100.0
-    thrust_decel:-1000.0
+    thrust_decel:-2000.0
 </upgrade>
 
 <upgrade>
@@ -138,7 +138,7 @@
 	type:passive
 
     cooldown_down:500
-	thrust_accel:-500.0
+	thrust_accel:-1000.0
 </upgrade>
 
 <upgrade>

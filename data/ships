@@ -8,8 +8,8 @@
 	mass:300.0
 	hull_max:60
 	shields_max:0
-	thrust_accel:1000.0
-	thrust_decel:1000.0
+	thrust_accel:1500.0
+	thrust_decel:3000.0
 	max_speed:200.0
 	item_drop_min:0
 	item_drop_max:0
