@@ -3,8 +3,11 @@ screenshots/**
 
 data/images/**
 data/music/**
-!data/music/.gitkeep
 data/sounds/**
+
+!data/images/.gitkeep
+!data/music/.gitkeep
+!data/sounds/.gitkeep
 
 development/android/assets/**
 development/android/bin/**
