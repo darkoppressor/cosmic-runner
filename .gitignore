@@ -3,6 +3,7 @@ screenshots/**
 
 data/images/**
 data/music/**
+!data/music/.gitkeep
 data/sounds/**
 
 development/android/assets/**
