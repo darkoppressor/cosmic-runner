@@ -1,6 +1,10 @@
 .objs/**
 screenshots/**
 
+data/images/**
+data/music/**
+data/sounds/**
+
 development/android/assets/**
 development/android/bin/**
 development/android/gen/**
