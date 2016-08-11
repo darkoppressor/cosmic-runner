@@ -52,5 +52,5 @@ using namespace std;
 #endif
 
 int main(int argc,char* args[]){
-    return main_startup(Game_Data::game_data_load_item_count);
+    return main_startup(argc,args,Game_Data::game_data_load_item_count);
 }
