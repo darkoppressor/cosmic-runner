@@ -7,6 +7,7 @@
 	resolution_mode:scaling
 	logic_update_rate:60
 	frame_rate_max:200
+	android_gpg:false
 	network_lockstep:false
 	axis_scroll_rate:5
 	cursor_width:2

@@ -203,7 +203,7 @@ public class SDLActivity extends Activity {
         mLayout.addView(mSurface);
 
         setContentView(mLayout);
-        
+
         // Get filename from "Open with" of another application
         Intent intent = getIntent();
 
@@ -227,6 +227,8 @@ public class SDLActivity extends Activity {
         mLocationManager=(LocationManager)getSystemService(Context.LOCATION_SERVICE);
         mLocationListener=new GPSListener();
         mLocationHandler=new Handler(Looper.getMainLooper());
+
+        SDLActivity.nativeOnActivityCreated(this,savedInstanceState);
     }
 
     // Events
@@ -234,6 +236,8 @@ public class SDLActivity extends Activity {
     protected void onPause() {
         Log.v(TAG, "onPause()");
         super.onPause();
+
+        SDLActivity.nativeOnActivityPaused(this);
 
         if (SDLActivity.mBrokenLibraries) {
            return;
@@ -247,6 +251,8 @@ public class SDLActivity extends Activity {
         Log.v(TAG, "onResume()");
         super.onResume();
 
+        SDLActivity.nativeOnActivityResumed(this);
+
         if (SDLActivity.mBrokenLibraries) {
            return;
         }
@@ -254,6 +260,29 @@ public class SDLActivity extends Activity {
         SDLActivity.handleResume();
     }
 
+    @Override
+    protected void onStart(){
+        super.onStart();
+        SDLActivity.nativeOnActivityStarted(this);
+    }
+
+    @Override
+    protected void onStop(){
+        super.onStop();
+        SDLActivity.nativeOnActivityStopped(this);
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState){
+        super.onSaveInstanceState(outState);
+        SDLActivity.nativeOnActivitySaveInstanceState(this,outState);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode,int resultCode,Intent data){
+        super.onActivityResult(requestCode,resultCode,data);
+        SDLActivity.nativeOnActivityResult(this,requestCode,resultCode,data);
+    }
 
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
@@ -310,6 +339,9 @@ public class SDLActivity extends Activity {
         }
 
         super.onDestroy();
+
+        SDLActivity.nativeOnActivityDestroyed(this);
+
         // Reset everything in case the user re opens the app
         SDLActivity.initialize();
     }
@@ -447,6 +479,17 @@ public class SDLActivity extends Activity {
         msg.obj = data;
         return commandHandler.sendMessage(msg);
     }
+
+    // Implemented in C++.
+    // Added for Google Play Games on Android versions before API 14
+    private static native void nativeOnActivityCreated(Activity activity,Bundle savedInstanceState);
+    private static native void nativeOnActivityDestroyed(Activity activity);
+    private static native void nativeOnActivityPaused(Activity activity);
+    private static native void nativeOnActivityResumed(Activity activity);
+    private static native void nativeOnActivitySaveInstanceState(Activity activity,Bundle outState);
+    private static native void nativeOnActivityStarted(Activity activity);
+    private static native void nativeOnActivityStopped(Activity activity);
+    private static native void nativeOnActivityResult(Activity activity,int requestCode,int resultCode,Intent data);
 
     // C functions we call
     public static native int nativeInit(Object arguments);
@@ -1350,7 +1393,7 @@ class SDLSurface extends SurfaceView implements SurfaceHolder.Callback,
         SDLActivity.onNativeResize(width, height, sdlFormat, mDisplay.getRefreshRate());
         Log.v("SDL", "Window size: " + width + "x" + height);
 
- 
+
         boolean skip = false;
         int requestedOrientation = SDLActivity.mSingleton.getRequestedOrientation();
 
@@ -1373,7 +1416,7 @@ class SDLSurface extends SurfaceView implements SurfaceHolder.Callback,
         if (skip) {
            double min = Math.min(mWidth, mHeight);
            double max = Math.max(mWidth, mHeight);
-           
+
            if (max / min < 1.20) {
               Log.v("SDL", "Don't skip on such aspect-ratio. Could be a square resolution.");
               skip = false;
@@ -1803,10 +1846,10 @@ class SDLJoystickHandler_API12 extends SDLJoystickHandler {
                 joystick = new SDLJoystick();
                 InputDevice joystickDevice = InputDevice.getDevice(deviceIds[i]);
 
-                if ( 
-                      (joystickDevice.getSources() & InputDevice.SOURCE_CLASS_JOYSTICK) != 0 
+                if (
+                      (joystickDevice.getSources() & InputDevice.SOURCE_CLASS_JOYSTICK) != 0
                    ||
-                      (joystickDevice.getSources() & InputDevice.SOURCE_CLASS_BUTTON) != 0 
+                      (joystickDevice.getSources() & InputDevice.SOURCE_CLASS_BUTTON) != 0
                   )
                 {
                     joystick.device_id = deviceIds[i];
