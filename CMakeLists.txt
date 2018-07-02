@@ -13,6 +13,7 @@ debris.h
 debris_type.cpp
 debris_type.h
 dev_info.cpp
+directories_defs.cpp
 dodging.cpp
 dodging.h
 effect.cpp
