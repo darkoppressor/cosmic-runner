@@ -612,8 +612,6 @@ void Game::complete_contract(){
     generate_items();
 
     Engine::make_toast("Contract completed\nScore multiplier +"+Strings::num_to_string(Game_Constants::SCORE_MULTIPLIER_INCREASE));
-
-    Sound_Manager::play_sound("contract_completed");
 }
 
 void Game::cancel_contract(){
@@ -678,6 +676,8 @@ void Game::land(uint32_t landing_planet_index){
         build_upgrade_list();
 
         Window_Manager::get_window("select_upgrade")->toggle_on(true,true);
+
+        Sound_Manager::play_sound("contract_completed");
     }
     else if(!player_has_contract()){
         assign_new_contract((uint32_t)landed_planet);
