@@ -53,6 +53,7 @@ Player has a score multiplier
 The score multiplier cannot drop below 1
 Score multiplier increases when a contract is completed
 Score multiplier decreases when a contract is lost via the player being caught by police
+Score multiplier decreases when a contract is abandoned
 
 If a ship is chasing or fleeing from the player and is damage/killed by debris, the player is blamed
 
