@@ -201,7 +201,7 @@ void Game_Manager::render_loading_screen(const Progress_Bar& bar,string message)
         Game_Window::clear_renderer(Color(0,0,0,255));
 
         if(Data_Manager::are_images_loaded()){
-            ///Render::render_texture(0,0,Image_Manager::get_image("loading_screen"),0.25);
+            Render::render_texture(0,0,Image_Manager::get_image("title_background_0"));
         }
         else if(Data_Manager::are_colors_loaded()){
             Render::render_rectangle(0,0,Game_Window::width(),Game_Window::height(),1.0,"ui_2");

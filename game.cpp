@@ -619,6 +619,8 @@ void Game::complete_contract(){
 void Game::cancel_contract(){
     contract=-1;
 
+    decrease_score_multiplier(Game_Constants::SCORE_MULTIPLIER_DECREASE);
+
     Engine::make_toast("Contract abandoned");
 }
 
