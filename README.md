@@ -1,4 +1,6 @@
 # cosmic-runner
+[![Build Status](http://wells-family.xyz:8080/buildStatus/icon?job=template/master)](http://wells-family.xyz:8080/job/template/job/master/)
+
 A game in development by Cheese and Bacon Games
 http://cheeseandbacon.org/
 

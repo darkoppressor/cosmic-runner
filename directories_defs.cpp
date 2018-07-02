@@ -2,13 +2,10 @@
 /* This file is licensed under the MIT License. */
 /* See the file docs/LICENSE.txt for the full license text. */
 
-#include "main.h"
-#include "game_data.h"
-
-#include <main_startup.h>
+#include <directories.h>
 
 using namespace std;
 
-int main(int argc,char* args[]){
-    return main_startup(argc,args,Game_Data::game_data_load_item_count);
+void Directories::add_game_directories_to_list(){
+    ///directories.push_back("example_directory");
 }

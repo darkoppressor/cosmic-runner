@@ -35,5 +35,15 @@
 
 	<key>LSMinimumSystemVersion</key>
 	<string>10.7</string>
+
+	<key>CFBundleDocumentTypes</key>
+	<dict>
+	   <key>CFBundleTypeName</key>
+	   <string>public.data</string>
+	   <key>LSItemContentTypes</key>
+       <array>
+           <string>public.data</string>
+       </array>
+	</dict>
 </dict>
 </plist>
