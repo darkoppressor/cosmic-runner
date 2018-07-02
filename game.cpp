@@ -23,11 +23,6 @@
 
 using namespace std;
 
-#ifdef GAME_OS_ANDROID
-const uint64_t Game::UINT64_MAX=18446744073709551615;
-const uint32_t Game::UINT32_MAX=4294967295U;
-#endif
-
 Title Game::title;
 
 Background Game::background_stars;

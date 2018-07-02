@@ -30,11 +30,6 @@
 class Game{
 private:
 
-    #ifdef GAME_OS_ANDROID
-    static const std::uint64_t UINT64_MAX;
-    static const std::uint32_t UINT32_MAX;
-    #endif
-
     static Title title;
 
     static Background background_stars;
