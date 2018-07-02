@@ -118,7 +118,7 @@ Title_Sun::~Title_Sun(){
 }
 
 void Title_Sun::setup(string sprite_name){
-    base_surface=Render::load_image("data/images/"+sprite_name+".png");
+    base_surface=Render::load_image("images/"+sprite_name+".png");
 
     if(base_surface!=0){
         SDL_SetSurfaceBlendMode(base_surface,SDL_BLENDMODE_NONE);
