@@ -12,6 +12,8 @@
 #include <game_manager.h>
 #include <sound_manager.h>
 #include <render.h>
+#include <screen_shake.h>
+#include <controller_manager.h>
 
 #include <unordered_set>
 
@@ -459,7 +461,7 @@ void Ship::use_item(Item_Type* item_type){
         }
     }
     else if(item_type->restores_power()){
-        Game::increase_power();
+        Game::increase_power_item();
     }
 
     Game::increase_score(item_type->point_value);
@@ -776,6 +778,11 @@ void Ship::take_damage(bool is_player,int32_t damage,string damage_type,const Co
                                 Vector(rng.random_range(0,10),rng.random_range(0,359)),rng.random_range(0,359),
                                 Vector(0.01*rng.random_range(0,50),rng.random_range(0,359)),Game_Constants::EFFECT_LENGTH_HULL_DAMAGE,false,Coords<double>(),get_ship_type()->color);
 
+            if (is_player) {
+                Screen_Shake::add_shake(Game_Constants::SHAKE_MAGNITUDE_DAMAGE, Game_Constants::SHAKE_LENGTH_DAMAGE);
+                Controller_Manager::make_rumble(Controller_Manager::CONTROLLER_ID_ALL, Game_Constants::SHAKE_MAGNITUDE_DAMAGE, Game_Constants::SHAKE_LENGTH_DAMAGE);
+            }
+
             hull-=effective_damage;
 
             if(!is_alive()){
@@ -1032,6 +1039,8 @@ int32_t Ship::get_nearest_valid_target_ship(const Quadtree<double,uint32_t>& qua
 }
 
 bool Ship::fire_weapon(const Quadtree<double,uint32_t>& quadtree_ships,RNG& rng,uint32_t own_index){
+    bool is_player=own_index==0;
+
     if(has_weapon()){
         Collision_Rect<double> box_targeting=box;
 
@@ -1069,12 +1078,27 @@ bool Ship::fire_weapon(const Quadtree<double,uint32_t>& quadtree_ships,RNG& rng,
 
                 if(damage_type=="solid"){
                     damage_mod_for_one_shot=get_damage_mod_solid();
+
+                    if (is_player) {
+                        Screen_Shake::add_shake(Game_Constants::SHAKE_MAGNITUDE_WEAPON_SOLID, Game_Constants::SHAKE_LENGTH_WEAPON_SOLID);
+                        Controller_Manager::make_rumble(Controller_Manager::CONTROLLER_ID_ALL, Game_Constants::SHAKE_MAGNITUDE_WEAPON_SOLID, Game_Constants::SHAKE_LENGTH_WEAPON_SOLID);
+                    }
                 }
                 else if(damage_type=="explosive"){
                     damage_mod_for_one_shot=get_damage_mod_explosive();
+
+                    if (is_player) {
+                        Screen_Shake::add_shake(Game_Constants::SHAKE_MAGNITUDE_WEAPON_EXPLOSIVE, Game_Constants::SHAKE_LENGTH_WEAPON_EXPLOSIVE);
+                        Controller_Manager::make_rumble(Controller_Manager::CONTROLLER_ID_ALL, Game_Constants::SHAKE_MAGNITUDE_WEAPON_EXPLOSIVE, Game_Constants::SHAKE_LENGTH_WEAPON_EXPLOSIVE);
+                    }
                 }
                 else if(damage_type=="energy"){
                     damage_mod_for_one_shot=get_damage_mod_energy();
+
+                    if (is_player) {
+                        Screen_Shake::add_shake(Game_Constants::SHAKE_MAGNITUDE_WEAPON_ENERGY, Game_Constants::SHAKE_LENGTH_WEAPON_ENERGY);
+                        Controller_Manager::make_rumble(Controller_Manager::CONTROLLER_ID_ALL, Game_Constants::SHAKE_MAGNITUDE_WEAPON_ENERGY, Game_Constants::SHAKE_LENGTH_WEAPON_ENERGY);
+                    }
                 }
 
                 int32_t actual_damage_mod=damage_mod_for_one_shot/(int32_t)upgrade->shots;
@@ -1629,7 +1653,11 @@ void Ship::movement(uint32_t own_index,const Quadtree<double,uint32_t>& quadtree
                                     }
 
                                     if(Game::player_has_contract()){
-                                        Game::increase_notoriety(Game_Constants::NOTORIETY_INCREASE_SCAN);
+                                        if (Game::notoriety_tier_1() || Game::notoriety_tier_2()) {
+                                            Game::increase_notoriety(Game_Constants::NOTORIETY_INCREASE_SCAN);
+                                        } else {
+                                            Game::increase_notoriety(Game_Constants::NOTORIETY_INCREASE_SCAN_INITIAL);
+                                        }
                                     }
                                 }
                             }

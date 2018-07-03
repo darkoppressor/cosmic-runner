@@ -57,6 +57,7 @@ public:
     static std::uint32_t MAX_POWER;
     static std::int32_t ITEM_RESTORE_HULL;
     static std::uint32_t ITEM_RESTORE_POWER;
+    static std::uint32_t CONTRACT_RESTORE_POWER;
     static double ITEM_START_VELOCITY_MIN;
     static double ITEM_START_VELOCITY_MAX;
     static double ITEM_MAX_SPEED;
@@ -74,6 +75,7 @@ public:
     static std::uint32_t NOTORIETY_TIER_1;
     static std::uint32_t NOTORIETY_INCREASE_DAMAGE;
     static std::uint32_t NOTORIETY_INCREASE_SCAN;
+    static std::uint32_t NOTORIETY_INCREASE_SCAN_INITIAL;
     static std::uint32_t WEAPON_SPREAD_DISTANCE;
     static std::uint32_t ACTIVE_POWER_DRAIN_RATE;
     static double CLOAK_OPACITY;
@@ -121,6 +123,14 @@ public:
     static std::uint32_t LOW_HULL_SOUND_RATE;
     static std::uint32_t CHASING_PLAYER_SOUND_RATE;
     static std::int32_t EXPLOSION_DAMAGE_SHIP;
+    static double SHAKE_MAGNITUDE_DAMAGE;
+    static std::int32_t SHAKE_LENGTH_DAMAGE;
+    static double SHAKE_MAGNITUDE_WEAPON_SOLID;
+    static std::int32_t SHAKE_LENGTH_WEAPON_SOLID;
+    static double SHAKE_MAGNITUDE_WEAPON_EXPLOSIVE;
+    static std::int32_t SHAKE_LENGTH_WEAPON_EXPLOSIVE;
+    static double SHAKE_MAGNITUDE_WEAPON_ENERGY;
+    static std::int32_t SHAKE_LENGTH_WEAPON_ENERGY;
     /// END SCRIPT-GENERATED CONSTANT DECLARATIONS
 };
 

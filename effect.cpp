@@ -9,16 +9,19 @@
 #include <sound_manager.h>
 #include <engine.h>
 #include <render.h>
+#include <object_manager.h>
 
 using namespace std;
 
 Effect::Effect(std::string new_sprite,bool new_fade,double new_scale,const Coords<double>& position,string sound,const Vector& new_velocity,double new_angle,
-               const Vector& new_angular_velocity,uint32_t seconds,bool new_line,const Coords<double>& end_point,string new_color){
+               const Vector& new_angular_velocity,uint32_t seconds,bool new_line,const Coords<double>& end_point,string new_color,string new_text){
     done=false;
     opacity=1.0;
     fade=new_fade;
 
     line=new_line;
+
+    text=new_text;
 
     if(new_sprite.length()>0){
         sprite.set_name(new_sprite);
@@ -27,8 +30,15 @@ Effect::Effect(std::string new_sprite,bool new_fade,double new_scale,const Coord
     scale=new_scale;
 
     if(!line){
-        box.w=sprite.get_width()*scale;
-        box.h=sprite.get_height()*scale;
+        if (text.length() > 0) {
+            Bitmap_Font* font=Object_Manager::get_font("standard");
+
+            box.w=font->get_letter_width()*4.0*scale;
+            box.h=font->get_letter_height()*scale;
+        } else {
+            box.w=sprite.get_width()*scale;
+            box.h=sprite.get_height()*scale;
+        }
 
         box.x=position.x-box.w/2.0;
         box.y=position.y-box.h/2.0;
@@ -104,7 +114,7 @@ void Effect::movement(){
 
 void Effect::animate(){
     if(!is_done()){
-        if(!line){
+        if(!line && text.length() == 0){
             sprite.animate();
         }
 
@@ -127,7 +137,14 @@ void Effect::animate(){
 
 void Effect::render(){
     if(!is_done()){
-        if(!line){
+        if (text.length() > 0) {
+            if(Collision::check_rect(box*Game_Manager::camera_zoom,Game_Manager::camera)){
+                Bitmap_Font* font=Object_Manager::get_font("standard");
+
+                font->show(box.x*Game_Manager::camera_zoom-Game_Manager::camera.x,box.y*Game_Manager::camera_zoom-Game_Manager::camera.y,text,color,opacity,scale,scale,angle);
+            }
+        }
+        else if(!line){
             if(Collision::check_rect(box*Game_Manager::camera_zoom,Game_Manager::camera)){
                 sprite.render(box.x*Game_Manager::camera_zoom-Game_Manager::camera.x,box.y*Game_Manager::camera_zoom-Game_Manager::camera.y,opacity,scale,scale,angle,color);
             }

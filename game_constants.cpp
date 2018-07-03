@@ -56,6 +56,7 @@ uint32_t Game_Constants::DISABLED_LENGTH=0;
 uint32_t Game_Constants::MAX_POWER=0;
 int32_t Game_Constants::ITEM_RESTORE_HULL=0;
 uint32_t Game_Constants::ITEM_RESTORE_POWER=0;
+uint32_t Game_Constants::CONTRACT_RESTORE_POWER=0;
 double Game_Constants::ITEM_START_VELOCITY_MIN=0.0;
 double Game_Constants::ITEM_START_VELOCITY_MAX=0.0;
 double Game_Constants::ITEM_MAX_SPEED=0.0;
@@ -73,6 +74,7 @@ uint32_t Game_Constants::NOTORIETY_TIER_2=0;
 uint32_t Game_Constants::NOTORIETY_TIER_1=0;
 uint32_t Game_Constants::NOTORIETY_INCREASE_DAMAGE=0;
 uint32_t Game_Constants::NOTORIETY_INCREASE_SCAN=0;
+uint32_t Game_Constants::NOTORIETY_INCREASE_SCAN_INITIAL=0;
 uint32_t Game_Constants::WEAPON_SPREAD_DISTANCE=0;
 uint32_t Game_Constants::ACTIVE_POWER_DRAIN_RATE=0;
 double Game_Constants::CLOAK_OPACITY=0.0;
@@ -120,6 +122,14 @@ uint32_t Game_Constants::DISABLED_SOUND_RATE=0;
 uint32_t Game_Constants::LOW_HULL_SOUND_RATE=0;
 uint32_t Game_Constants::CHASING_PLAYER_SOUND_RATE=0;
 int32_t Game_Constants::EXPLOSION_DAMAGE_SHIP=0;
+double Game_Constants::SHAKE_MAGNITUDE_DAMAGE=0.0;
+int32_t Game_Constants::SHAKE_LENGTH_DAMAGE=0;
+double Game_Constants::SHAKE_MAGNITUDE_WEAPON_SOLID=0.0;
+int32_t Game_Constants::SHAKE_LENGTH_WEAPON_SOLID=0;
+double Game_Constants::SHAKE_MAGNITUDE_WEAPON_EXPLOSIVE=0.0;
+int32_t Game_Constants::SHAKE_LENGTH_WEAPON_EXPLOSIVE=0;
+double Game_Constants::SHAKE_MAGNITUDE_WEAPON_ENERGY=0.0;
+int32_t Game_Constants::SHAKE_LENGTH_WEAPON_ENERGY=0;
 /// END SCRIPT-GENERATED CONSTANT INITIALIZATIONS
 
 void Game_Constants_Loader::set_game_constant(string name,string value){
@@ -269,6 +279,9 @@ void Game_Constants_Loader::set_game_constant(string name,string value){
     else if(name=="item_restore_power"){
         Game_Constants::ITEM_RESTORE_POWER=Strings::string_to_unsigned_long(value);
     }
+    else if(name=="contract_restore_power"){
+        Game_Constants::CONTRACT_RESTORE_POWER=Strings::string_to_unsigned_long(value);
+    }
     else if(name=="item_start_velocity_min"){
         Game_Constants::ITEM_START_VELOCITY_MIN=Strings::string_to_double(value);
     }
@@ -319,6 +332,9 @@ void Game_Constants_Loader::set_game_constant(string name,string value){
     }
     else if(name=="notoriety_increase_scan"){
         Game_Constants::NOTORIETY_INCREASE_SCAN=Strings::string_to_unsigned_long(value);
+    }
+    else if(name=="notoriety_increase_scan_initial"){
+        Game_Constants::NOTORIETY_INCREASE_SCAN_INITIAL=Strings::string_to_unsigned_long(value);
     }
     else if(name=="weapon_spread_distance"){
         Game_Constants::WEAPON_SPREAD_DISTANCE=Strings::string_to_unsigned_long(value);
@@ -460,6 +476,30 @@ void Game_Constants_Loader::set_game_constant(string name,string value){
     }
     else if(name=="explosion_damage_ship"){
         Game_Constants::EXPLOSION_DAMAGE_SHIP=Strings::string_to_long(value);
+    }
+    else if(name=="shake_magnitude_damage"){
+        Game_Constants::SHAKE_MAGNITUDE_DAMAGE=Strings::string_to_double(value);
+    }
+    else if(name=="shake_length_damage"){
+        Game_Constants::SHAKE_LENGTH_DAMAGE=Strings::string_to_long(value);
+    }
+    else if(name=="shake_magnitude_weapon_solid"){
+        Game_Constants::SHAKE_MAGNITUDE_WEAPON_SOLID=Strings::string_to_double(value);
+    }
+    else if(name=="shake_length_weapon_solid"){
+        Game_Constants::SHAKE_LENGTH_WEAPON_SOLID=Strings::string_to_long(value);
+    }
+    else if(name=="shake_magnitude_weapon_explosive"){
+        Game_Constants::SHAKE_MAGNITUDE_WEAPON_EXPLOSIVE=Strings::string_to_double(value);
+    }
+    else if(name=="shake_length_weapon_explosive"){
+        Game_Constants::SHAKE_LENGTH_WEAPON_EXPLOSIVE=Strings::string_to_long(value);
+    }
+    else if(name=="shake_magnitude_weapon_energy"){
+        Game_Constants::SHAKE_MAGNITUDE_WEAPON_ENERGY=Strings::string_to_double(value);
+    }
+    else if(name=="shake_length_weapon_energy"){
+        Game_Constants::SHAKE_LENGTH_WEAPON_ENERGY=Strings::string_to_long(value);
     }
     /// END SCRIPT-GENERATED CONSTANT SETUP
 }

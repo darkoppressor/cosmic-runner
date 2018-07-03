@@ -135,7 +135,7 @@ public:
 
     static void toggle_minimap();
 
-    static void increase_score(std::uint64_t amount);
+    static void increase_score(std::uint64_t amount, bool add_effect = true);
     static void increase_score_multiplier(std::uint64_t amount);
     static void decrease_score_multiplier(std::uint64_t amount);
 
@@ -167,7 +167,8 @@ public:
 
     static std::uint32_t get_power();
     static bool player_is_out_of_power();
-    static void increase_power();
+    static void increase_power_item();
+    static void increase_power_contract();
     static void decrease_power();
     static void use_power(std::uint32_t amount);
 
@@ -191,7 +192,7 @@ public:
     static void set_player_acceleration(const Vector& acceleration);
 
     static void create_effect(std::string sprite,bool fade,double scale,const Coords<double>& position,std::string sound,const Vector& velocity,double angle,
-                              const Vector& angular_velocity,std::uint32_t seconds,bool line,const Coords<double>& end_point,std::string color="white");
+                              const Vector& angular_velocity,std::uint32_t seconds,bool line,const Coords<double>& end_point,std::string color="white",std::string text="");
 
     static void player_thrust(std::string direction);
     static void player_brake(bool brake);

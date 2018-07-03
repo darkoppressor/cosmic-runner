@@ -335,6 +335,13 @@
 </game_constant>
 
 <game_constant>
+	//seconds
+	name:contract_restore_power
+	value:30
+	type:uint32_t
+</game_constant>
+
+<game_constant>
 	//m/s
 	name:item_start_velocity_min
 	value:50.0
@@ -444,14 +451,21 @@
 <game_constant>
 	//seconds
 	name:notoriety_increase_damage
-	value:10
+	value:1
 	type:uint32_t
 </game_constant>
 
 <game_constant>
 	//seconds
 	name:notoriety_increase_scan
-	value:60
+	value:30
+	type:uint32_t
+</game_constant>
+
+<game_constant>
+	//seconds
+	name:notoriety_increase_scan_initial
+	value:130
 	type:uint32_t
 </game_constant>
 
@@ -534,13 +548,13 @@
 <game_constant>
 	//seconds
 	name:item_spawn_rate
-	value:45
+	value:40
 	type:uint32_t
 </game_constant>
 
 <game_constant>
 	name:max_attempts_spawn
-	value:10
+	value:15
 	type:uint32_t
 </game_constant>
 
@@ -624,7 +638,7 @@
 
 <game_constant>
 	name:desired_items_base
-	value:5.0
+	value:7.0
 	type:double
 </game_constant>
 
@@ -763,5 +777,53 @@
 <game_constant>
 	name:explosion_damage_ship
 	value:2
+	type:int32_t
+</game_constant>
+
+<game_constant>
+	name:shake_magnitude_damage
+	value:0.01
+	type:double
+</game_constant>
+
+<game_constant>
+	name:shake_length_damage
+	value:20
+	type:int32_t
+</game_constant>
+
+<game_constant>
+	name:shake_magnitude_weapon_solid
+	value:0.05
+	type:double
+</game_constant>
+
+<game_constant>
+	name:shake_length_weapon_solid
+	value:30
+	type:int32_t
+</game_constant>
+
+<game_constant>
+	name:shake_magnitude_weapon_explosive
+	value:0.025
+	type:double
+</game_constant>
+
+<game_constant>
+	name:shake_length_weapon_explosive
+	value:20
+	type:int32_t
+</game_constant>
+
+<game_constant>
+	name:shake_magnitude_weapon_energy
+	value:0.01
+	type:double
+</game_constant>
+
+<game_constant>
+	name:shake_length_weapon_energy
+	value:20
 	type:int32_t
 </game_constant>

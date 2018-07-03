@@ -480,7 +480,7 @@ void Game::toggle_minimap(){
     show_minimap=!show_minimap;
 }
 
-void Game::increase_score(uint64_t amount){
+void Game::increase_score(uint64_t amount, bool add_effect){
     amount*=score_multiplier;
 
     uint64_t available_space=UINT64_MAX-score;
@@ -490,6 +490,10 @@ void Game::increase_score(uint64_t amount){
     }
     else{
         score=UINT64_MAX;
+    }
+
+    if (add_effect) {
+        create_effect("", true, 1.0, get_player().get_box().get_center(), "", Vector(20.0, 90.0), 0.0, Vector(0.0, 0.0), 1, false, Coords<double>(), "ui_white", "+" + Strings::num_to_string(amount));
     }
 }
 
@@ -502,6 +506,8 @@ void Game::increase_score_multiplier(uint64_t amount){
     else{
         score_multiplier=UINT64_MAX;
     }
+
+    create_effect("", true, 1.0, get_player().get_box().get_center(), "", Vector(20.0, 90.0), 0.0, Vector(0.0, 0.0), 1, false, Coords<double>(), "ui_white", "x" + Strings::num_to_string(score_multiplier));
 }
 
 void Game::decrease_score_multiplier(uint64_t amount){
@@ -515,6 +521,8 @@ void Game::decrease_score_multiplier(uint64_t amount){
     if(score_multiplier==0){
         score_multiplier++;
     }
+
+    create_effect("", true, 1.0, get_player().get_box().get_center(), "", Vector(20.0, 90.0), 0.0, Vector(0.0, 0.0), 1, false, Coords<double>(), "hud_hull", "x" + Strings::num_to_string(score_multiplier));
 }
 
 uint32_t Game::get_nearest_planet(uint32_t ship_index){
@@ -596,9 +604,11 @@ uint32_t Game::get_contract_planet_index(){
 }
 
 void Game::complete_contract(){
-    increase_score(Game_Constants::POINT_VALUE_CONTRACT);
+    increase_score(Game_Constants::POINT_VALUE_CONTRACT, false);
 
     increase_score_multiplier(Game_Constants::SCORE_MULTIPLIER_INCREASE);
+
+    increase_power_contract();
 
     uint32_t current_planet=contract;
 
@@ -725,8 +735,16 @@ bool Game::player_is_out_of_power(){
     return power==0;
 }
 
-void Game::increase_power(){
+void Game::increase_power_item(){
     power+=Game_Constants::ITEM_RESTORE_POWER*Engine::UPDATE_RATE;
+
+    if(power>Game_Constants::MAX_POWER*Engine::UPDATE_RATE){
+        power=Game_Constants::MAX_POWER*Engine::UPDATE_RATE;
+    }
+}
+
+void Game::increase_power_contract(){
+    power+=Game_Constants::CONTRACT_RESTORE_POWER*Engine::UPDATE_RATE;
 
     if(power>Game_Constants::MAX_POWER*Engine::UPDATE_RATE){
         power=Game_Constants::MAX_POWER*Engine::UPDATE_RATE;
@@ -821,9 +839,9 @@ void Game::set_player_acceleration(const Vector& acceleration){
 }
 
 void Game::create_effect(string sprite,bool fade,double scale,const Coords<double>& position,string sound,const Vector& velocity,double angle,
-                         const Vector& angular_velocity,uint32_t seconds,bool line,const Coords<double>& end_point,string color){
+                         const Vector& angular_velocity,uint32_t seconds,bool line,const Coords<double>& end_point,string color,string text){
     if(Game_Manager::effect_allowed()){
-        effects.push_back(Effect(sprite,fade,scale,position,sound,velocity,angle,angular_velocity,seconds,line,end_point,color));
+        effects.push_back(Effect(sprite,fade,scale,position,sound,velocity,angle,angular_velocity,seconds,line,end_point,color,text));
     }
 }
 
