@@ -4,6 +4,7 @@
 
 #include "game.h"
 #include "background.h"
+#include "android_leaderboard.h"
 
 #include <game_manager.h>
 #include <options.h>
@@ -20,8 +21,6 @@
 #include <data_manager.h>
 #include <engine_strings.h>
 #include <engine_math.h>
-#include <window_manager.h>
-#include <android.h>
 
 #include <ctime>
 
@@ -29,6 +28,8 @@ using namespace std;
 
 void Game_Manager::on_startup () {
     Game::load_high_scores();
+
+    Android_Leaderboard::remove_android_buttons();
 }
 
 bool Game_Manager::effect_allowed(){
@@ -43,27 +44,7 @@ bool Game_Manager::effect_allowed(){
 }
 
 void Game_Manager::manage_music(){
-    Window* menu=Window_Manager::get_window("main_menu");
-
-    #ifdef GAME_OS_ANDROID
-        if(Android::gpg_is_silent_sign_in_attempt_complete()){
-            if(!Android::gpg_is_signed_in()){
-                menu->buttons.back().set_text("Sign In");
-                menu->informations.back().set_sprite("play_games_controller_gray");
-            }
-            else{
-                menu->buttons.back().set_text("Sign Out");
-                menu->informations.back().set_sprite("play_games_controller_green");
-            }
-        }
-        else{
-            menu->buttons.back().set_text("Sign In");
-            menu->informations.back().set_sprite("play_games_controller_gray");
-        }
-    #else
-        menu->buttons.back().set_text("Sign In");
-        menu->informations.back().set_sprite("play_games_controller_gray");
-    #endif
+    Android_Leaderboard::update_windows();
 
     string music_to_play="";
 

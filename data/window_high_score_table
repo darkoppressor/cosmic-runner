@@ -3,11 +3,24 @@
 	starting_position:-1,-1
 	width:800
 	height:480
-	title:High Scores
+	title:High Scores (Local)
 
 	<info>
 		location:2,36
 		special_text:high_scores
 	</info>
+
+	<info>
+		location:4,447
+		sprite:play_games_leaderboards_gray
+	</info>
+
+	<button>
+		location:40,453
+		text:Google Play Games Leaderboard
+		event:gpg_show_leaderboard_CgkIlKGin6YbEAIQAQ
+		sound_moused:moused_1
+		sound_click:click_1
+	</button>
 
 </window>

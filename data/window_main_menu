@@ -38,19 +38,6 @@
 	</button>
 
 	<info>
-		location:4,124
-		sprite:play_games_leaderboards_green
-	</info>
-
-	<button>
-		location:40,130
-		text:Leaderboards
-		event:gpg_show_all_leaderboards
-		sound_moused:moused_1
-		sound_click:click_1
-	</button>
-
-	<info>
 		location:4,152
 		sprite:play_games_controller_gray
 	</info>
