@@ -77,7 +77,11 @@ bool Item::vacuum(){
         Vector vacuum_force(Game_Constants::ITEM_VACUUM_FORCE,Math::get_angle_to_point(box.get_center(),player.get_box().get_center()));
 
         force+=vacuum_force;
+
+        return true;
     }
+
+    return false;
 }
 
 void Item::brake(){
