@@ -82,6 +82,8 @@ Quadtree<double,uint32_t> Game::quadtree_planets;
 
 RNG Game::rng;
 
+High_Score_Table Game::high_score_table;
+
 uint32_t Game::frame=0;
 uint32_t Game::ship_spawn_check=0;
 uint32_t Game::item_spawn_check=0;
@@ -1200,6 +1202,24 @@ void Game::generate_items(){
             items.push_back(Item(type,spawn_point,Vector(0.0,0.0),rng.random_range(0,359),Vector(0.0,0.0)));
         }
     }
+}
+
+vector<High_Score> Game::get_high_scores () {
+    return high_score_table.get_high_scores();
+}
+
+void Game::load_high_scores () {
+    high_score_table.load_high_scores();
+}
+
+bool Game::is_score_high () {
+    return high_score_table.is_score_high(score);
+}
+
+void Game::add_high_score (string name) {
+    high_score_table.add_score(High_Score(name, score));
+
+    high_score_table.save_high_scores();
 }
 
 void Game::game_over(){

@@ -16,9 +16,32 @@ bool Button_Events::handle_button_event_game(string button_event,Window* parent_
     if(button_event=="game_over"){
         Window_Manager::close_all_windows();
 
+        if (Game::is_score_high()) {
+            Window_Manager::get_window("input_name")->toggle_on();
+        } else {
+            Game_Manager::stop();
+
+            Window_Manager::get_window("main_menu")->toggle_on();
+
+            Window_Manager::get_window("high_scores")->toggle_on();
+        }
+
+        window_opened_on_top=true;
+
+        return true;
+    }
+    else if(button_event=="name"){
+        Window_Manager::close_all_windows();
+
+        if (parent_window != 0) {
+            Game::add_high_score(parent_window->get_info_text(0));
+        }
+
         Game_Manager::stop();
 
         Window_Manager::get_window("main_menu")->toggle_on();
+
+        Window_Manager::get_window("high_scores")->toggle_on();
 
         window_opened_on_top=true;
 

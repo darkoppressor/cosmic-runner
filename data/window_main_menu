@@ -2,7 +2,7 @@
 	name:main_menu
 	starting_position:-1,-1
 	width:180
-	height:107
+	height:129
 	title:Main Menu
 
 	<button>
@@ -15,6 +15,14 @@
 
 	<button>
 		location:-1,58
+		text:High Scores
+		event:open_window_high_scores
+		sound_moused:moused_1
+		sound_click:click_1
+	</button>
+
+	<button>
+		location:-1,80
 		text:Options
 		event:options_window
 		sound_moused:moused_1
@@ -22,7 +30,7 @@
 	</button>
 
 	<button>
-		location:-1,80
+		location:-1,102
 		text:Quit
 		event:quit
 		sound_moused:moused_1

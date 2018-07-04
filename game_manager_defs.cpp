@@ -25,6 +25,10 @@
 
 using namespace std;
 
+void Game_Manager::on_startup () {
+    Game::load_high_scores();
+}
+
 bool Game_Manager::effect_allowed(){
     uint32_t effects=Game::get_effect_count();
 

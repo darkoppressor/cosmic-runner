@@ -1,0 +1,30 @@
+<window>
+	name:input_name
+	starting_position:-1,-1
+	width:400
+	height:107
+	title:Enter your name
+	disallow_closing:true
+
+	<info>
+		location:2,36
+		text:Please enter your name now:
+	</info>
+
+	<info>
+		location:2,58
+		mutable:true
+		max_text_length:32
+		allowed_input:backspace,space,letters,numbers,symbols_posix
+		background_type:standard
+	</info>
+
+	<button>
+		location:150,80
+		text:OK
+		event:name
+		sound_moused:moused_1
+		sound_click:click_1
+	</button>
+
+</window>

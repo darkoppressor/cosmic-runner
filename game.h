@@ -16,6 +16,7 @@
 #include "background.h"
 #include "minimap.h"
 #include "dodging.h"
+#include "high_score_table.h"
 
 #include <quadtree.h>
 #include <rng.h>
@@ -91,6 +92,8 @@ private:
     static Quadtree<double,std::uint32_t> quadtree_planets;
 
     static RNG rng;
+
+    static High_Score_Table high_score_table;
 
     static std::uint32_t frame;
     static std::uint32_t ship_spawn_check;
@@ -221,6 +224,11 @@ public:
 
     static void generate_ships();
     static void generate_items();
+
+    static std::vector<High_Score> get_high_scores();
+    static void load_high_scores();
+    static bool is_score_high();
+    static void add_high_score(std::string name);
 
     static void game_over();
 

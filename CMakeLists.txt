@@ -24,6 +24,10 @@ explosion.h
 game.cpp
 game.h
 game.rc
+high_score_table.cpp
+high_score_table.h
+high_score.cpp
+high_score.h
 game_constants.cpp
 game_constants.h
 game_data.cpp
