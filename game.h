@@ -138,6 +138,10 @@ public:
 
     static void toggle_minimap();
 
+    static double get_score_multiplier_accel();
+    static double get_score_multiplier_decel();
+    static double get_score_multiplier_max_speed();
+
     static void increase_score(std::uint64_t amount, bool add_effect = true);
     static void increase_score_multiplier(std::uint64_t amount);
     static void decrease_score_multiplier(std::uint64_t amount);

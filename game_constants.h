@@ -131,6 +131,9 @@ public:
     static std::int32_t SHAKE_LENGTH_WEAPON_EXPLOSIVE;
     static double SHAKE_MAGNITUDE_WEAPON_ENERGY;
     static std::int32_t SHAKE_LENGTH_WEAPON_ENERGY;
+    static double SCORE_MULTIPLIER_ACCEL;
+    static double SCORE_MULTIPLIER_DECEL;
+    static double SCORE_MULTIPLIER_MAX_SPEED;
     /// END SCRIPT-GENERATED CONSTANT DECLARATIONS
 };
 

@@ -482,6 +482,30 @@ void Game::toggle_minimap(){
     show_minimap=!show_minimap;
 }
 
+double Game::get_score_multiplier_accel () {
+    if (score_multiplier > 1) {
+        return Game_Constants::SCORE_MULTIPLIER_ACCEL * (score_multiplier - 1);
+    } else {
+        return 0.0;
+    }
+}
+
+double Game::get_score_multiplier_decel () {
+    if (score_multiplier > 1) {
+        return Game_Constants::SCORE_MULTIPLIER_DECEL * (score_multiplier - 1);
+    } else {
+        return 0.0;
+    }
+}
+
+double Game::get_score_multiplier_max_speed () {
+    if (score_multiplier > 1) {
+        return Game_Constants::SCORE_MULTIPLIER_MAX_SPEED * (score_multiplier - 1);
+    } else {
+        return 0.0;
+    }
+}
+
 void Game::increase_score(uint64_t amount, bool add_effect){
     amount*=score_multiplier;
 

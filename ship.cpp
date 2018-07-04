@@ -485,6 +485,8 @@ double Ship::get_thrust_accel() const{
             }
         }
 
+        value += Game::get_score_multiplier_accel();
+
         if(value<1.0){
             value=1.0;
         }
@@ -508,6 +510,8 @@ double Ship::get_thrust_decel() const{
             }
         }
 
+        value += Game::get_score_multiplier_decel();
+
         if(value<1.0){
             value=1.0;
         }
@@ -530,6 +534,8 @@ double Ship::get_max_speed() const{
                 value+=upgrade->max_speed;
             }
         }
+
+        value += Game::get_score_multiplier_max_speed();
 
         if(value<1.0){
             value=1.0;

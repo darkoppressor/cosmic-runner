@@ -130,6 +130,9 @@ double Game_Constants::SHAKE_MAGNITUDE_WEAPON_EXPLOSIVE=0.0;
 int32_t Game_Constants::SHAKE_LENGTH_WEAPON_EXPLOSIVE=0;
 double Game_Constants::SHAKE_MAGNITUDE_WEAPON_ENERGY=0.0;
 int32_t Game_Constants::SHAKE_LENGTH_WEAPON_ENERGY=0;
+double Game_Constants::SCORE_MULTIPLIER_ACCEL=0.0;
+double Game_Constants::SCORE_MULTIPLIER_DECEL=0.0;
+double Game_Constants::SCORE_MULTIPLIER_MAX_SPEED=0.0;
 /// END SCRIPT-GENERATED CONSTANT INITIALIZATIONS
 
 void Game_Constants_Loader::set_game_constant(string name,string value){
@@ -500,6 +503,15 @@ void Game_Constants_Loader::set_game_constant(string name,string value){
     }
     else if(name=="shake_length_weapon_energy"){
         Game_Constants::SHAKE_LENGTH_WEAPON_ENERGY=Strings::string_to_long(value);
+    }
+    else if(name=="score_multiplier_accel"){
+        Game_Constants::SCORE_MULTIPLIER_ACCEL=Strings::string_to_double(value);
+    }
+    else if(name=="score_multiplier_decel"){
+        Game_Constants::SCORE_MULTIPLIER_DECEL=Strings::string_to_double(value);
+    }
+    else if(name=="score_multiplier_max_speed"){
+        Game_Constants::SCORE_MULTIPLIER_MAX_SPEED=Strings::string_to_double(value);
     }
     /// END SCRIPT-GENERATED CONSTANT SETUP
 }
