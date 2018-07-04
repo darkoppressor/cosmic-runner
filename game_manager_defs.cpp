@@ -20,6 +20,8 @@
 #include <data_manager.h>
 #include <engine_strings.h>
 #include <engine_math.h>
+#include <window_manager.h>
+#include <android.h>
 
 #include <ctime>
 
@@ -41,6 +43,28 @@ bool Game_Manager::effect_allowed(){
 }
 
 void Game_Manager::manage_music(){
+    Window* menu=Window_Manager::get_window("main_menu");
+
+    #ifdef GAME_OS_ANDROID
+        if(Android::gpg_is_silent_sign_in_attempt_complete()){
+            if(!Android::gpg_is_signed_in()){
+                menu->buttons.back().set_text("Sign In");
+                menu->informations.back().set_sprite("play_games_controller_gray");
+            }
+            else{
+                menu->buttons.back().set_text("Sign Out");
+                menu->informations.back().set_sprite("play_games_controller_green");
+            }
+        }
+        else{
+            menu->buttons.back().set_text("Sign In");
+            menu->informations.back().set_sprite("play_games_controller_gray");
+        }
+    #else
+        menu->buttons.back().set_text("Sign In");
+        menu->informations.back().set_sprite("play_games_controller_gray");
+    #endif
+
     string music_to_play="";
 
     /**if(in_progress){

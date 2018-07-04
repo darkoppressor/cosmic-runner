@@ -6,6 +6,7 @@
 #include "game_data.h"
 #include "game_constants.h"
 #include "hud.h"
+#include "android_leaderboard.h"
 
 #include <render.h>
 #include <game_window.h>
@@ -17,6 +18,7 @@
 #include <engine_data.h>
 #include <engine_strings.h>
 #include <window_manager.h>
+#include <android.h>
 
 #include <ctime>
 #include <unordered_set>
@@ -93,6 +95,8 @@ uint32_t Game::sound_cooldown_low_hull=0;
 
 double Game::world_width=0.0;
 double Game::world_height=0.0;
+
+bool Game::android_need_to_check_failed_leaderboard_submissions=true;
 
 Ship& Game::get_player(){
     if(!ships.empty()){
@@ -355,6 +359,10 @@ void Game::generate_world(){
     quadtree_planets.setup(10,5,0,Collision_Rect<double>(0,0,world_width,world_height));
 
     generate_ships();
+}
+
+void Game::android_gpg_signing_in(){
+    android_need_to_check_failed_leaderboard_submissions=true;
 }
 
 uint32_t Game::get_ship_count(){
@@ -1399,6 +1407,12 @@ void Game::events(){
     const Ship& player=get_player_const();
 
     Sound_Manager::set_listener(player.get_box().center_x(),player.get_box().center_y(),Game_Manager::camera_zoom);
+
+    if(android_need_to_check_failed_leaderboard_submissions && Android::gpg_is_signed_in()){
+        android_need_to_check_failed_leaderboard_submissions=false;
+
+        Android_Leaderboard::check_for_failed_submissions();
+    }
 
     handle_repeating_sounds();
 

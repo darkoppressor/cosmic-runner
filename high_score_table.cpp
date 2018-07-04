@@ -6,6 +6,7 @@
 
 #include <file_io.h>
 #include <engine_strings.h>
+#include <directories.h>
 
 #include <string>
 
@@ -20,7 +21,7 @@ vector<High_Score> High_Score_Table::get_high_scores() const {
 void High_Score_Table::load_high_scores () {
     high_scores.clear();
 
-    File_IO_Load load("high_scores", false, false, false, false);
+    File_IO_Load load(Directories::get_save_directory() + "high_scores");
 
     if (load.is_opened()) {
         while (!load.eof()) {
@@ -61,7 +62,7 @@ void High_Score_Table::save_high_scores () {
         data += high_score.get_name() + "," + Strings::num_to_string(high_score.get_score()) + "\n";
     }
 
-    File_IO::save_atomic("high_scores", data, false, false, false);
+    File_IO::save_atomic(Directories::get_save_directory() + "high_scores", data);
 }
 
 bool High_Score_Table::is_score_high (uint64_t score) {

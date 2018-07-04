@@ -21,7 +21,7 @@ string Special_Info::get_special_info_text(string special_info){
             text+="Your career has come to an abrupt end.\nYou scored " + Strings::num_to_string(Game::get_score()) + " points.";
 
             if (Game::is_score_high()) {
-                text+="\nYou've made it onto the high score table!";
+                text+="\nYou've made it onto the local high score table!";
             }
         } else if (special_info=="high_scores") {
             vector<High_Score> high_scores = Game::get_high_scores();

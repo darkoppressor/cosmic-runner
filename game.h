@@ -102,6 +102,8 @@ private:
     static std::uint32_t sound_cooldown_disabled;
     static std::uint32_t sound_cooldown_low_hull;
 
+    static bool android_need_to_check_failed_leaderboard_submissions;
+
     static Ship& get_player();
 
     static void dodge_check();
@@ -114,6 +116,8 @@ public:
 
     static void clear_world();
     static void generate_world();
+
+    static void android_gpg_signing_in();
 
     static std::uint32_t get_ship_count();
     static std::uint32_t get_item_count();

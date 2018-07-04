@@ -2,6 +2,8 @@ cmake_minimum_required(VERSION 3.2.2)
 project(cosmic-runner)
 
 set(SOURCE_FILES
+android_leaderboard.cpp
+android_leaderboard.h
 android_native_functions.cpp
 background.cpp
 background.h
