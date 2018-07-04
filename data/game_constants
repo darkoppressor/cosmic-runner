@@ -830,18 +830,18 @@
 
 <game_constant>
 	name:score_multiplier_accel
-	value:100.0
+	value:50.0
 	type:double
 </game_constant>
 
 <game_constant>
 	name:score_multiplier_decel
-	value:200.0
+	value:100.0
 	type:double
 </game_constant>
 
 <game_constant>
 	name:score_multiplier_max_speed
-	value:25.0
+	value:10.0
 	type:double
 </game_constant>
