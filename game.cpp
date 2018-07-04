@@ -495,7 +495,7 @@ void Game::increase_score(uint64_t amount, bool add_effect){
     }
 
     if (add_effect) {
-        create_effect("", true, 1.0, get_player().get_box().get_center(), "", Vector(20.0, 90.0), 0.0, Vector(0.0, 0.0), 1, false, Coords<double>(), "ui_white", "+" + Strings::num_to_string(amount));
+        create_effect("", true, 1.5, get_player().get_box().get_center(), "", Vector(20.0, 90.0), 0.0, Vector(0.0, 0.0), 1, false, Coords<double>(), "ui_white", "+" + Strings::num_to_string(amount));
     }
 }
 
@@ -509,7 +509,7 @@ void Game::increase_score_multiplier(uint64_t amount){
         score_multiplier=UINT64_MAX;
     }
 
-    create_effect("", true, 1.0, get_player().get_box().get_center(), "", Vector(20.0, 90.0), 0.0, Vector(0.0, 0.0), 1, false, Coords<double>(), "ui_white", "x" + Strings::num_to_string(score_multiplier));
+    create_effect("", true, 1.5, get_player().get_box().get_center(), "", Vector(20.0, 90.0), 0.0, Vector(0.0, 0.0), 1, false, Coords<double>(), "ui_white", "x" + Strings::num_to_string(score_multiplier));
 }
 
 void Game::decrease_score_multiplier(uint64_t amount){
@@ -524,7 +524,7 @@ void Game::decrease_score_multiplier(uint64_t amount){
         score_multiplier++;
     }
 
-    create_effect("", true, 1.0, get_player().get_box().get_center(), "", Vector(20.0, 90.0), 0.0, Vector(0.0, 0.0), 1, false, Coords<double>(), "hud_hull", "x" + Strings::num_to_string(score_multiplier));
+    create_effect("", true, 1.5, get_player().get_box().get_center(), "", Vector(20.0, 90.0), 0.0, Vector(0.0, 0.0), 1, false, Coords<double>(), "hud_hull", "x" + Strings::num_to_string(score_multiplier));
 }
 
 uint32_t Game::get_nearest_planet(uint32_t ship_index){
