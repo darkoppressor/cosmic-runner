@@ -21,7 +21,8 @@ bool Button_Events::handle_button_event_game(string button_event,Window* parent_
         if (Game::is_score_high()) {
             Window_Manager::get_window("input_name")->toggle_on();
         } else {
-            Android_Leaderboard::submit_highscore(Game::get_score());
+            Android_Leaderboard::submit_highscore(0, Game::get_score());
+            Android_Leaderboard::submit_highscore(1, Game::get_kills());
 
             Game_Manager::stop();
 
@@ -66,7 +67,8 @@ bool Button_Events::handle_button_event_game(string button_event,Window* parent_
         if (parent_window != 0) {
             Game::add_high_score(parent_window->get_info_text(0));
 
-            Android_Leaderboard::submit_highscore(Game::get_score());
+            Android_Leaderboard::submit_highscore(0, Game::get_score());
+            Android_Leaderboard::submit_highscore(1, Game::get_kills());
         }
 
         Game_Manager::stop();

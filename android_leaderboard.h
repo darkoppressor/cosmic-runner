@@ -23,8 +23,8 @@ public:
     //Returns an empty string if the leaderboard id does not exist
     static std::string get_leaderboard_id(std::uint32_t id_number);
 
-    //Submit a highscore for the overall leaderboard
-    static void submit_highscore(std::uint64_t score);
+    //Submit a highscore for the leaderboard with the passed id number
+    static void submit_highscore(std::uint32_t id_number, std::uint64_t score);
 
     static void check_for_failed_submissions();
 

@@ -72,16 +72,15 @@ string Android_Leaderboard::get_leaderboard_id(uint32_t id_number){
     return "";
 }
 
-void Android_Leaderboard::submit_highscore(uint64_t score){
-    //Retrieve the overall leaderboard id
-    string id=get_leaderboard_id(0);
+void Android_Leaderboard::submit_highscore (uint32_t id_number, uint64_t score) {
+    //Retrieve the leaderboard id
+    string id = get_leaderboard_id(id_number);
 
-    if(id.length()>0){
-        if(Android::gpg_is_signed_in()){
-            Android::gpg_submit_highscore(id.c_str(),score);
-        }
-        else{
-            save_failed_submission(0);
+    if (id.length()>0) {
+        if (Android::gpg_is_signed_in()) {
+            Android::gpg_submit_highscore(id.c_str(), score);
+        } else {
+            save_failed_submission(id_number);
         }
     }
 }
