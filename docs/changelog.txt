@@ -1,6 +1,14 @@
 0.1.2 beta - 2018/07/05
 ------------------------
-
+Update text files
+Add Android adaptive icon support
+Fix Android leaderboard failed submissions
+Add kill leaderboard for Android
+Increase vacuum range and item spawns
+Make dodging easier
+Use small controller text entry
+Lower sound volume of missile fires
+Lower police ship hull
 
 0.1.1 beta - 2018/07/04
 ------------------------
