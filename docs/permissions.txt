@@ -1,0 +1,1 @@
+VIBRATE: Vibrate when things happen
