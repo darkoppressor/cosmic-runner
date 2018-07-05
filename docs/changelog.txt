@@ -1,3 +1,11 @@
+0.1.0 beta - 2018/07/04
+------------------------
+Add real icons
+Add debris highlighting
+Add Google Play Games leaderboard support
+Enable Google Play Games
+Fix crash bug
+
 0.0.1 alpha - 2018/07/03
 ------------------------
 Initial release
