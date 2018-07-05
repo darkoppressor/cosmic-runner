@@ -20,7 +20,7 @@ Memory: 2 GB
 Graphics: Video card made within the last 4 years. Integrated graphics may or may not work.
 Sound: None required, although you will need a sound device for sound...
 Hard Drive: 50 MB
-Network: None required
+Network: None required, although you will need internet access to use Google Play Games.
 
 Recommended:
 Processor: 3 Ghz
@@ -28,7 +28,7 @@ Memory: 4 GB
 Graphics: Video card made within the last 2 years. Integrated graphics may or may not work.
 Sound: We recommend you have a sound device. So you can have sound.
 Hard Drive: 50 MB
-Network: None required
+Network: None required, although you will need internet access to use Google Play Games.
 
 Input Support:
 Keyboard
