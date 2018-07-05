@@ -44,6 +44,10 @@ double Debris::get_angle() const{
     return angle;
 }
 
+Vector Debris::get_angular_velocity() const{
+    return angular_velocity;
+}
+
 void Debris::rotation(){
     if(angular_velocity.direction>=0 && angular_velocity.direction<180){
         angle+=angular_velocity.magnitude;

@@ -164,6 +164,10 @@ void Game::dodge_check(){
 
                 if(player.get_velocity().magnitude>Game_Constants::DODGE_SPEED_THRESHOLD){
                     increase_score(Game_Constants::POINT_VALUE_DODGE);
+
+                    create_effect("effect_" + debris.get_debris_type()->sprite, true, 1.0,
+                        debris.get_box().get_center(), "", Vector(0.0, 0.0), debris.get_angle(),
+                        debris.get_angular_velocity(), 1, false, Coords<double>());
                 }
             }
         }
