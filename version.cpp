@@ -23,17 +23,18 @@ int Engine_Version::get_major(){
 }
 
 int Engine_Version::get_minor(){
-    return 0; //MINOR
+    return 1; //MINOR
 }
 
 int Engine_Version::get_micro(){
-    return 1; //MICRO
+    return 0; //MICRO
 }
 
 string Engine_Version::get_status(){
-    return "alpha"; //STATUS
+    return "beta"; //STATUS
 }
 
 void Engine_Version::populate_version_series(vector<Version_Series>& version_series){
     version_series.push_back(Version_Series("0.0.1","0.0.1"));
+    version_series.push_back(Version_Series("0.1.0","0.1.0"));
 }
