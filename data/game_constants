@@ -638,7 +638,7 @@
 
 <game_constant>
 	name:desired_items_base
-	value:8.5
+	value:8.0
 	type:double
 </game_constant>
 
