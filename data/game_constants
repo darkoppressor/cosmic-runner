@@ -256,21 +256,21 @@
 <game_constant>
 	//milliseconds
 	name:dodge_object_cooldown
-	value:5000
+	value:3000
 	type:uint32_t
 </game_constant>
 
 <game_constant>
 	//pixels
 	name:dodge_range
-	value:16.0
+	value:24.0
 	type:double
 </game_constant>
 
 <game_constant>
 	//meters/second
 	name:dodge_speed_threshold
-	value:25.0
+	value:20.0
 	type:double
 </game_constant>
 
