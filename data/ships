@@ -150,7 +150,7 @@
 	box_collision:2,3,38,29
 	upgrades:cannon_sniper,scanner
 	mass:300.0
-	hull_max:80
+	hull_max:40
 	shields_max:5
 	thrust_accel:1500.0
 	thrust_decel:2000.0
@@ -168,7 +168,7 @@
 	box_collision:2,3,32,35
 	upgrades:cannon_sniper,scanner
 	mass:300.0
-	hull_max:120
+	hull_max:60
 	shields_max:10
 	thrust_accel:2000.0
 	thrust_decel:2000.0
@@ -186,7 +186,7 @@
 	box_collision:2,3,38,33
 	upgrades:cannon_sniper,scanner
 	mass:300.0
-	hull_max:160
+	hull_max:80
 	shields_max:15
 	thrust_accel:2000.0
 	thrust_decel:2000.0
