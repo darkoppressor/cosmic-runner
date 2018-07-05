@@ -9,13 +9,13 @@
 
 #include <cstdint>
 #include <string>
-#include <set>
+#include <map>
 
 class Android_Leaderboard {
 private:
 
-    static void save_failed_submission(std::uint32_t id_number);
-    static std::set<std::uint32_t> load_failed_submissions();
+    static void save_failed_submission(std::uint32_t id_number, std::uint64_t score);
+    static std::map<std::uint32_t, std::uint64_t> load_failed_submissions();
 
 public:
 

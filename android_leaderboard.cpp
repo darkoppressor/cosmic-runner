@@ -13,41 +13,46 @@
 #include <engine_strings.h>
 #include <window_manager.h>
 
+#include <boost/algorithm/string.hpp>
+
 using namespace std;
 
-void Android_Leaderboard::save_failed_submission(uint32_t id_number){
-    set<uint32_t> failed_submissions=load_failed_submissions();
+void Android_Leaderboard::save_failed_submission (uint32_t id_number, uint64_t score) {
+    map<uint32_t, uint64_t> failed_submissions = load_failed_submissions();
 
-    if(!failed_submissions.count(id_number)){
-        failed_submissions.emplace(id_number);
-
-        string file_name=Directories::get_save_directory();
-        file_name+="leaderboard_submissions";
+    if (!failed_submissions.count(id_number)) {
+        failed_submissions.emplace(id_number, score);
 
         string data="";
 
-        for(const auto& i : failed_submissions){
-            data+=Strings::num_to_string(i)+"\n";
+        for (const auto& failed_submission : failed_submissions) {
+            data += Strings::num_to_string(failed_submission.first) + "," + Strings::num_to_string(failed_submission.second) + "\n";
         }
 
-        File_IO::save_atomic(file_name,data);
+        File_IO::save_atomic(Directories::get_save_directory() + "leaderboard_submissions", data);
     }
 }
 
-set<uint32_t> Android_Leaderboard::load_failed_submissions(){
-    set<uint32_t> failed_submissions;
+map<uint32_t, uint64_t> Android_Leaderboard::load_failed_submissions () {
+    map<uint32_t, uint64_t> failed_submissions;
 
-    string file_name=Directories::get_save_directory()+"leaderboard_submissions";
+    string file_name = Directories::get_save_directory() + "leaderboard_submissions";
 
-    if(File_IO::exists(file_name) && File_IO::is_regular_file(file_name)){
+    if (File_IO::exists(file_name) && File_IO::is_regular_file(file_name)) {
         File_IO_Load load(file_name);
 
-        if(load.is_opened()){
-            while(!load.eof()){
-                string line="";
+        if (load.is_opened()) {
+            while (!load.eof()) {
+                string line = "";
                 load.getline(&line);
 
-                failed_submissions.emplace((uint32_t)Strings::string_to_unsigned_long(line));
+                vector<string> elements;
+                boost::algorithm::split(elements, line, boost::algorithm::is_any_of(","));
+
+                if (elements.size() >= 2) {
+                    failed_submissions.emplace((uint32_t) Strings::string_to_unsigned_long(elements[0]),
+                        (uint64_t) Strings::string_to_unsigned_long(elements[1]));
+                }
             }
         }
     }
@@ -80,19 +85,21 @@ void Android_Leaderboard::submit_highscore (uint32_t id_number, uint64_t score) 
         if (Android::gpg_is_signed_in()) {
             Android::gpg_submit_highscore(id.c_str(), score);
         } else {
-            save_failed_submission(id_number);
+            save_failed_submission(id_number, score);
         }
     }
 }
 
-void Android_Leaderboard::check_for_failed_submissions(){
-    set<uint32_t> failed_submissions=load_failed_submissions();
+void Android_Leaderboard::check_for_failed_submissions () {
+    map<uint32_t, uint64_t> failed_submissions = load_failed_submissions();
 
-    if(File_IO::exists(Directories::get_save_directory()+"leaderboard_submissions")){
-        File_IO::remove_file(Directories::get_save_directory()+"leaderboard_submissions");
+    if (File_IO::exists(Directories::get_save_directory() + "leaderboard_submissions")) {
+        File_IO::remove_file(Directories::get_save_directory() + "leaderboard_submissions");
     }
 
-    submit_highscore(Game::get_score());
+    for (const auto& failed_submission : failed_submissions) {
+        submit_highscore(failed_submission.first, failed_submission.second);
+    }
 }
 
 void Android_Leaderboard::update_sign_in_button (Window* window) {
