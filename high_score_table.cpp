@@ -3,6 +3,7 @@
 /* See the file docs/LICENSE.txt for the full license text. */
 
 #include "high_score_table.h"
+#include "game_constants.h"
 
 #include <file_io.h>
 #include <engine_strings.h>
@@ -42,16 +43,16 @@ void High_Score_Table::load_high_scores () {
 
         load.close();
     } else {
-        high_scores.push_back(High_Score("Hubert", 200000));
-        high_scores.push_back(High_Score("Sally", 100000));
-        high_scores.push_back(High_Score("Jean-Luc", 75000));
-        high_scores.push_back(High_Score("Sam", 50000));
-        high_scores.push_back(High_Score("Freddy", 25000));
-        high_scores.push_back(High_Score("Ender", 15000));
-        high_scores.push_back(High_Score("Penny", 10000));
-        high_scores.push_back(High_Score("Amos", 5000));
-        high_scores.push_back(High_Score("Jules", 2500));
-        high_scores.push_back(High_Score("Dopefish", 1000));
+        high_scores.push_back(High_Score("Hubert", Game_Constants::DEFAULT_HIGH_SCORE_10));
+        high_scores.push_back(High_Score("Sally", Game_Constants::DEFAULT_HIGH_SCORE_9));
+        high_scores.push_back(High_Score("Jean-Luc", Game_Constants::DEFAULT_HIGH_SCORE_8));
+        high_scores.push_back(High_Score("Sam", Game_Constants::DEFAULT_HIGH_SCORE_7));
+        high_scores.push_back(High_Score("Freddy", Game_Constants::DEFAULT_HIGH_SCORE_6));
+        high_scores.push_back(High_Score("Ender", Game_Constants::DEFAULT_HIGH_SCORE_5));
+        high_scores.push_back(High_Score("Penny", Game_Constants::DEFAULT_HIGH_SCORE_4));
+        high_scores.push_back(High_Score("Amos", Game_Constants::DEFAULT_HIGH_SCORE_3));
+        high_scores.push_back(High_Score("Jules", Game_Constants::DEFAULT_HIGH_SCORE_2));
+        high_scores.push_back(High_Score("Dopefish", Game_Constants::DEFAULT_HIGH_SCORE_1));
     }
 }
 

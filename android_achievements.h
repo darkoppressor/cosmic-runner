@@ -21,7 +21,29 @@ public:
 
     static std::string FAILED_SUBMISSIONS_FILE;
 
-    static std::uint32_t COP_KILLER;
+    static std::uint32_t COP_KILLER_TIER_1;
+    static std::uint32_t COP_KILLER_TIER_2;
+    static std::uint32_t COP_KILLER_TIER_3;
+    static std::uint32_t COP_KILLER_TIER_4;
+    static std::uint32_t PIRATE_TIER_1;
+    static std::uint32_t PIRATE_TIER_2;
+    static std::uint32_t PIRATE_TIER_3;
+    static std::uint32_t PIRATE_TIER_4;
+    static std::uint32_t PIRATE_HUNTER_TIER_1;
+    static std::uint32_t PIRATE_HUNTER_TIER_2;
+    static std::uint32_t PIRATE_HUNTER_TIER_3;
+    static std::uint32_t PIRATE_HUNTER_TIER_4;
+    static std::uint32_t SURVIVALIST_TIER_1;
+    static std::uint32_t SURVIVALIST_TIER_2;
+    static std::uint32_t SURVIVALIST_TIER_3;
+    static std::uint32_t SURVIVALIST_TIER_4;
+    static std::uint32_t BIG_SCORER;
+    static std::uint32_t ALL_THE_THINGS;
+    static std::uint32_t ARTFUL_TIER_1;
+    static std::uint32_t ARTFUL_TIER_2;
+    static std::uint32_t ARTFUL_TIER_3;
+    static std::uint32_t ARTFUL_TIER_4;
+    static std::uint32_t ARTFUL_TIER_5;
 
     //Returns the achievement id for the passed id number if it exists
     //Returns an empty string if the achievement id does not exist

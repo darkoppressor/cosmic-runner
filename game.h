@@ -74,6 +74,11 @@ private:
 
     static std::uint32_t kills;
 
+    static std::uint64_t kills_police;
+    static std::uint64_t kills_civilian;
+    static std::uint64_t kills_pirate;
+    static std::uint64_t kills_bounty_hunter;
+
     static bool player_tractored;
     static std::uint32_t tractoring_ship;
     static double tractor_angle;
@@ -194,7 +199,7 @@ public:
     static void reset_notoriety();
 
     static std::uint32_t get_kills();
-    static void add_kill();
+    static void add_kill(std::string faction);
 
     static bool is_player_tractored();
     static std::uint32_t get_tractoring_ship_index();

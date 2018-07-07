@@ -19,7 +19,29 @@ using namespace std;
 
 string Android_Achievements::FAILED_SUBMISSIONS_FILE = "android_achievement_submissions";
 
-uint32_t Android_Achievements::COP_KILLER = 0;
+uint32_t Android_Achievements::COP_KILLER_TIER_1 = 0;
+uint32_t Android_Achievements::COP_KILLER_TIER_2 = 1;
+uint32_t Android_Achievements::COP_KILLER_TIER_3 = 2;
+uint32_t Android_Achievements::COP_KILLER_TIER_4 = 3;
+uint32_t Android_Achievements::PIRATE_TIER_1 = 4;
+uint32_t Android_Achievements::PIRATE_TIER_2 = 5;
+uint32_t Android_Achievements::PIRATE_TIER_3 = 6;
+uint32_t Android_Achievements::PIRATE_TIER_4 = 7;
+uint32_t Android_Achievements::PIRATE_HUNTER_TIER_1 = 8;
+uint32_t Android_Achievements::PIRATE_HUNTER_TIER_2 = 9;
+uint32_t Android_Achievements::PIRATE_HUNTER_TIER_3 = 10;
+uint32_t Android_Achievements::PIRATE_HUNTER_TIER_4 = 11;
+uint32_t Android_Achievements::SURVIVALIST_TIER_1 = 12;
+uint32_t Android_Achievements::SURVIVALIST_TIER_2 = 13;
+uint32_t Android_Achievements::SURVIVALIST_TIER_3 = 14;
+uint32_t Android_Achievements::SURVIVALIST_TIER_4 = 15;
+uint32_t Android_Achievements::BIG_SCORER = 16;
+uint32_t Android_Achievements::ALL_THE_THINGS = 17;
+uint32_t Android_Achievements::ARTFUL_TIER_1 = 18;
+uint32_t Android_Achievements::ARTFUL_TIER_2 = 19;
+uint32_t Android_Achievements::ARTFUL_TIER_3 = 20;
+uint32_t Android_Achievements::ARTFUL_TIER_4 = 21;
+uint32_t Android_Achievements::ARTFUL_TIER_5 = 22;
 
 void Android_Achievements::save_failed_submission (uint32_t id_number) {
     set<uint32_t> failed_submissions = load_failed_submissions();

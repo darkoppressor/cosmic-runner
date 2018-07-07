@@ -134,6 +134,37 @@ public:
     static double SCORE_MULTIPLIER_ACCEL;
     static double SCORE_MULTIPLIER_DECEL;
     static double SCORE_MULTIPLIER_MAX_SPEED;
+    static std::uint64_t KILLS_TIER_1_CIVILIAN;
+    static std::uint64_t KILLS_TIER_2_CIVILIAN;
+    static std::uint64_t KILLS_TIER_3_CIVILIAN;
+    static std::uint64_t KILLS_TIER_4_CIVILIAN;
+    static std::uint64_t KILLS_TIER_1_PIRATE;
+    static std::uint64_t KILLS_TIER_2_PIRATE;
+    static std::uint64_t KILLS_TIER_3_PIRATE;
+    static std::uint64_t KILLS_TIER_4_PIRATE;
+    static std::uint64_t KILLS_TIER_1_POLICE;
+    static std::uint64_t KILLS_TIER_2_POLICE;
+    static std::uint64_t KILLS_TIER_3_POLICE;
+    static std::uint64_t KILLS_TIER_4_POLICE;
+    static std::uint64_t KILLS_TIER_1_BOUNTY_HUNTER;
+    static std::uint64_t KILLS_TIER_2_BOUNTY_HUNTER;
+    static std::uint64_t KILLS_TIER_3_BOUNTY_HUNTER;
+    static std::uint64_t KILLS_TIER_4_BOUNTY_HUNTER;
+    static std::uint64_t DODGES_TIER_1;
+    static std::uint64_t DODGES_TIER_2;
+    static std::uint64_t DODGES_TIER_3;
+    static std::uint64_t DODGES_TIER_4;
+    static std::uint64_t DODGES_TIER_5;
+    static std::uint64_t DEFAULT_HIGH_SCORE_1;
+    static std::uint64_t DEFAULT_HIGH_SCORE_2;
+    static std::uint64_t DEFAULT_HIGH_SCORE_3;
+    static std::uint64_t DEFAULT_HIGH_SCORE_4;
+    static std::uint64_t DEFAULT_HIGH_SCORE_5;
+    static std::uint64_t DEFAULT_HIGH_SCORE_6;
+    static std::uint64_t DEFAULT_HIGH_SCORE_7;
+    static std::uint64_t DEFAULT_HIGH_SCORE_8;
+    static std::uint64_t DEFAULT_HIGH_SCORE_9;
+    static std::uint64_t DEFAULT_HIGH_SCORE_10;
     /// END SCRIPT-GENERATED CONSTANT DECLARATIONS
 };
 

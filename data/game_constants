@@ -845,3 +845,189 @@
 	value:10.0
 	type:double
 </game_constant>
+
+<game_constant>
+	name:kills_tier_1_civilian
+	value:10
+	type:uint64_t
+</game_constant>
+
+<game_constant>
+	name:kills_tier_2_civilian
+	value:20
+	type:uint64_t
+</game_constant>
+
+<game_constant>
+	name:kills_tier_3_civilian
+	value:60
+	type:uint64_t
+</game_constant>
+
+<game_constant>
+	name:kills_tier_4_civilian
+	value:180
+	type:uint64_t
+</game_constant>
+
+<game_constant>
+	name:kills_tier_1_pirate
+	value:10
+	type:uint64_t
+</game_constant>
+
+<game_constant>
+	name:kills_tier_2_pirate
+	value:20
+	type:uint64_t
+</game_constant>
+
+<game_constant>
+	name:kills_tier_3_pirate
+	value:40
+	type:uint64_t
+</game_constant>
+
+<game_constant>
+	name:kills_tier_4_pirate
+	value:80
+	type:uint64_t
+</game_constant>
+
+<game_constant>
+	name:kills_tier_1_police
+	value:5
+	type:uint64_t
+</game_constant>
+
+<game_constant>
+	name:kills_tier_2_police
+	value:10
+	type:uint64_t
+</game_constant>
+
+<game_constant>
+	name:kills_tier_3_police
+	value:30
+	type:uint64_t
+</game_constant>
+
+<game_constant>
+	name:kills_tier_4_police
+	value:60
+	type:uint64_t
+</game_constant>
+
+<game_constant>
+	name:kills_tier_1_bounty_hunter
+	value:5
+	type:uint64_t
+</game_constant>
+
+<game_constant>
+	name:kills_tier_2_bounty_hunter
+	value:10
+	type:uint64_t
+</game_constant>
+
+<game_constant>
+	name:kills_tier_3_bounty_hunter
+	value:20
+	type:uint64_t
+</game_constant>
+
+<game_constant>
+	name:kills_tier_4_bounty_hunter
+	value:40
+	type:uint64_t
+</game_constant>
+
+<game_constant>
+	name:dodges_tier_1
+	value:25
+	type:uint64_t
+</game_constant>
+
+<game_constant>
+	name:dodges_tier_2
+	value:50
+	type:uint64_t
+</game_constant>
+
+<game_constant>
+	name:dodges_tier_3
+	value:100
+	type:uint64_t
+</game_constant>
+
+<game_constant>
+	name:dodges_tier_4
+	value:200
+	type:uint64_t
+</game_constant>
+
+<game_constant>
+	name:dodges_tier_5
+	value:400
+	type:uint64_t
+</game_constant>
+
+<game_constant>
+	name:default_high_score_1
+	value:1000
+	type:uint64_t
+</game_constant>
+
+<game_constant>
+	name:default_high_score_2
+	value:2500
+	type:uint64_t
+</game_constant>
+
+<game_constant>
+	name:default_high_score_3
+	value:5000
+	type:uint64_t
+</game_constant>
+
+<game_constant>
+	name:default_high_score_4
+	value:10000
+	type:uint64_t
+</game_constant>
+
+<game_constant>
+	name:default_high_score_5
+	value:15000
+	type:uint64_t
+</game_constant>
+
+<game_constant>
+	name:default_high_score_6
+	value:25000
+	type:uint64_t
+</game_constant>
+
+<game_constant>
+	name:default_high_score_7
+	value:50000
+	type:uint64_t
+</game_constant>
+
+<game_constant>
+	name:default_high_score_8
+	value:75000
+	type:uint64_t
+</game_constant>
+
+<game_constant>
+	name:default_high_score_9
+	value:100000
+	type:uint64_t
+</game_constant>
+
+<game_constant>
+	name:default_high_score_10
+	value:200000
+	type:uint64_t
+</game_constant>
