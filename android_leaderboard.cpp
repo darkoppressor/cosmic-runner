@@ -17,6 +17,8 @@
 
 using namespace std;
 
+string Android_Leaderboard::FAILED_SUBMISSIONS_FILE = "android_leaderboard_submissions";
+
 uint32_t Android_Leaderboard::HIGH_SCORES = 0;
 uint32_t Android_Leaderboard::BEST_KILL_COUNT = 1;
 
@@ -32,14 +34,14 @@ void Android_Leaderboard::save_failed_submission (uint32_t id_number, uint64_t s
             data += Strings::num_to_string(failed_submission.first) + "," + Strings::num_to_string(failed_submission.second) + "\n";
         }
 
-        File_IO::save_atomic(Directories::get_save_directory() + "leaderboard_submissions", data);
+        File_IO::save_atomic(Directories::get_save_directory() + FAILED_SUBMISSIONS_FILE, data);
     }
 }
 
 map<uint32_t, uint64_t> Android_Leaderboard::load_failed_submissions () {
     map<uint32_t, uint64_t> failed_submissions;
 
-    string file_name = Directories::get_save_directory() + "leaderboard_submissions";
+    string file_name = Directories::get_save_directory() + FAILED_SUBMISSIONS_FILE;
 
     if (File_IO::exists(file_name) && File_IO::is_regular_file(file_name)) {
         File_IO_Load load(file_name);
@@ -96,8 +98,8 @@ void Android_Leaderboard::submit_highscore (uint32_t id_number, uint64_t score) 
 void Android_Leaderboard::check_for_failed_submissions () {
     map<uint32_t, uint64_t> failed_submissions = load_failed_submissions();
 
-    if (File_IO::exists(Directories::get_save_directory() + "leaderboard_submissions")) {
-        File_IO::remove_file(Directories::get_save_directory() + "leaderboard_submissions");
+    if (File_IO::exists(Directories::get_save_directory() + FAILED_SUBMISSIONS_FILE)) {
+        File_IO::remove_file(Directories::get_save_directory() + FAILED_SUBMISSIONS_FILE);
     }
 
     for (const auto& failed_submission : failed_submissions) {

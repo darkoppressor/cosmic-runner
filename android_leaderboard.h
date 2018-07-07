@@ -19,6 +19,8 @@ private:
 
 public:
 
+    static std::string FAILED_SUBMISSIONS_FILE;
+
     static std::uint32_t HIGH_SCORES;
     static std::uint32_t BEST_KILL_COUNT;
 
