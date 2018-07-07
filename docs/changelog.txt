@@ -1,3 +1,11 @@
+0.2.0 beta - 2018/07/07
+------------------------
+Add initial achievement
+Start the name box focused on name input screen
+Decrease maximum power
+Update icons
+Increase screen shake and vibration
+
 0.1.2 beta - 2018/07/05
 ------------------------
 Update text files

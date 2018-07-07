@@ -23,11 +23,11 @@ int Engine_Version::get_major(){
 }
 
 int Engine_Version::get_minor(){
-    return 1; //MINOR
+    return 2; //MINOR
 }
 
 int Engine_Version::get_micro(){
-    return 2; //MICRO
+    return 0; //MICRO
 }
 
 string Engine_Version::get_status(){
