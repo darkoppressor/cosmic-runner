@@ -317,7 +317,7 @@
 <game_constant>
 	//seconds
 	name:max_power
-	value:300
+	value:250
 	type:uint32_t
 </game_constant>
 
