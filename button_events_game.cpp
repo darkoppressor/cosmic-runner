@@ -27,6 +27,7 @@ bool Button_Events::handle_button_event_game(string button_event,Window* parent_
         } else {
             Android_Leaderboard::submit_highscore(Android_Leaderboard::HIGH_SCORES, Game::get_score());
             Android_Leaderboard::submit_highscore(Android_Leaderboard::BEST_KILL_COUNT, Game::get_kills());
+            Android_Leaderboard::submit_highscore(Android_Leaderboard::DEBRIS_DODGED, Game::get_dodges());
 
             Game_Manager::stop();
 
@@ -79,6 +80,7 @@ bool Button_Events::handle_button_event_game(string button_event,Window* parent_
 
             Android_Leaderboard::submit_highscore(Android_Leaderboard::HIGH_SCORES, Game::get_score());
             Android_Leaderboard::submit_highscore(Android_Leaderboard::BEST_KILL_COUNT, Game::get_kills());
+            Android_Leaderboard::submit_highscore(Android_Leaderboard::DEBRIS_DODGED, Game::get_dodges());
         }
 
         Game_Manager::stop();

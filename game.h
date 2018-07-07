@@ -66,6 +66,8 @@ private:
     static std::uint64_t score;
     static std::uint64_t score_multiplier;
 
+    static std::uint64_t dodges;
+
     static std::uint32_t power;
 
     static std::uint32_t notoriety;
@@ -135,6 +137,7 @@ public:
     static const Item& get_item(std::uint32_t index);
     static std::uint64_t get_score();
     static std::uint64_t get_score_multiplier();
+    static std::uint64_t get_dodges();
     static std::vector<std::string> get_upgrade_list();
 
     static Title& get_title();

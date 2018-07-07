@@ -59,6 +59,8 @@ int32_t Game::landed_planet=0;
 uint64_t Game::score=0;
 uint64_t Game::score_multiplier=0;
 
+uint64_t Game::dodges=0;
+
 uint32_t Game::power=0;
 
 uint32_t Game::notoriety=0;
@@ -165,6 +167,8 @@ void Game::dodge_check(){
                 dodging.begin_cooling_debris(tracking[i]);
 
                 if(player.get_velocity().magnitude>Game_Constants::DODGE_SPEED_THRESHOLD){
+                    dodges++;
+
                     increase_score(Game_Constants::POINT_VALUE_DODGE);
 
                     create_effect("effect_" + debris.get_debris_type()->sprite, true, 1.0,
@@ -479,6 +483,10 @@ uint64_t Game::get_score(){
 
 uint64_t Game::get_score_multiplier(){
     return score_multiplier;
+}
+
+uint64_t Game::get_dodges(){
+    return dodges;
 }
 
 vector<string> Game::get_upgrade_list(){

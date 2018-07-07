@@ -21,6 +21,7 @@ string Android_Leaderboard::FAILED_SUBMISSIONS_FILE = "android_leaderboard_submi
 
 uint32_t Android_Leaderboard::HIGH_SCORES = 0;
 uint32_t Android_Leaderboard::BEST_KILL_COUNT = 1;
+uint32_t Android_Leaderboard::DEBRIS_DODGED = 2;
 
 void Android_Leaderboard::save_failed_submission (uint32_t id_number, uint64_t score) {
     map<uint32_t, uint64_t> failed_submissions = load_failed_submissions();

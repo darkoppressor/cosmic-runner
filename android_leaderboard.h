@@ -23,6 +23,7 @@ public:
 
     static std::uint32_t HIGH_SCORES;
     static std::uint32_t BEST_KILL_COUNT;
+    static std::uint32_t DEBRIS_DODGED;
 
     //Returns the leaderboard id for the passed id number if it exists
     //Returns an empty string if the leaderboard id does not exist
