@@ -19,6 +19,9 @@ private:
 
 public:
 
+    static std::uint32_t HIGH_SCORES;
+    static std::uint32_t BEST_KILL_COUNT;
+
     //Returns the leaderboard id for the passed id number if it exists
     //Returns an empty string if the leaderboard id does not exist
     static std::string get_leaderboard_id(std::uint32_t id_number);

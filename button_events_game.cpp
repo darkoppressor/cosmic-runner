@@ -25,8 +25,8 @@ bool Button_Events::handle_button_event_game(string button_event,Window* parent_
             GUI_Manager::change_gui_selected_object("down");
             GUI_Manager::confirm_gui_object();
         } else {
-            Android_Leaderboard::submit_highscore(0, Game::get_score());
-            Android_Leaderboard::submit_highscore(1, Game::get_kills());
+            Android_Leaderboard::submit_highscore(Android_Leaderboard::HIGH_SCORES, Game::get_score());
+            Android_Leaderboard::submit_highscore(Android_Leaderboard::BEST_KILL_COUNT, Game::get_kills());
 
             Game_Manager::stop();
 
@@ -71,8 +71,8 @@ bool Button_Events::handle_button_event_game(string button_event,Window* parent_
         if (parent_window != 0) {
             Game::add_high_score(parent_window->get_info_text(0));
 
-            Android_Leaderboard::submit_highscore(0, Game::get_score());
-            Android_Leaderboard::submit_highscore(1, Game::get_kills());
+            Android_Leaderboard::submit_highscore(Android_Leaderboard::HIGH_SCORES, Game::get_score());
+            Android_Leaderboard::submit_highscore(Android_Leaderboard::BEST_KILL_COUNT, Game::get_kills());
         }
 
         Game_Manager::stop();
