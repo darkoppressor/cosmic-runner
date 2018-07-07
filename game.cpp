@@ -223,11 +223,18 @@ void Game::clear_world(){
     score=0;
     score_multiplier=1;
 
+    dodges = 0;
+
     power=Game_Constants::MAX_POWER*Engine::UPDATE_RATE;
 
     notoriety=0;
 
     kills=0;
+
+    kills_police = 0;
+    kills_civilian = 0;
+    kills_pirate = 0;
+    kills_bounty_hunter = 0;
 
     clear_tractor();
     tractor_sprite.set_name("tractor_beam");
