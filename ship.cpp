@@ -710,6 +710,10 @@ void Ship::die(bool is_player,string damage_faction,RNG& rng){
                 Game::increase_score(get_ship_type()->point_value);
 
                 Game::add_kill();
+
+                if (get_faction() == "police") {
+                    Android_Achievements::unlock(Android_Achievements::COP_KILLER);
+                }
             }
         }
     }
@@ -808,6 +812,10 @@ void Ship::take_damage(bool is_player,int32_t damage,string damage_type,const Co
                         Game::increase_score(get_ship_type()->point_value);
 
                         Game::add_kill();
+
+                        if (get_faction() == "police") {
+                            Android_Achievements::unlock(Android_Achievements::COP_KILLER);
+                        }
                     }
                 }
             }
