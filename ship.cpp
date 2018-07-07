@@ -7,6 +7,7 @@
 #include "game.h"
 #include "game_constants.h"
 #include "game_options.h"
+#include "android_achievements.h"
 
 #include <engine.h>
 #include <game_manager.h>
