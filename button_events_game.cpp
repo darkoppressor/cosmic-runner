@@ -9,6 +9,7 @@
 #include <window_manager.h>
 #include <game_manager.h>
 #include <android.h>
+#include <gui_manager.h>
 
 #include <boost/algorithm/string.hpp>
 
@@ -20,6 +21,9 @@ bool Button_Events::handle_button_event_game(string button_event,Window* parent_
 
         if (Game::is_score_high()) {
             Window_Manager::get_window("input_name")->toggle_on();
+
+            GUI_Manager::change_gui_selected_object("down");
+            GUI_Manager::confirm_gui_object();
         } else {
             Android_Leaderboard::submit_highscore(0, Game::get_score());
             Android_Leaderboard::submit_highscore(1, Game::get_kills());
