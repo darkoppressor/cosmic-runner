@@ -5,6 +5,7 @@
 #include "game.h"
 #include "background.h"
 #include "android_leaderboard.h"
+#include "android_achievements.h"
 
 #include <game_manager.h>
 #include <options.h>
@@ -45,6 +46,7 @@ bool Game_Manager::effect_allowed(){
 
 void Game_Manager::manage_music(){
     Android_Leaderboard::update_windows();
+    Android_Achievements::update_windows();
 
     string music_to_play="";
 

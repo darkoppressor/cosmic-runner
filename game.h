@@ -103,6 +103,7 @@ private:
     static std::uint32_t sound_cooldown_low_hull;
 
     static bool android_need_to_check_failed_leaderboard_submissions;
+    static bool android_need_to_check_failed_achievement_submissions;
 
     static Ship& get_player();
 

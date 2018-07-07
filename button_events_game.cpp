@@ -65,6 +65,12 @@ bool Button_Events::handle_button_event_game(string button_event,Window* parent_
         }
 
         return true;
+    } else if (button_event=="gpg_show_achievements") {
+        if(Android::gpg_is_signed_in()){
+            Android::gpg_show_achievements();
+        }
+
+        return true;
     } else if (button_event=="name") {
         Window_Manager::close_all_windows();
 

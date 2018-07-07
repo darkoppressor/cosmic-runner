@@ -70,6 +70,7 @@ rm -f "error_log.txt"
 rm -f "servers.txt"
 rm -f "high_scores"
 rm -f "android_leaderboard_submissions"
+rm -f "android_achievement_submissions"
 
 rm -f *_TEMPORARY
 rm -f *_BACKUP

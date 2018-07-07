@@ -128,28 +128,30 @@ void Android_Leaderboard::update_leaderboards_button (Window* window) {
     #ifdef GAME_OS_ANDROID
         if (Android::gpg_is_silent_sign_in_attempt_complete()) {
             if (!Android::gpg_is_signed_in()) {
-                window->informations.back().set_sprite("play_games_leaderboards_gray");
+                window->informations[window->informations.size() - 2].set_sprite("play_games_leaderboards_gray");
             } else {
-                window->informations.back().set_sprite("play_games_leaderboards_green");
+                window->informations[window->informations.size() - 2].set_sprite("play_games_leaderboards_green");
             }
         } else {
-            window->informations.back().set_sprite("play_games_leaderboards_gray");
+            window->informations[window->informations.size() - 2].set_sprite("play_games_leaderboards_gray");
         }
     #endif
 }
 
-void Android_Leaderboard::remove_android_buttons_from_window (Window* window) {
+void Android_Leaderboard::remove_android_buttons_from_window (Window* window, size_t buttons_to_remove) {
     #ifndef GAME_OS_ANDROID
-        window->informations.pop_back();
-        window->buttons.pop_back();
+        for (size_t i = 0; i < buttons_to_remove; i++) {
+            window->informations.pop_back();
+            window->buttons.pop_back();
+        }
     #endif
 }
 
 void Android_Leaderboard::remove_android_buttons () {
     #ifndef GAME_OS_ANDROID
-        remove_android_buttons_from_window(Window_Manager::get_window("main_menu"));
-        remove_android_buttons_from_window(Window_Manager::get_window("ingame_menu"));
-        remove_android_buttons_from_window(Window_Manager::get_window("high_scores"));
+        remove_android_buttons_from_window(Window_Manager::get_window("main_menu"), 1);
+        remove_android_buttons_from_window(Window_Manager::get_window("ingame_menu"), 1);
+        remove_android_buttons_from_window(Window_Manager::get_window("high_scores"), 2);
     #endif
 }
 

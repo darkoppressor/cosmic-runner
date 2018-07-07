@@ -37,7 +37,7 @@ public:
 
     static void update_leaderboards_button(Window* window);
 
-    static void remove_android_buttons_from_window(Window* window);
+    static void remove_android_buttons_from_window(Window* window, size_t buttons_to_remove);
     static void remove_android_buttons();
 
     static void update_windows();

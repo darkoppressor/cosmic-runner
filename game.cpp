@@ -7,6 +7,7 @@
 #include "game_constants.h"
 #include "hud.h"
 #include "android_leaderboard.h"
+#include "android_achievements.h"
 
 #include <render.h>
 #include <game_window.h>
@@ -97,6 +98,7 @@ double Game::world_width=0.0;
 double Game::world_height=0.0;
 
 bool Game::android_need_to_check_failed_leaderboard_submissions=true;
+bool Game::android_need_to_check_failed_achievement_submissions=true;
 
 Ship& Game::get_player(){
     if(!ships.empty()){
@@ -367,6 +369,7 @@ void Game::generate_world(){
 
 void Game::android_gpg_signing_in(){
     android_need_to_check_failed_leaderboard_submissions=true;
+    android_need_to_check_failed_achievement_submissions=true;
 }
 
 uint32_t Game::get_ship_count(){
@@ -1416,6 +1419,12 @@ void Game::events(){
         android_need_to_check_failed_leaderboard_submissions=false;
 
         Android_Leaderboard::check_for_failed_submissions();
+    }
+
+    if(android_need_to_check_failed_achievement_submissions && Android::gpg_is_signed_in()){
+        android_need_to_check_failed_achievement_submissions=false;
+
+        Android_Achievements::check_for_failed_submissions();
     }
 
     handle_repeating_sounds();

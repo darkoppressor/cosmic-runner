@@ -4,6 +4,8 @@ project(cosmic-runner)
 set(SOURCE_FILES
 android_leaderboard.cpp
 android_leaderboard.h
+android_achievements.cpp
+android_achievements.h
 android_native_functions.cpp
 background.cpp
 background.h
