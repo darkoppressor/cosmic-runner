@@ -782,49 +782,49 @@
 
 <game_constant>
 	name:shake_magnitude_damage
-	value:0.01
-	type:double
-</game_constant>
-
-<game_constant>
-	name:shake_length_damage
-	value:20
-	type:int32_t
-</game_constant>
-
-<game_constant>
-	name:shake_magnitude_weapon_solid
 	value:0.05
 	type:double
 </game_constant>
 
 <game_constant>
-	name:shake_length_weapon_solid
+	name:shake_length_damage
 	value:30
 	type:int32_t
 </game_constant>
 
 <game_constant>
+	name:shake_magnitude_weapon_solid
+	value:0.1
+	type:double
+</game_constant>
+
+<game_constant>
+	name:shake_length_weapon_solid
+	value:40
+	type:int32_t
+</game_constant>
+
+<game_constant>
 	name:shake_magnitude_weapon_explosive
-	value:0.025
+	value:0.075
 	type:double
 </game_constant>
 
 <game_constant>
 	name:shake_length_weapon_explosive
-	value:20
+	value:30
 	type:int32_t
 </game_constant>
 
 <game_constant>
 	name:shake_magnitude_weapon_energy
-	value:0.01
+	value:0.05
 	type:double
 </game_constant>
 
 <game_constant>
 	name:shake_length_weapon_energy
-	value:20
+	value:30
 	type:int32_t
 </game_constant>
 
