@@ -68,8 +68,8 @@ void Debris::render(){
         if(Game_Options::show_collision_outlines){
             Collision_Rect<double> col_box=get_collision_box();
 
-            ///QQQ render extra collision boxes
-            /**Render::render_rectangle(box.x*Game_Manager::camera_zoom-Game_Manager::camera.x,box.y*Game_Manager::camera_zoom-Game_Manager::camera.y,box.w,box.h,0.25,"white");
+            /// Render extra collision boxes
+            /*Render::render_rectangle(box.x*Game_Manager::camera_zoom-Game_Manager::camera.x,box.y*Game_Manager::camera_zoom-Game_Manager::camera.y,box.w,box.h,0.25,"white");
             Render::render_rectangle(col_box.x*Game_Manager::camera_zoom-Game_Manager::camera.x,col_box.y*Game_Manager::camera_zoom-Game_Manager::camera.y,col_box.w,col_box.h,0.25,"red");*/
 
             vector<Coords<double>> vertices;

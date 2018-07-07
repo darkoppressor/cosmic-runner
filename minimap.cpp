@@ -115,8 +115,8 @@ void Minimap::generate_map(uint32_t new_width,uint32_t new_height){
             }
         }
 
-        ///QQQ I think it looks better without the asteroids
-        /**uint32_t debris_count=Game::get_debris_count();
+        /// I think it looks better without the asteroids
+        /*uint32_t debris_count=Game::get_debris_count();
 
         for(uint32_t i=0;i<debris_count;i++){
             const Debris& debris=Game::get_debris(i);
