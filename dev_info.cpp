@@ -68,12 +68,12 @@ void Engine::render_dev_info(){
     }
 
     if(msg.length()>0){
-        Bitmap_Font* font=Object_Manager::get_font("small");
-        Bitmap_Font* font_standard=Object_Manager::get_font("standard");
+        Bitmap_Font* font=Object_Manager::get_font("standard");
+        Bitmap_Font* font_large=Object_Manager::get_font("large");
 
 		double y=2.0;
         if(Options::fps){
-            y+=font_standard->spacing_y;
+            y+=font_large->spacing_y;
 
             if(Network_Engine::status!="off"){
                 y+=font->spacing_y*2.0;

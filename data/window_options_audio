@@ -1,84 +1,84 @@
 <window>
 	name:options_audio
 	starting_position:-1,-1
-	width:704
-	height:195
+	width:904
+	height:382
 	title:Audio Options
 
 	<info>
-		location:-1,36
+		location:-1,64
 		text:Global
 	</info>
 
 	<info>
-		location:226,58
+		location:226,108
 		text:Volume:
 	</info>
 
 	<button>
-		location:311,58
+		location:421,108
 		states:Low,Medium,High
 		sound_moused:moused_1
 		sound_click:click_1
 	</button>
 
 	<button>
-		location:399,58
+		location:532,108
 		states:Unmuted,Muted
 		sound_moused:moused_1
 		sound_click:click_1
 	</button>
 
 	<info>
-		location:-1,80
+		location:-1,152
 		text:Sound Effects
 	</info>
 
 	<info>
-		location:226,102
+		location:226,196
 		text:Volume:
 	</info>
 
 	<button>
-		location:311,102
+		location:421,196
 		states:Low,Medium,High
 		sound_moused:moused_1
 		sound_click:click_1
 	</button>
 
 	<button>
-		location:399,102
+		location:557,196
 		states:Unmuted,Muted
 		sound_moused:moused_1
 		sound_click:click_1
 	</button>
 
 	<info>
-		location:-1,124
+		location:-1,240
 		text:Music
 	</info>
 
 	<info>
-		location:226,146
+		location:226,284
 		text:Volume:
 	</info>
 
 	<button>
-		location:311,146
+		location:421,284
 		states:Low,Medium,High
 		sound_moused:moused_1
 		sound_click:click_1
 	</button>
 
 	<button>
-		location:399,146
+		location:532,284
 		states:Unmuted,Muted
 		sound_moused:moused_1
 		sound_click:click_1
 	</button>
 
 	<button>
-		location:265,168
+		location:265,328
 		text:OK
 		event:options_audio
 		sound_moused:moused_1
@@ -86,7 +86,7 @@
 	</button>
 
 	<button>
-		location:300,168
+		location:345,328
 		text:Apply
 		event:options_audio_apply
 		sound_moused:moused_1
@@ -94,7 +94,7 @@
 	</button>
 
 	<button>
-		location:368,168
+		location:495,328
 		text:Cancel
 		event:close_window
 		sound_moused:moused_1

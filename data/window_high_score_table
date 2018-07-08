@@ -1,22 +1,22 @@
 <window>
 	name:high_scores
 	starting_position:-1,-1
-	width:800
-	height:480
+	width:960
+	height:720
 	title:High Scores (Local)
 
 	<info>
-		location:2,36
+		location:2,64
 		special_text:high_scores
 	</info>
 
 	<info>
-		location:4,415
+		location:4,625
 		sprite:play_games_leaderboards_gray
 	</info>
 
 	<button>
-		location:40,421
+		location:40,622
 		text:Google Play Games Leaderboards
 		event:gpg_show_all_leaderboards
 		sound_moused:moused_1
@@ -24,12 +24,12 @@
 	</button>
 
 	<info>
-		location:4,447
+		location:4,669
 		sprite:play_games_achievements_gray
 	</info>
 
 	<button>
-		location:40,453
+		location:40,666
 		text:Google Play Games Achievements
 		event:gpg_show_achievements
 		sound_moused:moused_1

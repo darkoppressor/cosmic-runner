@@ -1,17 +1,17 @@
 <window>
 	name:options_graphics
 	starting_position:-1,-1
-	width:704
-	height:129
+	width:1280
+	height:338
 	title:Graphics Options
 
 	<info>
-		location:2,36
+		location:2,64
 		text:Screen Width:
 	</info>
 
 	<info>
-		location:165,36
+		location:365,64
 		mutable:true
 		max_text_length:5
 		allowed_input:numbers,backspace
@@ -19,36 +19,36 @@
 	</info>
 
 	<info>
-		location:248,36
+		location:548,64
 		text:Fullscreen:
 	</info>
 
 	<button>
-		location:429,36
+		location:832,64
 		states:Off,On
 		sound_moused:moused_1
 		sound_click:click_1
 	</button>
 
 	<info>
-		location:528,36
+		location:950,64
 		text:Vsync:
 	</info>
 
 	<button>
-		location:600,36
+		location:1115,64
 		states:Off,On
 		sound_moused:moused_1
 		sound_click:click_1
 	</button>
 
 	<info>
-		location:2,58
+		location:2,108
 		text:Screen Height:
 	</info>
 
 	<info>
-		location:165,58
+		location:365,108
 		mutable:true
 		max_text_length:5
 		allowed_input:numbers,backspace
@@ -56,60 +56,60 @@
 	</info>
 
 	<info>
-		location:248,58
+		location:548,108
 		text:Fullscreen Mode:
 	</info>
 
 	<button>
-		location:429,58
+		location:957,108
 		states:Standard,Desktop,Windowed
 		sound_moused:moused_1
 		sound_click:click_1
 	</button>
 
 	<info>
-		location:528,58
+		location:2,152
 		text:Show FPS:
 	</info>
 
 	<button>
-		location:633,58
+		location:240,152
 		states:Off,On
 		sound_moused:moused_1
 		sound_click:click_1
 	</button>
 
 	<info>
-		location:2,80
+		location:2,196
 		text:Hardware Cursor:
 	</info>
 
 	<button>
-		location:187,80
+		location:410,196
 		states:Off,On
 		sound_moused:moused_1
 		sound_click:click_1
 	</button>
 
 	<info>
-		location:248,80
+		location:500,196
 		text:Font Shadows:
 	</info>
 
 	<button>
-		location:396,80
+		location:840,196
 		states:Off,On
 		sound_moused:moused_1
 		sound_click:click_1
 	</button>
 
 	<info>
-		location:460,80
+		location:2,240
 		text:Display Number:
 	</info>
 
 	<info>
-		location:630,80
+		location:390,240
 		mutable:true
 		max_text_length:1
 		allowed_input:numbers,backspace
@@ -117,7 +117,7 @@
 	</info>
 
 	<button>
-		location:265,102
+		location:465,284
 		text:OK
 		event:options_graphics
 		sound_moused:moused_1
@@ -125,7 +125,7 @@
 	</button>
 
 	<button>
-		location:300,102
+		location:545,284
 		text:Apply
 		event:options_graphics_apply
 		sound_moused:moused_1
@@ -133,7 +133,7 @@
 	</button>
 
 	<button>
-		location:368,102
+		location:695,284
 		text:Cancel
 		event:close_window
 		sound_moused:moused_1

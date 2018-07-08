@@ -1,18 +1,18 @@
 <window>
 	name:game_over
 	starting_position:-1,-1
-	width:600
-	height:161
+	width:960
+	height:388
 	title:Game Over
 	disallow_closing:true
 
 	<info>
-		location:2,36
+		location:2,64
 		special_text:game_over
 	</info>
 
 	<button>
-		location:-1,134
+		location:-1,334
 		text:OK
 		event:game_over
 		sound_moused:moused_1

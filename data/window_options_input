@@ -1,72 +1,72 @@
 <window>
 	name:options_input
 	starting_position:-1,-1
-	width:704
-	height:151
+	width:904
+	height:338
 	title:Input Options
 
 	<info>
-		location:2,36
+		location:2,64
 		text:Bind Cursor to Window:
 	</info>
 
 	<button>
-		location:256,36
+		location:550,64
 		states:Off,On
 		sound_moused:moused_1
 		sound_click:click_1
 	</button>
 
 	<info>
-		location:2,58
+		location:2,108
 		text:Screen Keyboard:
 	</info>
 
 	<button>
-		location:190,58
+		location:440,108
 		states:Off,On
 		sound_moused:moused_1
 		sound_click:click_1
 	</button>
 
 	<info>
-		location:2,80
+		location:2,152
 		text:Accelerometer:
 	</info>
 
 	<button>
-		location:168,80
+		location:440,152
 		states:Off,On
 		sound_moused:moused_1
 		sound_click:click_1
 	</button>
 
 	<info>
-		location:2,102
+		location:2,196
 		text:Touch Controller:
 	</info>
 
 	<button>
-		location:201,102
+		location:440,196
 		states:Off,On
 		sound_moused:moused_1
 		sound_click:click_1
 	</button>
 
 	<info>
-		location:239,102
+		location:2,240
 		text:Touch Controller Opacity:
 	</info>
 
 	<button>
-		location:523,102
+		location:620,240
 		states:Low,Medium,High
 		sound_moused:moused_1
 		sound_click:click_1
 	</button>
 
 	<button>
-		location:2,124
+		location:2,284
 		text:Configure Commands
 		event:configure_commands
 		sound_moused:moused_1
@@ -74,7 +74,7 @@
 	</button>
 
 	<button>
-		location:265,124
+		location:480,284
 		text:OK
 		event:options_input
 		sound_moused:moused_1
@@ -82,7 +82,7 @@
 	</button>
 
 	<button>
-		location:300,124
+		location:560,284
 		text:Apply
 		event:options_input_apply
 		sound_moused:moused_1
@@ -90,7 +90,7 @@
 	</button>
 
 	<button>
-		location:368,124
+		location:710,284
 		text:Cancel
 		event:close_window
 		sound_moused:moused_1

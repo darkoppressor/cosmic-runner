@@ -1,12 +1,12 @@
 <window>
 	name:main_menu
 	starting_position:-1,-1
-	width:180
-	height:185
+	width:380
+	height:306
 	title:Main Menu
 
 	<button>
-		location:-1,36
+		location:-1,64
 		text:Play
 		event:start_game
 		sound_moused:moused_1
@@ -14,7 +14,7 @@
 	</button>
 
 	<button>
-		location:-1,58
+		location:-1,108
 		text:High Scores
 		event:open_window_high_scores
 		sound_moused:moused_1
@@ -22,7 +22,7 @@
 	</button>
 
 	<button>
-		location:-1,80
+		location:-1,152
 		text:Options
 		event:options_window
 		sound_moused:moused_1
@@ -30,7 +30,7 @@
 	</button>
 
 	<button>
-		location:-1,102
+		location:-1,196
 		text:Quit
 		event:quit
 		sound_moused:moused_1
@@ -38,12 +38,12 @@
 	</button>
 
 	<info>
-		location:4,152
+		location:4,255
 		sprite:play_games_controller_gray
 	</info>
 
 	<button>
-		location:40,158
+		location:40,252
 		text:Sign In
 		event:gpg_toggle_sign_in
 		sound_moused:moused_1

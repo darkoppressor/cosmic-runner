@@ -1,7 +1,7 @@
 <window>
 	name:options_network
 	starting_position:-1,-1
-	width:704
+	width:904
 	height:85
 	title:Network Options
 

@@ -5,8 +5,8 @@
 	fit_content:true
 
 	<info>
-		location:2,36
-		font:small
+		location:2,64
+		font:standard
 	</info>
 
 	<button>

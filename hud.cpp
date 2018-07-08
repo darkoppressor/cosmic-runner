@@ -67,7 +67,7 @@ void Hud::render(){
 
     render_bar("","ui_white","hud_power",Coords<double>(Game_Constants::HUD_SPACING,Game_Constants::HUD_SPACING+Game_Constants::HUD_SPACING*(double)bar_number+Game_Constants::HUD_BAR_HEIGHT*(double)bar_number++),Game::get_power(),Game_Constants::MAX_POWER*Engine::UPDATE_RATE,true);
 
-    Bitmap_Font* font=Object_Manager::get_font("standard");
+    Bitmap_Font* font=Object_Manager::get_font("large");
 
     string msg="Score: "+Strings::num_to_string(Game::get_score())+"\nx"+Strings::num_to_string(Game::get_score_multiplier());
 

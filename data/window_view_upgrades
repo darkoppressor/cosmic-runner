@@ -1,13 +1,13 @@
 <window>
 	name:view_upgrades
 	starting_position:-1,-1
-	width:800
-	height:480
+	width:960
+	height:640
 	title:Upgrades
 	scrolling_buttons:view_upgrades
 
 	<info>
-		location:2,36
+		location:2,64
 		text:Your acquired upgrades:
 	</info>
 

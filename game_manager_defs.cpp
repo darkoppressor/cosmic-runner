@@ -167,7 +167,7 @@ void Game_Manager::render_title_background(){
     Title& title=Game::get_title();
     title.render();
 
-    Bitmap_Font* font=Object_Manager::get_font("standard");
+    Bitmap_Font* font=Object_Manager::get_font("large");
 
     font->show(0.0,Game_Window::height()-font->spacing_y*2.0,"Version: "+Engine_Version::get_version()+" "+Engine_Version::get_status()+"\nChecksum: "+Engine::CHECKSUM,"ui_0");
 
@@ -184,7 +184,7 @@ void Game_Manager::render_title_background(){
 
 void Game_Manager::render_scoreboard(){
     if(display_scoreboard){
-        Bitmap_Font* font=Object_Manager::get_font("small");
+        Bitmap_Font* font=Object_Manager::get_font("standard");
 
         string name_list=Network_Engine::get_name_list();
         string ping_list=Network_Engine::get_ping_list();
@@ -197,14 +197,14 @@ void Game_Manager::render_scoreboard(){
 }
 
 void Game_Manager::render_pause(){
-    Bitmap_Font* font=Object_Manager::get_font("standard");
+    Bitmap_Font* font=Object_Manager::get_font("large");
 
     string msg="Paused";
     font->show((Game_Window::width()-(font->spacing_x*msg.length()))/2.0,(Game_Window::height()-font->spacing_y)/2.0,msg,"ui_0");
 }
 
 void Game_Manager::render_fps(int render_rate,double ms_per_frame,int logic_frame_rate){
-    Object_Manager::get_font("standard")->show(2.0,2.0,"FPS: "+Strings::num_to_string(render_rate)+"\n"+Network_Engine::get_stats(),"ui_0");
+    Object_Manager::get_font("large")->show(2.0,2.0,"FPS: "+Strings::num_to_string(render_rate)+"\n"+Network_Engine::get_stats(),"ui_0");
 }
 
 void Game_Manager::render_loading_screen(const Progress_Bar& bar,string message){
@@ -234,7 +234,7 @@ void Game_Manager::render_loading_screen(const Progress_Bar& bar,string message)
             Render::render_rectangle(screen_width/2.0-max_bar_width/2.0,screen_height-offset,bar_width,bar_height,1.0,"ui_1");
 
             if(Data_Manager::are_fonts_loaded()){
-                Bitmap_Font* font=Object_Manager::get_font("small");
+                Bitmap_Font* font=Object_Manager::get_font("standard");
 
                 string msg=Strings::num_to_string((int)(percentage*100.0))+"%";
 

@@ -20,9 +20,9 @@
 	touch_controller_shoulders:true
 	touch_controller_guide:false
 	touch_controller_xy:true
-	default_font:standard
-	tooltip_font:standard_padded
-	toast_font:standard_padded
+	default_font:large
+	tooltip_font:large_padded
+	toast_font:large_padded
 	toast_length_short:3
 	toast_length_medium:5
 	toast_length_long:7
@@ -30,13 +30,13 @@
 	console_move_speed:3840
 	console_max_log_recall:1000
 	console_max_command_recall:1000
-	console_font:small
+	console_font:standard
 	console_font_color:
 	console_opacity:0.9
 	chat_move_speed:0
 	chat_max_log_recall:1000
 	chat_max_command_recall:1000
-	chat_font:small
+	chat_font:standard
 	chat_font_color:
 	chat_opacity:0.9
 	chat_line_timeout:10000
@@ -50,12 +50,12 @@
 
 	logical_screen_width:1280
 	logical_screen_height:720
-	scrolling_buttons_offset:58
+	scrolling_buttons_offset:164
 	scrolling_buttons_spacing:12
 	console_height:16
 	chat_height:16
-	console_max_command_length:181
-	chat_max_command_length:181
+	console_max_command_length:115
+	chat_max_command_length:115
 	controller_text_entry_small:true
 
 	// Default engine options //
