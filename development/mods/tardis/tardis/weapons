@@ -1,0 +1,177 @@
+<upgrade>
+	name:tardis
+	display_name:Tardis
+	description:Weapon - fires
+	type:weapon
+	sound:weapon_missile_single
+	cooldown:3000
+	shot_type:guided_missile
+	spread_type:even
+	thrust_accel:128.0
+	max_speed:256.0
+	damage:3
+	shots:32
+	range:416.0
+	banned:true
+</upgrade>
+
+<upgrade>
+	name:cannon_shotgun
+	display_name:Fresh One
+	description:Weapon - fires a cluster of bullets
+	type:weapon
+	sound:weapon_cannon_shotgun
+	cooldown:3000
+	shot_type:bullet
+	spread_type:normal
+	thrust_accel:99999.0
+	max_speed:300.0
+	damage:2
+	shots:5
+	range:256.0
+</upgrade>
+
+<upgrade>
+	name:cannon_sniper
+	display_name:Gun
+	description:Weapon - it is a gun
+	type:weapon
+	sound:weapon_cannon_sniper
+	cooldown:3000
+	shot_type:bullet
+	spread_type:none
+	thrust_accel:99999.0
+	max_speed:450.0
+	damage:10
+	shots:1
+	range:416.0
+</upgrade>
+
+<upgrade>
+	name:cannon_quad
+	display_name:Quad Cannon
+	description:Weapon - fires not one, not two, but four bullets
+	type:weapon
+	sound:weapon_cannon_quad
+	cooldown:3000
+	shot_type:bullet
+	spread_type:even
+	thrust_accel:99999.0
+	max_speed:200.0
+	damage:3
+	shots:4
+	range:320.0
+</upgrade>
+
+<upgrade>
+	name:plasma_gun
+	display_name:Plasma Zapper
+	description:Weapon - zaps bad things with plasma
+	type:weapon
+	sound:weapon_plasma_gun
+	cooldown:3000
+	shot_type:plasma_blast
+	spread_type:none
+	thrust_accel:99999.0
+	max_speed:600.0
+	damage:10
+	shots:1
+	range:416.0
+</upgrade>
+
+<upgrade>
+	name:missile_single
+	display_name:Simple Launcher
+	description:Weapon - launches a single missile
+	type:weapon
+	sound:weapon_missile_single
+	cooldown:3000
+	shot_type:missile
+	spread_type:none
+	thrust_accel:65.0
+	max_speed:175.0
+	damage:7
+	shots:1
+	range:416.0
+</upgrade>
+
+<upgrade>
+	name:missile_spread
+	display_name:Triple Simple Launcher
+	description:Weapon - launches three missiles (for the price of one!)
+	type:weapon
+	sound:weapon_missile_spread
+	cooldown:3000
+	shot_type:missile
+	spread_type:normal
+	thrust_accel:65.0
+	max_speed:175.0
+	damage:2
+	shots:3
+	range:416.0
+</upgrade>
+
+<upgrade>
+	name:missile_circle
+	//Get it? Pie? Like pi? Because 2*pi = a circle? And this launches missiles in a circle?
+	display_name:Pie Launcher
+	description:Weapon - launches missiles in a circle\nGet it? Pie? Pi? 2*pi is like a circle? I'm so sorry...
+	type:weapon
+	sound:weapon_missile_circle
+	cooldown:3000
+	shot_type:missile
+	spread_type:even
+	thrust_accel:65.0
+	max_speed:175.0
+	damage:2
+	shots:16
+	range:416.0
+</upgrade>
+
+<upgrade>
+	name:guided_missile_single
+	display_name:Stalker
+	description:Weapon - launches one very shiny guided missile
+	type:weapon
+	sound:weapon_missile_single
+	cooldown:3000
+	shot_type:guided_missile
+	spread_type:none
+	thrust_accel:50.0
+	max_speed:150.0
+	damage:7
+	shots:1
+	range:416.0
+</upgrade>
+
+<upgrade>
+	name:guided_missile_triple
+	display_name:Hunter
+	description:Weapon - launches more than two but less than four guided missiles
+	type:weapon
+	sound:weapon_missile_spread
+	cooldown:3000
+	shot_type:guided_missile
+	spread_type:normal
+	thrust_accel:50.0
+	max_speed:150.0
+	damage:2
+	shots:3
+	range:416.0
+</upgrade>
+
+<upgrade>
+	name:guided_missile_swarm
+	display_name:Swarmerator
+	description:Weapon - launches like, a lot of guided missiles
+	type:weapon
+	sound:weapon_missile_circle
+	cooldown:3000
+	shot_type:guided_missile
+	spread_type:normal
+	thrust_accel:75.0
+	max_speed:165.0
+	damage:2
+	shots:6
+	range:416.0
+</upgrade>

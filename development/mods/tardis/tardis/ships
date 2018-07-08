@@ -1,0 +1,198 @@
+<ship>
+	name:player_0
+	faction:player
+	sprite:ship_player_0
+	color:ship_player
+	box_collision:4,7,24,44
+	upgrades:warp_drive,point_defense,shield_recharge_rate_0,shield_recharge_rate_1,cooldown_0,cooldown_1,solid_damage_0,explosive_damage_0,energy_damage_0,tardis
+	mass:300.0
+	hull_max:2000
+	shields_max:1005
+	thrust_accel:11000.0
+	thrust_decel:20000.0
+	max_speed:900.0
+	item_drop_min:0
+	item_drop_max:0
+	point_value:0
+	angular_velocity:2.0,180.0
+</ship>
+
+<ship>
+	name:civilian_0
+	faction:civilian
+	sprite:ship_civilian_0
+	color:ship_civilian
+	box_collision:3,3,117,35
+	upgrades:
+	mass:300.0
+	hull_max:20
+	shields_max:0
+	thrust_accel:500.0
+	thrust_decel:1000.0
+	max_speed:50.0
+	item_drop_min:0
+	item_drop_max:1
+	point_value:20
+</ship>
+
+<ship>
+	name:pirate_0
+	faction:pirate
+	sprite:ship_pirate_0
+	color:ship_pirate
+	box_collision:2,2,36,41
+	upgrades:cannon_shotgun
+	mass:300.0
+	hull_max:40
+	shields_max:0
+	thrust_accel:1000.0
+	thrust_decel:2000.0
+	max_speed:50.0
+	item_drop_min:0
+	item_drop_max:0
+	point_value:5
+</ship>
+
+<ship>
+	name:pirate_1
+	faction:pirate
+	sprite:ship_pirate_1
+	color:ship_pirate
+	box_collision:2,2,33,54
+	upgrades:cannon_shotgun
+	mass:300.0
+	hull_max:60
+	shields_max:0
+	thrust_accel:1500.0
+	thrust_decel:3000.0
+	max_speed:100.0
+	item_drop_min:0
+	item_drop_max:0
+	point_value:10
+</ship>
+
+<ship>
+	name:pirate_2
+	faction:pirate
+	sprite:ship_pirate_2
+	color:ship_pirate
+	box_collision:6,5,53,35
+	upgrades:cannon_shotgun
+	mass:300.0
+	hull_max:80
+	shields_max:0
+	thrust_accel:2000.0
+	thrust_decel:4000.0
+	max_speed:150.0
+	item_drop_min:0
+	item_drop_max:0
+	point_value:15
+</ship>
+
+<ship>
+	name:bounty_hunter_0
+	faction:bounty_hunter
+	sprite:ship_bounty_hunter_0
+	color:ship_bounty_hunter
+	box_collision:5,4,44,21
+	upgrades:missile_single
+	mass:300.0
+	hull_max:20
+	shields_max:25
+	thrust_accel:2000.0
+	thrust_decel:4000.0
+	max_speed:200.0
+	item_drop_min:1
+	item_drop_max:1
+	point_value:20
+</ship>
+
+<ship>
+	name:bounty_hunter_1
+	faction:bounty_hunter
+	sprite:ship_bounty_hunter_1
+	color:ship_bounty_hunter
+	box_collision:2,4,35,29
+	upgrades:missile_spread
+	mass:300.0
+	hull_max:20
+	shields_max:45
+	thrust_accel:2000.0
+	thrust_decel:4000.0
+	max_speed:200.0
+	item_drop_min:1
+	item_drop_max:2
+	point_value:30
+</ship>
+
+<ship>
+	name:bounty_hunter_2
+	faction:bounty_hunter
+	sprite:ship_bounty_hunter_2
+	color:ship_bounty_hunter
+	box_collision:2,5,40,65
+	upgrades:guided_missile_single
+	mass:300.0
+	hull_max:20
+	shields_max:65
+	thrust_accel:2000.0
+	thrust_decel:3000.0
+	max_speed:250.0
+	item_drop_min:1
+	item_drop_max:3
+	point_value:40
+</ship>
+
+<ship>
+	name:police_0
+	faction:police
+	sprite:ship_police_0
+	color:ship_police
+	box_collision:2,3,38,29
+	upgrades:cannon_sniper,scanner
+	mass:300.0
+	hull_max:40
+	shields_max:5
+	thrust_accel:1500.0
+	thrust_decel:2000.0
+	max_speed:150.0
+	item_drop_min:0
+	item_drop_max:1
+	point_value:20
+</ship>
+
+<ship>
+	name:police_1
+	faction:police
+	sprite:ship_police_1
+	color:ship_police
+	box_collision:2,3,32,35
+	upgrades:cannon_sniper,scanner
+	mass:300.0
+	hull_max:60
+	shields_max:10
+	thrust_accel:2000.0
+	thrust_decel:2000.0
+	max_speed:150.0
+	item_drop_min:1
+	item_drop_max:1
+	point_value:25
+</ship>
+
+<ship>
+	name:police_2
+	faction:police
+	sprite:ship_police_2
+	color:ship_police
+	box_collision:2,3,38,33
+	upgrades:cannon_sniper,scanner
+	mass:300.0
+	hull_max:80
+	shields_max:15
+	thrust_accel:2000.0
+	thrust_decel:2000.0
+	max_speed:200.0
+	item_drop_min:1
+	item_drop_max:2
+	point_value:30
+</ship>

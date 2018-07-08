@@ -1,0 +1,213 @@
+//** Game Colors **//
+
+<color>
+	name:space
+	rgb:51,51,51
+</color>
+
+<color>
+	name:star_blue
+	rgb:138,230,230
+</color>
+
+<color>
+	name:star_white
+	rgb:217,217,217
+</color>
+
+<color>
+	name:star_yellow
+	rgb:230,230,138
+</color>
+
+<color>
+	name:star_orange
+	rgb:230,184,138
+</color>
+
+<color>
+	name:star_red
+	rgb:230,138,138
+</color>
+
+<color>
+	name:debris_brown
+	rgb:230,184,138
+</color>
+
+<color>
+	name:debris_gray
+	rgb:191,191,191
+</color>
+
+<color>
+	name:debris_light_gray
+	rgb:217,217,217
+</color>
+
+<color>
+	name:minimap_border
+	rgb:242,242,242
+</color>
+
+<color>
+	name:minimap_planet
+	rgb:138,230,184
+</color>
+
+<color>
+	name:minimap_asteroid
+	rgb:230,184,138
+</color>
+
+<color>
+	name:minimap_arrow
+	rgb:242,242,242
+</color>
+
+<color>
+	name:ship_player
+	rgb:47,107,225
+</color>
+
+<color>
+	name:ship_civilian
+	rgb:153,255,204
+</color>
+
+<color>
+	name:ship_pirate
+	rgb:255,204,153
+</color>
+
+<color>
+	name:ship_bounty_hunter
+	rgb:255,153,153
+</color>
+
+<color>
+	name:ship_police
+	rgb:153,204,255
+</color>
+
+<color>
+	name:laser
+	rgb:255,153,204
+</color>
+
+<color>
+	name:point_defense
+	rgb:255,255,153
+</color>
+
+<color>
+	name:hud_hull
+	rgb:255,153,153
+</color>
+
+<color>
+	name:hud_shields
+	rgb:153,255,204
+</color>
+
+<color>
+	name:hud_power
+	rgb:255,255,153
+</color>
+
+<color>
+	name:hud_weapons_on
+	rgb:153,255,204
+</color>
+
+<color>
+	name:hud_weapons_off
+	rgb:255,153,153
+</color>
+
+<color>
+	name:hud_active
+	rgb:153,204,255
+</color>
+
+<color>
+	name:hud_active_on
+	rgb:153,255,204
+</color>
+
+<color>
+	name:hud_active_off
+	rgb:255,153,153
+</color>
+
+<color>
+	name:hud_cooldown
+	rgb:255,153,153
+</color>
+
+//** Engine Colors **//
+
+<color>
+	name:ui_white
+	rgb:242,242,242
+</color>
+
+<color>
+	name:ui_black
+	rgb:51,51,51
+</color>
+
+<color>
+	name:ui_gray
+	rgb:191,191,191
+</color>
+
+<color>
+	name:ui_0
+	rgb:230,138,184
+</color>
+
+<color>
+	name:ui_1
+	rgb:153,255,255
+</color>
+
+<color>
+	name:ui_2
+	rgb:138,230,230
+</color>
+
+<color>
+	name:ui_3
+	rgb:242,242,242
+</color>
+
+<color>
+	name:text_input_blue
+	rgb:10,10,204
+</color>
+
+<color>
+	name:text_input_yellow
+	rgb:204,204,10
+</color>
+
+<color>
+	name:text_input_red
+	rgb:204,10,10
+</color>
+
+<color>
+	name:text_input_green
+	rgb:54,179,54
+</color>
+
+<color>
+	name:white
+	rgb:255,255,255
+</color>
+
+<color>
+	name:red
+	rgb:255,0,0
+</color>
