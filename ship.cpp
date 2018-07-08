@@ -27,6 +27,7 @@ Ship::Ship(string new_type,const Coords<double>& position,double new_angle){
     box.y=position.y;
 
     angle=new_angle;
+    render_angle = new_angle;
 
     hull=get_hull_max();
     shields=get_shields_max();
@@ -90,6 +91,10 @@ Vector Ship::get_velocity() const{
 
 double Ship::get_angle() const{
     return angle;
+}
+
+Vector Ship::get_angular_velocity () const {
+    return get_ship_type()->angular_velocity;
 }
 
 int32_t Ship::get_hull() const{
@@ -1545,6 +1550,16 @@ void Ship::accelerate(bool is_player,uint32_t frame){
     }
 }
 
+void Ship::rotation (bool is_player) {
+    if (is_alive() && !is_landing() && (!is_player || !Game::player_is_landed()) && is_in_processing_range() && get_angular_velocity().magnitude > 0.0) {
+        if (get_angular_velocity().direction >= 0.0 && get_angular_velocity().direction < 180.0) {
+            render_angle += get_angular_velocity().magnitude;
+        } else {
+            render_angle -= get_angular_velocity().magnitude;
+        }
+    }
+}
+
 void Ship::movement(uint32_t own_index,const Quadtree<double,uint32_t>& quadtree_debris,const Quadtree<double,uint32_t>& quadtree_shots,
                     const Quadtree<double,uint32_t>& quadtree_explosions,const Quadtree<double,uint32_t>& quadtree_items,RNG& rng){
     bool is_player=own_index==0;
@@ -1769,7 +1784,13 @@ void Ship::animate(bool tractoring){
 
 void Ship::render(bool tractoring,bool is_player){
     if(is_alive()){
-        bool in_camera=Collision::check_rect_rotated(box*Game_Manager::camera_zoom,Game_Manager::camera,angle,0.0);
+        double angle_to_use = angle;
+
+        if (get_angular_velocity().magnitude > 0.0) {
+            angle_to_use = render_angle;
+        }
+
+        bool in_camera=Collision::check_rect_rotated(box*Game_Manager::camera_zoom,Game_Manager::camera,angle_to_use,0.0);
 
         if(in_camera){
             if(is_player || !is_cloaked()){
@@ -1783,7 +1804,7 @@ void Ship::render(bool tractoring,bool is_player){
                     scale=landing_scale;
                 }
 
-                sprite.render(box.x*Game_Manager::camera_zoom-Game_Manager::camera.x,box.y*Game_Manager::camera_zoom-Game_Manager::camera.y,opacity,scale,scale,angle);
+                sprite.render(box.x*Game_Manager::camera_zoom-Game_Manager::camera.x,box.y*Game_Manager::camera_zoom-Game_Manager::camera.y,opacity,scale,scale,angle_to_use);
             }
 
             if(Game_Options::show_collision_outlines){
@@ -1829,7 +1850,7 @@ void Ship::render(bool tractoring,bool is_player){
             double x=box.center_x()-police_lights_sprite.get_width()/2.0;
             double y=box.center_y()-police_lights_sprite.get_height()/2.0;
 
-            double light_angle=Game::get_police_lights_angle()+angle;
+            double light_angle=Game::get_police_lights_angle()+angle_to_use;
 
             police_lights_sprite.render(x*Game_Manager::camera_zoom-Game_Manager::camera.x,y*Game_Manager::camera_zoom-Game_Manager::camera.y,1.0,1.0,1.0,light_angle);
         }
@@ -1838,7 +1859,7 @@ void Ship::render(bool tractoring,bool is_player){
             double x=box.center_x()-scanner_startup_sprite.get_width()/2.0;
             double y=box.center_y()-scanner_startup_sprite.get_height()/2.0;
 
-            scanner_startup_sprite.render(x*Game_Manager::camera_zoom-Game_Manager::camera.x,y*Game_Manager::camera_zoom-Game_Manager::camera.y,1.0,1.0,1.0,angle);
+            scanner_startup_sprite.render(x*Game_Manager::camera_zoom-Game_Manager::camera.x,y*Game_Manager::camera_zoom-Game_Manager::camera.y,1.0,1.0,1.0,angle_to_use);
         }
     }
 }

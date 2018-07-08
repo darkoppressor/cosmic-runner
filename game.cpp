@@ -1492,6 +1492,7 @@ void Game::movement(){
     }
 
     for(size_t i=0;i<ships.size();i++){
+        ships[i].rotation(i==0);
         ships[i].movement((uint32_t)i,quadtree_debris,quadtree_shots,quadtree_explosions,quadtree_items,rng);
     }
 

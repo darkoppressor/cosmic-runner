@@ -28,6 +28,7 @@ private:
     Vector force;
 
     double angle;
+    double render_angle;
 
     std::string type;
 
@@ -90,6 +91,7 @@ public:
     Collision_Rect<double> get_box() const;
     Vector get_velocity() const;
     double get_angle() const;
+    Vector get_angular_velocity() const;
     std::int32_t get_hull() const;
     std::int32_t get_shields() const;
 
@@ -213,6 +215,7 @@ public:
     void brake(std::uint32_t frame);
 
     void accelerate(bool is_player,std::uint32_t frame);
+    void rotation(bool is_player);
     void movement(uint32_t own_index,const Quadtree<double,std::uint32_t>& quadtree_debris,const Quadtree<double,std::uint32_t>& quadtree_shots,
                   const Quadtree<double,std::uint32_t>& quadtree_explosions,const Quadtree<double,std::uint32_t>& quadtree_items,RNG& rng);
 

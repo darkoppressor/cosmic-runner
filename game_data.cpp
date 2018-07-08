@@ -139,6 +139,15 @@ void Game_Data::load_ship_type(File_IO_Load* load){
         else if(Data_Reader::check_prefix(line,"point_value:")){
             ship_types.back().point_value=Strings::string_to_unsigned_long(line);
         }
+        else if(Data_Reader::check_prefix(line,"angular_velocity:")){
+            vector<string> components;
+            boost::algorithm::split(components,line,boost::algorithm::is_any_of(","));
+
+            if (components.size() >= 2) {
+                ship_types.back().angular_velocity =
+                    Vector(Strings::string_to_double(components[0]), Strings::string_to_double(components[1]));
+            }
+        }
     }
 }
 

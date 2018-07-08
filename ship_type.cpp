@@ -27,4 +27,6 @@ Ship_Type::Ship_Type(){
     item_drop_max=0;
 
     point_value=0;
+
+    angular_velocity = Vector(0.0, 0.0);
 }

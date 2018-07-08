@@ -6,6 +6,7 @@
 #define ship_type_h
 
 #include <collision.h>
+#include <math_vector.h>
 
 #include <string>
 #include <cstdint>
@@ -41,6 +42,8 @@ public:
     std::uint32_t item_drop_max;
 
     std::uint64_t point_value;
+
+    Vector angular_velocity;
 
     Ship_Type();
 };
