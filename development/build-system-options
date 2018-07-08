@@ -2,4 +2,4 @@
 # at the beginning of the build process
 rebuild_images=true
 rebuild_music=true
-rebuild_sounds=false
+rebuild_sounds=true
