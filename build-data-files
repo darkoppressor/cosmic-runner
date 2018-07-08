@@ -63,3 +63,5 @@ fi
 if [ "$OPTION_REBUILD_SOUNDS" == "true" ]; then
     $HOME/build-server/cheese-engine/tools/build-system/scripts/data/build-sounds "$DIR"
 fi
+
+cp "$HOME/build-server/steamworks-sdk/redistributable_bin/linux64/libsteam_api.so" "$DIR"

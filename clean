@@ -87,6 +87,8 @@ rm -f "log-Release-Release-Linux-x86_64"
 rm -f "log-Release-Release-macOS-x86_64"
 rm -f "log-Release-Release-Windows-x86_64"
 
+rm -f "libsteam_api.so"
+
 rm -f *.dll
 rm -f *.depend
 rm -f *.cscope_file_list

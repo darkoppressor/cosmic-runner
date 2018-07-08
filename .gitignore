@@ -58,6 +58,8 @@ docs/build-information
 /*log-Release-Release-macOS-x86_64
 /*log-Release-Release-Windows-x86_64
 
+/*libsteam_api.so
+
 /*.dll
 /*.ico
 /*.depend
