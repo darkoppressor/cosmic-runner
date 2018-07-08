@@ -88,6 +88,7 @@ rm -f "log-Release-Release-macOS-x86_64"
 rm -f "log-Release-Release-Windows-x86_64"
 
 rm -f "libsteam_api.so"
+rm -f "steam_appid.txt"
 
 rm -f *.dll
 rm -f *.depend

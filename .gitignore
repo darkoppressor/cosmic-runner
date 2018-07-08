@@ -59,6 +59,7 @@ docs/build-information
 /*log-Release-Release-Windows-x86_64
 
 /*libsteam_api.so
+/*steam_appid.txt
 
 /*.dll
 /*.ico
