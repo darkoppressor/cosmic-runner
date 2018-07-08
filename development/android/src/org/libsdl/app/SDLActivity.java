@@ -677,6 +677,30 @@ public class SDLActivity extends Activity {
         mSurface.openUrl(url);
     }
 
+    // colorString should be this format: #RRGGBB
+    public static void setStatusBarColor (String colorString) {
+        Window window = getWindow();
+
+        if (window != null) {
+            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+
+            window.setStatusBarColor(Color.parseColor(colorString));
+        }
+    }
+
+    // colorString should be this format: #RRGGBB
+    public static void setNavigationBarColor (String colorString) {
+        Window window = getWindow();
+
+        if (window != null) {
+            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+
+            window.setNavigationBarColor(Color.parseColor(colorString));
+        }
+    }
+
     //This should only be called by the game
     public static void enableGPS(boolean enabled,int minTime,float minDistance){
         gps_requested=enabled;
