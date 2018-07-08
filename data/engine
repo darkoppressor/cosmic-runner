@@ -9,6 +9,7 @@
 	frame_rate_max:200
 	android_gpg:true
 	steam:false
+	steam_app_id:0
 	network_lockstep:false
 	axis_scroll_rate:5
 	cursor_width:2
