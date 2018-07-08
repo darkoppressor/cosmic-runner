@@ -23,9 +23,9 @@
 	default_font:large
 	tooltip_font:standard_padded
 	toast_font:large_padded
-	toast_length_short:3
-	toast_length_medium:5
-	toast_length_long:7
+	toast_length_short:1
+	toast_length_medium:2
+	toast_length_long:3
 	spaces_per_tab:4
 	console_move_speed:3840
 	console_max_log_recall:1000
