@@ -21,7 +21,7 @@
 	touch_controller_guide:false
 	touch_controller_xy:true
 	default_font:large
-	tooltip_font:large_padded
+	tooltip_font:standard_padded
 	toast_font:large_padded
 	toast_length_short:3
 	toast_length_medium:5
