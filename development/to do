@@ -11,7 +11,6 @@ Should I make the game run simpler algorithms for some things on Android?
 There is a bug where sometimes the cooldown bar shows when it is empty
 Come up with a better control scheme for Android
 Add help screens
-Add credits screen
 More fun button sounds
 Can I recolor the Android bars?
 Look into adding steam sdk support. I'll want this to be optional, and not require steam if possible. Either way I need binaries without steam
