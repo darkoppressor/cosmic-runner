@@ -55,6 +55,14 @@
 
 	<button>
 		location:-1,328
+		text:About
+		event:open_window_about
+		sound_moused:moused_1
+		sound_click:click_1
+	</button>
+
+	<button>
+		location:-1,372
 		text:Quit
 		event:quit
 		sound_moused:moused_1
@@ -62,12 +70,12 @@
 	</button>
 
 	<info>
-		location:4,387
+		location:4,431
 		sprite:play_games_controller_gray
 	</info>
 
 	<button>
-		location:40,384
+		location:40,428
 		text:Sign In
 		event:gpg_toggle_sign_in
 		sound_moused:moused_1

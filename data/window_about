@@ -1,0 +1,25 @@
+<window>
+	name:about
+	starting_position:-1,-1
+	width:1280
+	height:720
+	title:About
+
+	<info>
+		location:1078,64
+		sprite:logo
+	</info>
+
+	<info>
+		location:2,64
+		special_text:about
+	</info>
+
+	<info>
+		location:2,416
+		scrolling:true
+		box:115,7
+		text:What are we about? Cheese, bacon, or games?\nWe believe that a company can be about all three.\nHere are some more things we believe in:\n\nWe believe in gameplay over snazzy graphics.\nWe work to create games that will be enjoyable for\nyears to come, not just until the next\ncool technology comes out.\nThat is not to say that we dislike fancy graphics,\nawesome music, etc., but gameplay is our\ntop priority.\n\nWe believe that a game doesn't have enough polish\nuntil you can see your reflection in it.\n\nWe believe in creating games that are fun\nfor the whole family.
+	</info>
+
+</window>

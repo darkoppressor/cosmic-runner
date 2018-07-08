@@ -2,7 +2,7 @@
 	name:main_menu
 	starting_position:-1,-1
 	width:380
-	height:306
+	height:350
 	title:Main Menu
 
 	<button>
@@ -31,6 +31,14 @@
 
 	<button>
 		location:-1,196
+		text:About
+		event:open_window_about
+		sound_moused:moused_1
+		sound_click:click_1
+	</button>
+
+	<button>
+		location:-1,240
 		text:Quit
 		event:quit
 		sound_moused:moused_1
@@ -38,12 +46,12 @@
 	</button>
 
 	<info>
-		location:4,255
+		location:4,299
 		sprite:play_games_controller_gray
 	</info>
 
 	<button>
-		location:40,252
+		location:40,296
 		text:Sign In
 		event:gpg_toggle_sign_in
 		sound_moused:moused_1

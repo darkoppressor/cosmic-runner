@@ -8,6 +8,9 @@
 #include <log.h>
 #include <object_manager.h>
 #include <engine_strings.h>
+#include <engine_data.h>
+#include <engine.h>
+#include <engine_version.h>
 
 using namespace std;
 
@@ -17,6 +20,12 @@ string Special_Info::get_special_info_text(string special_info){
     if(special_info.length()>0){
         if (special_info=="configure_command") {
             Object_Manager::output_command_configuration_info(text);
+        } else if (special_info=="about") {
+            text += "Cosmic Runner\nDeveloped by: " + Engine_Data::developer + "\nVersion: " +
+                Engine_Version::get_version() + " " + Engine_Version::get_status() + "\nBuilt on: " +
+                Engine_Version::get_build_date() + "\nChecksum: " + Engine::CHECKSUM + "\nEngine version: " +
+                Engine_Version::get_engine_version() + " " + Engine_Version::get_engine_status() + " (updated on " +
+                Engine_Version::get_engine_date() + ")\nAbout Cheese and Bacon Games:";
         } else if (special_info=="game_over") {
             text+="Your career has come to an abrupt end.\nYou scored " + Strings::num_to_string(Game::get_score()) + " points.";
 
