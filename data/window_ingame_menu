@@ -2,7 +2,7 @@
 	name:ingame_menu
 	starting_position:-1,-1
 	width:380
-	height:438
+	height:482
 	title:Main Menu
 
 	<button>
