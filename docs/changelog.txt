@@ -1,3 +1,9 @@
+0.2.2 beta - 2018/07/07
+------------------------
+Add About screen
+Increase GUI sizes
+Reset stats on game world clear
+
 0.2.1 beta - 2018/07/07
 ------------------------
 Add Android achievements
