@@ -39,6 +39,8 @@ Ship::Ship(string new_type,const Coords<double>& position,double new_angle){
     landing_scale=1.0;
     landing_planet_index=0;
 
+    cast_shadow = false;
+
     shield_recharge=0;
 
     weapons_enabled=true;
@@ -1743,6 +1745,22 @@ void Ship::movement(uint32_t own_index,const Quadtree<double,uint32_t>& quadtree
         if(box.y+box.h>=Game::world_height){
             box.y=Game::world_height-box.h;
         }
+
+        cast_shadow = false;
+
+        vector<Coords<double>> vertices;
+        Collision_Rect<double> shadow_box = get_box();
+        shadow_box.w += Game_Constants::SHIP_SHADOW_OFFSET;
+        shadow_box.h += Game_Constants::SHIP_SHADOW_OFFSET;
+        shadow_box.get_vertices(vertices, get_angle());
+
+        for (uint32_t i = 0; i < Game::get_planet_count(); i++) {
+            if (Game::should_object_cast_shadow_on_planet(vertices, Game::get_planet(i))) {
+                cast_shadow = true;
+
+                break;
+            }
+        }
     }
 }
 
@@ -1802,6 +1820,10 @@ void Ship::render(bool tractoring,bool is_player){
                 double scale=1.0;
                 if(is_landing()){
                     scale=landing_scale;
+                }
+
+                if (cast_shadow) {
+                    sprite.render((box.x + Game_Constants::SHIP_SHADOW_OFFSET)*Game_Manager::camera_zoom-Game_Manager::camera.x,(box.y + Game_Constants::SHIP_SHADOW_OFFSET)*Game_Manager::camera_zoom-Game_Manager::camera.y,0.25,scale*0.65,scale*0.65,angle_to_use,"ui_black");
                 }
 
                 sprite.render(box.x*Game_Manager::camera_zoom-Game_Manager::camera.x,box.y*Game_Manager::camera_zoom-Game_Manager::camera.y,opacity,scale,scale,angle_to_use);

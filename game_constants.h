@@ -165,6 +165,7 @@ public:
     static std::uint64_t DEFAULT_HIGH_SCORE_8;
     static std::uint64_t DEFAULT_HIGH_SCORE_9;
     static std::uint64_t DEFAULT_HIGH_SCORE_10;
+    static double SHIP_SHADOW_OFFSET;
     /// END SCRIPT-GENERATED CONSTANT DECLARATIONS
 };
 

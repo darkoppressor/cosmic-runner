@@ -1791,3 +1791,13 @@ bool Game::is_object_over_planet(const vector<Coords<double>>& vertices,const Pl
 
     return true;
 }
+
+bool Game::should_object_cast_shadow_on_planet(const vector<Coords<double>>& vertices,const Planet& planet){
+    for(size_t i=0;i<vertices.size();i++){
+        if(Collision::check_circ_rect(planet.get_circle(),Collision_Rect<double>(vertices[i].x,vertices[i].y,1.0,1.0))){
+            return true;
+        }
+    }
+
+    return false;
+}

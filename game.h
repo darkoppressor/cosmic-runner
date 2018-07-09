@@ -266,6 +266,7 @@ public:
     static bool move_input_state(std::string direction);
 
     static bool is_object_over_planet(const std::vector<Coords<double>>& vertices,const Planet& planet);
+    static bool should_object_cast_shadow_on_planet(const std::vector<Coords<double>>& vertices,const Planet& planet);
 };
 
 #endif

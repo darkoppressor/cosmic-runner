@@ -1031,3 +1031,9 @@
 	value:200000
 	type:uint64_t
 </game_constant>
+
+<game_constant>
+	name:ship_shadow_offset
+	value:48.0
+	type:double
+</game_constant>

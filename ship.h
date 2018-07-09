@@ -42,6 +42,8 @@ private:
     double landing_scale;
     std::uint32_t landing_planet_index;
 
+    bool cast_shadow;
+
     std::uint32_t shield_recharge;
 
     std::vector<std::string> upgrades;
