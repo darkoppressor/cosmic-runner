@@ -25,8 +25,8 @@
 	<button>
 		location:532,108
 		states:Unmuted,Muted
-		sound_moused:moused_1
-		sound_click:click_1
+		sound_moused:moused_2
+		sound_click:click_2
 	</button>
 
 	<info>
@@ -42,8 +42,8 @@
 	<button>
 		location:421,196
 		states:Low,Medium,High
-		sound_moused:moused_1
-		sound_click:click_1
+		sound_moused:moused_3
+		sound_click:click_3
 	</button>
 
 	<button>
@@ -66,15 +66,15 @@
 	<button>
 		location:421,284
 		states:Low,Medium,High
-		sound_moused:moused_1
-		sound_click:click_1
+		sound_moused:moused_2
+		sound_click:click_2
 	</button>
 
 	<button>
 		location:532,284
 		states:Unmuted,Muted
-		sound_moused:moused_1
-		sound_click:click_1
+		sound_moused:moused_3
+		sound_click:click_3
 	</button>
 
 	<button>
@@ -89,16 +89,16 @@
 		location:345,328
 		text:Apply
 		event:options_audio_apply
-		sound_moused:moused_1
-		sound_click:click_1
+		sound_moused:moused_2
+		sound_click:click_2
 	</button>
 
 	<button>
 		location:495,328
 		text:Cancel
 		event:close_window
-		sound_moused:moused_1
-		sound_click:click_1
+		sound_moused:moused_3
+		sound_click:click_3
 	</button>
 
 </window>

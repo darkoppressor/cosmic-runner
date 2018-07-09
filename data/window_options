@@ -25,8 +25,8 @@
 	<button>
 		location:710,64
 		states:Off,On
-		sound_moused:moused_1
-		sound_click:click_1
+		sound_moused:moused_2
+		sound_click:click_2
 	</button>
 
 	<info>
@@ -46,8 +46,8 @@
 		location:2,152
 		text:Graphics Options
 		event:options_graphics_window
-		sound_moused:moused_1
-		sound_click:click_1
+		sound_moused:moused_3
+		sound_click:click_3
 	</button>
 
 	<button>
@@ -62,16 +62,16 @@
 		location:2,240
 		text:Input Options
 		event:options_input_window
-		sound_moused:moused_1
-		sound_click:click_1
+		sound_moused:moused_2
+		sound_click:click_2
 	</button>
 
 	<button>
 		location:2,284
 		text:Show Save Location
 		event:show_data_location
-		sound_moused:moused_1
-		sound_click:click_1
+		sound_moused:moused_3
+		sound_click:click_3
 	</button>
 
 	<button>
@@ -86,16 +86,16 @@
 		location:545,284
 		text:Apply
 		event:options_apply
-		sound_moused:moused_1
-		sound_click:click_1
+		sound_moused:moused_2
+		sound_click:click_2
 	</button>
 
 	<button>
 		location:695,284
 		text:Cancel
 		event:close_window
-		sound_moused:moused_1
-		sound_click:click_1
+		sound_moused:moused_3
+		sound_click:click_3
 	</button>
 
 </window>

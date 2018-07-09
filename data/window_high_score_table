@@ -32,8 +32,8 @@
 		location:40,666
 		text:Google Play Games Achievements
 		event:gpg_show_achievements
-		sound_moused:moused_1
-		sound_click:click_1
+		sound_moused:moused_2
+		sound_click:click_2
 	</button>
 
 </window>

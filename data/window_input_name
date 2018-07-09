@@ -23,8 +23,8 @@
 		location:460,152
 		text:OK
 		event:name
-		sound_moused:moused_1
-		sound_click:click_1
+		sound_moused:moused_2
+		sound_click:click_2
 	</button>
 
 </window>

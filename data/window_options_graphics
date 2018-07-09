@@ -38,8 +38,8 @@
 	<button>
 		location:1115,64
 		states:Off,On
-		sound_moused:moused_1
-		sound_click:click_1
+		sound_moused:moused_2
+		sound_click:click_2
 	</button>
 
 	<info>
@@ -63,8 +63,8 @@
 	<button>
 		location:957,108
 		states:Standard,Desktop,Windowed
-		sound_moused:moused_1
-		sound_click:click_1
+		sound_moused:moused_3
+		sound_click:click_3
 	</button>
 
 	<info>
@@ -87,8 +87,8 @@
 	<button>
 		location:410,196
 		states:Off,On
-		sound_moused:moused_1
-		sound_click:click_1
+		sound_moused:moused_2
+		sound_click:click_2
 	</button>
 
 	<info>
@@ -99,8 +99,8 @@
 	<button>
 		location:840,196
 		states:Off,On
-		sound_moused:moused_1
-		sound_click:click_1
+		sound_moused:moused_3
+		sound_click:click_3
 	</button>
 
 	<info>
@@ -128,16 +128,16 @@
 		location:545,284
 		text:Apply
 		event:options_graphics_apply
-		sound_moused:moused_1
-		sound_click:click_1
+		sound_moused:moused_2
+		sound_click:click_2
 	</button>
 
 	<button>
 		location:695,284
 		text:Cancel
 		event:close_window
-		sound_moused:moused_1
-		sound_click:click_1
+		sound_moused:moused_3
+		sound_click:click_3
 	</button>
 
 </window>

@@ -17,16 +17,16 @@
 		location:-1,108
 		text:High Scores
 		event:open_window_high_scores
-		sound_moused:moused_1
-		sound_click:click_1
+		sound_moused:moused_2
+		sound_click:click_2
 	</button>
 
 	<button>
 		location:-1,152
 		text:Options
 		event:options_window
-		sound_moused:moused_1
-		sound_click:click_1
+		sound_moused:moused_3
+		sound_click:click_3
 	</button>
 
 	<button>
@@ -41,8 +41,8 @@
 		location:-1,240
 		text:Quit
 		event:quit
-		sound_moused:moused_1
-		sound_click:click_1
+		sound_moused:moused_2
+		sound_click:click_2
 	</button>
 
 	<info>
@@ -54,8 +54,8 @@
 		location:40,296
 		text:Sign In
 		event:gpg_toggle_sign_in
-		sound_moused:moused_1
-		sound_click:click_1
+		sound_moused:moused_3
+		sound_click:click_3
 	</button>
 
 </window>
