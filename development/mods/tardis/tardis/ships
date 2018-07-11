@@ -3,7 +3,7 @@
 	faction:player
 	sprite:ship_player_0
 	color:ship_player
-	box_collision:4,7,24,44
+	box_collision:14,6,36,35
 	upgrades:warp_drive,point_defense,shield_recharge_rate_0,shield_recharge_rate_1,cooldown_0,cooldown_1,solid_damage_0,explosive_damage_0,energy_damage_0,tardis
 	mass:300.0
 	hull_max:2000
@@ -22,7 +22,7 @@
 	faction:civilian
 	sprite:ship_civilian_0
 	color:ship_civilian
-	box_collision:3,3,117,35
+	box_collision:5,4,117,35
 	upgrades:
 	mass:300.0
 	hull_max:20
@@ -40,7 +40,7 @@
 	faction:pirate
 	sprite:ship_pirate_0
 	color:ship_pirate
-	box_collision:2,2,36,41
+	box_collision:14,2,36,41
 	upgrades:cannon_shotgun
 	mass:300.0
 	hull_max:40
@@ -58,7 +58,7 @@
 	faction:pirate
 	sprite:ship_pirate_1
 	color:ship_pirate
-	box_collision:2,2,33,54
+	box_collision:14,2,33,54
 	upgrades:cannon_shotgun
 	mass:300.0
 	hull_max:60
@@ -76,7 +76,7 @@
 	faction:pirate
 	sprite:ship_pirate_2
 	color:ship_pirate
-	box_collision:6,5,53,35
+	box_collision:18,6,53,35
 	upgrades:cannon_shotgun
 	mass:300.0
 	hull_max:80
@@ -94,7 +94,7 @@
 	faction:bounty_hunter
 	sprite:ship_bounty_hunter_0
 	color:ship_bounty_hunter
-	box_collision:5,4,44,21
+	box_collision:17,4,44,21
 	upgrades:missile_single
 	mass:300.0
 	hull_max:20
@@ -112,7 +112,7 @@
 	faction:bounty_hunter
 	sprite:ship_bounty_hunter_1
 	color:ship_bounty_hunter
-	box_collision:2,4,35,29
+	box_collision:14,4,35,29
 	upgrades:missile_spread
 	mass:300.0
 	hull_max:20
@@ -130,7 +130,7 @@
 	faction:bounty_hunter
 	sprite:ship_bounty_hunter_2
 	color:ship_bounty_hunter
-	box_collision:2,5,40,65
+	box_collision:14,5,40,65
 	upgrades:guided_missile_single
 	mass:300.0
 	hull_max:20
@@ -148,7 +148,7 @@
 	faction:police
 	sprite:ship_police_0
 	color:ship_police
-	box_collision:2,3,38,29
+	box_collision:14,4,38,29
 	upgrades:cannon_sniper,scanner
 	mass:300.0
 	hull_max:40
@@ -166,7 +166,7 @@
 	faction:police
 	sprite:ship_police_1
 	color:ship_police
-	box_collision:2,3,32,35
+	box_collision:14,4,32,35
 	upgrades:cannon_sniper,scanner
 	mass:300.0
 	hull_max:60
@@ -184,7 +184,7 @@
 	faction:police
 	sprite:ship_police_2
 	color:ship_police
-	box_collision:2,3,38,33
+	box_collision:14,4,38,33
 	upgrades:cannon_sniper,scanner
 	mass:300.0
 	hull_max:80
