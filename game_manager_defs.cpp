@@ -22,6 +22,7 @@
 #include <data_manager.h>
 #include <engine_strings.h>
 #include <engine_math.h>
+#include <android.h>
 
 #include <ctime>
 
