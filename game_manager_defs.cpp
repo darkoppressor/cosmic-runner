@@ -28,6 +28,9 @@
 using namespace std;
 
 void Game_Manager::on_startup () {
+    Android::set_status_bar_color("ui_0");
+    Android::set_navigation_bar_color("ui_0");
+
     Game::load_high_scores();
 
     Android_Leaderboard::remove_android_buttons();
