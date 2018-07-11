@@ -5,7 +5,7 @@ Gussy up the scrolling buttons window for buying upgrades
 Upgrade icons for upgrade selection and viewing windows
 
 Clouds floating over planets
-Fire/smoke effects for ship engines and missiles/guided missiles
+Smoke effects for ship engines and missiles/guided missiles
 Effects for weapons firing
 Ships dying should spawn a number of hull damage effects
 Variations for graphics?
@@ -16,7 +16,7 @@ Whenever hull damage effects are spawned, also create a brief, fairly large "cro
 where the damage occurred (what color? and only for the player, or other ships too?)
 Make asteroids look better
 
-Fire/smoke effects for title ship engines
+Smoke effects for title ship engines
 Clouds drifting across title screen
 Animated birds flying across title screen
 Title screen ships can have their speed tied to their scale, instead of being randomized

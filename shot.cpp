@@ -261,6 +261,10 @@ void Shot::movement(const Quadtree<double,uint32_t>& quadtree_debris){
 void Shot::animate(){
     if(is_alive()){
         sprite.animate();
+
+        if (sprite.frame == 0) {
+            sprite.frame++;
+        }
     }
 }
 

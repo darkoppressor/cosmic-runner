@@ -145,7 +145,9 @@ void Game::dodge_check(){
                     //If the debris is within the dodge range
                     if(Collision::check_rect_rotated(box,debris.get_collision_box(),player.get_angle(),debris.get_angle())){
                         //If the player is not touching the debris
-                        if(!Collision::check_rect_rotated(player.get_collision_box(),debris.get_collision_box(),player.get_angle(),debris.get_angle())){
+                        vector<Coords<double>> vertices_collision;
+                        debris.get_collision_box().get_vertices(vertices_collision, debris.get_angle());
+                        if(!Collision::check_vertices_rect(player.get_collision_vertices(),vertices_collision)){
                             dodging.begin_tracking_debris(nearby_debris[i]);
                         }
                         else{
@@ -162,7 +164,9 @@ void Game::dodge_check(){
             const Debris& debris=get_debris(tracking[i]);
 
             //If the player is touching the debris
-            if(Collision::check_rect_rotated(player.get_collision_box(),debris.get_collision_box(),player.get_angle(),debris.get_angle())){
+            vector<Coords<double>> vertices_collision;
+            debris.get_collision_box().get_vertices(vertices_collision, debris.get_angle());
+            if(Collision::check_vertices_rect(player.get_collision_vertices(),vertices_collision)){
                 dodging.stop_tracking_debris(tracking[i]);
                 dodging.begin_cooling_debris(tracking[i]);
             }
@@ -1436,7 +1440,7 @@ void Game::tick(){
     quadtree_ships.clear_tree();
     for(size_t i=0;i<ships.size();i++){
         if(ships[i].is_alive()){
-            quadtree_ships.insert_object(ships[i].get_collision_box(),(uint32_t)i);
+            quadtree_ships.insert_object(ships[i].get_box(),(uint32_t)i);
         }
     }
 

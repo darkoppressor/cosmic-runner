@@ -15,6 +15,7 @@
 #include <render.h>
 #include <screen_shake.h>
 #include <controller_manager.h>
+#include <engine_math.h>
 
 #include <unordered_set>
 
@@ -601,12 +602,40 @@ string Ship::get_faction() const{
 }
 
 Collision_Rect<double> Ship::get_collision_box() const{
-    Collision_Rect<double> box_collision=get_ship_type()->box_collision;
+    return get_ship_type()->box_collision;
+}
 
-    box_collision.x+=box.x;
-    box_collision.y+=box.y;
+vector<Coords<double>> Ship::get_collision_vertices() const {
+    vector<Coords<double>> vertices_box;
+    box.get_vertices(vertices_box, angle);
 
-    return box_collision;
+    vector<Coords<double>> vertices_collision;
+    get_collision_box().get_vertices(vertices_collision, angle);
+
+    double translate_x = vertices_collision[Collision::VERTEX_UPPER_LEFT].x - vertices_box[Collision::VERTEX_UPPER_LEFT].x;
+    double translate_y = vertices_collision[Collision::VERTEX_UPPER_LEFT].y - vertices_box[Collision::VERTEX_UPPER_LEFT].y;
+
+    for (size_t i = 0; i < vertices_collision.size(); i++) {
+        vertices_collision[i].x -= translate_x;
+        vertices_collision[i].y -= translate_y;
+    }
+
+    double angle_x = Math::get_angle_to_point(vertices_box[Collision::VERTEX_UPPER_LEFT], vertices_box[Collision::VERTEX_UPPER_RIGHT]);
+    double angle_y = Math::get_angle_to_point(vertices_box[Collision::VERTEX_UPPER_LEFT], vertices_box[Collision::VERTEX_LOWER_RIGHT]);
+
+    Vector_Components vc_x = Vector(get_collision_box().x, angle_x).get_components();
+    for (size_t i = 0; i < vertices_collision.size(); i++) {
+        vertices_collision[i].x += vc_x.a;
+        vertices_collision[i].y += vc_x.b;
+    }
+
+    Vector_Components vc_y = Vector(get_collision_box().y, angle_y).get_components();
+    for (size_t i = 0; i < vertices_collision.size(); i++) {
+        vertices_collision[i].x += vc_y.a;
+        vertices_collision[i].y += vc_y.b;
+    }
+
+    return vertices_collision;
 }
 
 bool Ship::is_alive() const{
@@ -1589,10 +1618,8 @@ void Ship::movement(uint32_t own_index,const Quadtree<double,uint32_t>& quadtree
         }
 
         if(!is_warping()){
-            Collision_Rect<double> box_collision=get_collision_box();
-
             vector<uint32_t> nearby_debris;
-            quadtree_debris.get_objects(nearby_debris,box_collision);
+            quadtree_debris.get_objects(nearby_debris,box);
 
             unordered_set<uint32_t> collisions;
 
@@ -1602,9 +1629,10 @@ void Ship::movement(uint32_t own_index,const Quadtree<double,uint32_t>& quadtree
                         collisions.emplace(nearby_debris[i]);
 
                         const Debris& debris=Game::get_debris(nearby_debris[i]);
-                        Collision_Rect<double> box_debris=debris.get_collision_box();
 
-                        if(rng.random_range(0,99)<Game_Constants::COLLISION_CHANCE_DEBRIS && Collision::check_rect_rotated(box_collision,box_debris,angle,debris.get_angle())){
+                        vector<Coords<double>> vertices_collision;
+                        debris.get_collision_box().get_vertices(vertices_collision, debris.get_angle());
+                        if(rng.random_range(0,99)<Game_Constants::COLLISION_CHANCE_DEBRIS && Collision::check_vertices_rect(get_collision_vertices(),vertices_collision)){
                             string damage_faction="world";
 
                             //If we are either fleeing from or chasing a ship, it is blamed for this damage
@@ -1613,7 +1641,7 @@ void Ship::movement(uint32_t own_index,const Quadtree<double,uint32_t>& quadtree
                             }
 
                             take_damage(is_player,debris.get_debris_type()->damage,debris.get_debris_type()->damage_type,
-                                        Coords<double>(box_collision.x+rng.random_range(0,(uint32_t)box_collision.w),box_collision.y+rng.random_range(0,(uint32_t)box_collision.h)),damage_faction,rng);
+                                        Coords<double>(box.x+rng.random_range(0,(uint32_t)box.w),box.y+rng.random_range(0,(uint32_t)box.h)),damage_faction,rng);
                         }
                     }
                 }
@@ -1623,7 +1651,7 @@ void Ship::movement(uint32_t own_index,const Quadtree<double,uint32_t>& quadtree
             }
 
             vector<uint32_t> nearby_shots;
-            quadtree_shots.get_objects(nearby_shots,box_collision);
+            quadtree_shots.get_objects(nearby_shots,box);
 
             collisions.clear();
 
@@ -1633,18 +1661,23 @@ void Ship::movement(uint32_t own_index,const Quadtree<double,uint32_t>& quadtree
                         collisions.emplace(nearby_shots[i]);
 
                         const Shot& shot=Game::get_shot(nearby_shots[i]);
-                        Collision_Rect<double> box_shot=shot.get_collision_box();
 
-                        if(shot.is_alive() && (!shot.has_owner() || own_index!=shot.get_owner_index()) && Collision::check_rect_rotated(box_collision,box_shot,angle,shot.get_angle())){
-                            if(shot.get_shot_type()->damage_type=="explosive"){
-                                Game::create_explosion("explosion_missile","explosion_missile",Coords<double>(box_shot.center_x(),box_shot.center_y()),shot.get_damage(),shot.get_faction());
-                            }
-                            else{
-                                take_damage(is_player,shot.get_damage(),shot.get_shot_type()->damage_type,
-                                            Coords<double>(box_collision.x+rng.random_range(0,(uint32_t)box_collision.w),box_collision.y+rng.random_range(0,(uint32_t)box_collision.h)),shot.get_faction(),rng);
-                            }
+                        if(shot.is_alive() && (!shot.has_owner() || own_index!=shot.get_owner_index())){
+                            Collision_Rect<double> box_shot = shot.get_collision_box();
 
-                            Game::kill_shot(nearby_shots[i]);
+                            vector<Coords<double>> vertices_collision;
+                            box_shot.get_vertices(vertices_collision, shot.get_angle());
+                            if (Collision::check_vertices_rect(get_collision_vertices(),vertices_collision)) {
+                                if(shot.get_shot_type()->damage_type=="explosive"){
+                                    Game::create_explosion("explosion_missile","explosion_missile",Coords<double>(box_shot.center_x(),box_shot.center_y()),shot.get_damage(),shot.get_faction());
+                                }
+                                else{
+                                    take_damage(is_player,shot.get_damage(),shot.get_shot_type()->damage_type,
+                                                Coords<double>(box.x+rng.random_range(0,(uint32_t)box.w),box.y+rng.random_range(0,(uint32_t)box.h)),shot.get_faction(),rng);
+                                }
+
+                                Game::kill_shot(nearby_shots[i]);
+                            }
                         }
                     }
                 }
@@ -1654,7 +1687,7 @@ void Ship::movement(uint32_t own_index,const Quadtree<double,uint32_t>& quadtree
             }
 
             vector<uint32_t> nearby_explosions;
-            quadtree_explosions.get_objects(nearby_explosions,box_collision);
+            quadtree_explosions.get_objects(nearby_explosions,box);
 
             collisions.clear();
 
@@ -1664,34 +1697,37 @@ void Ship::movement(uint32_t own_index,const Quadtree<double,uint32_t>& quadtree
                         collisions.emplace(nearby_explosions[i]);
 
                         const Explosion& explosion=Game::get_explosion(nearby_explosions[i]);
-                        Collision_Circ<double> circle_explosion=explosion.get_circle();
 
-                        if(explosion.is_alive() && !was_damaged_by_explosion(nearby_explosions[i]) && Collision::check_circ_rect(circle_explosion,box_collision)){
-                            damaged_by_explosion(nearby_explosions[i]);
+                        if(explosion.is_alive() && !was_damaged_by_explosion(nearby_explosions[i])){
+                            Coords<double> collision_center = Collision::get_vertices_center_rect(get_collision_vertices());
 
-                            if(explosion.is_scan()){
-                                if(is_player){
-                                    //Disable cloak
-                                    if(is_cloaked()){
-                                        toggle_cloak();
-                                    }
+                            if (Collision::check_circ(explosion.get_circle(),Collision_Circ<double>(collision_center.x, collision_center.y, (get_collision_box().w + get_collision_box().h) / 2.0))) {
+                                damaged_by_explosion(nearby_explosions[i]);
 
-                                    if(Game::player_has_contract()){
-                                        if (Game::notoriety_tier_1() || Game::notoriety_tier_2()) {
-                                            Game::increase_notoriety(Game_Constants::NOTORIETY_INCREASE_SCAN);
-                                        } else {
-                                            Game::increase_notoriety(Game_Constants::NOTORIETY_INCREASE_SCAN_INITIAL);
+                                if(explosion.is_scan()){
+                                    if(is_player){
+                                        //Disable cloak
+                                        if(is_cloaked()){
+                                            toggle_cloak();
+                                        }
+
+                                        if(Game::player_has_contract()){
+                                            if (Game::notoriety_tier_1() || Game::notoriety_tier_2()) {
+                                                Game::increase_notoriety(Game_Constants::NOTORIETY_INCREASE_SCAN);
+                                            } else {
+                                                Game::increase_notoriety(Game_Constants::NOTORIETY_INCREASE_SCAN_INITIAL);
+                                            }
                                         }
                                     }
                                 }
-                            }
-                            else if(explosion.is_emp()){
-                                disable();
-                            }
-                            else{
-                                take_damage(is_player,explosion.get_damage(),"explosive",
-                                            Coords<double>(box_collision.x+rng.random_range(0,(uint32_t)box_collision.w),box_collision.y+rng.random_range(0,(uint32_t)box_collision.h)),
-                                            explosion.get_faction(),rng);
+                                else if(explosion.is_emp()){
+                                    disable();
+                                }
+                                else{
+                                    take_damage(is_player,explosion.get_damage(),"explosive",
+                                                Coords<double>(box.x+rng.random_range(0,(uint32_t)box.w),box.y+rng.random_range(0,(uint32_t)box.h)),
+                                                explosion.get_faction(),rng);
+                                }
                             }
                         }
                     }
@@ -1726,7 +1762,7 @@ void Ship::movement(uint32_t own_index,const Quadtree<double,uint32_t>& quadtree
                 if(Game::is_player_tractored()){
                     const Ship& ship=Game::get_ship(Game::get_tractoring_ship_index());
 
-                    if(Collision::check_rect_rotated(box_collision,ship.get_collision_box(),angle,ship.get_angle())){
+                    if(Collision::check_vertices_rect(get_collision_vertices(),ship.get_collision_vertices())){
                         Game::arrest_player();
                     }
                 }
@@ -1782,6 +1818,10 @@ void Ship::animate(bool tractoring){
     if(is_alive()){
         if(thrusting){
             sprite.animate();
+
+            if (sprite.frame == 0) {
+                sprite.frame++;
+            }
         }
         else{
             sprite.reset_animation();
@@ -1829,22 +1869,15 @@ void Ship::render(bool tractoring,bool is_player){
                 sprite.render(box.x*Game_Manager::camera_zoom-Game_Manager::camera.x,box.y*Game_Manager::camera_zoom-Game_Manager::camera.y,opacity,scale,scale,angle_to_use);
             }
 
-            if(Game_Options::show_collision_outlines){
-                Collision_Rect<double> col_box=get_collision_box();
+            if (Game_Options::show_collision_outlines) {
+                vector<Coords<double>> vertices_collision = get_collision_vertices();
 
-                /// Render extra collision boxes
-                /*Render::render_rectangle(box.x*Game_Manager::camera_zoom-Game_Manager::camera.x,box.y*Game_Manager::camera_zoom-Game_Manager::camera.y,box.w,box.h,0.25,"white");
-                Render::render_rectangle(col_box.x*Game_Manager::camera_zoom-Game_Manager::camera.x,col_box.y*Game_Manager::camera_zoom-Game_Manager::camera.y,col_box.w,col_box.h,0.25,"red");*/
-
-                vector<Coords<double>> vertices;
-                col_box.get_vertices(vertices,angle);
-
-                for(size_t i=0;i<vertices.size();i++){
+                for (size_t i = 0; i < vertices_collision.size(); i++) {
                     uint32_t start_vertex=(uint32_t)i;
-                    uint32_t end_vertex=(i<vertices.size()-1) ? start_vertex+1 : 0;
+                    uint32_t end_vertex=(i<vertices_collision.size()-1) ? start_vertex+1 : 0;
 
-                    Render::render_line(vertices[start_vertex].x*Game_Manager::camera_zoom-Game_Manager::camera.x,vertices[start_vertex].y*Game_Manager::camera_zoom-Game_Manager::camera.y,
-                                        vertices[end_vertex].x*Game_Manager::camera_zoom-Game_Manager::camera.x,vertices[end_vertex].y*Game_Manager::camera_zoom-Game_Manager::camera.y,1.0,"red");
+                    Render::render_line(vertices_collision[start_vertex].x*Game_Manager::camera_zoom-Game_Manager::camera.x,vertices_collision[start_vertex].y*Game_Manager::camera_zoom-Game_Manager::camera.y,
+                                        vertices_collision[end_vertex].x*Game_Manager::camera_zoom-Game_Manager::camera.x,vertices_collision[end_vertex].y*Game_Manager::camera_zoom-Game_Manager::camera.y,1.0,"red");
                 }
             }
         }

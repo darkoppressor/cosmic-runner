@@ -46,6 +46,10 @@ void Title_Ship::movement(){
 
 void Title_Ship::animate(){
     sprite.animate();
+
+    if (sprite.frame == 0) {
+        sprite.frame++;
+    }
 }
 
 void Title_Ship::render(){

@@ -153,6 +153,8 @@ public:
 
     Collision_Rect<double> get_collision_box() const;
 
+    std::vector<Coords<double>> get_collision_vertices() const;
+
     bool is_alive() const;
 
     void check_processing_range(bool is_player);

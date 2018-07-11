@@ -109,3 +109,123 @@
 	frame_width:32
 	end_behavior:continue
 </animation>
+
+<animation>
+	name:ship_player_0
+	frame_count:3
+	animation_speed:100
+	frame_width:55
+	end_behavior:continue
+</animation>
+
+<animation>
+	name:ship_civilian_0
+	frame_count:4
+	animation_speed:100
+	frame_width:125
+	end_behavior:continue
+</animation>
+
+<animation>
+	name:ship_bounty_hunter_0
+	frame_count:4
+	animation_speed:100
+	frame_width:64
+	end_behavior:continue
+</animation>
+
+<animation>
+	name:ship_bounty_hunter_1
+	frame_count:4
+	animation_speed:100
+	frame_width:55
+	end_behavior:continue
+</animation>
+
+<animation>
+	name:ship_bounty_hunter_2
+	frame_count:4
+	animation_speed:100
+	frame_width:61
+	end_behavior:continue
+</animation>
+
+<animation>
+	name:ship_pirate_0
+	frame_count:4
+	animation_speed:100
+	frame_width:55
+	end_behavior:continue
+</animation>
+
+<animation>
+	name:ship_pirate_1
+	frame_count:4
+	animation_speed:100
+	frame_width:52
+	end_behavior:continue
+</animation>
+
+<animation>
+	name:ship_pirate_2
+	frame_count:4
+	animation_speed:100
+	frame_width:75
+	end_behavior:continue
+</animation>
+
+<animation>
+	name:ship_police_0
+	frame_count:4
+	animation_speed:100
+	frame_width:55
+	end_behavior:continue
+</animation>
+
+<animation>
+	name:ship_police_1
+	frame_count:4
+	animation_speed:100
+	frame_width:49
+	end_behavior:continue
+</animation>
+
+<animation>
+	name:ship_police_2
+	frame_count:4
+	animation_speed:100
+	frame_width:55
+	end_behavior:continue
+</animation>
+
+<animation>
+	name:shot_missile
+	frame_count:4
+	animation_speed:100
+	frame_width:36
+	end_behavior:continue
+</animation>
+
+<animation>
+	name:title_ship_0
+	frame_count:4
+	animation_speed:100
+	frame_width:55
+	end_behavior:continue
+</animation>
+
+<animation>
+	name:title_ship_1
+	frame_count:4
+	animation_speed:100
+	frame_width:124
+	end_behavior:continue
+</animation>
+
+<animation>
+	name:title_ship_2
+	frame_count:4
+	animation_speed:100
+	frame_width:55
+	end_behavior:continue
+</animation>
