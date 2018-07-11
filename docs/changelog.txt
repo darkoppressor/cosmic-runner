@@ -1,3 +1,15 @@
+0.2.3 beta - 2018/07/10
+------------------------
+Add fire effects for ship engines and missiles
+Add ship shadows on planets
+Add additional button sounds
+Add example mod
+Add Steam capability
+Add support for coloring Android bars
+Decrease toast times
+Decrease tooltip font size
+Increase in game menu height
+
 0.2.2 beta - 2018/07/07
 ------------------------
 Add About screen
