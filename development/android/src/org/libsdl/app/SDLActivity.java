@@ -678,7 +678,7 @@ public class SDLActivity extends Activity {
     }
 
     // colorString should be this format: #RRGGBB
-    public static void setStatusBarColor (String colorString) {
+    public void setStatusBarColor (String colorString) {
         Window window = getWindow();
 
         if (window != null) {
@@ -690,7 +690,7 @@ public class SDLActivity extends Activity {
     }
 
     // colorString should be this format: #RRGGBB
-    public static void setNavigationBarColor (String colorString) {
+    public void setNavigationBarColor (String colorString) {
         Window window = getWindow();
 
         if (window != null) {
