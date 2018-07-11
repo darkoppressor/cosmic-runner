@@ -1870,6 +1870,9 @@ void Ship::render(bool tractoring,bool is_player){
             }
 
             if (Game_Options::show_collision_outlines) {
+                Collision_Rect<double> dodge_box(box.x - Game_Constants::DODGE_RANGE, box.y - Game_Constants::DODGE_RANGE, box.w + Game_Constants::DODGE_RANGE*2.0, box.h+ Game_Constants::DODGE_RANGE*2.0);
+                Render::render_rectangle(dodge_box.x * Game_Manager::camera_zoom - Game_Manager::camera.x, dodge_box.y * Game_Manager::camera_zoom - Game_Manager::camera.y, dodge_box.w, dodge_box.h, 0.25, "text_input_blue");
+
                 vector<Coords<double>> vertices_collision = get_collision_vertices();
 
                 for (size_t i = 0; i < vertices_collision.size(); i++) {
