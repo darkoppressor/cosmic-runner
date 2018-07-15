@@ -16,6 +16,7 @@
 #include <screen_shake.h>
 #include <controller_manager.h>
 #include <engine_math.h>
+#include <engine_strings.h>
 
 #include <unordered_set>
 
@@ -820,6 +821,24 @@ void Ship::take_damage(bool is_player,int32_t damage,string damage_type,const Co
             Game::create_effect("effect_hull_damage",true,0.1*(double)rng.random_range(1,10),location,"effect_hull_damage",
                                 Vector(rng.random_range(0,10),rng.random_range(0,359)),rng.random_range(0,359),
                                 Vector(0.01*rng.random_range(0,50),rng.random_range(0,359)),Game_Constants::EFFECT_LENGTH_HULL_DAMAGE,false,Coords<double>(),get_ship_type()->color);
+
+            if (rng.random_range(0,99)<50) {
+                Coords<double> smoke_location = location;
+                if (rng.random_range(0,1)) {
+                    smoke_location.x -= rng.random_range(1,10);
+                } else {
+                    smoke_location.x += rng.random_range(1,10);
+                }
+                if (rng.random_range(0,1)) {
+                    smoke_location.y -= rng.random_range(1,10);
+                } else {
+                    smoke_location.y += rng.random_range(1,10);
+                }
+
+                Game::create_effect("effect_smoke_"+Strings::num_to_string(rng.random_range(0,2)),true,0.1*(double)rng.random_range(5,15),smoke_location,"",
+                                    Vector(rng.random_range(0,10),rng.random_range(0,359)),rng.random_range(0,359),
+                                    Vector(0.01*rng.random_range(0,50),rng.random_range(0,359)),Game_Constants::EFFECT_LENGTH_SMOKE,false,Coords<double>(),"white");
+            }
 
             if (is_player) {
                 Screen_Shake::add_shake(Game_Constants::SHAKE_MAGNITUDE_DAMAGE, Game_Constants::SHAKE_LENGTH_DAMAGE);

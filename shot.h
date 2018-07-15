@@ -13,6 +13,7 @@
 #include <coords.h>
 #include <sprite.h>
 #include <quadtree.h>
+#include <rng.h>
 
 #include <string>
 #include <cstdint>
@@ -43,6 +44,8 @@ private:
     std::int32_t damage_mod;
 
     Sprite sprite;
+
+    std::uint32_t smoke_delay;
 
 public:
 
@@ -84,7 +87,7 @@ public:
     void accelerate(const Quadtree<double,std::uint32_t>& quadtree_ships);
     void movement(const Quadtree<double,std::uint32_t>& quadtree_debris);
 
-    void animate();
+    void animate(RNG& rng);
     void render();
 };
 

@@ -295,6 +295,13 @@
 </game_constant>
 
 <game_constant>
+	//seconds
+	name:effect_length_smoke
+	value:1
+	type:uint32_t
+</game_constant>
+
+<game_constant>
 	name:effect_fade_rate
 	value:0.05
 	type:double
@@ -735,6 +742,13 @@
 	//milliseconds
 	name:missile_homing_delay
 	value:900
+	type:uint32_t
+</game_constant>
+
+<game_constant>
+	//milliseconds
+	name:smoke_delay
+	value:250
 	type:uint32_t
 </game_constant>
 

@@ -79,6 +79,30 @@
 </animation>
 
 <animation>
+	name:effect_smoke_0
+	frame_count:3
+	animation_speed:500
+	frame_width:12
+	end_behavior:continue
+</animation>
+
+<animation>
+	name:effect_smoke_1
+	frame_count:3
+	animation_speed:500
+	frame_width:12
+	end_behavior:continue
+</animation>
+
+<animation>
+	name:effect_smoke_2
+	frame_count:3
+	animation_speed:500
+	frame_width:12
+	end_behavior:continue
+</animation>
+
+<animation>
 	name:hud_notoriety_tier
 	frame_count:2
 	animation_speed:500

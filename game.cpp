@@ -1631,7 +1631,7 @@ void Game::animate(){
     }
 
     for(size_t i=0;i<shots.size();i++){
-        shots[i].animate();
+        shots[i].animate(rng);
     }
 
     for(size_t i=0;i<explosions.size();i++){

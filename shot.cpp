@@ -11,6 +11,7 @@
 #include <engine.h>
 #include <game_manager.h>
 #include <render.h>
+#include <engine_strings.h>
 
 #include <unordered_set>
 
@@ -43,6 +44,11 @@ Shot::Shot(uint32_t new_owner_index,string new_type,string new_faction,string ne
     }
 
     damage_mod=new_damage_mod;
+
+    smoke_delay = 0;
+    if (get_shot_type()->damage_type == "explosive") {
+        smoke_delay = Game_Constants::SMOKE_DELAY * Engine::UPDATE_RATE / 1000;
+    }
 }
 
 Shot_Type* Shot::get_shot_type() const{
@@ -258,12 +264,34 @@ void Shot::movement(const Quadtree<double,uint32_t>& quadtree_debris){
     }
 }
 
-void Shot::animate(){
+void Shot::animate(RNG& rng){
     if(is_alive()){
         sprite.animate();
 
         if (sprite.frame == 0) {
             sprite.frame++;
+        }
+
+        if (get_shot_type()->damage_type == "explosive") {
+            if (smoke_delay > 0) {
+                smoke_delay--;
+            }
+
+            if (smoke_delay == 0) {
+                smoke_delay = Game_Constants::SMOKE_DELAY * Engine::UPDATE_RATE / 1000;
+
+                vector<Coords<double>> vertices;
+                get_box().get_vertices(vertices, angle);
+
+                Coords<double> smoke_location(rng.random_range(vertices[Collision::VERTEX_UPPER_LEFT].x,
+                    vertices[Collision::VERTEX_LOWER_LEFT].x),
+                    rng.random_range(vertices[Collision::VERTEX_UPPER_LEFT].y,
+                        vertices[Collision::VERTEX_LOWER_LEFT].y));
+
+                Game::create_effect("effect_smoke_"+Strings::num_to_string(rng.random_range(0,2)),true,0.1*(double)rng.random_range(5,15),smoke_location,"",
+                                    Vector(rng.random_range(0,10),rng.random_range(0,359)),rng.random_range(0,359),
+                                    Vector(0.01*rng.random_range(0,50),rng.random_range(0,359)),Game_Constants::EFFECT_LENGTH_SMOKE,false,Coords<double>(),"white");
+            }
         }
     }
 }

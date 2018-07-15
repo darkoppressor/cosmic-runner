@@ -50,6 +50,7 @@ double Game_Constants::DODGE_SPEED_THRESHOLD=0.0;
 uint32_t Game_Constants::UPGRADE_LIST_SIZE=0;
 uint32_t Game_Constants::EFFECT_LENGTH_CARGO=0;
 uint32_t Game_Constants::EFFECT_LENGTH_HULL_DAMAGE=0;
+uint32_t Game_Constants::EFFECT_LENGTH_SMOKE=0;
 double Game_Constants::EFFECT_FADE_RATE=0.0;
 uint32_t Game_Constants::SHIELD_RECHARGE_RATE=0;
 uint32_t Game_Constants::DISABLED_LENGTH=0;
@@ -116,6 +117,7 @@ double Game_Constants::AI_TIME_WITHOUT_MOVING_DISTANCE_THRESHOLD=0.0;
 double Game_Constants::TRACTOR_RANGE=0.0;
 double Game_Constants::TRACTOR_FORCE=0.0;
 uint32_t Game_Constants::MISSILE_HOMING_DELAY=0;
+uint32_t Game_Constants::SMOKE_DELAY=0;
 uint32_t Game_Constants::AI_PROXIMITY_CHECK_PERIOD=0;
 double Game_Constants::LOW_HULL_THRESHOLD=0.0;
 uint32_t Game_Constants::DISABLED_SOUND_RATE=0;
@@ -295,6 +297,9 @@ void Game_Constants_Loader::set_game_constant(string name,string value){
     }
     else if(name=="effect_length_hull_damage"){
         Game_Constants::EFFECT_LENGTH_HULL_DAMAGE=Strings::string_to_unsigned_long(value);
+    }
+    else if(name=="effect_length_smoke"){
+        Game_Constants::EFFECT_LENGTH_SMOKE=Strings::string_to_unsigned_long(value);
     }
     else if(name=="effect_fade_rate"){
         Game_Constants::EFFECT_FADE_RATE=Strings::string_to_double(value);
@@ -493,6 +498,9 @@ void Game_Constants_Loader::set_game_constant(string name,string value){
     }
     else if(name=="missile_homing_delay"){
         Game_Constants::MISSILE_HOMING_DELAY=Strings::string_to_unsigned_long(value);
+    }
+    else if(name=="smoke_delay"){
+        Game_Constants::SMOKE_DELAY=Strings::string_to_unsigned_long(value);
     }
     else if(name=="ai_proximity_check_period"){
         Game_Constants::AI_PROXIMITY_CHECK_PERIOD=Strings::string_to_unsigned_long(value);
