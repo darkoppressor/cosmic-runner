@@ -764,6 +764,11 @@ void Ship::take_damage(bool is_player,int32_t damage,string damage_type,const Co
             toggle_cloak();
         }
 
+        if (is_player && damage > 0) {
+            Game::create_effect("effect_cross", false, 2.5, location, "", Vector(0.0, 0.0), 0.0, Vector(0.0, 0.0), 0,
+            false, Coords<double>());
+        }
+
         int32_t effective_damage=damage;
 
         if(shields>0){

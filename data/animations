@@ -111,6 +111,14 @@
 </animation>
 
 <animation>
+	name:effect_cross
+	frame_count:7
+	animation_speed:100
+	frame_width:16
+	end_behavior:stop
+</animation>
+
+<animation>
 	name:hud_notoriety_tier
 	frame_count:2
 	animation_speed:500

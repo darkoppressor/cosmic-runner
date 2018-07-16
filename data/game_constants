@@ -297,7 +297,7 @@
 <game_constant>
 	//seconds
 	name:effect_length_smoke
-	value:1
+	value:2
 	type:uint32_t
 </game_constant>
 
