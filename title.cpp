@@ -19,6 +19,7 @@ Title::Title(){
 
 void Title::clear_title(){
     ships.clear();
+    trees.clear();
     suns.clear();
 
     ship_spawn_check=0;
@@ -34,6 +35,21 @@ void Title::setup(RNG& rng){
     suns.back().setup(sprite.name);
 
     generate_ship(rng);
+
+    uint32_t max_trees = rng.random_range(Game_Constants::TITLE_MAX_TREES_MINIMUM, Game_Constants::TITLE_MAX_TREES_MAXIMUM);
+
+    for (uint32_t i = 0; i < max_trees; i++) {
+        double distance_scale=0.01*(double)rng.random_range(75,150);
+
+        Sprite sprite;
+        sprite.set_name("title_tree");
+
+        Coords<double> position(rng.random_range((uint32_t) (sprite.get_width() * distance_scale),
+        (uint32_t) ((double) Game_Window::width() - sprite.get_width() * distance_scale)),
+        (double) rng.random_range(Game_Constants::TITLE_TREE_MAXIMUM_HEIGHT, (uint32_t) Game_Window::height()) - sprite.get_height() * distance_scale);
+
+        trees.push_back(Title_Tree(rng, position, distance_scale));
+    }
 }
 
 void Title::generate_ship(RNG& rng){
@@ -129,6 +145,10 @@ void Title::animate(RNG& rng){
     for(size_t i=0;i<ships.size();i++){
         ships[i].animate();
     }
+
+    for(size_t i=0;i<trees.size();i++){
+        trees[i].animate();
+    }
 }
 
 void Title::render(){
@@ -148,5 +168,9 @@ void Title::render(){
 
     for(size_t i=0;i<ships.size();i++){
         ships[i].render(true);
+    }
+
+    for(size_t i=0;i<trees.size();i++){
+        trees[i].render();
     }
 }

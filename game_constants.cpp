@@ -16,6 +16,11 @@ uint32_t Game_Constants::TITLE_MAX_SHIPS=0;
 uint32_t Game_Constants::TITLE_BIRD_CHANCE=0;
 uint32_t Game_Constants::TITLE_CLOUD_CHANCE=0;
 uint32_t Game_Constants::TITLE_SHIP_MINIMUM_HEIGHT=0;
+uint32_t Game_Constants::TITLE_MAX_TREES_MINIMUM=0;
+uint32_t Game_Constants::TITLE_MAX_TREES_MAXIMUM=0;
+uint32_t Game_Constants::TITLE_TREE_MAXIMUM_HEIGHT=0;
+uint32_t Game_Constants::TITLE_TREE_ANIMATION_SPEED_MINIMUM=0;
+uint32_t Game_Constants::TITLE_TREE_ANIMATION_SPEED_MAXIMUM=0;
 uint32_t Game_Constants::TITLE_MAX_SUN_SHIMMERS=0;
 uint32_t Game_Constants::TITLE_SUN_SHIMMER_SPAWN_RATE=0;
 uint32_t Game_Constants::TITLE_SUN_SHIMMER_SPAWN_CHANCE=0;
@@ -208,6 +213,21 @@ void Game_Constants_Loader::set_game_constant(string name,string value){
     }
     else if(name=="title_ship_minimum_height"){
         Game_Constants::TITLE_SHIP_MINIMUM_HEIGHT=Strings::string_to_unsigned_long(value);
+    }
+    else if(name=="title_max_trees_minimum"){
+        Game_Constants::TITLE_MAX_TREES_MINIMUM=Strings::string_to_unsigned_long(value);
+    }
+    else if(name=="title_max_trees_maximum"){
+        Game_Constants::TITLE_MAX_TREES_MAXIMUM=Strings::string_to_unsigned_long(value);
+    }
+    else if(name=="title_tree_maximum_height"){
+        Game_Constants::TITLE_TREE_MAXIMUM_HEIGHT=Strings::string_to_unsigned_long(value);
+    }
+    else if(name=="title_tree_animation_speed_minimum"){
+        Game_Constants::TITLE_TREE_ANIMATION_SPEED_MINIMUM=Strings::string_to_unsigned_long(value);
+    }
+    else if(name=="title_tree_animation_speed_maximum"){
+        Game_Constants::TITLE_TREE_ANIMATION_SPEED_MAXIMUM=Strings::string_to_unsigned_long(value);
     }
     else if(name=="title_max_sun_shimmers"){
         Game_Constants::TITLE_MAX_SUN_SHIMMERS=Strings::string_to_unsigned_long(value);

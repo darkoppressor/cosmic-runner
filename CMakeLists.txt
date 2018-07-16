@@ -41,6 +41,7 @@ special_info.cpp
 title.cpp
 title_ship.cpp
 title_sun.cpp
+title_tree.cpp
 upgrade.cpp
 version.cpp
 window_close_function.cpp

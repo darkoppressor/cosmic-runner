@@ -277,3 +277,11 @@
 	frame_width:13
 	end_behavior:continue
 </animation>
+
+<animation>
+	name:title_tree
+	frame_count:8
+	animation_speed:400
+	frame_width:40
+	end_behavior:continue
+</animation>

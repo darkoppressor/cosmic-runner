@@ -80,6 +80,39 @@
 </game_constant>
 
 <game_constant>
+	name:title_max_trees_minimum
+	value:10
+	type:uint32_t
+</game_constant>
+
+<game_constant>
+	name:title_max_trees_maximum
+	value:20
+	type:uint32_t
+</game_constant>
+
+<game_constant>
+	//pixels
+	//This is the highest point on the screen a title tree can spawn,
+	//so a higher number corresponds to a lower maximum height
+	name:title_tree_maximum_height
+	value:707
+	type:uint32_t
+</game_constant>
+
+<game_constant>
+	name:title_tree_animation_speed_minimum
+	value:300
+	type:uint32_t
+</game_constant>
+
+<game_constant>
+	name:title_tree_animation_speed_maximum
+	value:500
+	type:uint32_t
+</game_constant>
+
+<game_constant>
 	name:title_max_sun_shimmers
 	value:24
 	type:uint32_t

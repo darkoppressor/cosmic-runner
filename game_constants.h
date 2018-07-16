@@ -17,6 +17,11 @@ public:
     static std::uint32_t TITLE_BIRD_CHANCE;
     static std::uint32_t TITLE_CLOUD_CHANCE;
     static std::uint32_t TITLE_SHIP_MINIMUM_HEIGHT;
+    static std::uint32_t TITLE_MAX_TREES_MINIMUM;
+    static std::uint32_t TITLE_MAX_TREES_MAXIMUM;
+    static std::uint32_t TITLE_TREE_MAXIMUM_HEIGHT;
+    static std::uint32_t TITLE_TREE_ANIMATION_SPEED_MINIMUM;
+    static std::uint32_t TITLE_TREE_ANIMATION_SPEED_MAXIMUM;
     static std::uint32_t TITLE_MAX_SUN_SHIMMERS;
     static std::uint32_t TITLE_SUN_SHIMMER_SPAWN_RATE;
     static std::uint32_t TITLE_SUN_SHIMMER_SPAWN_CHANCE;

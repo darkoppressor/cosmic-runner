@@ -7,6 +7,7 @@
 
 #include "title_ship.h"
 #include "title_sun.h"
+#include "title_tree.h"
 
 #include <rng.h>
 
@@ -18,6 +19,7 @@ private:
 
     std::vector<Title_Sun> suns;
     std::vector<Title_Ship> ships;
+    std::vector<Title_Tree> trees;
 
     std::uint32_t ship_spawn_check;
 
