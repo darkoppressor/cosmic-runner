@@ -822,17 +822,21 @@ void Ship::take_damage(bool is_player,int32_t damage,string damage_type,const Co
                                 Vector(rng.random_range(0,10),rng.random_range(0,359)),rng.random_range(0,359),
                                 Vector(0.01*rng.random_range(0,50),rng.random_range(0,359)),Game_Constants::EFFECT_LENGTH_HULL_DAMAGE,false,Coords<double>(),get_ship_type()->color);
 
-            if (rng.random_range(0,99)<50) {
+            if (rng.random_range(0,1)) {
                 Coords<double> smoke_location = location;
                 if (rng.random_range(0,1)) {
-                    smoke_location.x -= rng.random_range(1,10);
+                    smoke_location.x -= rng.random_range(Game_Constants::SMOKE_POSITION_MINIMUM,
+                        Game_Constants::SMOKE_POSITION_MAXIMUM);
                 } else {
-                    smoke_location.x += rng.random_range(1,10);
+                    smoke_location.x += rng.random_range(Game_Constants::SMOKE_POSITION_MINIMUM,
+                        Game_Constants::SMOKE_POSITION_MAXIMUM);
                 }
                 if (rng.random_range(0,1)) {
-                    smoke_location.y -= rng.random_range(1,10);
+                    smoke_location.y -= rng.random_range(Game_Constants::SMOKE_POSITION_MINIMUM,
+                        Game_Constants::SMOKE_POSITION_MAXIMUM);
                 } else {
-                    smoke_location.y += rng.random_range(1,10);
+                    smoke_location.y += rng.random_range(Game_Constants::SMOKE_POSITION_MINIMUM,
+                        Game_Constants::SMOKE_POSITION_MAXIMUM);
                 }
 
                 Game::create_effect("effect_smoke_"+Strings::num_to_string(rng.random_range(0,2)),true,0.1*(double)rng.random_range(5,15),smoke_location,"",
@@ -1145,6 +1149,29 @@ bool Ship::fire_weapon(const Quadtree<double,uint32_t>& quadtree_ships,RNG& rng,
                         Screen_Shake::add_shake(Game_Constants::SHAKE_MAGNITUDE_WEAPON_SOLID, Game_Constants::SHAKE_LENGTH_WEAPON_SOLID);
                         Controller_Manager::make_rumble(Controller_Manager::CONTROLLER_ID_ALL, Game_Constants::SHAKE_MAGNITUDE_WEAPON_SOLID, Game_Constants::SHAKE_LENGTH_WEAPON_SOLID);
                     }
+
+                    for (size_t j = 0; j < Game_Constants::SHOT_SMOKE_COUNT_SOLID; j++) {
+                        Coords<double> smoke_location(box.center_x(), box.center_y());
+
+                        if (rng.random_range(0,1)) {
+                            smoke_location.x -= rng.random_range(Game_Constants::SMOKE_POSITION_MINIMUM,
+                                Game_Constants::SMOKE_POSITION_MAXIMUM);
+                        } else {
+                            smoke_location.x += rng.random_range(Game_Constants::SMOKE_POSITION_MINIMUM,
+                                Game_Constants::SMOKE_POSITION_MAXIMUM);
+                        }
+                        if (rng.random_range(0,1)) {
+                            smoke_location.y -= rng.random_range(Game_Constants::SMOKE_POSITION_MINIMUM,
+                                Game_Constants::SMOKE_POSITION_MAXIMUM);
+                        } else {
+                            smoke_location.y += rng.random_range(Game_Constants::SMOKE_POSITION_MINIMUM,
+                                Game_Constants::SMOKE_POSITION_MAXIMUM);
+                        }
+
+                        Game::create_effect("effect_smoke_"+Strings::num_to_string(rng.random_range(0,2)),true,0.1*(double)rng.random_range(10,20),smoke_location,"",
+                                            Vector(rng.random_range(0,10),rng.random_range(0,359)),rng.random_range(0,359),
+                                            Vector(0.01*rng.random_range(0,50),rng.random_range(0,359)),Game_Constants::EFFECT_LENGTH_SMOKE,false,Coords<double>(),"white");
+                    }
                 }
                 else if(damage_type=="explosive"){
                     damage_mod_for_one_shot=get_damage_mod_explosive();
@@ -1153,6 +1180,29 @@ bool Ship::fire_weapon(const Quadtree<double,uint32_t>& quadtree_ships,RNG& rng,
                         Screen_Shake::add_shake(Game_Constants::SHAKE_MAGNITUDE_WEAPON_EXPLOSIVE, Game_Constants::SHAKE_LENGTH_WEAPON_EXPLOSIVE);
                         Controller_Manager::make_rumble(Controller_Manager::CONTROLLER_ID_ALL, Game_Constants::SHAKE_MAGNITUDE_WEAPON_EXPLOSIVE, Game_Constants::SHAKE_LENGTH_WEAPON_EXPLOSIVE);
                     }
+
+                    for (size_t j = 0; j < Game_Constants::SHOT_SMOKE_COUNT_EXPLOSIVE; j++) {
+                        Coords<double> smoke_location(box.center_x(), box.center_y());
+
+                        if (rng.random_range(0,1)) {
+                            smoke_location.x -= rng.random_range(Game_Constants::SMOKE_POSITION_MINIMUM,
+                                Game_Constants::SMOKE_POSITION_MAXIMUM);
+                        } else {
+                            smoke_location.x += rng.random_range(Game_Constants::SMOKE_POSITION_MINIMUM,
+                                Game_Constants::SMOKE_POSITION_MAXIMUM);
+                        }
+                        if (rng.random_range(0,1)) {
+                            smoke_location.y -= rng.random_range(Game_Constants::SMOKE_POSITION_MINIMUM,
+                                Game_Constants::SMOKE_POSITION_MAXIMUM);
+                        } else {
+                            smoke_location.y += rng.random_range(Game_Constants::SMOKE_POSITION_MINIMUM,
+                                Game_Constants::SMOKE_POSITION_MAXIMUM);
+                        }
+
+                        Game::create_effect("effect_smoke_"+Strings::num_to_string(rng.random_range(0,2)),true,0.1*(double)rng.random_range(10,20),smoke_location,"",
+                                            Vector(rng.random_range(0,10),rng.random_range(0,359)),rng.random_range(0,359),
+                                            Vector(0.01*rng.random_range(0,50),rng.random_range(0,359)),Game_Constants::EFFECT_LENGTH_SMOKE,false,Coords<double>(),"white");
+                    }
                 }
                 else if(damage_type=="energy"){
                     damage_mod_for_one_shot=get_damage_mod_energy();
@@ -1160,6 +1210,29 @@ bool Ship::fire_weapon(const Quadtree<double,uint32_t>& quadtree_ships,RNG& rng,
                     if (is_player) {
                         Screen_Shake::add_shake(Game_Constants::SHAKE_MAGNITUDE_WEAPON_ENERGY, Game_Constants::SHAKE_LENGTH_WEAPON_ENERGY);
                         Controller_Manager::make_rumble(Controller_Manager::CONTROLLER_ID_ALL, Game_Constants::SHAKE_MAGNITUDE_WEAPON_ENERGY, Game_Constants::SHAKE_LENGTH_WEAPON_ENERGY);
+                    }
+
+                    for (size_t j = 0; j < Game_Constants::SHOT_SMOKE_COUNT_ENERGY; j++) {
+                        Coords<double> smoke_location(box.center_x(), box.center_y());
+
+                        if (rng.random_range(0,1)) {
+                            smoke_location.x -= rng.random_range(Game_Constants::SMOKE_POSITION_MINIMUM,
+                                Game_Constants::SMOKE_POSITION_MAXIMUM);
+                        } else {
+                            smoke_location.x += rng.random_range(Game_Constants::SMOKE_POSITION_MINIMUM,
+                                Game_Constants::SMOKE_POSITION_MAXIMUM);
+                        }
+                        if (rng.random_range(0,1)) {
+                            smoke_location.y -= rng.random_range(Game_Constants::SMOKE_POSITION_MINIMUM,
+                                Game_Constants::SMOKE_POSITION_MAXIMUM);
+                        } else {
+                            smoke_location.y += rng.random_range(Game_Constants::SMOKE_POSITION_MINIMUM,
+                                Game_Constants::SMOKE_POSITION_MAXIMUM);
+                        }
+
+                        Game::create_effect("effect_plasma_smoke_0",true,0.1*(double)rng.random_range(10,20),smoke_location,"",
+                                            Vector(rng.random_range(0,10),rng.random_range(0,359)),rng.random_range(0,359),
+                                            Vector(0.01*rng.random_range(0,50),rng.random_range(0,359)),Game_Constants::EFFECT_LENGTH_SMOKE,false,Coords<double>(),"white");
                     }
                 }
 

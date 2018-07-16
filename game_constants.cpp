@@ -118,6 +118,11 @@ double Game_Constants::TRACTOR_RANGE=0.0;
 double Game_Constants::TRACTOR_FORCE=0.0;
 uint32_t Game_Constants::MISSILE_HOMING_DELAY=0;
 uint32_t Game_Constants::SMOKE_DELAY=0;
+uint32_t Game_Constants::SMOKE_POSITION_MINIMUM=0;
+uint32_t Game_Constants::SMOKE_POSITION_MAXIMUM=0;
+uint32_t Game_Constants::SHOT_SMOKE_COUNT_SOLID=0;
+uint32_t Game_Constants::SHOT_SMOKE_COUNT_EXPLOSIVE=0;
+uint32_t Game_Constants::SHOT_SMOKE_COUNT_ENERGY=0;
 uint32_t Game_Constants::AI_PROXIMITY_CHECK_PERIOD=0;
 double Game_Constants::LOW_HULL_THRESHOLD=0.0;
 uint32_t Game_Constants::DISABLED_SOUND_RATE=0;
@@ -501,6 +506,21 @@ void Game_Constants_Loader::set_game_constant(string name,string value){
     }
     else if(name=="smoke_delay"){
         Game_Constants::SMOKE_DELAY=Strings::string_to_unsigned_long(value);
+    }
+    else if(name=="smoke_position_minimum"){
+        Game_Constants::SMOKE_POSITION_MINIMUM=Strings::string_to_unsigned_long(value);
+    }
+    else if(name=="smoke_position_maximum"){
+        Game_Constants::SMOKE_POSITION_MAXIMUM=Strings::string_to_unsigned_long(value);
+    }
+    else if(name=="shot_smoke_count_solid"){
+        Game_Constants::SHOT_SMOKE_COUNT_SOLID=Strings::string_to_unsigned_long(value);
+    }
+    else if(name=="shot_smoke_count_explosive"){
+        Game_Constants::SHOT_SMOKE_COUNT_EXPLOSIVE=Strings::string_to_unsigned_long(value);
+    }
+    else if(name=="shot_smoke_count_energy"){
+        Game_Constants::SHOT_SMOKE_COUNT_ENERGY=Strings::string_to_unsigned_long(value);
     }
     else if(name=="ai_proximity_check_period"){
         Game_Constants::AI_PROXIMITY_CHECK_PERIOD=Strings::string_to_unsigned_long(value);

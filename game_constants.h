@@ -119,6 +119,11 @@ public:
     static double TRACTOR_FORCE;
     static std::uint32_t MISSILE_HOMING_DELAY;
     static std::uint32_t SMOKE_DELAY;
+    static std::uint32_t SMOKE_POSITION_MINIMUM;
+    static std::uint32_t SMOKE_POSITION_MAXIMUM;
+    static std::uint32_t SHOT_SMOKE_COUNT_SOLID;
+    static std::uint32_t SHOT_SMOKE_COUNT_EXPLOSIVE;
+    static std::uint32_t SHOT_SMOKE_COUNT_ENERGY;
     static std::uint32_t AI_PROXIMITY_CHECK_PERIOD;
     static double LOW_HULL_THRESHOLD;
     static std::uint32_t DISABLED_SOUND_RATE;

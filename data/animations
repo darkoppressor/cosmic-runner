@@ -103,6 +103,14 @@
 </animation>
 
 <animation>
+	name:effect_plasma_smoke_0
+	frame_count:3
+	animation_speed:150
+	frame_width:12
+	end_behavior:continue
+</animation>
+
+<animation>
 	name:hud_notoriety_tier
 	frame_count:2
 	animation_speed:500

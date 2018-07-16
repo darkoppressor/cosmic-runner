@@ -753,6 +753,38 @@
 </game_constant>
 
 <game_constant>
+	//pixels
+	name:smoke_position_minimum
+	value:1
+	type:uint32_t
+</game_constant>
+
+<game_constant>
+	//pixels
+	name:smoke_position_maximum
+	value:10
+	type:uint32_t
+</game_constant>
+
+<game_constant>
+	name:shot_smoke_count_solid
+	value:2
+	type:uint32_t
+</game_constant>
+
+<game_constant>
+	name:shot_smoke_count_explosive
+	value:5
+	type:uint32_t
+</game_constant>
+
+<game_constant>
+	name:shot_smoke_count_energy
+	value:2
+	type:uint32_t
+</game_constant>
+
+<game_constant>
 	//Valid range: [1,logic update rate]
 	//There will be ai_proximity_check_period - 1 frames in between each AI proximity check opportunity
 	//AI proximity checking is additionally staggered among the ships
