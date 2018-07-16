@@ -226,7 +226,7 @@ void Shot::accelerate(const Quadtree<double,uint32_t>& quadtree_ships){
     }
 }
 
-void Shot::movement(const Quadtree<double,uint32_t>& quadtree_debris){
+void Shot::movement(RNG& rng, const Quadtree<double,uint32_t>& quadtree_debris){
     if(is_alive()){
         Vector_Components vc=velocity.get_components();
 
@@ -250,7 +250,7 @@ void Shot::movement(const Quadtree<double,uint32_t>& quadtree_debris){
 
                     if(Collision::check_rect_rotated(box_collision,box_debris,angle,debris.get_angle())){
                         if(get_shot_type()->damage_type=="explosive"){
-                            Game::create_explosion("explosion_missile","explosion_missile",Coords<double>(box.center_x(),box.center_y()),get_damage(),faction);
+                            Game::create_explosion("explosion_missile","explosion_missile_" + Strings::num_to_string(rng.random_range(0,2)),Coords<double>(box.center_x(),box.center_y()),get_damage(),faction);
                         }
 
                         die();

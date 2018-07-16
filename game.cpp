@@ -1492,7 +1492,7 @@ void Game::movement(){
         ships[i].cooldown(quadtree_ships,quadtree_shots,rng,(uint32_t)i);
         ships[i].calculate_laser_target(quadtree_ships,(uint32_t)i);
 
-        ships[i].accelerate(i==0,frame);
+        ships[i].accelerate(rng,i==0,frame);
     }
 
     for(size_t i=0;i<ships.size();i++){
@@ -1507,7 +1507,7 @@ void Game::movement(){
     }
 
     for(size_t i=0;i<shots.size();i++){
-        shots[i].movement(quadtree_debris);
+        shots[i].movement(rng, quadtree_debris);
     }
 
     for(size_t i=0;i<effects.size();i++){

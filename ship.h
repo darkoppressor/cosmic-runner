@@ -205,7 +205,7 @@ public:
     std::int32_t get_nearest_valid_target_shot(const Quadtree<double,std::uint32_t>& quadtree_shots,const Collision_Rect<double>& box_targeting);
 
     //Returns true if the point defense found a target and fired upon it
-    bool fire_point_defense(const Quadtree<double,std::uint32_t>& quadtree_shots);
+    bool fire_point_defense(RNG& rng, const Quadtree<double,std::uint32_t>& quadtree_shots);
 
     void ai_select_target(std::uint32_t own_index,RNG& rng);
     void ai_check_for_proximity_target(const Quadtree<double,std::uint32_t>& quadtree_ships,std::uint32_t own_index);
@@ -215,10 +215,10 @@ public:
             std::uint32_t frame,std::uint32_t own_index,RNG& rng);
     void ai_determine_angle(const Quadtree<double,std::uint32_t>& quadtree_debris);
 
-    void thrust(std::uint32_t frame);
+    void thrust(std::uint32_t frame, RNG& rng);
     void brake(std::uint32_t frame);
 
-    void accelerate(bool is_player,std::uint32_t frame);
+    void accelerate(RNG& rng, bool is_player,std::uint32_t frame);
     void rotation(bool is_player);
     void movement(uint32_t own_index,const Quadtree<double,std::uint32_t>& quadtree_debris,const Quadtree<double,std::uint32_t>& quadtree_shots,
                   const Quadtree<double,std::uint32_t>& quadtree_explosions,const Quadtree<double,std::uint32_t>& quadtree_items,RNG& rng);

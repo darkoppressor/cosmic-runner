@@ -732,7 +732,7 @@ void Ship::die(bool is_player,string damage_faction,RNG& rng){
 
         hull=0;
 
-        Game::create_explosion("explosion_ship","explosion_ship",Coords<double>(box.center_x(),box.center_y()),Game_Constants::EXPLOSION_DAMAGE_SHIP,damage_faction);
+        Game::create_explosion("explosion_ship","explosion_ship_" + Strings::num_to_string(rng.random_range(0,2)),Coords<double>(box.center_x(),box.center_y()),Game_Constants::EXPLOSION_DAMAGE_SHIP,damage_faction);
 
         uint32_t items_to_drop=rng.random_range(get_ship_type()->item_drop_min,get_ship_type()->item_drop_max);
 
@@ -906,7 +906,7 @@ void Ship::take_damage(bool is_player,int32_t damage,string damage_type,const Co
                                         Vector(0.01*rng.random_range(0,50),rng.random_range(0,359)),Game_Constants::EFFECT_LENGTH_SMOKE,false,Coords<double>(),"white");
                 }
 
-                Game::create_explosion("explosion_ship","explosion_ship",Coords<double>(box.center_x(),box.center_y()),Game_Constants::EXPLOSION_DAMAGE_SHIP,damage_faction);
+                Game::create_explosion("explosion_ship","explosion_ship_" + Strings::num_to_string(rng.random_range(0,2)),Coords<double>(box.center_x(),box.center_y()),Game_Constants::EXPLOSION_DAMAGE_SHIP,damage_faction);
 
                 uint32_t items_to_drop=rng.random_range(get_ship_type()->item_drop_min,get_ship_type()->item_drop_max);
 
@@ -1069,7 +1069,7 @@ void Ship::cooldown(const Quadtree<double,uint32_t>& quadtree_ships,const Quadtr
             }
 
             if(!is_disabled(is_player) && !is_cloaked() && !is_warping() && point_defense_cooldown>=cool_point){
-                if(fire_point_defense(quadtree_shots)){
+                if(fire_point_defense(rng, quadtree_shots)){
                     point_defense_cooldown=0;
                 }
             }
@@ -1445,7 +1445,7 @@ int32_t Ship::get_nearest_valid_target_shot(const Quadtree<double,uint32_t>& qua
     return nearest_index;
 }
 
-bool Ship::fire_point_defense(const Quadtree<double,uint32_t>& quadtree_shots){
+bool Ship::fire_point_defense(RNG& rng, const Quadtree<double,uint32_t>& quadtree_shots){
     if(has_point_defense()){
         Collision_Rect<double> box_targeting=box;
 
@@ -1460,7 +1460,7 @@ bool Ship::fire_point_defense(const Quadtree<double,uint32_t>& quadtree_shots){
         if(nearest_index>=0){
             const Shot& shot=Game::get_shot((uint32_t)nearest_index);
 
-            Game::create_explosion("explosion_missile","explosion_missile",Coords<double>(shot.get_box().center_x(),shot.get_box().center_y()),shot.get_damage(),shot.get_faction());
+            Game::create_explosion("explosion_missile","explosion_missile_" + Strings::num_to_string(rng.random_range(0,2)),Coords<double>(shot.get_box().center_x(),shot.get_box().center_y()),shot.get_damage(),shot.get_faction());
 
             Game::create_effect("",true,1.0,box.get_center(),"point_defense",Vector(),0.0,Vector(),1,true,shot.get_box().get_center(),"point_defense");
 
@@ -1666,7 +1666,7 @@ void Ship::ai_determine_angle(const Quadtree<double,uint32_t>& quadtree_debris){
     angle=angle_determinant.direction;
 }
 
-void Ship::thrust(uint32_t frame){
+void Ship::thrust(uint32_t frame, RNG& rng){
     if(thrusting){
         double thrust_magnitude=get_thrust_accel();
 
@@ -1679,7 +1679,7 @@ void Ship::thrust(uint32_t frame){
         force+=thrust_force;
 
         if(frame%15==0){
-            Sound_Manager::play_sound("thrust",box.center_x(),box.center_y());
+            Sound_Manager::play_sound("thrust_" + Strings::num_to_string(rng.random_range(0,2)),box.center_x(),box.center_y());
         }
     }
 }
@@ -1702,9 +1702,9 @@ void Ship::brake(uint32_t frame){
     }
 }
 
-void Ship::accelerate(bool is_player,uint32_t frame){
+void Ship::accelerate(RNG& rng, bool is_player,uint32_t frame){
     if(is_alive() && !is_landing() && (!is_player || !Game::player_is_landed()) && is_in_processing_range()){
-        thrust(frame);
+        thrust(frame, rng);
         brake(frame);
 
         if(is_player && Game::is_player_tractored()){
@@ -1815,7 +1815,7 @@ void Ship::movement(uint32_t own_index,const Quadtree<double,uint32_t>& quadtree
                             box_shot.get_vertices(vertices_collision, shot.get_angle());
                             if (Collision::check_vertices_rect(get_collision_vertices(),vertices_collision)) {
                                 if(shot.get_shot_type()->damage_type=="explosive"){
-                                    Game::create_explosion("explosion_missile","explosion_missile",Coords<double>(box_shot.center_x(),box_shot.center_y()),shot.get_damage(),shot.get_faction());
+                                    Game::create_explosion("explosion_missile","explosion_missile_" + Strings::num_to_string(rng.random_range(0,2)),Coords<double>(box_shot.center_x(),box_shot.center_y()),shot.get_damage(),shot.get_faction());
                                 }
                                 else{
                                     take_damage(is_player,shot.get_damage(),shot.get_shot_type()->damage_type,

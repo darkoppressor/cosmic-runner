@@ -85,7 +85,7 @@ public:
     void thrust(const Quadtree<double,std::uint32_t>& quadtree_ships);
 
     void accelerate(const Quadtree<double,std::uint32_t>& quadtree_ships);
-    void movement(const Quadtree<double,std::uint32_t>& quadtree_debris);
+    void movement(RNG& rng, const Quadtree<double,std::uint32_t>& quadtree_debris);
 
     void animate(RNG& rng);
     void render();
