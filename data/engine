@@ -72,7 +72,7 @@
 	default_vsync:false
 	default_accelerometer_controller:false
 	default_touch_controller_state:true
-	default_touch_controller_opacity:0.5
+	default_touch_controller_opacity:0.25
 	default_font_shadows:true
 	default_screen_keyboard:true
 	default_hw_cursor:true
