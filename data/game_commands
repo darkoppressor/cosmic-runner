@@ -73,8 +73,8 @@
 	title:Toggle Minimap
 	description:Toggle the minimap
 	developer:false
-	key:M
-	controller_button:leftshoulder
+	key:D
+	controller_button:rightshoulder
 	controller_axis:
 </game_command>
 
@@ -83,7 +83,7 @@
 	title:Brake
 	description:Brake
 	developer:false
-	key:Right Ctrl
+	key:C
 	controller_button:a
 	controller_axis:
 </game_command>
@@ -93,7 +93,7 @@
 	title:Land
 	description:Land on a planet
 	developer:false
-	key:Space
+	key:S
 	controller_button:y
 	controller_axis:
 </game_command>
@@ -103,8 +103,8 @@
 	title:Jettison Cargo
 	description:Jettison all cargo
 	developer:false
-	key:D
-	controller_button:b
+	key:A
+	controller_button:leftshoulder
 	controller_axis:
 </game_command>
 
@@ -113,7 +113,7 @@
 	title:Toggle Weapons
 	description:Toggle weapons
 	developer:false
-	key:W
+	key:Space
 	controller_button:x
 	controller_axis:
 </game_command>
@@ -123,7 +123,7 @@
 	title:Use Active Upgrade
 	description:Use the current active upgrade
 	developer:false
-	key:Return
-	controller_button:rightshoulder
+	key:X
+	controller_button:b
 	controller_axis:
 </game_command>
