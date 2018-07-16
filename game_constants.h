@@ -14,6 +14,7 @@ public:
     /// BEGIN SCRIPT-GENERATED CONSTANT DECLARATIONS
     static std::uint32_t TITLE_SHIP_SPAWN_RATE;
     static std::uint32_t TITLE_MAX_SHIPS;
+    static std::uint32_t TITLE_BIRD_CHANCE;
     static std::uint32_t TITLE_SHIP_MINIMUM_HEIGHT;
     static std::uint32_t TITLE_MAX_SUN_SHIMMERS;
     static std::uint32_t TITLE_SUN_SHIMMER_SPAWN_RATE;

@@ -52,7 +52,14 @@
 
 <game_constant>
 	name:title_max_ships
-	value:20
+	value:30
+	type:uint32_t
+</game_constant>
+
+<game_constant>
+	//integer percentage
+	name:title_bird_chance
+	value:25
 	type:uint32_t
 </game_constant>
 

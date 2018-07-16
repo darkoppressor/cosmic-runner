@@ -13,6 +13,7 @@ using namespace std;
 /// BEGIN SCRIPT-GENERATED CONSTANT INITIALIZATIONS
 uint32_t Game_Constants::TITLE_SHIP_SPAWN_RATE=0;
 uint32_t Game_Constants::TITLE_MAX_SHIPS=0;
+uint32_t Game_Constants::TITLE_BIRD_CHANCE=0;
 uint32_t Game_Constants::TITLE_SHIP_MINIMUM_HEIGHT=0;
 uint32_t Game_Constants::TITLE_MAX_SUN_SHIMMERS=0;
 uint32_t Game_Constants::TITLE_SUN_SHIMMER_SPAWN_RATE=0;
@@ -195,6 +196,9 @@ void Game_Constants_Loader::set_game_constant(string name,string value){
     }
     else if(name=="title_max_ships"){
         Game_Constants::TITLE_MAX_SHIPS=Strings::string_to_unsigned_long(value);
+    }
+    else if(name=="title_bird_chance"){
+        Game_Constants::TITLE_BIRD_CHANCE=Strings::string_to_unsigned_long(value);
     }
     else if(name=="title_ship_minimum_height"){
         Game_Constants::TITLE_SHIP_MINIMUM_HEIGHT=Strings::string_to_unsigned_long(value);

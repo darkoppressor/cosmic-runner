@@ -269,3 +269,11 @@
 	frame_width:55
 	end_behavior:continue
 </animation>
+
+<animation>
+	name:title_bird
+	frame_count:5
+	animation_speed:450
+	frame_width:13
+	end_behavior:continue
+</animation>
