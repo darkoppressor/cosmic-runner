@@ -177,13 +177,6 @@ void Game_Manager::render_title_background(){
 
     Image_Data* title_image=Image_Manager::get_image("title");
     Render::render_texture(Game_Window::width()/2.0-title_image->w/2.0,24.0,title_image);
-
-    Image_Data* logo=Image_Manager::get_image("logo");
-
-    double logo_scale_x=(double)Game_Window::width()/(double)1280.0;
-    double logo_scale_y=(double)Game_Window::height()/(double)720.0;
-
-    Render::render_texture(Game_Window::width()-logo->w*logo_scale_x,Game_Window::height()-logo->h*logo_scale_y,logo,1.0,logo_scale_x,logo_scale_y);
 }
 
 void Game_Manager::render_scoreboard(){

@@ -131,6 +131,12 @@ void Title::render(){
     Render::render_texture(0.0,0.0,Image_Manager::get_image("title_background_1"));
 
     for(size_t i=0;i<ships.size();i++){
-        ships[i].render();
+        ships[i].render(false);
+    }
+
+    Render::render_texture(0.0,0.0,Image_Manager::get_image("title_background_2"));
+
+    for(size_t i=0;i<ships.size();i++){
+        ships[i].render(true);
     }
 }

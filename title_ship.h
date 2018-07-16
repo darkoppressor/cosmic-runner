@@ -31,7 +31,7 @@ public:
 
     void movement();
     void animate();
-    void render();
+    void render(bool bird);
 };
 
 #endif

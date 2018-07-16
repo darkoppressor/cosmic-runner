@@ -52,13 +52,15 @@ void Title_Ship::animate(){
     }
 }
 
-void Title_Ship::render(){
-    Vector_Components vc=velocity.get_components();
+void Title_Ship::render(bool bird){
+    if ((bird && sprite.name == "title_bird") || (!bird && sprite.name != "title_bird")) {
+        Vector_Components vc=velocity.get_components();
 
-    bool flip_x=false;
-    if(vc.a<=0.0){
-        flip_x=true;
+        bool flip_x=false;
+        if(vc.a<=0.0){
+            flip_x=true;
+        }
+
+        sprite.render(box.x,box.y,1.0,distance_scale,distance_scale,0.0,"white",flip_x);
     }
-
-    sprite.render(box.x,box.y,1.0,distance_scale,distance_scale,0.0,"white",flip_x);
 }
