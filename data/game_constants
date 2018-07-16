@@ -602,7 +602,7 @@
 <game_constant>
 	//seconds
 	name:item_spawn_rate
-	value:35
+	value:20
 	type:uint32_t
 </game_constant>
 
@@ -692,7 +692,7 @@
 
 <game_constant>
 	name:desired_items_base
-	value:8.0
+	value:7.0
 	type:double
 </game_constant>
 
