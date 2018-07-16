@@ -477,6 +477,14 @@ void Ship::use_item(Item_Type* item_type){
     Game::increase_score(item_type->point_value);
 }
 
+void Ship::restore_hull_from_contract () {
+    hull += Game_Constants::CONTRACT_RESTORE_HULL;
+
+    if (hull > get_hull_max()) {
+        hull = get_hull_max();
+    }
+}
+
 void Ship::apply_tractor(double force_angle){
     Vector tractor_force(Game_Constants::TRACTOR_FORCE,force_angle);
 

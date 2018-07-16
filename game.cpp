@@ -729,6 +729,10 @@ void Game::arrest_player(){
     Sound_Manager::play_sound("arrested");
 }
 
+void Game::restore_hull_from_contract () {
+    get_player().restore_hull_from_contract();
+}
+
 void Game::build_upgrade_list(){
     upgrade_list.clear();
 

@@ -389,6 +389,12 @@
 </game_constant>
 
 <game_constant>
+	name:contract_restore_hull
+	value:10
+	type:int32_t
+</game_constant>
+
+<game_constant>
 	//seconds
 	name:contract_restore_power
 	value:30

@@ -64,6 +64,7 @@ uint32_t Game_Constants::DISABLED_LENGTH=0;
 uint32_t Game_Constants::MAX_POWER=0;
 int32_t Game_Constants::ITEM_RESTORE_HULL=0;
 uint32_t Game_Constants::ITEM_RESTORE_POWER=0;
+int32_t Game_Constants::CONTRACT_RESTORE_HULL=0;
 uint32_t Game_Constants::CONTRACT_RESTORE_POWER=0;
 double Game_Constants::ITEM_START_VELOCITY_MIN=0.0;
 double Game_Constants::ITEM_START_VELOCITY_MAX=0.0;
@@ -357,6 +358,9 @@ void Game_Constants_Loader::set_game_constant(string name,string value){
     }
     else if(name=="item_restore_power"){
         Game_Constants::ITEM_RESTORE_POWER=Strings::string_to_unsigned_long(value);
+    }
+    else if(name=="contract_restore_hull"){
+        Game_Constants::CONTRACT_RESTORE_HULL=Strings::string_to_long(value);
     }
     else if(name=="contract_restore_power"){
         Game_Constants::CONTRACT_RESTORE_POWER=Strings::string_to_unsigned_long(value);

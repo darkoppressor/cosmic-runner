@@ -104,6 +104,8 @@ bool Button_Events::handle_button_event_game(string button_event,Window* parent_
     } else if (button_event=="skip_upgrade") {
         Window_Manager::close_all_windows();
 
+        Game::restore_hull_from_contract();
+
         Game::complete_contract();
 
         return true;

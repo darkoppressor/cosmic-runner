@@ -14,7 +14,7 @@
 
 	<button>
 		location:4,108
-		text:Skip This Upgrade
+		text:Restore Some Hull Instead
 		tooltip_text:
 		event:skip_upgrade
 	</button>

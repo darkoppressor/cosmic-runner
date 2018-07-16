@@ -174,6 +174,8 @@ public:
     static void cancel_contract();
     static void arrest_player();
 
+    static void restore_hull_from_contract();
+
     static void build_upgrade_list();
 
     static void commence_landing(uint32_t landing_planet_index);

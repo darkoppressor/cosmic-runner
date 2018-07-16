@@ -65,6 +65,7 @@ public:
     static std::uint32_t MAX_POWER;
     static std::int32_t ITEM_RESTORE_HULL;
     static std::uint32_t ITEM_RESTORE_POWER;
+    static std::int32_t CONTRACT_RESTORE_HULL;
     static std::uint32_t CONTRACT_RESTORE_POWER;
     static double ITEM_START_VELOCITY_MIN;
     static double ITEM_START_VELOCITY_MAX;

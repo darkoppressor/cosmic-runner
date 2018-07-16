@@ -141,6 +141,8 @@ public:
     bool can_use_item(Item_Type* item_type) const;
     void use_item(Item_Type* item_type);
 
+    void restore_hull_from_contract();
+
     void apply_tractor(double force_angle);
 
     double get_thrust_accel() const;
