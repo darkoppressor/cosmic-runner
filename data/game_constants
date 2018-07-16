@@ -64,6 +64,13 @@
 </game_constant>
 
 <game_constant>
+	//integer percentage
+	name:title_cloud_chance
+	value:40
+	type:uint32_t
+</game_constant>
+
+<game_constant>
 	//pixels
 	//This is the lowest point on the screen a title ship can spawn,
 	//so a higher number corresponds to a lower minimum height

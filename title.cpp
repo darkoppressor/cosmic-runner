@@ -39,11 +39,14 @@ void Title::setup(RNG& rng){
 void Title::generate_ship(RNG& rng){
     if(ships.size()<Game_Constants::TITLE_MAX_SHIPS){
         bool bird = rng.random_range(0,99) < Game_Constants::TITLE_BIRD_CHANCE;
+        bool cloud = !bird ? rng.random_range(0,99) < Game_Constants::TITLE_CLOUD_CHANCE : false;
 
         Sprite sprite;
 
         if (bird) {
             sprite.set_name("title_bird");
+        } else if (cloud) {
+            sprite.set_name("title_cloud_"+Strings::num_to_string(rng.random_range(0,2)));
         } else {
             sprite.set_name("title_ship_"+Strings::num_to_string(rng.random_range(0,2)));
         }
@@ -52,6 +55,8 @@ void Title::generate_ship(RNG& rng){
 
         if (bird) {
             distance_scale=0.01*(double)rng.random_range(75,200);
+        } else if (cloud) {
+            distance_scale=0.01*(double)rng.random_range(50,150);
         }
 
         Coords<double> position;
@@ -60,6 +65,8 @@ void Title::generate_ship(RNG& rng){
 
         if (bird) {
             velocity.magnitude=distance_scale*0.1*(double)rng.random_range(25,75);
+        } else if (cloud) {
+            velocity.magnitude=distance_scale*0.1*(double)rng.random_range(20,80);
         }
 
         if(rng.random_range(0,99)<50){
@@ -73,6 +80,9 @@ void Title::generate_ship(RNG& rng){
 
         if (bird) {
             position.y = rng.random_range(Game_Constants::TITLE_SHIP_MINIMUM_HEIGHT,
+                (uint32_t) (Game_Window::height() - sprite.get_height()));
+        } else if (cloud) {
+            position.y = rng.random_range(0,
                 (uint32_t) (Game_Window::height() - sprite.get_height()));
         } else {
             uint32_t minimum_height = (uint32_t) (Game_Window::height() - sprite.get_height());
