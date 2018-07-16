@@ -56,7 +56,7 @@ void Title::generate_ship(RNG& rng){
 
         Coords<double> position;
         Vector velocity;
-        velocity.magnitude=distance_scale*0.1*(double)rng.random_range(250,500);
+        velocity.magnitude=distance_scale*0.1*(double)rng.random_range(200,400);
 
         if (bird) {
             velocity.magnitude=distance_scale*0.1*(double)rng.random_range(25,75);
