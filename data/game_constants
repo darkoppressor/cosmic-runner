@@ -59,14 +59,14 @@
 <game_constant>
 	//integer percentage
 	name:title_bird_chance
-	value:35
+	value:15
 	type:uint32_t
 </game_constant>
 
 <game_constant>
 	//integer percentage
 	name:title_cloud_chance
-	value:40
+	value:10
 	type:uint32_t
 </game_constant>
 
