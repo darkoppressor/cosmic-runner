@@ -27,7 +27,7 @@ int Engine_Version::get_minor(){
 }
 
 int Engine_Version::get_micro(){
-    return 3; //MICRO
+    return 4; //MICRO
 }
 
 string Engine_Version::get_status(){
@@ -36,5 +36,5 @@ string Engine_Version::get_status(){
 
 void Engine_Version::populate_version_series(vector<Version_Series>& version_series){
     version_series.push_back(Version_Series("0.0.1","0.0.1"));
-    version_series.push_back(Version_Series("0.1.0","0.2.3"));
+    version_series.push_back(Version_Series("0.1.0","0.2.4"));
 }

@@ -1,3 +1,18 @@
+0.2.4 beta - 2018/07/16
+------------------------
+Add palm trees to title screen
+Add clouds to title screen
+Add clouds above planets
+Tweak title ship speed
+Move Cheese and Bacon logo on title screen to billboard
+Add birds to title screen
+Tweak sound effect volume
+Add variant sound effects
+Add cross damage effect
+Add ship death effects
+Add weapon fire effects
+Add smoke effects
+
 0.2.3 beta - 2018/07/10
 ------------------------
 Add fire effects for ship engines and missiles
