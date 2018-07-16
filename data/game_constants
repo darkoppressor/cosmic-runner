@@ -785,6 +785,30 @@
 </game_constant>
 
 <game_constant>
+	name:death_hull_count_minimum
+	value:4
+	type:uint32_t
+</game_constant>
+
+<game_constant>
+	name:death_hull_count_maximum
+	value:8
+	type:uint32_t
+</game_constant>
+
+<game_constant>
+	name:death_smoke_count_minimum
+	value:3
+	type:uint32_t
+</game_constant>
+
+<game_constant>
+	name:death_smoke_count_maximum
+	value:6
+	type:uint32_t
+</game_constant>
+
+<game_constant>
 	//Valid range: [1,logic update rate]
 	//There will be ai_proximity_check_period - 1 frames in between each AI proximity check opportunity
 	//AI proximity checking is additionally staggered among the ships

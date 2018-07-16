@@ -123,6 +123,10 @@ uint32_t Game_Constants::SMOKE_POSITION_MAXIMUM=0;
 uint32_t Game_Constants::SHOT_SMOKE_COUNT_SOLID=0;
 uint32_t Game_Constants::SHOT_SMOKE_COUNT_EXPLOSIVE=0;
 uint32_t Game_Constants::SHOT_SMOKE_COUNT_ENERGY=0;
+uint32_t Game_Constants::DEATH_HULL_COUNT_MINIMUM=0;
+uint32_t Game_Constants::DEATH_HULL_COUNT_MAXIMUM=0;
+uint32_t Game_Constants::DEATH_SMOKE_COUNT_MINIMUM=0;
+uint32_t Game_Constants::DEATH_SMOKE_COUNT_MAXIMUM=0;
 uint32_t Game_Constants::AI_PROXIMITY_CHECK_PERIOD=0;
 double Game_Constants::LOW_HULL_THRESHOLD=0.0;
 uint32_t Game_Constants::DISABLED_SOUND_RATE=0;
@@ -521,6 +525,18 @@ void Game_Constants_Loader::set_game_constant(string name,string value){
     }
     else if(name=="shot_smoke_count_energy"){
         Game_Constants::SHOT_SMOKE_COUNT_ENERGY=Strings::string_to_unsigned_long(value);
+    }
+    else if(name=="death_hull_count_minimum"){
+        Game_Constants::DEATH_HULL_COUNT_MINIMUM=Strings::string_to_unsigned_long(value);
+    }
+    else if(name=="death_hull_count_maximum"){
+        Game_Constants::DEATH_HULL_COUNT_MAXIMUM=Strings::string_to_unsigned_long(value);
+    }
+    else if(name=="death_smoke_count_minimum"){
+        Game_Constants::DEATH_SMOKE_COUNT_MINIMUM=Strings::string_to_unsigned_long(value);
+    }
+    else if(name=="death_smoke_count_maximum"){
+        Game_Constants::DEATH_SMOKE_COUNT_MAXIMUM=Strings::string_to_unsigned_long(value);
     }
     else if(name=="ai_proximity_check_period"){
         Game_Constants::AI_PROXIMITY_CHECK_PERIOD=Strings::string_to_unsigned_long(value);

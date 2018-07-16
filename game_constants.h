@@ -124,6 +124,10 @@ public:
     static std::uint32_t SHOT_SMOKE_COUNT_SOLID;
     static std::uint32_t SHOT_SMOKE_COUNT_EXPLOSIVE;
     static std::uint32_t SHOT_SMOKE_COUNT_ENERGY;
+    static std::uint32_t DEATH_HULL_COUNT_MINIMUM;
+    static std::uint32_t DEATH_HULL_COUNT_MAXIMUM;
+    static std::uint32_t DEATH_SMOKE_COUNT_MINIMUM;
+    static std::uint32_t DEATH_SMOKE_COUNT_MAXIMUM;
     static std::uint32_t AI_PROXIMITY_CHECK_PERIOD;
     static double LOW_HULL_THRESHOLD;
     static std::uint32_t DISABLED_SOUND_RATE;

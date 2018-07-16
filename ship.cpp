@@ -852,6 +852,55 @@ void Ship::take_damage(bool is_player,int32_t damage,string damage_type,const Co
             hull-=effective_damage;
 
             if(!is_alive()){
+                uint32_t hull_effects = rng.random_range(Game_Constants::DEATH_HULL_COUNT_MINIMUM,
+                    Game_Constants::DEATH_HULL_COUNT_MAXIMUM);
+                uint32_t smoke_effects = rng.random_range(Game_Constants::DEATH_SMOKE_COUNT_MINIMUM,
+                    Game_Constants::DEATH_SMOKE_COUNT_MAXIMUM);
+
+                for (size_t i = 0; i < hull_effects; i++) {
+                    Coords<double> hull_location = location;
+                    if (rng.random_range(0,1)) {
+                        hull_location.x -= rng.random_range(Game_Constants::SMOKE_POSITION_MINIMUM,
+                            Game_Constants::SMOKE_POSITION_MAXIMUM);
+                    } else {
+                        hull_location.x += rng.random_range(Game_Constants::SMOKE_POSITION_MINIMUM,
+                            Game_Constants::SMOKE_POSITION_MAXIMUM);
+                    }
+                    if (rng.random_range(0,1)) {
+                        hull_location.y -= rng.random_range(Game_Constants::SMOKE_POSITION_MINIMUM,
+                            Game_Constants::SMOKE_POSITION_MAXIMUM);
+                    } else {
+                        hull_location.y += rng.random_range(Game_Constants::SMOKE_POSITION_MINIMUM,
+                            Game_Constants::SMOKE_POSITION_MAXIMUM);
+                    }
+
+                    Game::create_effect("effect_hull_damage",true,0.1*(double)rng.random_range(1,10),hull_location,"",
+                                        Vector(rng.random_range(0,10),rng.random_range(0,359)),rng.random_range(0,359),
+                                        Vector(0.01*rng.random_range(0,50),rng.random_range(0,359)),Game_Constants::EFFECT_LENGTH_HULL_DAMAGE,false,Coords<double>(),get_ship_type()->color);
+                }
+
+                for (size_t i = 0; i < smoke_effects; i++) {
+                    Coords<double> smoke_location = location;
+                    if (rng.random_range(0,1)) {
+                        smoke_location.x -= rng.random_range(Game_Constants::SMOKE_POSITION_MINIMUM,
+                            Game_Constants::SMOKE_POSITION_MAXIMUM);
+                    } else {
+                        smoke_location.x += rng.random_range(Game_Constants::SMOKE_POSITION_MINIMUM,
+                            Game_Constants::SMOKE_POSITION_MAXIMUM);
+                    }
+                    if (rng.random_range(0,1)) {
+                        smoke_location.y -= rng.random_range(Game_Constants::SMOKE_POSITION_MINIMUM,
+                            Game_Constants::SMOKE_POSITION_MAXIMUM);
+                    } else {
+                        smoke_location.y += rng.random_range(Game_Constants::SMOKE_POSITION_MINIMUM,
+                            Game_Constants::SMOKE_POSITION_MAXIMUM);
+                    }
+
+                    Game::create_effect("effect_smoke_"+Strings::num_to_string(rng.random_range(0,2)),true,0.1*(double)rng.random_range(10,20),smoke_location,"",
+                                        Vector(rng.random_range(0,10),rng.random_range(0,359)),rng.random_range(0,359),
+                                        Vector(0.01*rng.random_range(0,50),rng.random_range(0,359)),Game_Constants::EFFECT_LENGTH_SMOKE,false,Coords<double>(),"white");
+                }
+
                 Game::create_explosion("explosion_ship","explosion_ship",Coords<double>(box.center_x(),box.center_y()),Game_Constants::EXPLOSION_DAMAGE_SHIP,damage_faction);
 
                 uint32_t items_to_drop=rng.random_range(get_ship_type()->item_drop_min,get_ship_type()->item_drop_max);
