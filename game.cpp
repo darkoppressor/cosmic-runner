@@ -20,6 +20,7 @@
 #include <engine_strings.h>
 #include <window_manager.h>
 #include <android.h>
+#include <gui_manager.h>
 
 #include <ctime>
 #include <unordered_set>
@@ -27,6 +28,8 @@
 using namespace std;
 
 Title Game::title;
+
+bool Game::generating_world = false;
 
 Background Game::background_stars;
 Background Game::background_planetary;
@@ -278,16 +281,27 @@ void Game::clear_world(){
 }
 
 void Game::generate_world(){
+    generating_world = true;
+
+    Progress_Bar bar(11);
+    Log::add_log("Generating game world");
+
     clear_world();
 
     rng.seed((uint32_t)time(0));
+
+    bar.progress("Setting up backgrounds");
 
     background_stars.setup("stars",rng);
     background_planetary.setup("planetary",rng);
 
     background_opacity_planetary=1.0;
 
+    bar.progress("Setting up HUD");
+
     Hud::setup();
+
+    bar.progress("Generating planets");
 
     world_width=10000.0;
     world_height=10000.0;
@@ -331,6 +345,8 @@ void Game::generate_world(){
         }
     }
 
+    bar.progress("Generating debris");
+
     //Generate debris
     uint32_t asteroid_count=((world_width+world_height)/2.0)/8.0;
 
@@ -359,6 +375,8 @@ void Game::generate_world(){
         }
     }
 
+    bar.progress("Generating the player's ship");
+
     //Generate the player's ship
     string ship_type="player_0";
     Sprite ship_sprite;
@@ -368,6 +386,8 @@ void Game::generate_world(){
     ships.push_back(Ship(ship_type,Coords<double>(planet.get_circle().x-ship_sprite.get_width()/2.0,planet.get_circle().y-ship_sprite.get_height()/2.0),rng.random_range(0,359)));
     ships.back().ai_select_target(0,rng);
     ships.back().toggle_weapons();
+
+    bar.progress("Clearing the starting area of debris");
 
     //Clear player's starting area of debris
     for(size_t i=0;i<debris.size();){
@@ -384,10 +404,16 @@ void Game::generate_world(){
         }
     }
 
+    bar.progress("Generating minimap");
+
     minimap.generate_map(Game_Constants::MINIMAP_SIZE,Game_Constants::MINIMAP_SIZE);
+
+    bar.progress("Setting up initial contract");
 
     //Setup initial contract
     assign_new_contract(get_nearest_planet());
+
+    bar.progress("Setting up quadtrees");
 
     quadtree_debris.setup(10,5,0,Collision_Rect<double>(0,0,world_width,world_height));
     quadtree_shots.setup(10,5,0,Collision_Rect<double>(0,0,world_width,world_height));
@@ -396,7 +422,18 @@ void Game::generate_world(){
     quadtree_items.setup(10,5,0,Collision_Rect<double>(0,0,world_width,world_height));
     quadtree_planets.setup(10,5,0,Collision_Rect<double>(0,0,world_width,world_height));
 
+    bar.progress("Generating ships");
+
     generate_ships();
+
+    bar.progress("Done generating game world");
+    Log::add_log("Game world generated in " + Strings::num_to_string(bar.get_time_elapsed()) + " ms");
+
+    generating_world = false;
+}
+
+bool Game::is_generating_world () {
+    return generating_world;
 }
 
 void Game::android_gpg_signing_in(){
@@ -1703,34 +1740,36 @@ void Game::render(){
         effects[i].render(false);
     }
 
-    if(show_minimap){
-        minimap.render();
-    }
+    if (!GUI_Manager::hide_gui) {
+        if(show_minimap){
+            minimap.render();
+        }
 
-    if(player_has_contract()){
-        const Planet& planet=get_contract_planet();
-        const Ship& player=get_player_const();
+        if(player_has_contract()){
+            const Planet& planet=get_contract_planet();
+            const Ship& player=get_player_const();
 
-        vector<Coords<double>> vertices;
-        player.get_box().get_vertices(vertices,player.get_angle());
+            vector<Coords<double>> vertices;
+            player.get_box().get_vertices(vertices,player.get_angle());
 
-        if(is_object_over_planet(vertices,planet)){
-            contract_sprite_check.render((Game_Window::width()-contract_sprite.get_width())/2.0,(Game_Window::height()/4.0-contract_sprite.get_height())/2.0);
+            if(is_object_over_planet(vertices,planet)){
+                contract_sprite_check.render((Game_Window::width()-contract_sprite.get_width())/2.0,(Game_Window::height()/4.0-contract_sprite.get_height())/2.0);
+            }
+            else{
+                Collision_Rect<double> box_contract_indicator(((Game_Window::width()-contract_sprite.get_width())/2.0)*Game_Manager::camera_zoom+Game_Manager::camera.x,
+                                                              ((Game_Window::height()/4.0-contract_sprite.get_height())/2.0)*Game_Manager::camera_zoom+Game_Manager::camera.y,
+                                                              contract_sprite.get_width(),contract_sprite.get_height());
+
+                contract_sprite.render((Game_Window::width()-contract_sprite.get_width())/2.0,(Game_Window::height()/4.0-contract_sprite.get_height())/2.0,1.0,1.0,1.0,
+                                       box_contract_indicator.get_angle_to_circ(planet.get_circle()));
+            }
         }
         else{
-            Collision_Rect<double> box_contract_indicator(((Game_Window::width()-contract_sprite.get_width())/2.0)*Game_Manager::camera_zoom+Game_Manager::camera.x,
-                                                          ((Game_Window::height()/4.0-contract_sprite.get_height())/2.0)*Game_Manager::camera_zoom+Game_Manager::camera.y,
-                                                          contract_sprite.get_width(),contract_sprite.get_height());
-
-            contract_sprite.render((Game_Window::width()-contract_sprite.get_width())/2.0,(Game_Window::height()/4.0-contract_sprite.get_height())/2.0,1.0,1.0,1.0,
-                                   box_contract_indicator.get_angle_to_circ(planet.get_circle()));
+            no_contract_sprite.render((Game_Window::width()-no_contract_sprite.get_width())/2.0,(Game_Window::height()/4.0-no_contract_sprite.get_height())/2.0);
         }
-    }
-    else{
-        no_contract_sprite.render((Game_Window::width()-no_contract_sprite.get_width())/2.0,(Game_Window::height()/4.0-no_contract_sprite.get_height())/2.0);
-    }
 
-    Hud::render();
+        Hud::render();
+    }
 }
 
 void Game::render_to_textures(){

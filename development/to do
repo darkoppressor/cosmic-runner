@@ -1,8 +1,6 @@
 Add audio device to audio options screen
 Any other options that need this?
 Show death cause on game over screen
-Need loading screen for world generation
-Make custom backgrounds for the two loading screens
 Use smaller font on about screen, remove need for scrolling
 Upgrade icons for upgrade selection and viewing windows
 Upgrade selection should have a totally custom look. More fun window background, figure out titlebar, no X button, fun background for buttons, will need those upgrade icons

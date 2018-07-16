@@ -23,6 +23,7 @@
 #include <engine_strings.h>
 #include <engine_math.h>
 #include <android.h>
+#include <gui_manager.h>
 
 #include <ctime>
 
@@ -171,12 +172,14 @@ void Game_Manager::render_title_background(){
     Title& title=Game::get_title();
     title.render();
 
-    Bitmap_Font* font=Object_Manager::get_font("large");
+    if (!GUI_Manager::hide_gui) {
+        Bitmap_Font* font=Object_Manager::get_font("large");
 
-    font->show(0.0,Game_Window::height()-font->spacing_y*2.0,"Version: "+Engine_Version::get_version()+" "+Engine_Version::get_status()+"\nChecksum: "+Engine::CHECKSUM,"ui_0");
+        font->show(0.0,Game_Window::height()-font->spacing_y*2.0,"Version: "+Engine_Version::get_version()+" "+Engine_Version::get_status()+"\nChecksum: "+Engine::CHECKSUM,"ui_0");
 
-    Image_Data* title_image=Image_Manager::get_image("title");
-    Render::render_texture(Game_Window::width()/2.0-title_image->w/2.0,24.0,title_image);
+        Image_Data* title_image=Image_Manager::get_image("title");
+        Render::render_texture(Game_Window::width()/2.0-title_image->w/2.0,24.0,title_image);
+    }
 }
 
 void Game_Manager::render_scoreboard(){
@@ -209,7 +212,11 @@ void Game_Manager::render_loading_screen(const Progress_Bar& bar,string message)
         Game_Window::clear_renderer(Color(0,0,0,255));
 
         if(Data_Manager::are_images_loaded()){
-            Render::render_texture(0,0,Image_Manager::get_image("title_background_0"));
+            if (Game::is_generating_world()) {
+                Render::render_texture(0,0,Image_Manager::get_image("loading_background_world_generation"));
+            } else {
+                Render::render_texture(0,0,Image_Manager::get_image("loading_background_game_start"));
+            }
         }
         else if(Data_Manager::are_colors_loaded()){
             Render::render_rectangle(0,0,Game_Window::width(),Game_Window::height(),1.0,"ui_2");
@@ -236,7 +243,7 @@ void Game_Manager::render_loading_screen(const Progress_Bar& bar,string message)
                 string msg=Strings::num_to_string((int)(percentage*100.0))+"%";
 
                 font->show((screen_width-(double)msg.length()*(double)font->spacing_x)/2.0,screen_height-offset,msg,"ui_0");
-                font->show((screen_width-(double)message.length()*(double)font->spacing_x)/2.0,screen_height-offset+back_thickness*2.0+font->spacing_y,message,"ui_0");
+                font->show((screen_width-(double)message.length()*(double)font->spacing_x)/2.0,screen_height-offset+back_thickness*2.0+font->spacing_y*1.5,message,"ui_0");
             }
         }
 

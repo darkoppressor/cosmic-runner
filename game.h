@@ -33,6 +33,8 @@ private:
 
     static Title title;
 
+    static bool generating_world;
+
     static Background background_stars;
     static Background background_planetary;
 
@@ -124,6 +126,7 @@ public:
 
     static void clear_world();
     static void generate_world();
+    static bool is_generating_world();
 
     static void android_gpg_signing_in();
 
