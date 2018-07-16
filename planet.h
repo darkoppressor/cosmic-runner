@@ -8,8 +8,10 @@
 #include <collision.h>
 #include <sprite.h>
 #include <coords.h>
+#include <rng.h>
 
 #include <string>
+#include <cstdint>
 
 class Planet{
 private:
@@ -18,13 +20,15 @@ private:
 
     Sprite sprite;
 
+    std::uint32_t cloud_delay;
+
 public:
 
     Planet(std::string new_sprite,const Coords<double>& position);
 
     Collision_Circ<double> get_circle() const;
 
-    void animate();
+    void animate(RNG& rng);
     void render();
 };
 

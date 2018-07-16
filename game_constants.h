@@ -129,6 +129,8 @@ public:
     static std::uint32_t DEATH_HULL_COUNT_MAXIMUM;
     static std::uint32_t DEATH_SMOKE_COUNT_MINIMUM;
     static std::uint32_t DEATH_SMOKE_COUNT_MAXIMUM;
+    static std::uint32_t CLOUD_DELAY;
+    static std::uint32_t CLOUD_CHANCE;
     static std::uint32_t AI_PROXIMITY_CHECK_PERIOD;
     static double LOW_HULL_THRESHOLD;
     static std::uint32_t DISABLED_SOUND_RATE;

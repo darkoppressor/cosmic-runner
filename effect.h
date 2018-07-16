@@ -43,10 +43,13 @@ private:
 
     std::string color;
 
+    bool cloud;
+    bool cloud_fading;
+
 public:
 
     Effect(std::string new_sprite,bool new_fade,double new_scale,const Coords<double>& position,std::string sound,const Vector& new_velocity,double new_angle,
-           const Vector& new_angular_velocity,std::uint32_t seconds,bool new_line,const Coords<double>& end_point,std::string new_color,std::string new_text);
+           const Vector& new_angular_velocity,std::uint32_t seconds,bool new_line,const Coords<double>& end_point,std::string new_color,std::string new_text,bool new_cloud);
 
     bool is_fading() const;
     bool is_done() const;
@@ -56,7 +59,7 @@ public:
     void movement();
 
     void animate();
-    void render();
+    void render(bool clouds);
 };
 
 #endif

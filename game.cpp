@@ -970,9 +970,9 @@ void Game::set_player_acceleration(const Vector& acceleration){
 }
 
 void Game::create_effect(string sprite,bool fade,double scale,const Coords<double>& position,string sound,const Vector& velocity,double angle,
-                         const Vector& angular_velocity,uint32_t seconds,bool line,const Coords<double>& end_point,string color,string text){
+                         const Vector& angular_velocity,uint32_t seconds,bool line,const Coords<double>& end_point,string color,string text,bool cloud){
     if(Game_Manager::effect_allowed()){
-        effects.push_back(Effect(sprite,fade,scale,position,sound,velocity,angle,angular_velocity,seconds,line,end_point,color,text));
+        effects.push_back(Effect(sprite,fade,scale,position,sound,velocity,angle,angular_velocity,seconds,line,end_point,color,text,cloud));
     }
 }
 
@@ -1615,7 +1615,7 @@ void Game::events(){
 
 void Game::animate(){
     for(size_t i=0;i<planets.size();i++){
-        planets[i].animate();
+        planets[i].animate(rng);
     }
 
     for(size_t i=0;i<debris.size();i++){
@@ -1670,6 +1670,10 @@ void Game::render(){
         planets[i].render();
     }
 
+    for(size_t i=0;i<effects.size();i++){
+        effects[i].render(true);
+    }
+
     for(size_t i=0;i<debris.size();i++){
         debris[i].render();
     }
@@ -1692,7 +1696,7 @@ void Game::render(){
     }
 
     for(size_t i=0;i<effects.size();i++){
-        effects[i].render();
+        effects[i].render(false);
     }
 
     if(show_minimap){

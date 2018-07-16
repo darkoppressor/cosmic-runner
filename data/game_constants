@@ -816,6 +816,20 @@
 </game_constant>
 
 <game_constant>
+	//milliseconds
+	name:cloud_delay
+	value:2500
+	type:uint32_t
+</game_constant>
+
+<game_constant>
+	//integer percentage
+	name:cloud_chance
+	value:50
+	type:uint32_t
+</game_constant>
+
+<game_constant>
 	//Valid range: [1,logic update rate]
 	//There will be ai_proximity_check_period - 1 frames in between each AI proximity check opportunity
 	//AI proximity checking is additionally staggered among the ships

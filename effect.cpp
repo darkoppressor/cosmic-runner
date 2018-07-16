@@ -4,6 +4,7 @@
 
 #include "effect.h"
 #include "game_constants.h"
+#include "game.h"
 
 #include <game_manager.h>
 #include <sound_manager.h>
@@ -14,7 +15,7 @@
 using namespace std;
 
 Effect::Effect(std::string new_sprite,bool new_fade,double new_scale,const Coords<double>& position,string sound,const Vector& new_velocity,double new_angle,
-               const Vector& new_angular_velocity,uint32_t seconds,bool new_line,const Coords<double>& end_point,string new_color,string new_text){
+               const Vector& new_angular_velocity,uint32_t seconds,bool new_line,const Coords<double>& end_point,string new_color,string new_text,bool new_cloud){
     done=false;
     opacity=1.0;
     fade=new_fade;
@@ -73,13 +74,17 @@ Effect::Effect(std::string new_sprite,bool new_fade,double new_scale,const Coord
     if(sound.length()>0){
         Sound_Manager::play_sound(sound,box.center_x(),box.center_y());
     }
+
+    cloud=new_cloud;
+    cloud_fading = false;
 }
 
 bool Effect::is_fading() const{
-    if(timed){
-        return counter==0;
-    }
-    else{
+    if (timed) {
+        return counter == 0;
+    } else if (cloud) {
+        return cloud_fading;
+    } else {
         return !sprite.animating;
     }
 }
@@ -97,7 +102,7 @@ void Effect::countdown(){
 }
 
 void Effect::movement(){
-    if(!is_done()){
+    if (!is_done() && (!cloud || !cloud_fading)) {
         Vector_Components vc=velocity.get_components();
 
         box.x+=vc.a/(double)Engine::UPDATE_RATE;
@@ -108,6 +113,21 @@ void Effect::movement(){
         }
         else{
             angle-=angular_velocity.magnitude;
+        }
+
+        if (cloud) {
+            /*cloud_fading = true;
+
+            for (uint32_t i = 0; i < Game::get_planet_count(); i++) {
+                vector<Coords<double>> vertices;
+                box.get_vertices(vertices,0.0);
+
+                if (Game::is_object_over_planet(vertices, Game::get_planet(i))) {
+                    cloud_fading = false;
+
+                    break;
+                }
+            }*/
         }
     }
 }
@@ -135,8 +155,8 @@ void Effect::animate(){
     }
 }
 
-void Effect::render(){
-    if(!is_done()){
+void Effect::render(bool clouds){
+    if(!is_done() && cloud == clouds){
         if (text.length() > 0) {
             if(Collision::check_rect(box*Game_Manager::camera_zoom,Game_Manager::camera)){
                 Bitmap_Font* font=Object_Manager::get_font("standard");

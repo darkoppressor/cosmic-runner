@@ -212,7 +212,7 @@ public:
     static void set_player_acceleration(const Vector& acceleration);
 
     static void create_effect(std::string sprite,bool fade,double scale,const Coords<double>& position,std::string sound,const Vector& velocity,double angle,
-                              const Vector& angular_velocity,std::uint32_t seconds,bool line,const Coords<double>& end_point,std::string color="white",std::string text="");
+                              const Vector& angular_velocity,std::uint32_t seconds,bool line,const Coords<double>& end_point,std::string color="white",std::string text="",bool cloud=false);
 
     static void player_thrust(std::string direction);
     static void player_brake(bool brake);
