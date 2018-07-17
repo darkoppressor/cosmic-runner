@@ -1,7 +1,6 @@
 Add audio device to audio options screen
 Any other options that need this?
 Show death cause on game over screen
-Use smaller font on about screen, remove need for scrolling
 Upgrade icons for upgrade selection and viewing windows
 Upgrade selection should have a totally custom look. More fun window background, figure out titlebar, no X button, fun background for buttons, will need those upgrade icons
 Ideally need a better way to access upgrade view screen, then make it look like the buying screen
