@@ -33,6 +33,7 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.location.LocationProvider;
+import org.cheeseandbacon.cosmicrunner.R;
 
 /**
     SDL Activity
@@ -265,6 +266,17 @@ public class SDLActivity extends Activity {
         mLocationHandler=new Handler(Looper.getMainLooper());
 
         SDLActivity.nativeOnActivityCreated(this,savedInstanceState);
+
+        Window window = getWindow();
+
+        if (window != null) {
+            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+
+            window.setStatusBarColor(getResources().getColor(R.color.status_bar));
+            window.setNavigationBarColor(getResources().getColor(R.color.navigation_bar));
+        }
     }
 
     // Events
@@ -675,30 +687,6 @@ public class SDLActivity extends Activity {
 
     public static void openUrl(String url){
         mSurface.openUrl(url);
-    }
-
-    // colorString should be this format: #RRGGBB
-    public void setStatusBarColor (String colorString) {
-        Window window = getWindow();
-
-        if (window != null) {
-            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-
-            window.setStatusBarColor(Color.parseColor(colorString));
-        }
-    }
-
-    // colorString should be this format: #RRGGBB
-    public void setNavigationBarColor (String colorString) {
-        Window window = getWindow();
-
-        if (window != null) {
-            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
-            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-
-            window.setNavigationBarColor(Color.parseColor(colorString));
-        }
     }
 
     //This should only be called by the game

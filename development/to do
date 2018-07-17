@@ -16,7 +16,6 @@ Game over music
 Add help screens
 There is a bug where sometimes the cooldown bar shows when it is empty
 
-Android bar colors don't work
 Branch raknet
 Branch sfxr
 Clean up my sfxr changes and make a new branch with them
