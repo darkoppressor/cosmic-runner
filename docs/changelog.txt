@@ -1,3 +1,15 @@
+0.2.5 beta - 2018/07/16
+------------------------
+Fix Android bar colors
+Add audio device to audio options screen
+Use smaller font on about screen and remove scrolling text
+Improve loading screens
+Skipping an upgrade restores some hull
+Reduce chance of non-ships on the title screen
+Reduce default touch controller opacity
+Adjust item spawns
+Adjust default controls
+
 0.2.4 beta - 2018/07/16
 ------------------------
 Add palm trees to title screen
