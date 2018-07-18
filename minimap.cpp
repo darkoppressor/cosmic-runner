@@ -80,7 +80,7 @@ void Minimap::generate_map(uint32_t new_width,uint32_t new_height){
         for(uint32_t x=0;x<width;x++){
             for(uint32_t y=0;y<height;y++){
                 Color color=*Object_Manager::get_color("space");
-                color.set(color.get_red(),color.get_green(),color.get_blue(),(short)127);
+                color.set(color.get_red(),color.get_green(),color.get_blue(),(short)255);
 
                 Pixels::surface_put_pixel(surface,x,y,color);
             }
@@ -116,8 +116,8 @@ void Minimap::generate_map(uint32_t new_width,uint32_t new_height){
             }
         }
 
-        /// I think it looks better without the asteroids
-        /*uint32_t debris_count=Game::get_debris_count();
+        // I think it looks better without the asteroids
+        uint32_t debris_count=Game::get_debris_count();
 
         for(uint32_t i=0;i<debris_count;i++){
             const Debris& debris=Game::get_debris(i);
@@ -143,7 +143,7 @@ void Minimap::generate_map(uint32_t new_width,uint32_t new_height){
                     }
                 }
             }
-        }*/
+        }
 
         if(SDL_MUSTLOCK(surface)){
             SDL_UnlockSurface(surface);

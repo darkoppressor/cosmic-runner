@@ -54,7 +54,7 @@
 
 <game_option>
 	name:cl_minimap_opacity
-	default:0.75
+	default:0.95
 	description:the opacity level of the minimap
 </game_option>
 

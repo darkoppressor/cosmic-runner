@@ -233,7 +233,7 @@
 <game_constant>
 	//pixels
 	name:minimap_border_thickness
-	value:0.0
+	value:4.0
 	type:double
 </game_constant>
 
@@ -258,7 +258,7 @@
 <game_constant>
 	//pixels
 	name:minimap_size
-	value:640
+	value:720
 	type:uint32_t
 </game_constant>
 
