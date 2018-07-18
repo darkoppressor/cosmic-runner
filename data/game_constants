@@ -1174,3 +1174,9 @@
 	value:48.0
 	type:double
 </game_constant>
+
+<game_constant>
+	name:shadow_offset_debris
+	value:96.0
+	type:double
+</game_constant>

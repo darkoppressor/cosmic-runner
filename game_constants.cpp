@@ -186,6 +186,7 @@ uint64_t Game_Constants::DEFAULT_HIGH_SCORE_8=0;
 uint64_t Game_Constants::DEFAULT_HIGH_SCORE_9=0;
 uint64_t Game_Constants::DEFAULT_HIGH_SCORE_10=0;
 double Game_Constants::SHADOW_OFFSET=0.0;
+double Game_Constants::SHADOW_OFFSET_DEBRIS=0.0;
 /// END SCRIPT-GENERATED CONSTANT INITIALIZATIONS
 
 void Game_Constants_Loader::set_game_constant(string name,string value){
@@ -724,6 +725,9 @@ void Game_Constants_Loader::set_game_constant(string name,string value){
     }
     else if(name=="shadow_offset"){
         Game_Constants::SHADOW_OFFSET=Strings::string_to_double(value);
+    }
+    else if(name=="shadow_offset_debris"){
+        Game_Constants::SHADOW_OFFSET_DEBRIS=Strings::string_to_double(value);
     }
     /// END SCRIPT-GENERATED CONSTANT SETUP
 }

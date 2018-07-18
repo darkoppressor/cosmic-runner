@@ -24,6 +24,8 @@ private:
 
     std::string type;
 
+    bool cast_shadow;
+
     Sprite sprite;
 
 public:

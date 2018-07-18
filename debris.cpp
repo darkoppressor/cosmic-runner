@@ -5,6 +5,8 @@
 #include "debris.h"
 #include "game_data.h"
 #include "game_options.h"
+#include "game.h"
+#include "game_constants.h"
 
 #include <game_manager.h>
 #include <render.h>
@@ -25,6 +27,8 @@ Debris::Debris(string new_type,const Coords<double>& position,double new_angle,c
 
     box.w=sprite.get_width();
     box.h=sprite.get_height();
+
+    cast_shadow = false;
 }
 
 Debris_Type* Debris::get_debris_type() const{
@@ -59,10 +63,30 @@ void Debris::rotation(){
 
 void Debris::animate(){
     sprite.animate();
+
+    cast_shadow = false;
+
+    vector<Coords<double>> vertices_shadow;
+    Collision_Rect<double> shadow_box = box;
+    shadow_box.w += Game_Constants::SHADOW_OFFSET_DEBRIS;
+    shadow_box.h += Game_Constants::SHADOW_OFFSET_DEBRIS;
+    shadow_box.get_vertices(vertices_shadow, angle);
+
+    for (uint32_t i = 0; i < Game::get_planet_count(); i++) {
+        if (Game::should_object_cast_shadow_on_planet(vertices_shadow, Game::get_planet(i))) {
+            cast_shadow = true;
+
+            break;
+        }
+    }
 }
 
 void Debris::render(){
     if(Collision::check_rect_rotated(box*Game_Manager::camera_zoom,Game_Manager::camera,angle,0.0)){
+        if (cast_shadow) {
+            sprite.render((box.x + Game_Constants::SHADOW_OFFSET_DEBRIS)*Game_Manager::camera_zoom-Game_Manager::camera.x,(box.y + Game_Constants::SHADOW_OFFSET_DEBRIS)*Game_Manager::camera_zoom-Game_Manager::camera.y,0.25,0.45,0.45,angle,"ui_black");
+        }
+
         sprite.render(box.x*Game_Manager::camera_zoom-Game_Manager::camera.x,box.y*Game_Manager::camera_zoom-Game_Manager::camera.y,1.0,1.0,1.0,angle);
 
         if(Game_Options::show_collision_outlines){
