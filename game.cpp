@@ -316,8 +316,9 @@ void Game::generate_world(){
     }
 
     for(uint32_t i=0,attempts=0;i<planet_count && (planets.size()<minimum_planets || attempts<max_attempts);attempts++){
+        string type = "planet_"+Strings::num_to_string(rng.random_range(0,5));
         Sprite sprite;
-        sprite.set_name("planet_"+Strings::num_to_string(rng.random_range(0,0)));
+        sprite.set_name(Game_Data::get_planet_type(type)->sprite);
 
         uint32_t radius=uint32_t(sprite.get_width()/2.0);
 
@@ -339,7 +340,7 @@ void Game::generate_world(){
         }
 
         if(attempts>=max_attempts || !too_close_to_planet){
-            planets.push_back(Planet(sprite.name,position));
+            planets.push_back(Planet(type,position));
 
             i++;
         }

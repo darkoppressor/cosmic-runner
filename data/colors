@@ -46,13 +46,68 @@
 </color>
 
 <color>
-	name:minimap_border
-	rgb:242,242,242
+	name:planet_0_minimap
+	rgb:138,230,138
 </color>
 
 <color>
-	name:minimap_planet
-	rgb:138,230,184
+	name:planet_0_clouds
+	rgb:217,217,217
+</color>
+
+<color>
+	name:planet_1_minimap
+	rgb:255,153,153
+</color>
+
+<color>
+	name:planet_1_clouds
+	rgb:255,204,153
+</color>
+
+<color>
+	name:planet_2_minimap
+	rgb:255,153,153
+</color>
+
+<color>
+	name:planet_2_clouds
+	rgb:217,217,217
+</color>
+
+<color>
+	name:planet_3_minimap
+	rgb:153,153,255
+</color>
+
+<color>
+	name:planet_3_clouds
+	rgb:153,255,204
+</color>
+
+<color>
+	name:planet_4_minimap
+	rgb:204,255,153
+</color>
+
+<color>
+	name:planet_4_clouds
+	rgb:255,255,153
+</color>
+
+<color>
+	name:planet_5_minimap
+	rgb:153,153,255
+</color>
+
+<color>
+	name:planet_5_clouds
+	rgb:217,217,217
+</color>
+
+<color>
+	name:minimap_border
+	rgb:242,242,242
 </color>
 
 <color>

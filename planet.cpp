@@ -6,6 +6,7 @@
 #include "game_options.h"
 #include "game_constants.h"
 #include "game.h"
+#include "game_data.h"
 
 #include <game_manager.h>
 #include <render.h>
@@ -15,14 +16,20 @@
 
 using namespace std;
 
-Planet::Planet(string new_sprite,const Coords<double>& position){
-    sprite.set_name(new_sprite);
+Planet::Planet(string new_type,const Coords<double>& position){
+    type=new_type;
+
+    sprite.set_name(get_planet_type()->sprite);
 
     circle.x=position.x;
     circle.y=position.y;
     circle.r=sprite.get_width()/2.0;
 
     cloud_delay = Game_Constants::CLOUD_DELAY * Engine::UPDATE_RATE / 1000;
+}
+
+Planet_Type* Planet::get_planet_type () const {
+    return Game_Data::get_planet_type(type);
 }
 
 Collision_Circ<double> Planet::get_circle() const{
@@ -58,7 +65,7 @@ void Planet::animate(RNG& rng){
 
                 Game::create_effect("effect_cloud_"+Strings::num_to_string(rng.random_range(0,2)),true,0.1*(double)rng.random_range(5,30),location,"",
                                     Vector(rng.random_range(5,15),angle),0.0,
-                                    Vector(0.0, 0.0),0,false,Coords<double>(),"white", "", true);
+                                    Vector(0.0, 0.0),0,false,Coords<double>(),get_planet_type()->cloud_color, "", true);
             }
         }
     }

@@ -10,6 +10,7 @@
 #include "shot_type.h"
 #include "item_type.h"
 #include "upgrade.h"
+#include "planet_type.h"
 
 #include <progress_bar.h>
 #include <file_io.h>
@@ -24,6 +25,7 @@ private:
     static std::vector<Shot_Type> shot_types;
     static std::vector<Item_Type> item_types;
     static std::vector<Upgrade> upgrades;
+    static std::vector<Planet_Type> planet_types;
 
 public:
 
@@ -52,6 +54,9 @@ public:
     static void load_upgrade_type(File_IO_Load* load);
     static Upgrade* get_upgrade_type(std::string name);
     static std::vector<std::string> get_upgrade_names();
+
+    static void load_planet_type(File_IO_Load* load);
+    static Planet_Type* get_planet_type(std::string name);
 };
 
 #endif

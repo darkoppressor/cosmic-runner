@@ -32,6 +32,7 @@ item_type.cpp
 main.cpp
 minimap.cpp
 network_game.cpp
+planet_type.cpp
 planet.cpp
 ship.cpp
 ship_type.cpp

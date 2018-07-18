@@ -18,9 +18,10 @@ vector<Debris_Type> Game_Data::debris_types;
 vector<Shot_Type> Game_Data::shot_types;
 vector<Item_Type> Game_Data::item_types;
 vector<Upgrade> Game_Data::upgrades;
+vector<Planet_Type> Game_Data::planet_types;
 
 ///Don't forget to increment this for each progress item in load_data_game() below
-const int Game_Data::game_data_load_item_count=5;
+const int Game_Data::game_data_load_item_count=6;
 
 void Game_Data::load_data_game(Progress_Bar& bar){
     bar.progress("Loading ship types");
@@ -37,6 +38,9 @@ void Game_Data::load_data_game(Progress_Bar& bar){
 
     bar.progress("Loading upgrade types");
     Data_Manager::load_data("upgrade");
+
+    bar.progress("Loading planet types");
+    Data_Manager::load_data("planet");
 }
 
 void Game_Data::load_data_tag_game(string tag,File_IO_Load* load){
@@ -55,6 +59,9 @@ void Game_Data::load_data_tag_game(string tag,File_IO_Load* load){
     else if(tag=="upgrade"){
         load_upgrade_type(load);
     }
+    else if(tag=="planet"){
+        load_planet_type(load);
+    }
 }
 
 void Game_Data::unload_data_game(){
@@ -63,6 +70,7 @@ void Game_Data::unload_data_game(){
     shot_types.clear();
     item_types.clear();
     upgrades.clear();
+    planet_types.clear();
 }
 
 void Game_Data::load_ship_type(File_IO_Load* load){
@@ -431,4 +439,45 @@ vector<string> Game_Data::get_upgrade_names(){
     }
 
     return names;
+}
+
+void Game_Data::load_planet_type (File_IO_Load* load) {
+    planet_types.push_back(Planet_Type());
+
+    vector<string> lines=Data_Reader::read_data(load,"</planet>");
+
+    for (size_t i = 0; i < lines.size(); i++) {
+        string& line=lines[i];
+
+        if(Data_Reader::check_prefix(line,"name:")){
+            planet_types.back().name=line;
+        }
+        else if(Data_Reader::check_prefix(line,"sprite:")){
+            planet_types.back().sprite=line;
+        }
+        else if(Data_Reader::check_prefix(line,"minimap_color:")){
+            planet_types.back().minimap_color=line;
+        }
+        else if(Data_Reader::check_prefix(line,"cloud_color:")){
+            planet_types.back().cloud_color=line;
+        }
+    }
+}
+
+Planet_Type* Game_Data::get_planet_type(string name){
+    Planet_Type* ptr_object=0;
+
+    for(size_t i=0;i<planet_types.size();i++){
+        if(planet_types[i].name==name){
+            ptr_object=&planet_types[i];
+
+            break;
+        }
+    }
+
+    if(ptr_object==0){
+        Log::add_error("Error accessing planet type '"+name+"'");
+    }
+
+    return ptr_object;
 }

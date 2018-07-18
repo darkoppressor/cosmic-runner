@@ -5,6 +5,8 @@
 #ifndef planet_h
 #define planet_h
 
+#include "planet_type.h"
+
 #include <collision.h>
 #include <sprite.h>
 #include <coords.h>
@@ -18,13 +20,17 @@ private:
 
     Collision_Circ<double> circle;
 
+    std::string type;
+
     Sprite sprite;
 
     std::uint32_t cloud_delay;
 
 public:
 
-    Planet(std::string new_sprite,const Coords<double>& position);
+    Planet(std::string new_type,const Coords<double>& position);
+
+    Planet_Type* get_planet_type() const;
 
     Collision_Circ<double> get_circle() const;
 

@@ -13,6 +13,7 @@
 #include <object_manager.h>
 #include <render.h>
 #include <game_window.h>
+#include <engine_strings.h>
 
 #include <SDL.h>
 
@@ -108,7 +109,7 @@ void Minimap::generate_map(uint32_t new_width,uint32_t new_height){
                         Collision_Circ<int32_t> point(x,y,0);
 
                         if(Collision::check_circ(point,circle) && !Collision::check_circ(point,circle_omit)){
-                            Pixels::surface_put_pixel(surface,x,y,*Object_Manager::get_color("minimap_planet"));
+                            Pixels::surface_put_pixel(surface,x,y,*Object_Manager::get_color(planet.get_planet_type()->minimap_color));
                         }
                     }
                 }
