@@ -23,12 +23,17 @@
 #include <engine_strings.h>
 #include <engine_math.h>
 #include <gui_manager.h>
+#include <window_manager.h>
 
 #include <ctime>
 
 using namespace std;
 
 void Game_Manager::on_startup () {
+    if (Engine::save_data_version_is_different) {
+        Window_Manager::get_window("changelog")->toggle_on();
+    }
+
     Game::load_high_scores();
 
     Android_Leaderboard::remove_android_buttons();

@@ -1,0 +1,17 @@
+<window>
+	name:changelog
+	starting_position:-1,-1
+	width:1280
+	height:720
+	title:Changelog
+
+	<info>
+		location:4,64
+		scrolling:true
+		box:114,27
+		background_type:standard
+		special_text:changelog
+		font:standard
+	</info>
+
+</window>

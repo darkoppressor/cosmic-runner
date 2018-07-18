@@ -26,6 +26,8 @@ string Special_Info::get_special_info_text(string special_info){
                 Engine_Version::get_build_date() + "\nChecksum: " + Engine::CHECKSUM + "\nEngine version: " +
                 Engine_Version::get_engine_version() + " " + Engine_Version::get_engine_status() + " (updated on " +
                 Engine_Version::get_engine_date() + ")";
+        } else if (special_info=="changelog") {
+            text += Engine::get_changelog();
         } else if (special_info=="game_over") {
             text+="Your career has come to an abrupt end.\nYou scored " + Strings::num_to_string(Game::get_score()) + " points.";
 

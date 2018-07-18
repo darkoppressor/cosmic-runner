@@ -22,4 +22,12 @@
 		font:standard
 	</info>
 
+	<button>
+		location:532,666
+		text:Changelog
+		event:open_window_changelog
+		sound_moused:moused_1
+		sound_click:click_1
+	</button>
+
 </window>
