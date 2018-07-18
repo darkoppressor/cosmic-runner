@@ -1687,7 +1687,7 @@ void Ship::thrust(uint32_t frame, RNG& rng){
         force+=thrust_force;
 
         if(frame%15==0){
-            Sound_Manager::play_sound("thrust_" + Strings::num_to_string(rng.random_range(0,2)),box.center_x(),box.center_y());
+            Sound_Manager::play_sound("thrust",box.center_x(),box.center_y());
         }
     }
 }
