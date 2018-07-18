@@ -185,7 +185,7 @@ uint64_t Game_Constants::DEFAULT_HIGH_SCORE_7=0;
 uint64_t Game_Constants::DEFAULT_HIGH_SCORE_8=0;
 uint64_t Game_Constants::DEFAULT_HIGH_SCORE_9=0;
 uint64_t Game_Constants::DEFAULT_HIGH_SCORE_10=0;
-double Game_Constants::SHIP_SHADOW_OFFSET=0.0;
+double Game_Constants::SHADOW_OFFSET=0.0;
 /// END SCRIPT-GENERATED CONSTANT INITIALIZATIONS
 
 void Game_Constants_Loader::set_game_constant(string name,string value){
@@ -722,8 +722,8 @@ void Game_Constants_Loader::set_game_constant(string name,string value){
     else if(name=="default_high_score_10"){
         Game_Constants::DEFAULT_HIGH_SCORE_10=Strings::string_to_unsigned_long(value);
     }
-    else if(name=="ship_shadow_offset"){
-        Game_Constants::SHIP_SHADOW_OFFSET=Strings::string_to_double(value);
+    else if(name=="shadow_offset"){
+        Game_Constants::SHADOW_OFFSET=Strings::string_to_double(value);
     }
     /// END SCRIPT-GENERATED CONSTANT SETUP
 }

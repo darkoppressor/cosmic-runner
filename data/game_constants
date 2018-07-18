@@ -1170,7 +1170,7 @@
 </game_constant>
 
 <game_constant>
-	name:ship_shadow_offset
+	name:shadow_offset
 	value:48.0
 	type:double
 </game_constant>

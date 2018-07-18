@@ -32,6 +32,8 @@ private:
 
     double scale;
 
+    bool cast_shadow;
+
     Sprite sprite;
 
     bool timed;

@@ -77,6 +77,8 @@ Effect::Effect(std::string new_sprite,bool new_fade,double new_scale,const Coord
 
     cloud=new_cloud;
     cloud_fading = false;
+
+    cast_shadow = false;
 }
 
 bool Effect::is_fading() const{
@@ -116,18 +118,35 @@ void Effect::movement(){
         }
 
         if (cloud) {
-            /*cloud_fading = true;
+            cloud_fading = true;
+            cast_shadow = false;
+
+            vector<Coords<double>> vertices_cloud;
+            box.get_vertices(vertices_cloud,0.0);
+
+            vector<Coords<double>> vertices_shadow;
+            Collision_Rect<double> shadow_box = box;
+            shadow_box.w += Game_Constants::SHADOW_OFFSET;
+            shadow_box.h += Game_Constants::SHADOW_OFFSET;
+            shadow_box.get_vertices(vertices_shadow, angle);
 
             for (uint32_t i = 0; i < Game::get_planet_count(); i++) {
-                vector<Coords<double>> vertices;
-                box.get_vertices(vertices,0.0);
-
-                if (Game::is_object_over_planet(vertices, Game::get_planet(i))) {
+                if (Game::should_object_cast_shadow_on_planet(vertices_cloud, Game::get_planet(i))) {
                     cloud_fading = false;
 
-                    break;
+                    if (cast_shadow) {
+                        break;
+                    }
                 }
-            }*/
+
+                if (Game::should_object_cast_shadow_on_planet(vertices_shadow, Game::get_planet(i))) {
+                    cast_shadow = true;
+
+                    if (!cloud_fading) {
+                        break;
+                    }
+                }
+            }
         }
     }
 }
@@ -166,6 +185,10 @@ void Effect::render(bool clouds){
         }
         else if(!line){
             if(Collision::check_rect(box*Game_Manager::camera_zoom,Game_Manager::camera)){
+                if (cast_shadow) {
+                    sprite.render((box.x + Game_Constants::SHADOW_OFFSET)*Game_Manager::camera_zoom-Game_Manager::camera.x,(box.y + Game_Constants::SHADOW_OFFSET)*Game_Manager::camera_zoom-Game_Manager::camera.y,0.25,scale*0.65,scale*0.65,angle,"ui_black");
+                }
+
                 sprite.render(box.x*Game_Manager::camera_zoom-Game_Manager::camera.x,box.y*Game_Manager::camera_zoom-Game_Manager::camera.y,opacity,scale,scale,angle,color);
             }
         }

@@ -1939,10 +1939,10 @@ void Ship::movement(uint32_t own_index,const Quadtree<double,uint32_t>& quadtree
         cast_shadow = false;
 
         vector<Coords<double>> vertices;
-        Collision_Rect<double> shadow_box = get_box();
-        shadow_box.w += Game_Constants::SHIP_SHADOW_OFFSET;
-        shadow_box.h += Game_Constants::SHIP_SHADOW_OFFSET;
-        shadow_box.get_vertices(vertices, get_angle());
+        Collision_Rect<double> shadow_box = box;
+        shadow_box.w += Game_Constants::SHADOW_OFFSET;
+        shadow_box.h += Game_Constants::SHADOW_OFFSET;
+        shadow_box.get_vertices(vertices, angle);
 
         for (uint32_t i = 0; i < Game::get_planet_count(); i++) {
             if (Game::should_object_cast_shadow_on_planet(vertices, Game::get_planet(i))) {
@@ -2017,7 +2017,7 @@ void Ship::render(bool tractoring,bool is_player){
                 }
 
                 if (cast_shadow) {
-                    sprite.render((box.x + Game_Constants::SHIP_SHADOW_OFFSET)*Game_Manager::camera_zoom-Game_Manager::camera.x,(box.y + Game_Constants::SHIP_SHADOW_OFFSET)*Game_Manager::camera_zoom-Game_Manager::camera.y,0.25,scale*0.65,scale*0.65,angle_to_use,"ui_black");
+                    sprite.render((box.x + Game_Constants::SHADOW_OFFSET)*Game_Manager::camera_zoom-Game_Manager::camera.x,(box.y + Game_Constants::SHADOW_OFFSET)*Game_Manager::camera_zoom-Game_Manager::camera.y,0.25,scale*0.65,scale*0.65,angle_to_use,"ui_black");
                 }
 
                 sprite.render(box.x*Game_Manager::camera_zoom-Game_Manager::camera.x,box.y*Game_Manager::camera_zoom-Game_Manager::camera.y,opacity,scale,scale,angle_to_use);
