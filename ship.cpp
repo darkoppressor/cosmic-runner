@@ -831,7 +831,7 @@ void Ship::take_damage(bool is_player,int32_t damage,string damage_type,const Co
         }
 
         if(effective_damage>0){
-            Game::create_effect("effect_hull_damage",true,0.1*(double)rng.random_range(1,10),location,"effect_hull_damage",
+            Game::create_effect("effect_hull_damage",true,0.1*(double)rng.random_range(1,10),location,"effect_hull_damage_" + Strings::num_to_string(rng.random_range(0,5)),
                                 Vector(rng.random_range(0,10),rng.random_range(0,359)),rng.random_range(0,359),
                                 Vector(0.01*rng.random_range(0,50),rng.random_range(0,359)),Game_Constants::EFFECT_LENGTH_HULL_DAMAGE,false,Coords<double>(),get_ship_type()->color);
 
