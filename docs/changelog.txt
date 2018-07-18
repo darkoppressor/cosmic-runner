@@ -1,5 +1,9 @@
 0.2.6 beta - 2018/07/18
 ------------------------
+Improve text alignment on loading bar
+Add variants for hull damage sound effect
+Adjust sound effect volumes
+Add dodge sound effect
 Remove variant thrust sound effects
 Add changelog system
 Add debris shadows
