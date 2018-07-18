@@ -243,7 +243,7 @@ void Game_Manager::render_loading_screen(const Progress_Bar& bar,string message)
 
                 string msg=Strings::num_to_string((int)(percentage*100.0))+"%";
 
-                font->show((screen_width-(double)msg.length()*(double)font->spacing_x)/2.0,screen_height-offset,msg,"ui_0");
+                font->show((screen_width-(double)msg.length()*(double)font->spacing_x)/2.0,screen_height-offset+6,msg,"ui_0");
                 font->show((screen_width-(double)message.length()*(double)font->spacing_x)/2.0,screen_height-offset+back_thickness*2.0+font->spacing_y*1.5,message,"ui_0");
             }
         }
