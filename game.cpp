@@ -198,6 +198,8 @@ void Game::dodge_check(){
                     create_effect("effect_" + debris.get_debris_type()->sprite, true, 1.0,
                         debris.get_box().get_center(), "", Vector(0.0, 0.0), debris.get_angle(),
                         debris.get_angular_velocity(), 1, false, Coords<double>());
+
+                    Sound_Manager::play_sound("dodge");
                 }
             }
         }
