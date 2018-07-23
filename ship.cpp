@@ -2002,7 +2002,13 @@ void Ship::render(bool tractoring,bool is_player){
             angle_to_use = render_angle;
         }
 
-        bool in_camera=Collision::check_rect_rotated(box*Game_Manager::camera_zoom,Game_Manager::camera,angle_to_use,0.0);
+        Collision_Rect<double> box_for_camera_check = box;
+        if (cast_shadow) {
+            box_for_camera_check.w += Game_Constants::SHADOW_OFFSET;
+            box_for_camera_check.h += Game_Constants::SHADOW_OFFSET;
+        }
+
+        bool in_camera=Collision::check_rect_rotated(box_for_camera_check*Game_Manager::camera_zoom,Game_Manager::camera,angle_to_use,0.0);
 
         if(in_camera){
             if(is_player || !is_cloaked()){

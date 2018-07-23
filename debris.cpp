@@ -82,7 +82,13 @@ void Debris::animate(){
 }
 
 void Debris::render(){
-    if(Collision::check_rect_rotated(box*Game_Manager::camera_zoom,Game_Manager::camera,angle,0.0)){
+    Collision_Rect<double> box_for_camera_check = box;
+    if (cast_shadow) {
+        box_for_camera_check.w += Game_Constants::SHADOW_OFFSET;
+        box_for_camera_check.h += Game_Constants::SHADOW_OFFSET;
+    }
+
+    if(Collision::check_rect_rotated(box_for_camera_check*Game_Manager::camera_zoom,Game_Manager::camera,angle,0.0)){
         if (cast_shadow) {
             sprite.render((box.x + Game_Constants::SHADOW_OFFSET_DEBRIS)*Game_Manager::camera_zoom-Game_Manager::camera.x,(box.y + Game_Constants::SHADOW_OFFSET_DEBRIS)*Game_Manager::camera_zoom-Game_Manager::camera.y,0.25,0.45,0.45,angle,"ui_black");
         }

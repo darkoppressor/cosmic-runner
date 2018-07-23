@@ -184,7 +184,13 @@ void Effect::render(bool clouds){
             }
         }
         else if(!line){
-            if(Collision::check_rect(box*Game_Manager::camera_zoom,Game_Manager::camera)){
+            Collision_Rect<double> box_for_camera_check = box;
+            if (cast_shadow) {
+                box_for_camera_check.w += Game_Constants::SHADOW_OFFSET;
+                box_for_camera_check.h += Game_Constants::SHADOW_OFFSET;
+            }
+
+            if(Collision::check_rect(box_for_camera_check*Game_Manager::camera_zoom,Game_Manager::camera)){
                 if (cast_shadow) {
                     sprite.render((box.x + Game_Constants::SHADOW_OFFSET)*Game_Manager::camera_zoom-Game_Manager::camera.x,(box.y + Game_Constants::SHADOW_OFFSET)*Game_Manager::camera_zoom-Game_Manager::camera.y,0.25,scale*0.65,scale*0.65,angle,"ui_black");
                 }
