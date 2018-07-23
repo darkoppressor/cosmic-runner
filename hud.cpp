@@ -71,14 +71,18 @@ void Hud::render(){
 
     string msg="Score: "+Strings::num_to_string(Game::get_score())+"\nx"+Strings::num_to_string(Game::get_score_multiplier());
 
+    font->show(((double)Game_Window::width()-Strings::longest_line(msg)*font->spacing_x)/2.0,Game_Constants::HUD_SPACING,msg,"ui_white");
+
+    msg="Dodges: "+Strings::num_to_string(Game::get_dodges());
+
     font->show((double)Game_Window::width()-Game_Constants::HUD_SPACING-Strings::longest_line(msg)*font->spacing_x,Game_Constants::HUD_SPACING,msg,"ui_white");
 
     msg="Kills: "+Strings::num_to_string(Game::get_kills());
     double kills_x=(double)Game_Window::width()-Game_Constants::HUD_SPACING-Strings::longest_line(msg)*font->spacing_x;
 
-    font->show(kills_x,Game_Constants::HUD_SPACING*2.0+font->spacing_y*2.0,msg,"ui_white");
+    font->show(kills_x,Game_Constants::HUD_SPACING+font->spacing_y,msg,"ui_white");
 
-    double notoriety_y=Game_Constants::HUD_SPACING*3.0+font->spacing_y*3.0;
+    double notoriety_y=Game_Constants::HUD_SPACING*2.0+font->spacing_y*2.0;
 
     uint32_t notoriety_tiers=0;
 
@@ -90,7 +94,7 @@ void Hud::render(){
     }
 
     for(uint32_t i=0;i<notoriety_tiers;i++){
-        notoriety_sprite.render(kills_x+(double)i*Game_Constants::HUD_SPACING+(double)i*notoriety_sprite.get_width(),notoriety_y);
+        notoriety_sprite.render(kills_x+font->spacing_x*3.0+(double)i*Game_Constants::HUD_SPACING+(double)i*notoriety_sprite.get_width(),notoriety_y);
     }
 
     if(notoriety_tiers>0){
@@ -103,7 +107,7 @@ void Hud::render(){
 
         double tiers_width=((double)notoriety_tiers-1.0)*Game_Constants::HUD_SPACING+(double)notoriety_tiers*notoriety_sprite.get_width();
 
-        font->show(kills_x+tiers_width/2.0-(msg.length()*font->spacing_x)/2.0,notoriety_y+Game_Constants::HUD_SPACING+notoriety_sprite.get_height(),msg,"ui_white");
+        font->show(kills_x+font->spacing_x*3.0+tiers_width/2.0-(msg.length()*font->spacing_x)/2.0,notoriety_y+Game_Constants::HUD_SPACING+notoriety_sprite.get_height(),msg,"ui_white");
     }
 
     if(player.has_weapon()){

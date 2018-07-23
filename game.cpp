@@ -1748,6 +1748,8 @@ void Game::render(){
             minimap.render();
         }
 
+        Bitmap_Font* font=Object_Manager::get_font("large");
+
         if(player_has_contract()){
             const Planet& planet=get_contract_planet();
             const Ship& player=get_player_const();
@@ -1756,19 +1758,19 @@ void Game::render(){
             player.get_box().get_vertices(vertices,player.get_angle());
 
             if(is_object_over_planet(vertices,planet)){
-                contract_sprite_check.render((Game_Window::width()-contract_sprite.get_width())/2.0,(Game_Window::height()/4.0-contract_sprite.get_height())/2.0);
+                contract_sprite_check.render((Game_Window::width()-contract_sprite.get_width())/2.0,Game_Constants::HUD_SPACING + font->spacing_y*2.0);
             }
             else{
                 Collision_Rect<double> box_contract_indicator(((Game_Window::width()-contract_sprite.get_width())/2.0)*Game_Manager::camera_zoom+Game_Manager::camera.x,
-                                                              ((Game_Window::height()/4.0-contract_sprite.get_height())/2.0)*Game_Manager::camera_zoom+Game_Manager::camera.y,
+                                                              (Game_Constants::HUD_SPACING + font->spacing_y*2.0)*Game_Manager::camera_zoom+Game_Manager::camera.y,
                                                               contract_sprite.get_width(),contract_sprite.get_height());
 
-                contract_sprite.render((Game_Window::width()-contract_sprite.get_width())/2.0,(Game_Window::height()/4.0-contract_sprite.get_height())/2.0,1.0,1.0,1.0,
+                contract_sprite.render((Game_Window::width()-contract_sprite.get_width())/2.0,Game_Constants::HUD_SPACING + font->spacing_y*2.0,1.0,1.0,1.0,
                                        box_contract_indicator.get_angle_to_circ(planet.get_circle()));
             }
         }
         else{
-            no_contract_sprite.render((Game_Window::width()-no_contract_sprite.get_width())/2.0,(Game_Window::height()/4.0-no_contract_sprite.get_height())/2.0);
+            no_contract_sprite.render((Game_Window::width()-no_contract_sprite.get_width())/2.0,Game_Constants::HUD_SPACING + font->spacing_y*2.0);
         }
 
         Hud::render();
