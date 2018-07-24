@@ -11,6 +11,8 @@ Upgrade::Upgrade(){
     display_name="";
     description="";
 
+    sprite = "";
+
     type="";
 
     banned=false;

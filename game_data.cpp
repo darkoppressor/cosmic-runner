@@ -338,6 +338,9 @@ void Game_Data::load_upgrade_type(File_IO_Load* load){
         else if(Data_Reader::check_prefix(line,"description:")){
             upgrades.back().description=Strings::process_newlines(line);
         }
+        else if(Data_Reader::check_prefix(line,"sprite:")){
+            upgrades.back().sprite=Strings::process_newlines(line);
+        }
         else if(Data_Reader::check_prefix(line,"type:")){
             upgrades.back().type=line;
         }

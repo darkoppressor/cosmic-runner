@@ -15,6 +15,8 @@ public:
     std::string display_name;
     std::string description;
 
+    std::string sprite;
+
     std::string type;
 
     //If true, this upgrade will never be available to the player

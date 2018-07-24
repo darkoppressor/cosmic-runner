@@ -3,6 +3,7 @@
 	//No fancy display name or description required, as this is for NPC police ships only
 	display_name:
 	description:
+	sprite:
 	type:active
 	banned:true
 	sound:active_scanner
@@ -14,6 +15,7 @@
 	name:emp
 	display_name:EMP
 	description:Active - makes an electromagnetic pulse go boom (don't worry, it probably won't affect your ship much)
+	sprite:upgrade_active_emp
 	type:active
 	sound:
 	cooldown:10000
@@ -24,6 +26,7 @@
 	name:cloak
 	display_name:Cloaking Device
 	description:Active - you already know what this does
+	sprite:upgrade_active_cloak
 	type:active
 	sound:active_cloak_on
 	off_sound:active_cloak_off
@@ -35,6 +38,7 @@
 	name:warp_drive
 	display_name:Warp Drive
 	description:Active - makes you go really fast, using complicated physics that I won't go into here\nSeriously though, the physics behind this are totally legit, I wouldn't even worry about it
+	sprite:upgrade_active_warp
 	type:active
 	sound:active_warp_drive_on
 	off_sound:active_warp_drive_off
