@@ -27,6 +27,7 @@ Swipe up on right to use active
 Upgrade icons for upgrade selection and viewing windows
 Upgrade selection should have a totally custom look. More fun window background, figure out titlebar, no X button, fun background for buttons, will need those upgrade icons
 Ideally need a better way to access upgrade view screen, then make it look like the buying screen
+Add help screens
 
 Music:
 Menu music
@@ -37,5 +38,4 @@ Combat music
 Police chase music
 Game over music
 
-Add help screens
 There is a bug where sometimes the cooldown bar shows when it is empty
