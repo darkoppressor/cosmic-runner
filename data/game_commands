@@ -127,3 +127,13 @@
 	controller_button:b
 	controller_axis:
 </game_command>
+
+<game_command>
+	name:open_view_upgrades
+	title:View Upgrades
+	description:Open the Upgrades window
+	developer:false
+	key:Z
+	controller_button:guide
+	controller_axis:
+</game_command>

@@ -2,7 +2,7 @@
 	name:ingame_menu
 	starting_position:-1,-1
 	width:380
-	height:482
+	height:438
 	title:Main Menu
 
 	<button>
@@ -15,14 +15,6 @@
 
 	<button>
 		location:-1,108
-		text:View Upgrades
-		event:open_window_view_upgrades
-		sound_moused:moused_2
-		sound_click:click_2
-	</button>
-
-	<button>
-		location:-1,152
 		text:New Game
 		event:start_game
 		sound_moused:moused_3
@@ -30,7 +22,7 @@
 	</button>
 
 	<button>
-		location:-1,196
+		location:-1,152
 		text:Stop Playing
 		event:stop_game
 		sound_moused:moused_1
@@ -38,7 +30,7 @@
 	</button>
 
 	<button>
-		location:-1,240
+		location:-1,196
 		text:High Scores
 		event:open_window_high_scores
 		sound_moused:moused_2
@@ -46,7 +38,7 @@
 	</button>
 
 	<button>
-		location:-1,284
+		location:-1,240
 		text:Options
 		event:options_window
 		sound_moused:moused_3
@@ -54,7 +46,7 @@
 	</button>
 
 	<button>
-		location:-1,328
+		location:-1,284
 		text:About
 		event:open_window_about
 		sound_moused:moused_1
@@ -62,7 +54,7 @@
 	</button>
 
 	<button>
-		location:-1,372
+		location:-1,328
 		text:Quit
 		event:quit
 		sound_moused:moused_2
@@ -70,12 +62,12 @@
 	</button>
 
 	<info>
-		location:4,431
+		location:4,387
 		sprite:play_games_controller_gray
 	</info>
 
 	<button>
-		location:40,428
+		location:40,384
 		text:Sign In
 		event:gpg_toggle_sign_in
 		sound_moused:moused_3

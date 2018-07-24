@@ -156,6 +156,12 @@ bool Game_Manager::handle_game_command_gui(string command_name){
         }
 
         return true;
+    } else if(command_name=="open_view_upgrades"){
+        if(!Window_Manager::is_window_open(Window_Manager::get_window("game_over"))){
+            Window_Manager::get_window("view_upgrades")->toggle_on();
+        }
+
+        return true;
     }
 
     //Example multiplayer pause
