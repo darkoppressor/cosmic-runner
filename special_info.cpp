@@ -29,7 +29,8 @@ string Special_Info::get_special_info_text(string special_info){
         } else if (special_info=="changelog") {
             text += Engine::get_changelog();
         } else if (special_info=="game_over") {
-            text+="Your career has come to an abrupt end.\nYou scored " + Strings::num_to_string(Game::get_score()) + " points.";
+            text+="Your career has come to an abrupt end.\nYou scored " + Strings::num_to_string(Game::get_score()) +
+            " points.\nCause of death:\n" + Game::get_cause_of_death();
 
             if (Game::is_score_high()) {
                 text+="\n\nYou've made it onto the local\nhigh score table!";

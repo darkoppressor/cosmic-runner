@@ -2,7 +2,7 @@
 	name:game_over
 	starting_position:-1,-1
 	width:960
-	height:388
+	height:476
 	title:Game Over
 	disallow_closing:true
 
@@ -12,7 +12,7 @@
 	</info>
 
 	<button>
-		location:-1,334
+		location:-1,422
 		text:OK
 		event:game_over
 		sound_moused:moused_3

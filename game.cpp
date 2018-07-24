@@ -104,6 +104,8 @@ uint32_t Game::item_spawn_check=0;
 uint32_t Game::sound_cooldown_disabled=0;
 uint32_t Game::sound_cooldown_low_hull=0;
 
+string Game::cause_of_death = "";
+
 double Game::world_width=0.0;
 double Game::world_height=0.0;
 
@@ -573,6 +575,10 @@ void Game::toggle_minimap(){
     show_minimap=!show_minimap;
 }
 
+string Game::get_cause_of_death () {
+    return cause_of_death;
+}
+
 double Game::get_score_multiplier_accel () {
     if (score_multiplier > 1) {
         return Game_Constants::SCORE_MULTIPLIER_ACCEL * (score_multiplier - 1);
@@ -878,7 +884,7 @@ void Game::increase_power_contract(){
 
 void Game::decrease_power(){
     if(power>0 && --power==0){
-        game_over();
+        game_over("shipwide power failure");
     }
 }
 
@@ -891,7 +897,7 @@ void Game::use_power(uint32_t amount){
     }
 
     if(player_is_out_of_power()){
-        game_over();
+        game_over("shipwide power failure");
     }
 }
 
@@ -1411,7 +1417,9 @@ void Game::add_high_score (string name) {
     high_score_table.save_high_scores();
 }
 
-void Game::game_over(){
+void Game::game_over(string cause_of_death){
+    Game::cause_of_death = cause_of_death;
+
     Game_Manager::paused=true;
 
     Window_Manager::get_window("game_over")->toggle_on(true,true);

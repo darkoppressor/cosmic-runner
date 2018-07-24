@@ -749,7 +749,7 @@ void Ship::die(bool is_player,string damage_faction,RNG& rng){
         }
 
         if(is_player){
-            Game::game_over();
+            Game::game_over(damage_faction);
         }
         else{
             if(damage_faction=="player"){
@@ -923,7 +923,29 @@ void Ship::take_damage(bool is_player,int32_t damage,string damage_type,const Co
                 }
 
                 if(is_player){
-                    Game::game_over();
+                    string cause_of_death = "";
+
+                    if (damage_faction == "world") {
+                        cause_of_death = "a chunk of space debris";
+                    } else {
+                        if (damage_type == "solid") {
+                            cause_of_death = "a solid shot";
+                        } else if (damage_type == "explosive") {
+                            cause_of_death = "an explosive";
+                        } else if (damage_type == "energy") {
+                            cause_of_death = "a blast of energy";
+                        }
+
+                        if (damage_faction == "pirate") {
+                            cause_of_death += " fired by a pirate";
+                        } else if (damage_faction == "bounty_hunter") {
+                            cause_of_death += " fired by a bounty hunter";
+                        } else if (damage_faction == "police") {
+                            cause_of_death += " fired by a cop";
+                        }
+                    }
+
+                    Game::game_over(cause_of_death);
                 }
                 else{
                     if(damage_faction=="player"){

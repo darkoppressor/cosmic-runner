@@ -111,6 +111,8 @@ private:
     static std::uint32_t sound_cooldown_disabled;
     static std::uint32_t sound_cooldown_low_hull;
 
+    static std::string cause_of_death;
+
     static bool android_need_to_check_failed_leaderboard_submissions;
     static bool android_need_to_check_failed_achievement_submissions;
 
@@ -153,6 +155,8 @@ public:
     static RNG& get_rng();
 
     static void toggle_minimap();
+
+    static std::string get_cause_of_death();
 
     static double get_score_multiplier_accel();
     static double get_score_multiplier_decel();
@@ -252,7 +256,7 @@ public:
     static bool is_score_high();
     static void add_high_score(std::string name);
 
-    static void game_over();
+    static void game_over(std::string cause_of_death);
 
     static void handle_repeating_sounds();
 
