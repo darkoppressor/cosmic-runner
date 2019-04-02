@@ -1,5 +1,5 @@
 # cosmic-runner
-[![Build Status](http://wells-family.xyz:8080/buildStatus/icon?job=cosmic-runner/master)](http://wells-family.xyz:8080/job/cosmic-runner/job/master/)
+[![Build Status](http://wells-family.xyz:8080/jenkins/buildStatus/icon?job=cosmic-heist)](https://wells-family.xyz/jenkins/job/cosmic-heist/)
 
 A game in development by Cheese and Bacon Games
 http://cheeseandbacon.org/
