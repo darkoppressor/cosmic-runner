@@ -15,8 +15,8 @@
 
 using namespace std;
 
-bool Button_Events::handle_button_event_game(string button_event,Window* parent_window,bool& window_opened_on_top){
-    if (button_event=="game_over") {
+bool Button_Events::handle_button_event_game (string button_event, Window* parent_window, bool& window_opened_on_top) {
+    if (button_event == "game_over") {
         Window_Manager::close_all_windows();
 
         if (Game::is_score_high()) {
@@ -35,43 +35,42 @@ bool Button_Events::handle_button_event_game(string button_event,Window* parent_
             Window_Manager::get_window("high_scores")->toggle_on();
         }
 
-        window_opened_on_top=true;
+        window_opened_on_top = true;
 
         return true;
-    } else if (button_event=="gpg_toggle_sign_in") {
-        if(Android::gpg_is_silent_sign_in_attempt_complete()){
-            if(!Android::gpg_is_signed_in()){
+    } else if (button_event == "gpg_toggle_sign_in") {
+        if (Android::gpg_is_silent_sign_in_attempt_complete()) {
+            if (!Android::gpg_is_signed_in()) {
                 Android::gpg_sign_in();
 
                 Game::android_gpg_signing_in();
-            }
-            else{
+            } else {
                 Android::gpg_sign_out();
             }
         }
 
         return true;
-    } else if (boost::algorithm::starts_with(button_event,"gpg_show_leaderboard_")) {
-        boost::algorithm::erase_first(button_event,"gpg_show_leaderboard_");
+    } else if (boost::algorithm::starts_with(button_event, "gpg_show_leaderboard_")) {
+        boost::algorithm::erase_first(button_event, "gpg_show_leaderboard_");
 
-        if(Android::gpg_is_signed_in()){
-            Android::gpg_show_leaderboard(button_event.c_str());
+        if (Android::gpg_is_signed_in()) {
+            Android::gpg_show_leaderboard(button_event);
         }
 
         return true;
-    } else if (button_event=="gpg_show_all_leaderboards") {
-        if(Android::gpg_is_signed_in()){
+    } else if (button_event == "gpg_show_all_leaderboards") {
+        if (Android::gpg_is_signed_in()) {
             Android::gpg_show_all_leaderboards();
         }
 
         return true;
-    } else if (button_event=="gpg_show_achievements") {
-        if(Android::gpg_is_signed_in()){
+    } else if (button_event == "gpg_show_achievements") {
+        if (Android::gpg_is_signed_in()) {
             Android::gpg_show_achievements();
         }
 
         return true;
-    } else if (button_event=="name") {
+    } else if (button_event == "name") {
         Window_Manager::close_all_windows();
 
         if (parent_window != 0) {
@@ -88,11 +87,11 @@ bool Button_Events::handle_button_event_game(string button_event,Window* parent_
 
         Window_Manager::get_window("high_scores")->toggle_on();
 
-        window_opened_on_top=true;
+        window_opened_on_top = true;
 
         return true;
-    } else if (boost::algorithm::starts_with(button_event,"select_upgrade_")) {
-        boost::algorithm::erase_first(button_event,"select_upgrade_");
+    } else if (boost::algorithm::starts_with(button_event, "select_upgrade_")) {
+        boost::algorithm::erase_first(button_event, "select_upgrade_");
 
         Window_Manager::close_all_windows();
 
@@ -101,7 +100,7 @@ bool Button_Events::handle_button_event_game(string button_event,Window* parent_
         Game::complete_contract();
 
         return true;
-    } else if (button_event=="skip_upgrade") {
+    } else if (button_event == "skip_upgrade") {
         Window_Manager::close_all_windows();
 
         Game::restore_hull_from_contract();
