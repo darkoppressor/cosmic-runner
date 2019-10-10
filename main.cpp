@@ -9,6 +9,6 @@
 
 using namespace std;
 
-int main(int argc,char* args[]){
-    return main_startup(argc,args,Game_Data::game_data_load_item_count);
+int main (int argc, char* args[]) {
+    return main_startup(argc, args, Game_Data::game_data_load_item_count);
 }

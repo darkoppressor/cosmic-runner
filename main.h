@@ -6,6 +6,6 @@
 #define main_h
 
 //Apparently, SDL likes main() to take these arguments
-int main(int argc,char* args[]);
+int main(int argc, char* args[]);
 
 #endif

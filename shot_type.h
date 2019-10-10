@@ -7,26 +7,20 @@
 
 #include <string>
 
-class Shot_Type{
-public:
+class Shot_Type {
+    public:
+        std::string name;
+        std::string sprite;
+        std::string death_sprite;
+        std::string death_sound;
+        double collision_percentage;
 
-    std::string name;
+        // kg
+        double mass;
+        std::string damage_type;
+        bool homing;
 
-    std::string sprite;
-
-    std::string death_sprite;
-    std::string death_sound;
-
-    double collision_percentage;
-
-    //kg
-    double mass;
-
-    std::string damage_type;
-
-    bool homing;
-
-    Shot_Type();
+        Shot_Type ();
 };
 
 #endif

@@ -12,26 +12,22 @@
 
 #include <string>
 
-class Title_Ship{
-private:
+class Title_Ship {
+    private:
+        Collision_Rect<double> box;
+        Vector velocity;
+        double distance_scale;
+        Sprite sprite;
 
-    Collision_Rect<double> box;
+    public:
+        Title_Ship (std::string new_sprite, const Coords<double>& position, const Vector& new_velocity,
+                    double new_distance_scale);
 
-    Vector velocity;
+        bool is_alive();
 
-    double distance_scale;
-
-    Sprite sprite;
-
-public:
-
-    Title_Ship(std::string new_sprite,const Coords<double>& position,const Vector& new_velocity,double new_distance_scale);
-
-    bool is_alive();
-
-    void movement();
-    void animate();
-    void render(bool bird);
+        void movement();
+        void animate();
+        void render(bool bird);
 };
 
 #endif

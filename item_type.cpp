@@ -6,23 +6,23 @@
 
 using namespace std;
 
-Item_Type::Item_Type(){
-    name="";
+Item_Type::Item_Type () {
+    name = "";
 
-    sprite="";
+    sprite = "";
 
-    collect_sound="";
+    collect_sound = "";
 
-    mass=0.0;
-    thrust_decel=0.0;
+    mass = 0.0;
+    thrust_decel = 0.0;
 
-    point_value=0;
+    point_value = 0;
 }
 
-bool Item_Type::restores_hull() const{
-    return name=="restore_hull";
+bool Item_Type::restores_hull () const {
+    return name == "restore_hull";
 }
 
-bool Item_Type::restores_power() const{
-    return name=="restore_power";
+bool Item_Type::restores_power () const {
+    return name == "restore_power";
 }

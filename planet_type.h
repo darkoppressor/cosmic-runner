@@ -8,16 +8,13 @@
 #include <string>
 
 class Planet_Type {
-public:
+    public:
+        std::string name;
+        std::string sprite;
+        std::string minimap_color;
+        std::string cloud_color;
 
-    std::string name;
-
-    std::string sprite;
-
-    std::string minimap_color;
-    std::string cloud_color;
-
-    Planet_Type();
+        Planet_Type ();
 };
 
 #endif

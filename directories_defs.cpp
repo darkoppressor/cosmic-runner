@@ -6,6 +6,6 @@
 
 using namespace std;
 
-void Directories::add_game_directories_to_list(){
+void Directories::add_game_directories_to_list () {
     ///directories.push_back("example_directory");
 }
