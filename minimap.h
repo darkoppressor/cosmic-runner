@@ -10,30 +10,27 @@
 
 #include <cstdint>
 
-class Minimap{
-private:
+class Minimap {
+    private:
+        Image_Data image_data;
+        std::uint32_t width;
+        std::uint32_t height;
 
-    Image_Data image_data;
+        bool is_generated() const;
 
-    std::uint32_t width;
-    std::uint32_t height;
+        double get_scale_x() const;
+        double get_scale_y() const;
 
-    bool is_generated() const;
+    public:
+        Minimap ();
 
-    double get_scale_x() const;
-    double get_scale_y() const;
+        void clear_map();
 
-public:
+        void generate_map(std::uint32_t new_width, std::uint32_t new_height);
 
-    Minimap();
+        Collision_Rect<double> get_box() const;
 
-    void clear_map();
-
-    void generate_map(std::uint32_t new_width,std::uint32_t new_height);
-
-    Collision_Rect<double> get_box() const;
-
-    void render();
+        void render();
 };
 
 #endif

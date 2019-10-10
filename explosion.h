@@ -14,39 +14,33 @@
 #include <string>
 #include <cstdint>
 
-class Explosion{
-private:
+class Explosion {
+    private:
+        Collision_Circ<double> circle;
+        std::int32_t damage;
+        std::string faction;
+        bool scan;
+        bool emp;
+        Sprite sprite;
 
-    Collision_Circ<double> circle;
+    public:
+        Explosion (std::string new_sprite, std::string sound, const Coords<double>& position, std::int32_t new_damage,
+                   std::string new_faction, bool new_scan, bool new_emp);
 
-    std::int32_t damage;
+        Collision_Circ<double> get_circle() const;
 
-    std::string faction;
+        std::int32_t get_damage() const;
+        std::string get_faction() const;
 
-    bool scan;
-    bool emp;
+        bool is_scan() const;
+        bool is_emp() const;
 
-    Sprite sprite;
+        bool is_alive() const;
 
-public:
+        double get_distance_to_player() const;
 
-    Explosion(std::string new_sprite,std::string sound,const Coords<double>& position,std::int32_t new_damage,std::string new_faction,bool new_scan,bool new_emp);
-
-    Collision_Circ<double> get_circle() const;
-
-    std::int32_t get_damage() const;
-
-    std::string get_faction() const;
-
-    bool is_scan() const;
-    bool is_emp() const;
-
-    bool is_alive() const;
-
-    double get_distance_to_player() const;
-
-    void animate();
-    void render();
+        void animate();
+        void render();
 };
 
 #endif

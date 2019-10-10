@@ -15,7 +15,7 @@
 
 using namespace std;
 
-vector<High_Score> High_Score_Table::get_high_scores() const {
+vector<High_Score> High_Score_Table::get_high_scores () const {
     return high_scores;
 }
 

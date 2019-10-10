@@ -14,51 +14,45 @@
 
 #include <string>
 
-class Item{
-private:
+class Item {
+    private:
+        Collision_Rect<double> box;
+        Vector velocity;
+        Vector force;
+        double angle;
+        Vector angular_velocity;
+        std::string type;
+        bool alive;
+        Sprite sprite;
 
-    Collision_Rect<double> box;
+    public:
+        Item (std::string new_type, const Coords<double>& position, const Vector& new_velocity, double new_angle,
+              const Vector& new_angular_velocity);
 
-    Vector velocity;
-    Vector force;
+        Item_Type* get_item_type() const;
 
-    double angle;
-    Vector angular_velocity;
+        double get_mass() const;
 
-    std::string type;
+        Collision_Rect<double> get_box() const;
 
-    bool alive;
+        bool is_alive() const;
 
-    Sprite sprite;
+        void die();
 
-public:
+        double get_distance_to_player() const;
 
-    Item(std::string new_type,const Coords<double>& position,const Vector& new_velocity,double new_angle,const Vector& new_angular_velocity);
+        void play_collection_sound() const;
 
-    Item_Type* get_item_type() const;
+        // Returns true if the item was vacuumed towards the player
+        // Returns false if the player was not in vacuuming range
+        bool vacuum();
+        void brake();
+        void accelerate();
+        void rotation();
+        void movement();
 
-    double get_mass() const;
-
-    Collision_Rect<double> get_box() const;
-
-    bool is_alive() const;
-
-    void die();
-
-    double get_distance_to_player() const;
-
-    void play_collection_sound() const;
-
-    //Returns true if the item was vacuumed towards the player
-    //Returns false if the player was not in vacuuming range
-    bool vacuum();
-    void brake();
-    void accelerate();
-    void rotation();
-    void movement();
-
-    void animate();
-    void render();
+        void animate();
+        void render();
 };
 
 #endif

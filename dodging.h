@@ -9,27 +9,25 @@
 #include <cstdint>
 #include <map>
 
-class Dodging{
-private:
+class Dodging {
+    private:
+        std::vector<std::uint32_t> tracking;
+        std::map<std::uint32_t, std::uint32_t> cooling;
 
-    std::vector<std::uint32_t> tracking;
-    std::map<std::uint32_t,std::uint32_t> cooling;
+    public:
+        void clear_lists();
 
-public:
+        std::vector<std::uint32_t> get_tracking() const;
 
-    void clear_lists();
+        bool is_debris_tracked(std::uint32_t index) const;
+        bool is_debris_cooling(std::uint32_t index) const;
 
-    std::vector<std::uint32_t> get_tracking() const;
+        void begin_tracking_debris(std::uint32_t index);
+        void begin_cooling_debris(std::uint32_t index);
 
-    bool is_debris_tracked(std::uint32_t index) const;
-    bool is_debris_cooling(std::uint32_t index) const;
+        void stop_tracking_debris(std::uint32_t index);
 
-    void begin_tracking_debris(std::uint32_t index);
-    void begin_cooling_debris(std::uint32_t index);
-
-    void stop_tracking_debris(std::uint32_t index);
-
-    void cooldown();
+        void cooldown();
 };
 
 #endif

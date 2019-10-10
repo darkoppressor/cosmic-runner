@@ -11,19 +11,17 @@
 #include <cstdint>
 
 class High_Score_Table {
-private:
+    private:
+        std::vector<High_Score> high_scores;
 
-    std::vector<High_Score> high_scores;
+    public:
+        std::vector<High_Score> get_high_scores() const;
 
-public:
+        void load_high_scores();
+        void save_high_scores();
 
-    std::vector<High_Score> get_high_scores() const;
-
-    void load_high_scores();
-    void save_high_scores();
-
-    bool is_score_high(std::uint64_t score);
-    void add_score(const High_Score new_score);
+        bool is_score_high(std::uint64_t score);
+        void add_score(const High_Score new_score);
 };
 
 #endif

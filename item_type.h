@@ -8,26 +8,22 @@
 #include <string>
 #include <cstdint>
 
-class Item_Type{
-public:
+class Item_Type {
+    public:
+        std::string name;
+        std::string sprite;
+        std::string collect_sound;
 
-    std::string name;
+        // kg
+        double mass;
+        // N
+        double thrust_decel;
+        std::uint64_t point_value;
 
-    std::string sprite;
+        Item_Type ();
 
-    std::string collect_sound;
-
-    //kg
-    double mass;
-    //N
-    double thrust_decel;
-
-    std::uint64_t point_value;
-
-    Item_Type();
-
-    bool restores_hull() const;
-    bool restores_power() const;
+        bool restores_hull() const;
+        bool restores_power() const;
 };
 
 #endif

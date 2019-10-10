@@ -5,7 +5,7 @@
 #ifndef main_h
 #define main_h
 
-//Apparently, SDL likes main() to take these arguments
-int main(int argc,char* args[]);
+// Apparently, SDL likes main() to take these arguments
+int main(int argc, char* args[]);
 
 #endif

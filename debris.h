@@ -14,37 +14,32 @@
 
 #include <string>
 
-class Debris{
-private:
+class Debris {
+    private:
+        Collision_Rect<double> box;
+        double angle;
+        Vector angular_velocity;
+        std::string type;
+        bool cast_shadow;
+        Sprite sprite;
 
-    Collision_Rect<double> box;
+    public:
+        Debris (std::string new_type, const Coords<double>& position, double new_angle,
+                const Vector& new_angular_velocity);
 
-    double angle;
-    Vector angular_velocity;
+        Debris_Type* get_debris_type() const;
 
-    std::string type;
+        Collision_Rect<double> get_box() const;
 
-    bool cast_shadow;
+        Collision_Rect<double> get_collision_box() const;
 
-    Sprite sprite;
+        double get_angle() const;
+        Vector get_angular_velocity() const;
 
-public:
+        void rotation();
 
-    Debris(std::string new_type,const Coords<double>& position,double new_angle,const Vector& new_angular_velocity);
-
-    Debris_Type* get_debris_type() const;
-
-    Collision_Rect<double> get_box() const;
-
-    Collision_Rect<double> get_collision_box() const;
-
-    double get_angle() const;
-    Vector get_angular_velocity() const;
-
-    void rotation();
-
-    void animate();
-    void render();
+        void animate();
+        void render();
 };
 
 #endif

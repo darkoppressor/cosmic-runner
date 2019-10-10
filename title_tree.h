@@ -13,21 +13,17 @@
 #include <string>
 
 class Title_Tree {
-private:
+    private:
+        Collision_Rect<double> box;
+        double distance_scale;
+        Sprite sprite;
+        std::uint32_t sprite_animation_speed;
 
-    Collision_Rect<double> box;
+    public:
+        Title_Tree (RNG& rng, const Coords<double>& position, double new_distance_scale);
 
-    double distance_scale;
-
-    Sprite sprite;
-    std::uint32_t sprite_animation_speed;
-
-public:
-
-    Title_Tree(RNG& rng, const Coords<double>& position,double new_distance_scale);
-
-    void animate();
-    void render();
+        void animate();
+        void render();
 };
 
 #endif
