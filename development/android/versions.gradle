@@ -17,7 +17,7 @@ build_versions.java = JavaVersion.VERSION_1_8
 ext.build_versions = build_versions
 
 def versions = [:]
-versions.android_gradle_plugin = '3.5.0'
+versions.android_gradle_plugin = '3.5.1'
 versions.google_play_base = '17.1.0'
 versions.google_play_auth = '17.0.0'
 versions.google_play_games = '18.0.1'
