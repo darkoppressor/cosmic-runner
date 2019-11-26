@@ -3,9 +3,10 @@
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 cd $DIR
 
+PROJECT_DIR="$DIR/.."
 AAB_FILE=$1
 
-python3 -m venv "$DIR"
-source "$DIR/bin/activate"
+python3 -m venv "$PROJECT_DIR"
+source "$PROJECT_DIR/bin/activate"
 pip3 install --upgrade pip google-auth google-auth-httplib2 google-api-python-client
-python3 "$DIR/.jenkins/deploy_to_google_play.py" "/home/tails/build-server/jenkins/cosmic_runner_google_play_service.json" "org.cheeseandbacon.cosmicrunner" "$AAB_FILE"
+python3 "$PROJECT_DIR/.jenkins/deploy_to_google_play.py" "/home/tails/build-server/jenkins/cosmic_runner_google_play_service.json" "org.cheeseandbacon.cosmicrunner" "$AAB_FILE"
