@@ -54,8 +54,15 @@ fi
 
 rm -rf "CMakeFiles/"
 rm -rf ".objs/"
+rm -rf "bin/"
+rm -rf "include/"
+rm -rf "lib/"
+rm -rf "share/"
 rm -rf "mods/"
 rm -rf "screenshots/"
+
+rm -f "lib64"
+rm -f "pyvenv.cfg"
 
 rm -f *Windows-x86_64.exe
 rm -f *Windows-Debug-x86_64.exe

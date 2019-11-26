@@ -24,5 +24,29 @@ pipeline {
                 sh '/home/tails/build-server/cheese-engine/tools/build-system/build $(pwd) true'
             }
         }
+
+        stage('deploy') {
+            post {
+                success {
+                    slackSend color: 'good', message: "Deploy SUCCEEDED - ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)"
+                }
+                failure {
+                    slackSend color: 'danger', message: "Deploy FAILED - ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)"
+                }
+                unstable {
+                    slackSend color: 'warning', message: "Deploy UNSTABLE - ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)"
+                }
+            }
+
+            steps {
+                slackSend message: "Deploy started - ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)"
+
+                python3 -m venv "${pwd}"
+                source "${pwd}/bin/activate"
+                pip3 install --upgrade pip google-auth google-auth-httplib2 google-api-python-client
+
+                python3 "${pwd}/.jenkins/deploy_to_google_play.py" "/home/tails/build-server/jenkins/cosmic_runner_google_play_service.json" "org.cheeseandbacon.cosmicrunner" "${pwd}/development/android/app/build/outputs/bundle/release/app-release.aab"
+            }
+        }
     }
 }
