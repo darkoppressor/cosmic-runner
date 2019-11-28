@@ -1,5 +1,9 @@
 CMakeFiles/**
 .objs/**
+bin/**
+include/**
+lib/**
+share/**
 mods/**
 screenshots/**
 
@@ -11,6 +15,7 @@ data/sounds/**
 !data/music/.gitkeep
 !data/sounds/.gitkeep
 
+development/android/.gradle/**
 development/android/assets/**
 development/android/bin/**
 development/android/gen/**
@@ -27,6 +32,9 @@ development/android/jni/arm64-v8a/**
 development/android/jni/x86/**
 development/android/jni/x86_64/**
 development/android/local.properties
+
+/*lib64
+/*pyvenv.cfg
 
 /*Windows-x86_64.exe
 /*Windows-Debug-x86_64.exe
