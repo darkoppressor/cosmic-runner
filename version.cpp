@@ -27,7 +27,7 @@ int Engine_Version::get_minor () {
 }
 
 int Engine_Version::get_micro () {
-    return 8; // MICRO
+    return 9; // MICRO
 }
 
 string Engine_Version::get_status () {

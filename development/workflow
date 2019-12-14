@@ -97,7 +97,7 @@ Features and bugfixes targeting future releases must not be merged into develop 
 To begin preparing a new release, branch off from develop.
 Example:
     git checkout -b release/<RELEASE> develop
-    ~/build-server/cheese-engine/tools/version . <VERSION-COMPONENT> [STATUS]
+    ~/build-server/cheese-engine/tools/version <PROJECT-DIRECTORY> <VERSION-COMPONENT> [STATUS]
     git commit -asm "Increment version"
 If any new bugfixes are needed for the release, they should be applied and committed in this release branch instead of
 develop.
