@@ -9,17 +9,15 @@
 #include <cstdint>
 
 class High_Score {
-private:
+    private:
+        std::string name;
+        std::uint64_t score;
 
-    std::string name;
-    std::uint64_t score;
+    public:
+        High_Score (std::string name, std::uint64_t score);
 
-public:
-
-    High_Score(std::string name, std::uint64_t score);
-
-    std::string get_name() const;
-    std::uint64_t get_score() const;
+        std::string get_name() const;
+        std::uint64_t get_score() const;
 };
 
 #endif

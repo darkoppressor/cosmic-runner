@@ -15,27 +15,22 @@
 #include <string>
 #include <cstdint>
 
-class Planet{
-private:
+class Planet {
+    private:
+        Collision_Circ<double> circle;
+        std::string type;
+        Sprite sprite;
+        std::uint32_t cloud_delay;
 
-    Collision_Circ<double> circle;
+    public:
+        Planet (std::string new_type, const Coords<double>& position);
 
-    std::string type;
+        Planet_Type* get_planet_type() const;
 
-    Sprite sprite;
+        Collision_Circ<double> get_circle() const;
 
-    std::uint32_t cloud_delay;
-
-public:
-
-    Planet(std::string new_type,const Coords<double>& position);
-
-    Planet_Type* get_planet_type() const;
-
-    Collision_Circ<double> get_circle() const;
-
-    void animate(RNG& rng);
-    void render();
+        void animate(RNG& rng);
+        void render();
 };
 
 #endif

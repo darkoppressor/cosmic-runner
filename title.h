@@ -14,29 +14,26 @@
 #include <vector>
 #include <cstdint>
 
-class Title{
-private:
+class Title {
+    private:
+        std::vector<Title_Sun> suns;
+        std::vector<Title_Ship> ships;
+        std::vector<Title_Tree> trees;
+        std::uint32_t ship_spawn_check;
 
-    std::vector<Title_Sun> suns;
-    std::vector<Title_Ship> ships;
-    std::vector<Title_Tree> trees;
+    public:
+        Title ();
 
-    std::uint32_t ship_spawn_check;
+        void clear_title();
+        void setup(RNG& rng);
 
-public:
+        void generate_ship(RNG& rng);
 
-    Title();
+        void movement();
+        void check_ships(RNG& rng);
 
-    void clear_title();
-    void setup(RNG& rng);
-
-    void generate_ship(RNG& rng);
-
-    void movement();
-    void check_ships(RNG& rng);
-
-    void animate(RNG& rng);
-    void render();
+        void animate(RNG& rng);
+        void render();
 };
 
 #endif

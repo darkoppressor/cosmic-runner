@@ -7,9 +7,9 @@
 using namespace std;
 
 Planet_Type::Planet_Type () {
-    name="";
+    name = "";
 
-    sprite="";
+    sprite = "";
 
     minimap_color = "";
     cloud_color = "";

@@ -6,13 +6,13 @@
 
 using namespace std;
 
-Debris_Type::Debris_Type(){
-    name="";
+Debris_Type::Debris_Type () {
+    name = "";
 
-    sprite="";
+    sprite = "";
 
-    collision_percentage=0.0;
+    collision_percentage = 0.0;
 
-    damage=0;
-    damage_type="";
+    damage = 0;
+    damage_type = "";
 }
