@@ -11,11 +11,11 @@ string Engine_Version::get_year () {
 }
 
 string Engine_Version::get_month () {
-    return "10"; // MONTH
+    return "12"; // MONTH
 }
 
 string Engine_Version::get_day () {
-    return "02"; // DAY
+    return "14"; // DAY
 }
 
 int Engine_Version::get_major () {
@@ -23,11 +23,11 @@ int Engine_Version::get_major () {
 }
 
 int Engine_Version::get_minor () {
-    return 2; // MINOR
+    return 3; // MINOR
 }
 
 int Engine_Version::get_micro () {
-    return 9; // MICRO
+    return 0; // MICRO
 }
 
 string Engine_Version::get_status () {
@@ -36,5 +36,5 @@ string Engine_Version::get_status () {
 
 void Engine_Version::populate_version_series (vector<Version_Series>& version_series) {
     version_series.push_back(Version_Series("0.0.1", "0.0.1"));
-    version_series.push_back(Version_Series("0.1.0", "0.2.8"));
+    version_series.push_back(Version_Series("0.1.0", "0.3.0"));
 }
