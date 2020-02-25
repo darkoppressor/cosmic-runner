@@ -32,7 +32,7 @@ def main (argv):
     try:
         updateFeed('Build started - ', ciJobName, ciBuildNumber, ciBuildUrl)
 
-        if subprocess.run(['/home/tails/build-server/cheese-engine/tools/build-system/scripts/build', os.getcwd(), 'true']):
+        if subprocess.run(['/home/tails/build-server/cheese-engine/tools/build-system/build', os.getcwd(), 'true']):
             updateFeed('Build completed successfully - ', ciJobName, ciBuildNumber, ciBuildUrl)
         else:
             updateFeed('Build failed - ', ciJobName, ciBuildNumber, ciBuildUrl)
