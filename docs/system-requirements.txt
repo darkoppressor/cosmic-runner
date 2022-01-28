@@ -7,17 +7,17 @@ OS: 8.0 Oreo (API level 26) or newer
 Architecture: armeabi-v7a / arm64-v8a / x86 / x86_64
 
 macOS
-OS: 10.9 Mavericks / 10.10 Yosemite / 10.11 El Capitan / 10.12 Sierra / 10.13 High Sierra / 10.14 Mojave / 10.15 Catalina or newer
+OS: 10.9 Mavericks or newer
 Architecture: x86_64
 
 Linux
 Architecture: x86_64
-Requires glibc 2.19 or newer
+Requires glibc 2.27 or newer
 
 Minimum:
 Processor: 2 GHz
 Memory: 4 GB
-Graphics: Video card made within the last 4 years (as of 2019). Integrated graphics may or may not work.
+Graphics: Video card made within the last 4 years (as of 2022). Integrated graphics may or may not work.
 Sound: None required, although you will need a sound device for sound...
 Hard Drive: 50 MB
 Network: None required, although you will need internet access to use Google Play Games.
@@ -25,7 +25,7 @@ Network: None required, although you will need internet access to use Google Pla
 Recommended:
 Processor: 3 Ghz
 Memory: 8 GB
-Graphics: Video card made within the last 2 years (as of 2019). Integrated graphics may or may not work.
+Graphics: Video card made within the last 2 years (as of 2022). Integrated graphics may or may not work.
 Sound: We recommend you have a sound device. So you can have sound.
 Hard Drive: 50 MB
 Network: None required, although you will need internet access to use Google Play Games.
