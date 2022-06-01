@@ -6,19 +6,26 @@
 
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
+project.ext {
+    targetSdkVersion = 32
+    minSdkVersion = 26
+    buildToolsVersion = '32.0.0'
+    javaVersion = JavaVersion.VERSION_11
+    versionCode = 15
+    versionName = '0.3.0'
+    ndkArguments = 'APP_PLATFORM=android-26'
+}
+
 buildscript {
-    apply from: 'versions.gradle'
-
-    addRepos(repositories)
-
+    apply from: 'repositories.gradle'
+    addRepos(getRepositories())
     dependencies {
-        classpath deps.android_gradle_plugin
+        classpath 'com.android.tools.build:gradle:7.2.1'
     }
 }
 
 allprojects {
-    addRepos(repositories)
-
+    addRepos(getRepositories())
     gradle.projectsEvaluated {
         tasks.withType(JavaCompile) {
             options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation"
@@ -26,10 +33,10 @@ allprojects {
     }
 }
 
-task clean(type: Delete) {
+task clean (type: Delete) {
     delete rootProject.buildDir
 }
 
 wrapper {
-    gradleVersion = '7.2'
+    gradleVersion = '7.4.2'
 }
