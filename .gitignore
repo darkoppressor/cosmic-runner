@@ -27,9 +27,7 @@ development/android/jni/include/SDL2_mixer/**
 development/android/jni/include/RakNet/**
 development/android/jni/include/boost/**
 development/android/jni/include/cheese-engine/**
-development/android/jni/armeabi-v7a/**
 development/android/jni/arm64-v8a/**
-development/android/jni/x86/**
 development/android/jni/x86_64/**
 development/android/local.properties
 
