@@ -52,7 +52,7 @@ include $(PREBUILT_STATIC_LIBRARY)
 include $(CLEAR_VARS)
 LOCAL_MODULE := SDL2_mixer_static
 LOCAL_SRC_FILES := $(LOCAL_PATH)/../$(TARGET_ARCH_ABI)/libSDL2_mixer.a
-LOCAL_EXPORT_C_INCLUDES := $(LOCAL_PATH)/../include/SDL2_mixer
+LOCAL_EXPORT_C_INCLUDES := $(LOCAL_PATH)/../include/SDL2_mixer/include
 LOCAL_STATIC_LIBRARIES := ogg_static vorbisidec_static SDL2_static
 include $(PREBUILT_STATIC_LIBRARY)
 
