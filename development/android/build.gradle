@@ -20,7 +20,7 @@ buildscript {
     apply from: 'repositories.gradle'
     addRepos(getRepositories())
     dependencies {
-        classpath 'com.android.tools.build:gradle:8.0.0'
+        classpath 'com.android.tools.build:gradle:7.4.2'
     }
 }
 
@@ -38,5 +38,5 @@ task clean (type: Delete) {
 }
 
 wrapper {
-    gradleVersion = '8.1'
+    gradleVersion = '7.6'
 }

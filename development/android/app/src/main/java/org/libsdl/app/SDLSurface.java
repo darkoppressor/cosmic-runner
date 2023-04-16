@@ -20,6 +20,9 @@ import android.view.View;
 import android.view.WindowManager;
 import android.net.Uri;
 import android.location.LocationManager;
+import android.os.Vibrator;
+import android.content.pm.PackageManager;
+import android.content.Intent;
 
 /**
     SDLSurface. This is what we draw on, so we need to know when it's created
