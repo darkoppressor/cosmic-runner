@@ -7,20 +7,20 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 project.ext {
-    targetSdkVersion = 32
-    minSdkVersion = 26
-    buildToolsVersion = '32.0.0'
+    targetSdkVersion = 31
+    minSdkVersion = 31
+    buildToolsVersion = '33.0.2'
     javaVersion = JavaVersion.VERSION_11
     versionCode = 16
     versionName = '0.3.1'
-    ndkArguments = 'APP_PLATFORM=android-26'
+    ndkArguments = 'APP_PLATFORM=android-31'
 }
 
 buildscript {
     apply from: 'repositories.gradle'
     addRepos(getRepositories())
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.2.1'
+        classpath 'com.android.tools.build:gradle:7.4.2'
     }
 }
 
@@ -38,5 +38,5 @@ task clean (type: Delete) {
 }
 
 wrapper {
-    gradleVersion = '7.4.2'
+    gradleVersion = '7.6'
 }
