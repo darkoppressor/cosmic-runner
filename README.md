@@ -2,7 +2,7 @@
 [![Build Status](https://wells-family.xyz/jenkins/buildStatus/icon?job=cosmic-runner)](https://wells-family.xyz/jenkins/job/cosmic-runner/)
 
 A game in development by Cheese and Bacon Games
-http://cheeseandbacon.org/
+https://cheeseandbacon.org/
 
 This is the source code for a game currently being developed by Cheese and Bacon Games.
 
