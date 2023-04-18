@@ -78,6 +78,9 @@ android {
             shrinkResources false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.release
+            ndk {
+                debugSymbolLevel 'none'
+            }
         }
 
         debug {
@@ -87,6 +90,9 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             matchingFallbacks = ['debug']
             signingConfig signingConfigs.debug
+            ndk {
+                debugSymbolLevel 'full'
+            }
         }
     }
 
