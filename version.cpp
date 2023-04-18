@@ -7,15 +7,15 @@
 using namespace std;
 
 string Engine_Version::get_year () {
-    return "2022"; // YEAR
+    return "2023"; // YEAR
 }
 
 string Engine_Version::get_month () {
-    return "06"; // MONTH
+    return "04"; // MONTH
 }
 
 string Engine_Version::get_day () {
-    return "01"; // DAY
+    return "17"; // DAY
 }
 
 int Engine_Version::get_major () {
@@ -27,7 +27,7 @@ int Engine_Version::get_minor () {
 }
 
 int Engine_Version::get_micro () {
-    return 1; // MICRO
+    return 2; // MICRO
 }
 
 string Engine_Version::get_status () {
@@ -36,5 +36,5 @@ string Engine_Version::get_status () {
 
 void Engine_Version::populate_version_series (vector<Version_Series>& version_series) {
     version_series.push_back(Version_Series("0.0.1", "0.0.1"));
-    version_series.push_back(Version_Series("0.1.0", "0.3.1"));
+    version_series.push_back(Version_Series("0.1.0", "0.3.2"));
 }
