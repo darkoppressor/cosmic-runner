@@ -57,11 +57,13 @@ void Title_Sun_Shimmer::draw_left (SDL_Surface* surface) const {
     int32_t y_coord = (int32_t) y;
     int32_t x_coord = -1;
 
-    for (int32_t x = 0; x < surface->w; x++) {
-        if (Pixels::surface_get_pixel(surface, x, y_coord).get_alpha() > 0) {
-            x_coord = x;
+    if (y_coord >= 0 && y_coord < surface->h) {
+        for (int32_t x = 0; x < surface->w; x++) {
+            if (Pixels::surface_get_pixel(surface, x, y_coord).get_alpha() > 0) {
+                x_coord = x;
 
-            break;
+                break;
+            }
         }
     }
 
@@ -74,11 +76,13 @@ void Title_Sun_Shimmer::draw_right (SDL_Surface* surface) const {
     int32_t y_coord = (int32_t) (y + y_right_mod);
     int32_t x_coord = -1;
 
-    for (int32_t x = surface->w - 1; x >= 0; x--) {
-        if (Pixels::surface_get_pixel(surface, x, y_coord).get_alpha() > 0) {
-            x_coord = x;
+    if (y_coord >= 0 && y_coord < surface->h) {
+        for (int32_t x = surface->w - 1; x >= 0; x--) {
+            if (Pixels::surface_get_pixel(surface, x, y_coord).get_alpha() > 0) {
+                x_coord = x;
 
-            break;
+                break;
+            }
         }
     }
 
