@@ -14,6 +14,7 @@ if (buildAsApplication) {
 }
 
 android {
+    namespace 'org.cheeseandbacon.cosmicrunner'
     compileSdkVersion project.targetSdkVersion
     buildToolsVersion project.buildToolsVersion
 
