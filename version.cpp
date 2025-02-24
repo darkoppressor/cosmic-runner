@@ -15,7 +15,7 @@ string Engine_Version::get_month () {
 }
 
 string Engine_Version::get_day () {
-    return "21"; // DAY
+    return "24"; // DAY
 }
 
 int Engine_Version::get_major () {
