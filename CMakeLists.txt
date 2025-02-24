@@ -197,7 +197,7 @@ add_executable(Release-macOS-x86_64 ${SOURCE_FILES})
 
 set_target_properties(Release-macOS-x86_64 PROPERTIES
 OUTPUT_NAME Cosmic-Runner-macOS-x86_64
-COMPILE_FLAGS "-O2 -std=c++11 -Wall -Wextra -m64 -stdlib=libc++ -DCMAKE_CXX_FLAGS='-fuse-ld=o64-ld' -DGAME_OS_MACOS"
+COMPILE_FLAGS "-O2 -std=c++11 -Wall -Wextra -m64 -stdlib=libc++ -DGAME_OS_MACOS"
 )
 
 target_include_directories(Release-macOS-x86_64 PRIVATE
