@@ -15,7 +15,7 @@ string Engine_Version::get_month () {
 }
 
 string Engine_Version::get_day () {
-    return "24"; // DAY
+    return "25"; // DAY
 }
 
 int Engine_Version::get_major () {
@@ -26,8 +26,8 @@ int Engine_Version::get_minor () {
     return 3; // MINOR
 }
 
-int Engine_Version::get_micro () {
-    return 2; // MICRO
+int Engine_Version::get_patch () {
+    return 2; // PATCH
 }
 
 string Engine_Version::get_status () {
