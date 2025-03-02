@@ -15,7 +15,6 @@ if (buildAsApplication) {
 
 android {
     namespace 'org.cheeseandbacon.cosmicrunner'
-    compileSdkVersion project.targetSdkVersion
     buildToolsVersion project.buildToolsVersion
     ndkVersion project.ndkVersion
 
@@ -24,6 +23,7 @@ android {
             applicationId "org.cheeseandbacon.cosmicrunner"
         }
 
+        compileSdkVersion project.targetSdkVersion
         targetSdkVersion project.targetSdkVersion
         minSdkVersion project.minSdkVersion
 
