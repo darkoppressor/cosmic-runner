@@ -8,5 +8,5 @@
 using namespace std;
 
 void Data_Manager::add_rtts () {
-    ///Rtt_Manager::add_texture("example",1024.0,1024.0);
+    // Rtt_Manager::add_texture("example",1024.0,1024.0);
 }

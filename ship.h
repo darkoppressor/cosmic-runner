@@ -167,8 +167,8 @@ class Ship {
 
         void regenerate_shields(bool is_player);
         void drain_power(bool is_player);
-        void cooldown(const Quadtree<double, std::uint32_t>& quadtree_ships, const Quadtree<double,
-                                                                                            std::uint32_t>& quadtree_shots, RNG& rng, std::uint32_t own_index);
+        void cooldown(const Quadtree<double, std::uint32_t>& quadtree_ships,
+                      const Quadtree<double, std::uint32_t>& quadtree_shots, RNG& rng, std::uint32_t own_index);
 
         bool faction_is_valid(std::string faction, bool weapon_check) const;
 
@@ -194,10 +194,10 @@ class Ship {
                                            std::uint32_t own_index);
         bool ai_proximity_check_allowed(std::uint32_t frame, std::uint32_t own_index) const;
         bool ai_proximity_target_is_player() const;
-        void ai(const Quadtree<double, std::uint32_t>& quadtree_ships, const Quadtree<double,
-                                                                                      std::uint32_t>& quadtree_planets,
-                const Quadtree<double, std::uint32_t>& quadtree_debris,
-                std::uint32_t frame, std::uint32_t own_index, RNG& rng);
+        void ai(const Quadtree<double, std::uint32_t>& quadtree_ships,
+                const Quadtree<double, std::uint32_t>& quadtree_planets,
+                const Quadtree<double, std::uint32_t>& quadtree_debris, std::uint32_t frame, std::uint32_t own_index,
+                RNG& rng);
         void ai_determine_angle(const Quadtree<double, std::uint32_t>& quadtree_debris);
 
         void thrust(std::uint32_t frame, RNG& rng);
@@ -205,8 +205,9 @@ class Ship {
 
         void accelerate(RNG& rng, bool is_player, std::uint32_t frame);
         void rotation(bool is_player);
-        void movement(uint32_t own_index, const Quadtree<double, std::uint32_t>& quadtree_debris, const Quadtree<double,
-                                                                                                                 std::uint32_t>& quadtree_shots, const Quadtree<double, std::uint32_t>& quadtree_explosions,
+        void movement(uint32_t own_index, const Quadtree<double, std::uint32_t>& quadtree_debris,
+                      const Quadtree<double, std::uint32_t>& quadtree_shots,
+                      const Quadtree<double, std::uint32_t>& quadtree_explosions,
                       const Quadtree<double, std::uint32_t>& quadtree_items, RNG& rng);
 
         void animate_scanner_startup();

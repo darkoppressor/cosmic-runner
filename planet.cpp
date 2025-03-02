@@ -53,30 +53,26 @@ void Planet::animate (RNG& rng) {
 
                 if (rng.random_range(0, 1)) {
                     location = Math::rotate_point(Coords<double>(circle.get_center().x + circle.r,
-                                                                 circle.get_center().y),
-                                                  circle.get_center(), rng.random_range(135, 225));
+                                                                 circle.get_center().y), circle.get_center(),
+                                                  rng.random_range(135, 225));
                 } else {
                     if (rng.random_range(0, 1)) {
-                        location =
-                            Math::rotate_point(Coords<double>(circle.get_center().x + circle.r,
-                                                              circle.get_center().y),
-                                               circle.get_center(), rng.random_range(0, 45));
+                        location = Math::rotate_point(Coords<double>(circle.get_center().x + circle.r,
+                                                                     circle.get_center().y), circle.get_center(),
+                                                      rng.random_range(0, 45));
                     } else {
-                        location =
-                            Math::rotate_point(Coords<double>(circle.get_center().x + circle.r,
-                                                              circle.get_center().y),
-                                               circle.get_center(), rng.random_range(315, 360));
+                        location = Math::rotate_point(Coords<double>(circle.get_center().x + circle.r,
+                                                                     circle.get_center().y), circle.get_center(),
+                                                      rng.random_range(315, 360));
                     }
 
                     angle = 180.0;
                 }
 
                 Game::create_effect("effect_cloud_" + Strings::num_to_string(rng.random_range(0, 2)), true,
-                                    0.1 * (double) rng.random_range(5, 30), location, "", Vector(rng.random_range(5,
-                                                                                                                  15),
-                                                                                                 angle), 0.0,
-                                    Vector(0.0, 0.0), 0, false, Coords<double>(),
-                                    get_planet_type()->cloud_color, "", true);
+                                    0.1 * (double) rng.random_range(5, 30), location, "",
+                                    Vector(rng.random_range(5, 15), angle), 0.0, Vector(0.0, 0.0), 0, false,
+                                    Coords<double>(), get_planet_type()->cloud_color, "", true);
             }
         }
     }

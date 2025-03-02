@@ -120,10 +120,12 @@ void Effect::movement () {
             cast_shadow = false;
 
             vector<Coords<double>> vertices_cloud;
+
             box.get_vertices(vertices_cloud, 0.0);
 
             vector<Coords<double>> vertices_shadow;
             Collision_Rect<double> shadow_box = box;
+
             shadow_box.w += Game_Constants::SHADOW_OFFSET;
             shadow_box.h += Game_Constants::SHADOW_OFFSET;
             shadow_box.get_vertices(vertices_shadow, angle);
@@ -191,11 +193,10 @@ void Effect::render (bool clouds) {
 
             if (Collision::check_rect(box_for_camera_check * Game_Manager::camera_zoom, Game_Manager::camera)) {
                 if (cast_shadow) {
-                    sprite.render(
-                        (box.x + Game_Constants::SHADOW_OFFSET) * Game_Manager::camera_zoom - Game_Manager::camera.x,
-                        (box.y + Game_Constants::SHADOW_OFFSET) * Game_Manager::camera_zoom - Game_Manager::camera.y,
-                        0.25,
-                        scale * 0.65, scale * 0.65, angle, "ui_black");
+                    sprite.render((box.x + Game_Constants::SHADOW_OFFSET) * Game_Manager::camera_zoom -
+                                  Game_Manager::camera.x,
+                                  (box.y + Game_Constants::SHADOW_OFFSET) * Game_Manager::camera_zoom -
+                                  Game_Manager::camera.y, 0.25, scale * 0.65, scale * 0.65, angle, "ui_black");
                 }
 
                 sprite.render(box.x * Game_Manager::camera_zoom - Game_Manager::camera.x,
@@ -203,9 +204,12 @@ void Effect::render (bool clouds) {
                               color);
             }
         } else if (Collision::check_rect(Collision_Rect<double>(box.x, box.y, 1.0, 1.0) * Game_Manager::camera_zoom,
-                                         Game_Manager::camera) ||
-                   Collision::check_rect(Collision_Rect<double>(box.w, box.h, 1.0, 1.0) * Game_Manager::camera_zoom,
-                                         Game_Manager::camera)) {
+                                         Game_Manager::camera) || Collision::check_rect(Collision_Rect<double>(box.w,
+                                                                                                               box.h,
+                                                                                                               1.0,
+                                                                                                               1.0) *
+                                                                                        Game_Manager::camera_zoom,
+                                                                                        Game_Manager::camera)) {
             Render::render_line(box.x * Game_Manager::camera_zoom - Game_Manager::camera.x,
                                 box.y * Game_Manager::camera_zoom - Game_Manager::camera.y,
                                 box.w * Game_Manager::camera_zoom - Game_Manager::camera.x,

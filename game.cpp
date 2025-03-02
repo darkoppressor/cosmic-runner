@@ -84,6 +84,7 @@ double Game::world_width = 0.0;
 double Game::world_height = 0.0;
 bool Game::android_need_to_check_failed_leaderboard_submissions = true;
 bool Game::android_need_to_check_failed_achievement_submissions = true;
+
 Ship& Game::get_player () {
     if (!ships.empty()) {
         return ships.front();
@@ -101,12 +102,14 @@ void Game::dodge_check () {
         dodging.cooldown();
 
         Collision_Rect<double> box = player.get_box();
+
         box.x -= Game_Constants::DODGE_RANGE;
         box.y -= Game_Constants::DODGE_RANGE;
         box.w += Game_Constants::DODGE_RANGE * 2.0;
         box.h += Game_Constants::DODGE_RANGE * 2.0;
 
         vector<uint32_t> nearby_debris;
+
         quadtree_debris.get_objects(nearby_debris, box);
 
         unordered_set<uint32_t> collisions;
@@ -123,6 +126,7 @@ void Game::dodge_check () {
                                                       debris.get_angle())) {
                         // If the player is not touching the debris
                         vector<Coords<double>> vertices_collision;
+
                         debris.get_collision_box().get_vertices(vertices_collision, debris.get_angle());
 
                         if (!Collision::check_vertices_rect(player.get_collision_vertices(), vertices_collision)) {
@@ -142,6 +146,7 @@ void Game::dodge_check () {
 
             // If the player is touching the debris
             vector<Coords<double>> vertices_collision;
+
             debris.get_collision_box().get_vertices(vertices_collision, debris.get_angle());
 
             if (Collision::check_vertices_rect(player.get_collision_vertices(), vertices_collision)) {
@@ -172,8 +177,8 @@ void Game::dodge_check () {
                     increase_score(Game_Constants::POINT_VALUE_DODGE);
 
                     create_effect("effect_" + debris.get_debris_type()->sprite, true, 1.0,
-                                  debris.get_box().get_center(), "", Vector(0.0, 0.0),
-                                  debris.get_angle(), debris.get_angular_velocity(), 1, false, Coords<double>());
+                                  debris.get_box().get_center(), "", Vector(0.0, 0.0), debris.get_angle(),
+                                  debris.get_angular_velocity(), 1, false, Coords<double>());
 
                     Sound_Manager::play_sound("dodge");
                 }
@@ -261,6 +266,7 @@ void Game::generate_world () {
     generating_world = true;
 
     Progress_Bar bar(11);
+
     Log::add_log("Generating game world");
 
     clear_world();
@@ -298,6 +304,7 @@ void Game::generate_world () {
          attempts++) {
         string type = "planet_" + Strings::num_to_string(rng.random_range(0, 5));
         Sprite sprite;
+
         sprite.set_name(Game_Data::get_planet_type(type)->sprite);
 
         uint32_t radius = uint32_t(sprite.get_width() / 2.0);
@@ -334,6 +341,7 @@ void Game::generate_world () {
     for (uint32_t i = 0; i < asteroid_count; i++) {
         string type = "asteroid_" + Strings::num_to_string(rng.random_range(0, 2));
         Sprite sprite;
+
         sprite.set_name(Game_Data::get_debris_type(type)->sprite);
 
         uint32_t x = rng.random_range(0, (uint32_t) world_width - (uint32_t) sprite.get_width());
@@ -361,9 +369,12 @@ void Game::generate_world () {
     // Generate the player's ship
     string ship_type = "player_0";
     Sprite ship_sprite;
+
     ship_sprite.set_name(Game_Data::get_ship_type(ship_type)->sprite);
+
     uint32_t random_planet_index = rng.random_range(0, planets.size() - 1);
     const Planet& planet = planets[random_planet_index];
+
     ships.push_back(Ship(ship_type,
                          Coords<double>(planet.get_circle().x - ship_sprite.get_width() / 2.0,
                                         planet.get_circle().y - ship_sprite.get_height() / 2.0),
@@ -381,8 +392,8 @@ void Game::generate_world () {
                                                          Game_Constants::GEN_PLAYER_START_CLEAN_DISTANCE,
                                                          player_position.y -
                                                          Game_Constants::GEN_PLAYER_START_CLEAN_DISTANCE,
-                                                         Game_Constants::GEN_PLAYER_START_CLEAN_DISTANCE*2.0,
-                                                         Game_Constants::GEN_PLAYER_START_CLEAN_DISTANCE*2.0),
+                                                         Game_Constants::GEN_PLAYER_START_CLEAN_DISTANCE * 2.0,
+                                                         Game_Constants::GEN_PLAYER_START_CLEAN_DISTANCE * 2.0),
                                   debris[i].get_box())) {
             debris.erase(debris.begin() + i);
         } else {
@@ -555,7 +566,7 @@ string Game::get_cause_of_death () {
 
 double Game::get_score_multiplier_accel () {
     if (score_multiplier > 1) {
-        return Game_Constants::SCORE_MULTIPLIER_ACCEL* (score_multiplier - 1);
+        return Game_Constants::SCORE_MULTIPLIER_ACCEL * (score_multiplier - 1);
     } else {
         return 0.0;
     }
@@ -563,7 +574,7 @@ double Game::get_score_multiplier_accel () {
 
 double Game::get_score_multiplier_decel () {
     if (score_multiplier > 1) {
-        return Game_Constants::SCORE_MULTIPLIER_DECEL* (score_multiplier - 1);
+        return Game_Constants::SCORE_MULTIPLIER_DECEL * (score_multiplier - 1);
     } else {
         return 0.0;
     }
@@ -571,7 +582,7 @@ double Game::get_score_multiplier_decel () {
 
 double Game::get_score_multiplier_max_speed () {
     if (score_multiplier > 1) {
-        return Game_Constants::SCORE_MULTIPLIER_MAX_SPEED* (score_multiplier - 1);
+        return Game_Constants::SCORE_MULTIPLIER_MAX_SPEED * (score_multiplier - 1);
     } else {
         return 0.0;
     }
@@ -593,9 +604,8 @@ void Game::increase_score (uint64_t amount, bool add_effect) {
     }
 
     if (add_effect) {
-        create_effect("", true, 1.5, get_player().get_box().get_center(), "", Vector(20.0, 90.0), 0.0, Vector(0.0,
-                                                                                                              0.0), 1, false,
-                      Coords<double>(), "ui_white", "+" + Strings::num_to_string(amount));
+        create_effect("", true, 1.5, get_player().get_box().get_center(), "", Vector(20.0, 90.0), 0.0, Vector(0.0, 0.0),
+                      1, false, Coords<double>(), "ui_white", "+" + Strings::num_to_string(amount));
     }
 }
 
@@ -608,9 +618,8 @@ void Game::increase_score_multiplier (uint64_t amount) {
         score_multiplier = UINT64_MAX;
     }
 
-    create_effect("", true, 1.5, get_player().get_box().get_center(), "", Vector(20.0, 90.0), 0.0, Vector(0.0,
-                                                                                                          0.0), 1, false,
-                  Coords<double>(), "ui_white", "x" + Strings::num_to_string(score_multiplier));
+    create_effect("", true, 1.5, get_player().get_box().get_center(), "", Vector(20.0, 90.0), 0.0, Vector(0.0, 0.0), 1,
+                  false, Coords<double>(), "ui_white", "x" + Strings::num_to_string(score_multiplier));
 }
 
 void Game::decrease_score_multiplier (uint64_t amount) {
@@ -624,9 +633,8 @@ void Game::decrease_score_multiplier (uint64_t amount) {
         score_multiplier++;
     }
 
-    create_effect("", true, 1.5, get_player().get_box().get_center(), "", Vector(20.0, 90.0), 0.0, Vector(0.0,
-                                                                                                          0.0), 1, false,
-                  Coords<double>(), "hud_hull", "x" + Strings::num_to_string(score_multiplier));
+    create_effect("", true, 1.5, get_player().get_box().get_center(), "", Vector(20.0, 90.0), 0.0, Vector(0.0, 0.0), 1,
+                  false, Coords<double>(), "hud_hull", "x" + Strings::num_to_string(score_multiplier));
 }
 
 uint32_t Game::get_nearest_planet (uint32_t ship_index) {
@@ -878,11 +886,11 @@ uint32_t Game::get_notoriety () {
 }
 
 bool Game::notoriety_tier_1 () {
-    return !notoriety_tier_2() && notoriety >= Game_Constants::NOTORIETY_TIER_1* Engine::UPDATE_RATE;
+    return !notoriety_tier_2() && notoriety >= Game_Constants::NOTORIETY_TIER_1 * Engine::UPDATE_RATE;
 }
 
 bool Game::notoriety_tier_2 () {
-    return notoriety >= Game_Constants::NOTORIETY_TIER_2* Engine::UPDATE_RATE;
+    return notoriety >= Game_Constants::NOTORIETY_TIER_2 * Engine::UPDATE_RATE;
 }
 
 void Game::increase_notoriety (uint32_t amount) {
@@ -1111,17 +1119,15 @@ void Game::create_item (const Coords<double>& position, const Vector& base_veloc
     sprite.set_name(Game_Data::get_item_type(type)->sprite);
 
     Vector velocity = base_velocity;
-    velocity +=
-        Vector(0.01 *
-               (double) rng.random_range((uint32_t) (Game_Constants::ITEM_START_VELOCITY_MIN * 100.0),
-                                         (uint32_t) (Game_Constants::ITEM_START_VELOCITY_MAX * 100.0)), rng.random_range(
-                   0,
-                   359));
+
+    velocity += Vector(0.01 * (double) rng.random_range((uint32_t) (Game_Constants::ITEM_START_VELOCITY_MIN * 100.0),
+                                                        (uint32_t) (Game_Constants::ITEM_START_VELOCITY_MAX * 100.0)),
+                       rng.random_range(0, 359));
 
     items.push_back(Item(type,
                          Coords<double>(position.x - sprite.get_width() / 2.0, position.y - sprite.get_height() / 2.0),
-                         velocity,
-                         rng.random_range(0, 359), Vector(0.01 * rng.random_range(0, 150), rng.random_range(0, 359))));
+                         velocity, rng.random_range(0, 359),
+                         Vector(0.01 * rng.random_range(0, 150), rng.random_range(0, 359))));
 }
 
 bool Game::collides_with_game_world (const Collision_Rect<double>& box) {
@@ -1244,8 +1250,9 @@ Coords<double> Game::get_spawn_point (double width, double height) {
         if (y >= world_height) {
             y -= (double) Game_Constants::SPAWN_DISTANCE_MAX * 2.0;
         }
-    } while (++attempts < Game_Constants::MAX_ATTEMPTS_SPAWN &&
-             collides_with_game_world(Collision_Rect<double>(x, y, width, height)));
+    } while (++attempts < Game_Constants::MAX_ATTEMPTS_SPAWN && collides_with_game_world(Collision_Rect<double>(x, y,
+                                                                                                                width,
+                                                                                                                height)));
 
     // If a valid point was not found
     if (attempts == Game_Constants::MAX_ATTEMPTS_SPAWN) {
@@ -1332,6 +1339,7 @@ void Game::generate_ships () {
 
         string type = types[rng.random_range(0, types.size() - 1)];
         Sprite sprite;
+
         sprite.set_name(Game_Data::get_ship_type(type)->sprite);
 
         Coords<double> spawn_point = get_spawn_point(sprite.get_width(), sprite.get_height());
@@ -1345,10 +1353,9 @@ void Game::generate_ships () {
 
 void Game::generate_items () {
     uint64_t item_count = items.size();
-    uint64_t desired_items =
-        uint64_t(
-            Game_Constants::DESIRED_ITEMS_BASE /
-            ((double) score_multiplier * Game_Constants::DESIRED_ITEMS_SCORE_MULTIPLIER_ADJUSTMENT));
+    uint64_t desired_items = uint64_t(Game_Constants::DESIRED_ITEMS_BASE /
+                                      ((double) score_multiplier *
+                                       Game_Constants::DESIRED_ITEMS_SCORE_MULTIPLIER_ADJUSTMENT));
 
     if (item_count <= desired_items) {
         desired_items -= item_count;
@@ -1359,6 +1366,7 @@ void Game::generate_items () {
     for (uint64_t i = 0; i < desired_items; i++) {
         string type = get_random_item_type();
         Sprite sprite;
+
         sprite.set_name(Game_Data::get_item_type(type)->sprite);
 
         Coords<double> spawn_point = get_spawn_point(sprite.get_width(), sprite.get_height());
@@ -1400,7 +1408,7 @@ void Game::handle_repeating_sounds () {
     const Ship& player = get_player_const();
 
     if (player.is_disabled(true)) {
-        if (++sound_cooldown_disabled >= Game_Constants::DISABLED_SOUND_RATE* Engine::UPDATE_RATE / 1000) {
+        if (++sound_cooldown_disabled >= Game_Constants::DISABLED_SOUND_RATE * Engine::UPDATE_RATE / 1000) {
             sound_cooldown_disabled = 0;
 
             Sound_Manager::play_sound("disabled");
@@ -1730,25 +1738,28 @@ void Game::render () {
             const Planet& planet = get_contract_planet();
             const Ship& player = get_player_const();
             vector<Coords<double>> vertices;
+
             player.get_box().get_vertices(vertices, player.get_angle());
 
             if (is_object_over_planet(vertices, planet)) {
-                contract_sprite_check.render(
-                    (Game_Window::width() - contract_sprite.get_width()) / 2.0,
-                    Game_Constants::HUD_SPACING + font->spacing_y * 2.0);
+                contract_sprite_check.render((Game_Window::width() - contract_sprite.get_width()) / 2.0,
+                                             Game_Constants::HUD_SPACING + font->spacing_y * 2.0);
             } else {
-                Collision_Rect<double> box_contract_indicator(
-                    ((Game_Window::width() - contract_sprite.get_width()) / 2.0) * Game_Manager::camera_zoom + Game_Manager::camera.x, (Game_Constants::HUD_SPACING + font->spacing_y * 2.0) * Game_Manager::camera_zoom + Game_Manager::camera.y,
-                    contract_sprite.get_width(), contract_sprite.get_height());
+                Collision_Rect<double> box_contract_indicator(((Game_Window::width() - contract_sprite.get_width()) /
+                                                               2.0) * Game_Manager::camera_zoom +
+                                                              Game_Manager::camera.x,
+                                                              (Game_Constants::HUD_SPACING + font->spacing_y * 2.0) *
+                                                              Game_Manager::camera_zoom + Game_Manager::camera.y,
+                                                              contract_sprite.get_width(),
+                                                              contract_sprite.get_height());
 
-                contract_sprite.render(
-                    (Game_Window::width() - contract_sprite.get_width()) / 2.0, Game_Constants::HUD_SPACING + font->spacing_y * 2.0, 1.0, 1.0, 1.0, box_contract_indicator.get_angle_to_circ(
-                        planet.get_circle()));
+                contract_sprite.render((Game_Window::width() - contract_sprite.get_width()) / 2.0,
+                                       Game_Constants::HUD_SPACING + font->spacing_y * 2.0, 1.0, 1.0, 1.0,
+                                       box_contract_indicator.get_angle_to_circ(planet.get_circle()));
             }
         } else {
-            no_contract_sprite.render(
-                (Game_Window::width() - no_contract_sprite.get_width()) / 2.0,
-                Game_Constants::HUD_SPACING + font->spacing_y * 2.0);
+            no_contract_sprite.render((Game_Window::width() - no_contract_sprite.get_width()) / 2.0,
+                                      Game_Constants::HUD_SPACING + font->spacing_y * 2.0);
         }
 
         Hud::render();
@@ -1757,8 +1768,7 @@ void Game::render () {
 
 void Game::render_to_textures () {
     /**Rtt_Manager::set_render_target("example");
-       ///Render something here
-       Rtt_Manager::reset_render_target();*/
+       // Render something here Rtt_Manager::reset_render_target();*/
 }
 
 void Game::update_background () {

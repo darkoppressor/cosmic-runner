@@ -1,12 +1,6 @@
 LOCAL_PATH := $(call my-dir)
 
 include $(CLEAR_VARS)
-LOCAL_MODULE := png_static
-LOCAL_SRC_FILES := $(LOCAL_PATH)/../$(TARGET_ARCH_ABI)/libpng.a
-LOCAL_EXPORT_C_INCLUDES := $(LOCAL_PATH)/../include/SDL2_image/external/libpng
-include $(PREBUILT_STATIC_LIBRARY)
-
-include $(CLEAR_VARS)
 LOCAL_MODULE := cpufeatures_static
 LOCAL_SRC_FILES := $(LOCAL_PATH)/../$(TARGET_ARCH_ABI)/libcpufeatures.a
 include $(PREBUILT_STATIC_LIBRARY)
@@ -28,7 +22,7 @@ include $(CLEAR_VARS)
 LOCAL_MODULE := SDL2_image_static
 LOCAL_SRC_FILES := $(LOCAL_PATH)/../$(TARGET_ARCH_ABI)/libSDL2_image.a
 LOCAL_EXPORT_C_INCLUDES := $(LOCAL_PATH)/../include/SDL2_image
-LOCAL_STATIC_LIBRARIES := png_static SDL2_static
+LOCAL_STATIC_LIBRARIES := SDL2_static
 include $(PREBUILT_STATIC_LIBRARY)
 
 include $(CLEAR_VARS)
@@ -48,7 +42,7 @@ include $(CLEAR_VARS)
 LOCAL_MODULE := Cheese-Engine
 LOCAL_SRC_FILES := $(LOCAL_PATH)/../$(TARGET_ARCH_ABI)/libCheese-Engine.a
 LOCAL_EXPORT_C_INCLUDES := $(LOCAL_PATH)/../include/cheese-engine
-LOCAL_STATIC_LIBRARIES := png_static cpufeatures_static SDL2_main SDL2_static SDL2_image_static SDL2_mixer_static RakNet_static
+LOCAL_STATIC_LIBRARIES := cpufeatures_static SDL2_main SDL2_static SDL2_image_static SDL2_mixer_static RakNet_static
 include $(PREBUILT_STATIC_LIBRARY)
 
 include $(CLEAR_VARS)
@@ -60,7 +54,7 @@ LOCAL_C_INCLUDES := $(LOCAL_PATH)/../include/boost
 # Add your application source files here...
 LOCAL_SRC_FILES := $(wildcard $(LOCAL_PATH)/../../../../../*.cpp)
 
-LOCAL_STATIC_LIBRARIES := png_static cpufeatures_static SDL2_main SDL2_static SDL2_image_static SDL2_mixer_static RakNet_static Cheese-Engine
+LOCAL_STATIC_LIBRARIES := cpufeatures_static SDL2_main SDL2_static SDL2_image_static SDL2_mixer_static RakNet_static Cheese-Engine
 
 LOCAL_LDLIBS := -ldl -lGLESv1_CM -lGLESv2 -lOpenSLES -llog -lz -landroid
 

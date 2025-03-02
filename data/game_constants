@@ -44,7 +44,7 @@
 </game_constant>
 
 <game_constant>
-	//seconds
+	// seconds
 	name:title_ship_spawn_rate
 	value:5
 	type:uint32_t
@@ -57,23 +57,23 @@
 </game_constant>
 
 <game_constant>
-	//integer percentage
+	// integer percentage
 	name:title_bird_chance
 	value:15
 	type:uint32_t
 </game_constant>
 
 <game_constant>
-	//integer percentage
+	// integer percentage
 	name:title_cloud_chance
 	value:10
 	type:uint32_t
 </game_constant>
 
 <game_constant>
-	//pixels
-	//This is the lowest point on the screen a title ship can spawn,
-	//so a higher number corresponds to a lower minimum height
+	// pixels
+	// This is the lowest point on the screen a title ship can spawn,
+	// so a higher number corresponds to a lower minimum height
 	name:title_ship_minimum_height
 	value:650
 	type:uint32_t
@@ -92,9 +92,9 @@
 </game_constant>
 
 <game_constant>
-	//pixels
-	//This is the highest point on the screen a title tree can spawn,
-	//so a higher number corresponds to a lower maximum height
+	// pixels
+	// This is the highest point on the screen a title tree can spawn,
+	// so a higher number corresponds to a lower maximum height
 	name:title_tree_maximum_height
 	value:707
 	type:uint32_t
@@ -119,28 +119,28 @@
 </game_constant>
 
 <game_constant>
-	//milliseconds
+	// milliseconds
 	name:title_sun_shimmer_spawn_rate
 	value:250
 	type:uint32_t
 </game_constant>
 
 <game_constant>
-	//integer percentage
+	// integer percentage
 	name:title_sun_shimmer_spawn_chance
 	value:50
 	type:uint32_t
 </game_constant>
 
 <game_constant>
-	//pixels
+	// pixels
 	name:title_sun_shimmer_y_right_mod_min
 	value:0
 	type:uint32_t
 </game_constant>
 
 <game_constant>
-	//pixels
+	// pixels
 	name:title_sun_shimmer_y_right_mod_max
 	value:32
 	type:uint32_t
@@ -231,7 +231,7 @@
 </game_constant>
 
 <game_constant>
-	//pixels
+	// pixels
 	name:minimap_border_thickness
 	value:4.0
 	type:double
@@ -256,21 +256,21 @@
 </game_constant>
 
 <game_constant>
-	//pixels
+	// pixels
 	name:minimap_size
 	value:720
 	type:uint32_t
 </game_constant>
 
 <game_constant>
-	//pixels
+	// pixels
 	name:minimap_line_thickness
 	value:4
 	type:int32_t
 </game_constant>
 
 <game_constant>
-	//integer percentage
+	// integer percentage
 	name:collision_chance_debris
 	value:30
 	type:uint32_t
@@ -301,21 +301,21 @@
 </game_constant>
 
 <game_constant>
-	//milliseconds
+	// milliseconds
 	name:dodge_object_cooldown
 	value:3000
 	type:uint32_t
 </game_constant>
 
 <game_constant>
-	//pixels
+	// pixels
 	name:dodge_range
 	value:24.0
 	type:double
 </game_constant>
 
 <game_constant>
-	//meters/second
+	// meters/second
 	name:dodge_speed_threshold
 	value:20.0
 	type:double
@@ -328,21 +328,21 @@
 </game_constant>
 
 <game_constant>
-	//seconds
+	// seconds
 	name:effect_length_cargo
 	value:300
 	type:uint32_t
 </game_constant>
 
 <game_constant>
-	//seconds
+	// seconds
 	name:effect_length_hull_damage
 	value:15
 	type:uint32_t
 </game_constant>
 
 <game_constant>
-	//seconds
+	// seconds
 	name:effect_length_smoke
 	value:2
 	type:uint32_t
@@ -355,21 +355,21 @@
 </game_constant>
 
 <game_constant>
-	//milliseconds
+	// milliseconds
 	name:shield_recharge_rate
 	value:1000
 	type:uint32_t
 </game_constant>
 
 <game_constant>
-	//seconds
+	// seconds
 	name:disabled_length
 	value:5
 	type:uint32_t
 </game_constant>
 
 <game_constant>
-	//seconds
+	// seconds
 	name:max_power
 	value:250
 	type:uint32_t
@@ -382,7 +382,7 @@
 </game_constant>
 
 <game_constant>
-	//seconds
+	// seconds
 	name:item_restore_power
 	value:15
 	type:uint32_t
@@ -395,38 +395,38 @@
 </game_constant>
 
 <game_constant>
-	//seconds
+	// seconds
 	name:contract_restore_power
 	value:30
 	type:uint32_t
 </game_constant>
 
 <game_constant>
-	//m/s
+	// m/s
 	name:item_start_velocity_min
 	value:50.0
 	type:double
 </game_constant>
 
 <game_constant>
-	//m/s
+	// m/s
 	name:item_start_velocity_max
 	value:100.0
 	type:double
 </game_constant>
 
 <game_constant>
-	//m/s
+	// m/s
 	name:item_max_speed
 	value:500.0
 	type:double
 </game_constant>
 
 <game_constant>
-	//degrees
-	//Valid range: [0.0,180.0]
-	//If the distance between a ship's velocity angle and thrust angle is >= ship_maneuver_angle,
-	//thrust_decel will be used instead of thrust_accel
+	// degrees
+	// Valid range: [0.0,180.0]
+	// If the distance between a ship's velocity angle and thrust angle is >= ship_maneuver_angle,
+	// thrust_decel will be used instead of thrust_accel
 	name:ship_maneuver_angle
 	value:90.0
 	type:double
@@ -439,105 +439,105 @@
 </game_constant>
 
 <game_constant>
-	//degrees/second
+	// degrees/second
 	name:police_lights_angular_speed
 	value:12.0
 	type:double
 </game_constant>
 
 <game_constant>
-	//meters (pixels)
+	// meters (pixels)
 	name:point_defense_range
 	value:128.0
 	type:double
 </game_constant>
 
 <game_constant>
-	//meters (pixels)
+	// meters (pixels)
 	name:item_vacuum_range
 	value:448.0
 	type:double
 </game_constant>
 
 <game_constant>
-	//newtons
+	// newtons
 	name:item_vacuum_force
 	value:512.0
 	type:double
 </game_constant>
 
 <game_constant>
-	//meters (pixels)
+	// meters (pixels)
 	name:minimum_gen_distance_between_planets
 	value:1024.0
 	type:double
 </game_constant>
 
 <game_constant>
-	//meters (pixels)
+	// meters (pixels)
 	name:planetary_space_range
 	value:512.0
 	type:double
 </game_constant>
 
 <game_constant>
-	//meters (pixels)
+	// meters (pixels)
 	name:gen_player_start_clean_distance
 	value:512.0
 	type:double
 </game_constant>
 
 <game_constant>
-	//seconds
+	// seconds
 	name:notoriety_max
 	value:600
 	type:uint32_t
 </game_constant>
 
 <game_constant>
-	//seconds
+	// seconds
 	name:notoriety_tier_2
 	value:360
 	type:uint32_t
 </game_constant>
 
 <game_constant>
-	//seconds
+	// seconds
 	name:notoriety_tier_1
 	value:120
 	type:uint32_t
 </game_constant>
 
 <game_constant>
-	//seconds
+	// seconds
 	name:notoriety_increase_damage
 	value:1
 	type:uint32_t
 </game_constant>
 
 <game_constant>
-	//seconds
+	// seconds
 	name:notoriety_increase_scan
 	value:30
 	type:uint32_t
 </game_constant>
 
 <game_constant>
-	//seconds
+	// seconds
 	name:notoriety_increase_scan_initial
 	value:130
 	type:uint32_t
 </game_constant>
 
 <game_constant>
-	//degrees
+	// degrees
 	name:weapon_spread_distance
 	value:20
 	type:uint32_t
 </game_constant>
 
 <game_constant>
-	//milliseconds
+	// milliseconds
 	name:active_power_drain_rate
 	value:500
 	type:uint32_t
@@ -550,63 +550,63 @@
 </game_constant>
 
 <game_constant>
-	//newtons
+	// newtons
 	name:warp_accel
 	value:20000.0
 	type:double
 </game_constant>
 
 <game_constant>
-	//newtons
+	// newtons
 	name:warp_decel
 	value:40000.0
 	type:double
 </game_constant>
 
 <game_constant>
-	//meters/second
+	// meters/second
 	name:warp_max_speed
 	value:2000.0
 	type:double
 </game_constant>
 
 <game_constant>
-	//meters (pixels)
+	// meters (pixels)
 	name:despawn_distance
 	value:4608.0
 	type:double
 </game_constant>
 
 <game_constant>
-	//meters (pixels)
+	// meters (pixels)
 	name:npc_process_range
 	value:1408.0
 	type:double
 </game_constant>
 
 <game_constant>
-	//meters (pixels)
+	// meters (pixels)
 	name:spawn_distance_max
 	value:2432
 	type:uint32_t
 </game_constant>
 
 <game_constant>
-	//meters (pixels)
+	// meters (pixels)
 	name:spawn_distance_min
 	value:1408
 	type:uint32_t
 </game_constant>
 
 <game_constant>
-	//seconds
+	// seconds
 	name:ship_spawn_rate
 	value:30
 	type:uint32_t
 </game_constant>
 
 <game_constant>
-	//seconds
+	// seconds
 	name:item_spawn_rate
 	value:20
 	type:uint32_t
@@ -709,42 +709,42 @@
 </game_constant>
 
 <game_constant>
-	//meters (pixels)
+	// meters (pixels)
 	name:ai_range
 	value:512.0
 	type:double
 </game_constant>
 
 <game_constant>
-	//meters (pixels)
+	// meters (pixels)
 	name:ai_follow_distance
 	value:128.0
 	type:double
 </game_constant>
 
 <game_constant>
-	//meters (pixels)
+	// meters (pixels)
 	name:ai_patrol_distance
 	value:512.0
 	type:double
 </game_constant>
 
 <game_constant>
-	//meters (pixels)
+	// meters (pixels)
 	name:missile_homing_range
 	value:192.0
 	type:double
 </game_constant>
 
 <game_constant>
-	//meters (pixels)
+	// meters (pixels)
 	name:ai_angle_mod_ignore_distance
 	value:256.0
 	type:double
 </game_constant>
 
 <game_constant>
-	//meters (pixels)
+	// meters (pixels)
 	name:ai_angle_mod_distance
 	value:512.0
 	type:double
@@ -763,57 +763,57 @@
 </game_constant>
 
 <game_constant>
-	//milliseconds
+	// milliseconds
 	name:ai_time_without_moving_allowed
 	value:750
 	type:uint32_t
 </game_constant>
 
 <game_constant>
-	//meters (pixels)
-	//This should be lower than the slowest ship's maximum pixels per frame speed
+	// meters (pixels)
+	// This should be lower than the slowest ship's maximum pixels per frame speed
 	name:ai_time_without_moving_distance_threshold
 	value:0.5
 	type:double
 </game_constant>
 
 <game_constant>
-	//meters (pixels)
+	// meters (pixels)
 	name:tractor_range
 	value:256.0
 	type:double
 </game_constant>
 
 <game_constant>
-	//N
+	// N
 	name:tractor_force
 	value:2000.0
 	type:double
 </game_constant>
 
 <game_constant>
-	//milliseconds
+	// milliseconds
 	name:missile_homing_delay
 	value:900
 	type:uint32_t
 </game_constant>
 
 <game_constant>
-	//milliseconds
+	// milliseconds
 	name:smoke_delay
 	value:250
 	type:uint32_t
 </game_constant>
 
 <game_constant>
-	//pixels
+	// pixels
 	name:smoke_position_minimum
 	value:1
 	type:uint32_t
 </game_constant>
 
 <game_constant>
-	//pixels
+	// pixels
 	name:smoke_position_maximum
 	value:10
 	type:uint32_t
@@ -862,23 +862,23 @@
 </game_constant>
 
 <game_constant>
-	//milliseconds
+	// milliseconds
 	name:cloud_delay
 	value:2500
 	type:uint32_t
 </game_constant>
 
 <game_constant>
-	//integer percentage
+	// integer percentage
 	name:cloud_chance
 	value:50
 	type:uint32_t
 </game_constant>
 
 <game_constant>
-	//Valid range: [1,logic update rate]
-	//There will be ai_proximity_check_period - 1 frames in between each AI proximity check opportunity
-	//AI proximity checking is additionally staggered among the ships
+	// Valid range: [1,logic update rate]
+	// There will be ai_proximity_check_period - 1 frames in between each AI proximity check opportunity
+	// AI proximity checking is additionally staggered among the ships
 	name:ai_proximity_check_period
 	value:60
 	type:uint32_t
@@ -891,21 +891,21 @@
 </game_constant>
 
 <game_constant>
-	//milliseconds
+	// milliseconds
 	name:disabled_sound_rate
 	value:659
 	type:uint32_t
 </game_constant>
 
 <game_constant>
-	//milliseconds
+	// milliseconds
 	name:low_hull_sound_rate
 	value:550
 	type:uint32_t
 </game_constant>
 
 <game_constant>
-	//milliseconds
+	// milliseconds
 	name:chasing_player_sound_rate
 	value:889
 	type:uint32_t

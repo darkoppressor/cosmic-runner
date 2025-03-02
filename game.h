@@ -91,6 +91,7 @@ class Game {
         static std::string cause_of_death;
         static bool android_need_to_check_failed_leaderboard_submissions;
         static bool android_need_to_check_failed_achievement_submissions;
+
         static Ship& get_player();
         static void dodge_check();
 
@@ -98,6 +99,7 @@ class Game {
         // pixels
         static double world_width;
         static double world_height;
+
         static void clear_world();
         static void generate_world();
         static bool is_generating_world();

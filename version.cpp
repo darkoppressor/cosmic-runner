@@ -7,15 +7,15 @@
 using namespace std;
 
 string Engine_Version::get_year () {
-    return "2023"; // YEAR
+    return "2025"; // YEAR
 }
 
 string Engine_Version::get_month () {
-    return "04"; // MONTH
+    return "02"; // MONTH
 }
 
 string Engine_Version::get_day () {
-    return "17"; // DAY
+    return "25"; // DAY
 }
 
 int Engine_Version::get_major () {
@@ -26,8 +26,8 @@ int Engine_Version::get_minor () {
     return 3; // MINOR
 }
 
-int Engine_Version::get_micro () {
-    return 2; // MICRO
+int Engine_Version::get_patch () {
+    return 2; // PATCH
 }
 
 string Engine_Version::get_status () {

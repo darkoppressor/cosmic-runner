@@ -1,6 +1,6 @@
 <upgrade>
 	name:scanner
-	//No fancy display name or description required, as this is for NPC police ships only
+	// No fancy display name or description required, as this is for NPC police ships only
 	display_name:
 	description:
 	sprite:

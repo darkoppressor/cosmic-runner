@@ -40,7 +40,7 @@ void Dodging::begin_tracking_debris (uint32_t index) {
 }
 
 void Dodging::begin_cooling_debris (uint32_t index) {
-    cooling.emplace(index, Game_Constants::DODGE_OBJECT_COOLDOWN* Engine::UPDATE_RATE / 1000);
+    cooling.emplace(index, Game_Constants::DODGE_OBJECT_COOLDOWN * Engine::UPDATE_RATE / 1000);
 }
 
 void Dodging::stop_tracking_debris (uint32_t index) {

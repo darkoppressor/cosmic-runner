@@ -64,6 +64,7 @@ void Minimap::generate_map (uint32_t new_width, uint32_t new_height) {
     uint32_t gmask = 0;
     uint32_t bmask = 0;
     uint32_t amask = 0;
+
     Engine::get_rgba_masks(&rmask, &gmask, &bmask, &amask);
 
     SDL_Surface* surface = SDL_CreateRGBSurface(0, (int) width, (int) height, 32, rmask, gmask, bmask, amask);
@@ -72,6 +73,7 @@ void Minimap::generate_map (uint32_t new_width, uint32_t new_height) {
         if (SDL_MUSTLOCK(surface)) {
             if (SDL_LockSurface(surface) != 0) {
                 string msg = "Error locking surface to generate minimap: ";
+
                 msg += SDL_GetError();
                 Log::add_error(msg);
             }
@@ -80,6 +82,7 @@ void Minimap::generate_map (uint32_t new_width, uint32_t new_height) {
         for (uint32_t x = 0; x < width; x++) {
             for (uint32_t y = 0; y < height; y++) {
                 Color color = *Object_Manager::get_color("space");
+
                 color.set(color.get_red(), color.get_green(), color.get_blue(), (short) 255);
 
                 Pixels::surface_put_pixel(surface, x, y, color);
@@ -97,6 +100,7 @@ void Minimap::generate_map (uint32_t new_width, uint32_t new_height) {
             int32_t radius = planet.get_circle().r / ((get_scale_x() + get_scale_y()) / 2.0);
             Collision_Circ<int32_t> circle(start_x + radius, start_y + radius, radius);
             Collision_Circ<int32_t> circle_omit = circle;
+
             circle_omit.r -= Game_Constants::MINIMAP_LINE_THICKNESS;
 
             for (int32_t x = start_x; x <= end_x; x++) {
@@ -124,6 +128,7 @@ void Minimap::generate_map (uint32_t new_width, uint32_t new_height) {
             int32_t start_y = debris.get_box().y / get_scale_y();
             int32_t end_y = (debris.get_box().y + debris.get_box().h) / get_scale_y();
             Collision_Rect<int32_t> box_omit(start_x, start_y, end_x - start_x, end_y - start_y);
+
             box_omit.x += Game_Constants::MINIMAP_LINE_THICKNESS;
             box_omit.y += Game_Constants::MINIMAP_LINE_THICKNESS;
             box_omit.w -= Game_Constants::MINIMAP_LINE_THICKNESS * 2;
@@ -149,6 +154,7 @@ void Minimap::generate_map (uint32_t new_width, uint32_t new_height) {
         SDL_FreeSurface(surface);
     } else {
         string msg = "Error generating minimap: ";
+
         msg += SDL_GetError();
         Log::add_error(msg);
     }
@@ -170,8 +176,8 @@ void Minimap::render () {
         if (Game_Constants::MINIMAP_BORDER_THICKNESS > 0.0) {
             Render::render_rectangle_empty(box.x - Game_Constants::MINIMAP_BORDER_THICKNESS,
                                            box.y - Game_Constants::MINIMAP_BORDER_THICKNESS,
-                                           (double) width + Game_Constants::MINIMAP_BORDER_THICKNESS*2.0,
-                                           (double) height + Game_Constants::MINIMAP_BORDER_THICKNESS*2.0,
+                                           (double) width + Game_Constants::MINIMAP_BORDER_THICKNESS * 2.0,
+                                           (double) height + Game_Constants::MINIMAP_BORDER_THICKNESS * 2.0,
                                            Game_Options::minimap_opacity, "minimap_border",
                                            Game_Constants::MINIMAP_BORDER_THICKNESS);
         }
@@ -185,6 +191,7 @@ void Minimap::render () {
 
         if (Game::player_has_contract()) {
             vector<Coords<double>> vertices;
+
             player.get_box().get_vertices(vertices, player.get_angle());
 
             const Planet& planet = Game::get_contract_planet();
@@ -224,6 +231,7 @@ void Minimap::render () {
         double scale_x = get_scale_x() / Game::world_width * Game_Constants::MINIMAP_SHIP_SCALE;
         double scale_y = get_scale_y() / Game::world_height * Game_Constants::MINIMAP_SHIP_SCALE;
         Sprite player_sprite;
+
         player_sprite.set_name("minimap_player");
 
         player_sprite.render(box.x + player_x - player.get_box().w * scale_x / 2.0,

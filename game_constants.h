@@ -10,7 +10,7 @@
 
 class Game_Constants {
     public:
-        /// BEGIN SCRIPT-GENERATED CONSTANT DECLARATIONS
+        // BEGIN SCRIPT-GENERATED CONSTANT DECLARATIONS
         static std::uint32_t TITLE_SHIP_SPAWN_RATE;
         static std::uint32_t TITLE_MAX_SHIPS;
         static std::uint32_t TITLE_BIRD_CHANCE;
@@ -187,7 +187,7 @@ class Game_Constants {
         static std::uint64_t DEFAULT_HIGH_SCORE_10;
         static double SHADOW_OFFSET;
         static double SHADOW_OFFSET_DEBRIS;
-        /// END SCRIPT-GENERATED CONSTANT DECLARATIONS
+        // END SCRIPT-GENERATED CONSTANT DECLARATIONS
 };
 
 #endif
