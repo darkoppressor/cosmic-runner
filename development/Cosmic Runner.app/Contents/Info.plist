@@ -34,7 +34,7 @@
 	<string>????</string>
 
 	<key>LSMinimumSystemVersion</key>
-	<string>10.13</string>
+	<string>15.0.0</string>
 
 	<key>CFBundleDocumentTypes</key>
 	<dict>

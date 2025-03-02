@@ -9,7 +9,7 @@ OS: 14 (API level 34) or newer
 Architecture: arm64-v8a / x86_64
 
 macOS
-OS: 10.13 High Sierra or newer
+OS: 15 Sequoia or newer
 Architecture: arm64
 
 Linux
