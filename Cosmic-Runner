@@ -33,10 +33,10 @@ if [ "${CHEESIE_UNAME}" = "Linux" ]; then
     	echo "${CHEESIE_GAME_NAME}: Error: ${CHEESIE_ARCH} is not a supported architecture."
 	fi
 elif [ "${CHEESIE_UNAME}" = "Darwin" ]; then
-	if [ "${CHEESIE_ARCH}" = "x86_64" ]; then
-	    echo "${CHEESIE_GAME_NAME}: Using macOS x86_64 version."
-	    export DYLD_LIBRARY_PATH=./macos-x86_64:$DYLD_LIBRARY_PATH
-	    exec ./"${CHEESIE_GAME_NAME}"-macOS-x86_64 "$@"
+	if [ "${CHEESIE_ARCH}" = "arm64" ]; then
+	    echo "${CHEESIE_GAME_NAME}: Using macOS arm64 version."
+	    export DYLD_LIBRARY_PATH=./macos-arm64:$DYLD_LIBRARY_PATH
+	    exec ./"${CHEESIE_GAME_NAME}"-macOS-arm64 "$@"
 	else
 	    echo "${CHEESIE_GAME_NAME}: Error: ${CHEESIE_ARCH} is not a supported architecture."
 	fi
