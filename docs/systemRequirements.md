@@ -1,3 +1,5 @@
+# System requirements
+
 Windows
 OS: 10 or newer
 Architecture: x86_64

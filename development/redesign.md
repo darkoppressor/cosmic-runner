@@ -1,3 +1,5 @@
+# Redesign
+
 Disable spawns for ships, junk, and items
 Make game world larger
 Make planets farther apart

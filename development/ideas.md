@@ -1,8 +1,10 @@
--- Redesign --
+# Ideas
+
+## Redesign
 
 
 
--- Other --
+## Other
 
 Come up with a better control scheme for Android:
 Add engine setting for touch as mouse or as touch
