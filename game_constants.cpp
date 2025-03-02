@@ -10,7 +10,7 @@
 
 using namespace std;
 
-/// BEGIN SCRIPT-GENERATED CONSTANT INITIALIZATIONS
+// BEGIN SCRIPT-GENERATED CONSTANT INITIALIZATIONS
 uint32_t Game_Constants::TITLE_SHIP_SPAWN_RATE = 0;
 uint32_t Game_Constants::TITLE_MAX_SHIPS = 0;
 uint32_t Game_Constants::TITLE_BIRD_CHANCE = 0;
@@ -187,7 +187,8 @@ uint64_t Game_Constants::DEFAULT_HIGH_SCORE_9 = 0;
 uint64_t Game_Constants::DEFAULT_HIGH_SCORE_10 = 0;
 double Game_Constants::SHADOW_OFFSET = 0.0;
 double Game_Constants::SHADOW_OFFSET_DEBRIS = 0.0;
-/// END SCRIPT-GENERATED CONSTANT INITIALIZATIONS
+
+// END SCRIPT-GENERATED CONSTANT INITIALIZATIONS
 void Game_Constants_Loader::set_game_constant (string name, string value) {
     if (name == "zoom_rate") {
         Engine_Data::ZOOM_RATE = Strings::string_to_double(value);
@@ -196,7 +197,7 @@ void Game_Constants_Loader::set_game_constant (string name, string value) {
     } else if (name == "zoom_max") {
         Engine_Data::ZOOM_MAX = Strings::string_to_double(value);
     }
-    /// BEGIN SCRIPT-GENERATED CONSTANT SETUP
+    // BEGIN SCRIPT-GENERATED CONSTANT SETUP
     else if (name == "title_ship_spawn_rate") {
         Game_Constants::TITLE_SHIP_SPAWN_RATE = Strings::string_to_unsigned_long(value);
     } else if (name == "title_max_ships") {
@@ -551,5 +552,5 @@ void Game_Constants_Loader::set_game_constant (string name, string value) {
         Game_Constants::SHADOW_OFFSET_DEBRIS = Strings::string_to_double(value);
     }
 
-    /// END SCRIPT-GENERATED CONSTANT SETUP
+    // END SCRIPT-GENERATED CONSTANT SETUP
 }

@@ -75,8 +75,8 @@ bool Item::vacuum () {
     const Ship& player = Game::get_player_const();
 
     if (player.can_use_item(get_item_type()) && get_distance_to_player() <= Game_Constants::ITEM_VACUUM_RANGE) {
-        Vector vacuum_force(Game_Constants::ITEM_VACUUM_FORCE, Math::get_angle_to_point(box.get_center(),
-                                                                                        player.get_box().get_center()));
+        Vector vacuum_force(Game_Constants::ITEM_VACUUM_FORCE,
+                            Math::get_angle_to_point(box.get_center(), player.get_box().get_center()));
 
         force += vacuum_force;
 

@@ -39,6 +39,7 @@ void Background_Layer::generate_texture_background (string type, int layer_numbe
     uint32_t gmask = 0;
     uint32_t bmask = 0;
     uint32_t amask = 0;
+
     Engine::get_rgba_masks(&rmask, &gmask, &bmask, &amask);
 
     SDL_Surface* surface = SDL_CreateRGBSurface(SDL_SWSURFACE, width, height, 32, rmask, gmask, bmask, amask);

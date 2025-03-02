@@ -19,7 +19,7 @@
 using namespace std;
 
 void Game_Manager::handle_drag_and_drop (string file) {
-    ///Do something with file
+    // Do something with file
 }
 
 void Game_Manager::prepare_for_input () {
@@ -39,7 +39,7 @@ void Game_Manager::handle_command_states_multiplayer () {
                 if (!paused) {
                     // Example multiplayer command state
                     /**if(Network_Engine::clients[i].game_command_state("some_command")){
-                        ///Deal with command state here
+                        // Deal with command state here
                        }*/
                 }
             }
@@ -57,7 +57,7 @@ void Game_Manager::handle_game_commands_multiplayer () {
                     if (!paused) {
                         // Example multiplayer command
                         /**if(command_name=="some_command"){
-                            ///Deal with command here
+                            // Deal with command here
                            }*/
                     }
                 }
@@ -204,17 +204,17 @@ bool Game_Manager::handle_game_command_gui (string command_name) {
 bool Game_Manager::handle_game_command (string command_name) {
     const uint8_t* keystates = SDL_GetKeyboardState(NULL);
 
-    ///DEV COMMANDS
+    // DEV COMMANDS
     if (Options::dev && keystates[SDL_SCANCODE_F1]) {
         // Example dev command
         /**if(command_name=="some_dev_command"){
-            ///Dev command here.
+            // Dev command here.
 
             return true;
            }*/
     }
 
-    ///END OF DEV COMMANDS
+    // END OF DEV COMMANDS
 
     if (!paused) {
         if (command_name == "toggle_minimap") {
@@ -228,6 +228,7 @@ bool Game_Manager::handle_game_command (string command_name) {
             if (!Game::player_is_landing() && !Game::player_is_landed() && !player.is_disabled(true) &&
                 !player.is_warping()) {
                 vector<Coords<double>> vertices;
+
                 player.get_box().get_vertices(vertices, player.get_angle());
 
                 if (Game::player_has_contract()) {
@@ -265,16 +266,16 @@ bool Game_Manager::handle_game_command (string command_name) {
 
                     for (uint32_t i = 0; i < 5; i++) {
                         Game::create_effect("effect_cargo_" + Strings::num_to_string(Game::get_rng().random_range(0,
-                                                                                                                  0)), true, 1.0,
-                                            Coords<double>(player.get_box().center_x(),
-                                                           player.get_box().center_y()), "",
+                                                                                                                  0)),
+                                            true, 1.0,
+                                            Coords<double>(player.get_box().center_x(), player.get_box().center_y()),
+                                            "",
                                             Vector(Game::get_rng().random_range(0, 10),
                                                    Game::get_rng().random_range(0, 359)),
                                             Game::get_rng().random_range(0, 359),
                                             Vector(0.01 * Game::get_rng().random_range(0, 50),
-                                                   Game::get_rng().random_range(0,
-                                                                                359)), Game_Constants::EFFECT_LENGTH_CARGO, false,
-                                            Coords<double>());
+                                                   Game::get_rng().random_range(0, 359)),
+                                            Game_Constants::EFFECT_LENGTH_CARGO, false, Coords<double>());
                     }
 
                     dropped = true;

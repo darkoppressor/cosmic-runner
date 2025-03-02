@@ -21,18 +21,18 @@ void Engine::render_dev_info () {
     string msg = "";
 
     if (Game_Manager::in_progress) {
-        msg += "Camera Position: " + Strings::num_to_string(Game_Manager::camera.x) + "," + Strings::num_to_string(
-            Game_Manager::camera.y) + "\n";
+        msg += "Camera Position: " + Strings::num_to_string(Game_Manager::camera.x) + "," +
+               Strings::num_to_string(Game_Manager::camera.y) + "\n";
         msg += "Camera Size: " + Strings::num_to_string(Game_Manager::camera.w / Game_Manager::camera_zoom) + "," +
                Strings::num_to_string(Game_Manager::camera.h / Game_Manager::camera_zoom) + "\n";
         msg += "Camera Zoom: " + Strings::num_to_string(Game_Manager::camera_zoom) + "\n";
 
         msg += "\n-----Game-----\n";
-        msg += "Score: " + Strings::num_to_string(Game::get_score()) + " (x" + Strings::num_to_string(
-            Game::get_score_multiplier()) + " multiplier)\n";
+        msg += "Score: " + Strings::num_to_string(Game::get_score()) + " (x" +
+               Strings::num_to_string(Game::get_score_multiplier()) + " multiplier)\n";
         msg += "Kills: " + Strings::num_to_string(Game::get_kills()) + "\n";
-        msg += "Power: " + Strings::num_to_string(Game::get_power()) + "/" + Strings::num_to_string(
-            Game_Constants::MAX_POWER * Engine::UPDATE_RATE);
+        msg += "Power: " + Strings::num_to_string(Game::get_power()) + "/" +
+               Strings::num_to_string(Game_Constants::MAX_POWER * Engine::UPDATE_RATE);
         msg += " (" + Strings::num_to_string(Game::get_power() / Engine::UPDATE_RATE) + " seconds)\n";
 
         if (Game::notoriety_tier_2()) {
@@ -43,8 +43,8 @@ void Engine::render_dev_info () {
             msg += "Notoriety: Tier 0";
         }
 
-        msg += " (" + Strings::num_to_string(Game::get_notoriety()) + "/" + Strings::num_to_string(
-            Game_Constants::NOTORIETY_MAX * Engine::UPDATE_RATE);
+        msg += " (" + Strings::num_to_string(Game::get_notoriety()) + "/" +
+               Strings::num_to_string(Game_Constants::NOTORIETY_MAX * Engine::UPDATE_RATE);
         msg += ", " + Strings::num_to_string(Game::get_notoriety() / Engine::UPDATE_RATE) + " seconds)\n";
 
         msg += "\n-----Universe-----\n";
@@ -61,8 +61,8 @@ void Engine::render_dev_info () {
         msg += "Acceleration: " + Strings::num_to_string(Game::get_player_acceleration().magnitude) + " m/s" +
                Symbols::squared() + " , " + Strings::num_to_string(Game::get_player_acceleration().direction) +
                Symbols::degrees() + "\n";
-        msg += "Hull: " + Strings::num_to_string(Game::get_player_const().get_hull()) + "/" + Strings::num_to_string(
-            Game::get_player_const().get_hull_max()) + "\n";
+        msg += "Hull: " + Strings::num_to_string(Game::get_player_const().get_hull()) + "/" +
+               Strings::num_to_string(Game::get_player_const().get_hull_max()) + "\n";
         msg += "Shields: " + Strings::num_to_string(Game::get_player_const().get_shields()) + "/" +
                Strings::num_to_string(Game::get_player_const().get_shields_max()) + "\n";
 
@@ -73,6 +73,7 @@ void Engine::render_dev_info () {
         }
 
         vector<string> upgrades = Game::get_player_const().get_upgrades();
+
         msg += "Upgrades: " + Strings::num_to_string(upgrades.size()) + "\n";
 
         for (size_t i = 0; i < upgrades.size(); i++) {
@@ -93,8 +94,8 @@ void Engine::render_dev_info () {
             }
         }
 
-        Render::render_rectangle(2.0, y, Strings::longest_line(msg) * font->spacing_x, Strings::newline_count(
-                                     msg) * font->spacing_y, 0.75, "ui_black");
+        Render::render_rectangle(2.0, y, Strings::longest_line(msg) * font->spacing_x,
+                                 Strings::newline_count(msg) * font->spacing_y, 0.75, "ui_black");
         font->show(2.0, y, msg, "red");
     }
 }

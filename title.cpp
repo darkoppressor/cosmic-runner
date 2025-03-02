@@ -44,13 +44,15 @@ void Title::setup (RNG& rng) {
     for (uint32_t i = 0; i < max_trees; i++) {
         double distance_scale = 0.01 * (double) rng.random_range(75, 150);
         Sprite sprite;
+
         sprite.set_name("title_tree");
 
-        Coords<double> position(rng.random_range(
-                                    (uint32_t) (sprite.get_width() * distance_scale),
-                                    (uint32_t) ((double) Game_Window::width() - sprite.get_width() * distance_scale)), (double) rng.random_range(
-                                    Game_Constants::TITLE_TREE_MAXIMUM_HEIGHT,
-                                    (uint32_t) Game_Window::height()) - sprite.get_height() * distance_scale);
+        Coords<double> position(rng.random_range((uint32_t) (sprite.get_width() * distance_scale),
+                                                 (uint32_t) ((double) Game_Window::width() - sprite.get_width() *
+                                                             distance_scale)),
+                                (double) rng.random_range(Game_Constants::TITLE_TREE_MAXIMUM_HEIGHT,
+                                                          (uint32_t) Game_Window::height()) - sprite.get_height() *
+                                distance_scale);
 
         trees.push_back(Title_Tree(rng, position, distance_scale));
     }
@@ -80,6 +82,7 @@ void Title::generate_ship (RNG& rng) {
 
         Coords<double> position;
         Vector velocity;
+
         velocity.magnitude = distance_scale * 0.1 * (double) rng.random_range(200, 400);
 
         if (bird) {
@@ -97,9 +100,8 @@ void Title::generate_ship (RNG& rng) {
         }
 
         if (bird) {
-            position.y =
-                rng.random_range(Game_Constants::TITLE_SHIP_MINIMUM_HEIGHT,
-                                 (uint32_t) (Game_Window::height() - sprite.get_height()));
+            position.y = rng.random_range(Game_Constants::TITLE_SHIP_MINIMUM_HEIGHT,
+                                          (uint32_t) (Game_Window::height() - sprite.get_height()));
         } else if (cloud) {
             position.y = rng.random_range(0, (uint32_t) (Game_Window::height() - sprite.get_height()));
         } else {

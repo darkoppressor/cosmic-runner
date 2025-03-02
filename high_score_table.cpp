@@ -33,6 +33,7 @@ void High_Score_Table::load_high_scores () {
 
             if (line.length() > 0) {
                 vector<string> values;
+
                 boost::algorithm::split(values, line, boost::algorithm::is_any_of(","));
 
                 if (values.size() >= 2) {
