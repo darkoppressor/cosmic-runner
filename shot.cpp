@@ -75,10 +75,10 @@ Vector Shot::get_velocity () const {
 }
 
 Collision_Rect<double> Shot::get_collision_box () const {
-    return Collision_Rect<double>(
-        box.x + box.w / 2.0 - box.w * get_shot_type()->collision_percentage / 2.0,
-        box.y + box.h / 2.0 - box.h * get_shot_type()->collision_percentage / 2.0,
-        box.w * get_shot_type()->collision_percentage, box.h * get_shot_type()->collision_percentage);
+    return Collision_Rect<double>(box.x + box.w / 2.0 - box.w * get_shot_type()->collision_percentage / 2.0,
+                                  box.y + box.h / 2.0 - box.h * get_shot_type()->collision_percentage / 2.0,
+                                  box.w * get_shot_type()->collision_percentage,
+                                  box.h * get_shot_type()->collision_percentage);
 }
 
 double Shot::get_angle () const {
@@ -140,9 +140,9 @@ void Shot::die () {
         alive = false;
 
         if (get_shot_type()->death_sprite.length() > 0) {
-            Game::create_effect(get_shot_type()->death_sprite, false, 1.0, Coords<double>(box.center_x(),
-                                                                                          box.center_y()),
-                                get_shot_type()->death_sound, Vector(), angle, Vector(), 0, false, Coords<double>());
+            Game::create_effect(get_shot_type()->death_sprite, false, 1.0,
+                                Coords<double>(box.center_x(), box.center_y()), get_shot_type()->death_sound, Vector(),
+                                angle, Vector(), 0, false, Coords<double>());
         }
     }
 }
@@ -165,6 +165,7 @@ void Shot::thrust (const Quadtree<double, uint32_t>& quadtree_ships) {
         box_targeting.h += Game_Constants::MISSILE_HOMING_RANGE * 2.0;
 
         vector<uint32_t> nearby_ships;
+
         quadtree_ships.get_objects(nearby_ships, box_targeting);
 
         vector<uint32_t> valid_targets;
@@ -240,6 +241,7 @@ void Shot::movement (RNG& rng, const Quadtree<double, uint32_t>& quadtree_debris
 
         Collision_Rect<double> box_collision = get_collision_box();
         vector<uint32_t> nearby_debris;
+
         quadtree_debris.get_objects(nearby_debris, box_collision);
 
         unordered_set<uint32_t> collisions;
@@ -288,19 +290,19 @@ void Shot::animate (RNG& rng) {
                 smoke_delay = Game_Constants::SMOKE_DELAY * Engine::UPDATE_RATE / 1000;
 
                 vector<Coords<double>> vertices;
+
                 get_box().get_vertices(vertices, angle);
 
                 Coords<double> smoke_location(rng.random_range(vertices[Collision::VERTEX_UPPER_LEFT].x,
-                                                               vertices[Collision::VERTEX_LOWER_LEFT].x), rng.random_range(
-                                                  vertices[Collision::VERTEX_UPPER_LEFT].y,
-                                                  vertices[Collision::VERTEX_LOWER_LEFT].y));
+                                                               vertices[Collision::VERTEX_LOWER_LEFT].x),
+                                              rng.random_range(vertices[Collision::VERTEX_UPPER_LEFT].y,
+                                                               vertices[Collision::VERTEX_LOWER_LEFT].y));
 
                 Game::create_effect("effect_smoke_" + Strings::num_to_string(rng.random_range(0, 2)), true,
                                     0.1 * (double) rng.random_range(5, 15), smoke_location, "",
                                     Vector(rng.random_range(0, 10), rng.random_range(0, 359)), rng.random_range(0, 359),
-                                    Vector(0.01 * rng.random_range(0, 50), rng.random_range(0,
-                                                                                            359)), Game_Constants::EFFECT_LENGTH_SMOKE, false,
-                                    Coords<double>(), "white");
+                                    Vector(0.01 * rng.random_range(0, 50), rng.random_range(0, 359)),
+                                    Game_Constants::EFFECT_LENGTH_SMOKE, false, Coords<double>(), "white");
             }
         }
     }
@@ -315,10 +317,11 @@ void Shot::render () {
             if (Game_Options::show_collision_outlines) {
                 Collision_Rect<double> col_box = get_collision_box();
 
-                /// Render extra collision boxes
+                // Render extra collision boxes
                 /*Render::render_rectangle(box.x*Game_Manager::camera_zoom-Game_Manager::camera.x,box.y*Game_Manager::camera_zoom-Game_Manager::camera.y,box.w,box.h,0.25,"white");
                    Render::render_rectangle(col_box.x*Game_Manager::camera_zoom-Game_Manager::camera.x,col_box.y*Game_Manager::camera_zoom-Game_Manager::camera.y,col_box.w,col_box.h,0.25,"red");*/
                 vector<Coords<double>> vertices;
+
                 col_box.get_vertices(vertices, angle);
 
                 for (size_t i = 0; i < vertices.size(); i++) {

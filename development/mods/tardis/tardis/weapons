@@ -113,7 +113,7 @@
 
 <upgrade>
 	name:missile_circle
-	//Get it? Pie? Like pi? Because 2*pi = a circle? And this launches missiles in a circle?
+	// Get it? Pie? Like pi? Because 2*pi = a circle? And this launches missiles in a circle?
 	display_name:Pie Launcher
 	description:Weapon - launches missiles in a circle\nGet it? Pie? Pi? 2*pi is like a circle? I'm so sorry...
 	type:weapon

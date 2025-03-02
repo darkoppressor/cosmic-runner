@@ -21,6 +21,7 @@ string Android_Leaderboard::FAILED_SUBMISSIONS_FILE = "android_leaderboard_submi
 uint32_t Android_Leaderboard::HIGH_SCORES = 0;
 uint32_t Android_Leaderboard::BEST_KILL_COUNT = 1;
 uint32_t Android_Leaderboard::DEBRIS_DODGED = 2;
+
 void Android_Leaderboard::save_failed_submission (uint32_t id_number, uint64_t score) {
     map<uint32_t, uint64_t> failed_submissions = load_failed_submissions();
 
@@ -30,8 +31,8 @@ void Android_Leaderboard::save_failed_submission (uint32_t id_number, uint64_t s
         string data = "";
 
         for (const auto& failed_submission : failed_submissions) {
-            data += Strings::num_to_string(failed_submission.first) + "," + Strings::num_to_string(
-                failed_submission.second) + "\n";
+            data += Strings::num_to_string(failed_submission.first) + "," +
+                    Strings::num_to_string(failed_submission.second) + "\n";
         }
 
         File_IO::save_atomic(Directories::get_save_directory() + FAILED_SUBMISSIONS_FILE, data);
@@ -48,15 +49,16 @@ map<uint32_t, uint64_t> Android_Leaderboard::load_failed_submissions () {
         if (load.is_opened()) {
             while (!load.eof()) {
                 string line = "";
+
                 load.getline(&line);
 
                 vector<string> elements;
+
                 boost::algorithm::split(elements, line, boost::algorithm::is_any_of(","));
 
                 if (elements.size() >= 2) {
-                    failed_submissions.emplace((uint32_t) Strings::string_to_unsigned_long(
-                                                   elements[0]), (uint64_t) Strings::string_to_unsigned_long(
-                                                   elements[1]));
+                    failed_submissions.emplace((uint32_t) Strings::string_to_unsigned_long(elements[0]),
+                                               (uint64_t) Strings::string_to_unsigned_long(elements[1]));
                 }
             }
         }
@@ -71,6 +73,7 @@ string Android_Leaderboard::get_leaderboard_id (uint32_t id_number) {
     if (load.is_opened()) {
         for (uint32_t i = 0; !load.eof(); i++) {
             string line = "";
+
             load.getline(&line);
 
             if (i == id_number) {

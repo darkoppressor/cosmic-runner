@@ -18,6 +18,7 @@
 using namespace std;
 
 Sprite Hud::notoriety_sprite;
+
 void Hud::setup () {
     notoriety_sprite.set_name("hud_notoriety_tier");
 }
@@ -53,8 +54,9 @@ void Hud::render_bar (string font_name, string font_color, string bar_color, con
 
     if (font != 0) {
         font->show(position.x + Game_Constants::HUD_BAR_OFFSET_X + Game_Constants::HUD_MAX_BAR_WIDTH / 2.0 -
-                   (msg.length() * font->spacing_x) / 2.0, position.y + Game_Constants::HUD_BAR_OFFSET_Y + Game_Constants::HUD_BAR_HEIGHT / 2.0 - font->spacing_y / 3.0, msg,
-                   font_color);
+                   (msg.length() * font->spacing_x) / 2.0,
+                   position.y + Game_Constants::HUD_BAR_OFFSET_Y + Game_Constants::HUD_BAR_HEIGHT / 2.0 -
+                   font->spacing_y / 3.0, msg, font_color);
     }
 }
 
@@ -64,37 +66,38 @@ void Hud::render () {
 
     render_bar("", "ui_white", "hud_hull",
                Coords<double>(Game_Constants::HUD_SPACING,
-                              Game_Constants::HUD_SPACING + Game_Constants::HUD_SPACING*(double) bar_number +
-                              Game_Constants::HUD_BAR_HEIGHT*(double) bar_number++),
-               player.get_hull(), player.get_hull_max(), true);
+                              Game_Constants::HUD_SPACING + Game_Constants::HUD_SPACING * (double) bar_number +
+                              Game_Constants::HUD_BAR_HEIGHT * (double) bar_number++), player.get_hull(),
+               player.get_hull_max(), true);
 
     if (player.get_shields_max() > 0) {
         render_bar("", "ui_white", "hud_shields",
                    Coords<double>(Game_Constants::HUD_SPACING,
-                                  Game_Constants::HUD_SPACING + Game_Constants::HUD_SPACING*(double) bar_number +
-                                  Game_Constants::HUD_BAR_HEIGHT*(double) bar_number++),
-                   player.get_shields(), player.get_shields_max(), true);
+                                  Game_Constants::HUD_SPACING + Game_Constants::HUD_SPACING * (double) bar_number +
+                                  Game_Constants::HUD_BAR_HEIGHT * (double) bar_number++), player.get_shields(),
+                   player.get_shields_max(), true);
     }
 
     render_bar("", "ui_white", "hud_power",
                Coords<double>(Game_Constants::HUD_SPACING,
-                              Game_Constants::HUD_SPACING + Game_Constants::HUD_SPACING*(double) bar_number +
-                              Game_Constants::HUD_BAR_HEIGHT*(double) bar_number++),
-               Game::get_power(), Game_Constants::MAX_POWER* Engine::UPDATE_RATE, true);
+                              Game_Constants::HUD_SPACING + Game_Constants::HUD_SPACING * (double) bar_number +
+                              Game_Constants::HUD_BAR_HEIGHT * (double) bar_number++), Game::get_power(),
+               Game_Constants::MAX_POWER * Engine::UPDATE_RATE, true);
 
     Bitmap_Font* font = Object_Manager::get_font("large");
-    string msg = "Score: " + Strings::num_to_string(Game::get_score()) + "\nx" + Strings::num_to_string(
-        Game::get_score_multiplier());
+    string msg = "Score: " + Strings::num_to_string(Game::get_score()) + "\nx" +
+                 Strings::num_to_string(Game::get_score_multiplier());
 
-    font->show(((double) Game_Window::width() - Strings::longest_line(
-                    msg) * font->spacing_x) / 2.0, Game_Constants::HUD_SPACING, msg, "ui_white");
+    font->show(((double) Game_Window::width() - Strings::longest_line(msg) * font->spacing_x) / 2.0,
+               Game_Constants::HUD_SPACING, msg, "ui_white");
 
     msg = "Dodges: " + Strings::num_to_string(Game::get_dodges());
 
-    font->show((double) Game_Window::width() - Game_Constants::HUD_SPACING - Strings::longest_line(
-                   msg) * font->spacing_x, Game_Constants::HUD_SPACING, msg, "ui_white");
+    font->show((double) Game_Window::width() - Game_Constants::HUD_SPACING - Strings::longest_line(msg) *
+               font->spacing_x, Game_Constants::HUD_SPACING, msg, "ui_white");
 
     msg = "Kills: " + Strings::num_to_string(Game::get_kills());
+
     double kills_x = (double) Game_Window::width() - Game_Constants::HUD_SPACING - Strings::longest_line(msg) *
                      font->spacing_x;
 
@@ -110,26 +113,24 @@ void Hud::render () {
     }
 
     for (uint32_t i = 0; i < notoriety_tiers; i++) {
-        notoriety_sprite.render(
-            kills_x + font->spacing_x * 3.0 + (double) i * Game_Constants::HUD_SPACING + (double) i * notoriety_sprite.get_width(),
-            notoriety_y);
+        notoriety_sprite.render(kills_x + font->spacing_x * 3.0 + (double) i * Game_Constants::HUD_SPACING +
+                                (double) i * notoriety_sprite.get_width(), notoriety_y);
     }
 
     if (notoriety_tiers > 0) {
         if (notoriety_tiers == 2) {
-            msg = Strings::num_to_string(
-                Game::get_notoriety() / Engine::UPDATE_RATE - Game_Constants::NOTORIETY_TIER_2 + 1);
+            msg = Strings::num_to_string(Game::get_notoriety() / Engine::UPDATE_RATE -
+                                         Game_Constants::NOTORIETY_TIER_2 + 1);
         } else {
-            msg = Strings::num_to_string(
-                Game::get_notoriety() / Engine::UPDATE_RATE - Game_Constants::NOTORIETY_TIER_1 + 1);
+            msg = Strings::num_to_string(Game::get_notoriety() / Engine::UPDATE_RATE -
+                                         Game_Constants::NOTORIETY_TIER_1 + 1);
         }
 
         double tiers_width = ((double) notoriety_tiers - 1.0) * Game_Constants::HUD_SPACING + (double) notoriety_tiers *
                              notoriety_sprite.get_width();
 
-        font->show(
-            kills_x + font->spacing_x * 3.0 + tiers_width / 2.0 - (msg.length() * font->spacing_x) / 2.0,
-            notoriety_y + Game_Constants::HUD_SPACING + notoriety_sprite.get_height(), msg, "ui_white");
+        font->show(kills_x + font->spacing_x * 3.0 + tiers_width / 2.0 - (msg.length() * font->spacing_x) / 2.0,
+                   notoriety_y + Game_Constants::HUD_SPACING + notoriety_sprite.get_height(), msg, "ui_white");
     }
 
     if (player.has_weapon()) {
@@ -147,11 +148,12 @@ void Hud::render () {
         }
 
         Coords<double> position(Game_Constants::HUD_SPACING,
-                                Game_Constants::HUD_SPACING + Game_Constants::HUD_SPACING*(double) bar_number +
-                                Game_Constants::HUD_BAR_HEIGHT*(double) bar_number++);
+                                Game_Constants::HUD_SPACING + Game_Constants::HUD_SPACING* (double) bar_number +
+                                Game_Constants::HUD_BAR_HEIGHT* (double) bar_number++);
+
         font->show(position.x,
-                   position.y + Game_Constants::HUD_BAR_OFFSET_Y + Game_Constants::HUD_BAR_HEIGHT / 2.0 - font->spacing_y / 3.0, msg,
-                   font_color);
+                   position.y + Game_Constants::HUD_BAR_OFFSET_Y + Game_Constants::HUD_BAR_HEIGHT / 2.0 -
+                   font->spacing_y / 3.0, msg, font_color);
 
         position.x += msg.length() * font->spacing_x;
 
@@ -191,11 +193,12 @@ void Hud::render () {
         }
 
         Coords<double> position(Game_Constants::HUD_SPACING,
-                                Game_Constants::HUD_SPACING + Game_Constants::HUD_SPACING*(double) bar_number +
-                                Game_Constants::HUD_BAR_HEIGHT*(double) bar_number++);
+                                Game_Constants::HUD_SPACING + Game_Constants::HUD_SPACING* (double) bar_number +
+                                Game_Constants::HUD_BAR_HEIGHT* (double) bar_number++);
+
         font->show(position.x,
-                   position.y + Game_Constants::HUD_BAR_OFFSET_Y + Game_Constants::HUD_BAR_HEIGHT / 2.0 - font->spacing_y / 3.0, msg,
-                   font_color);
+                   position.y + Game_Constants::HUD_BAR_OFFSET_Y + Game_Constants::HUD_BAR_HEIGHT / 2.0 -
+                   font->spacing_y / 3.0, msg, font_color);
 
         position.x += msg.length() * font->spacing_x;
 

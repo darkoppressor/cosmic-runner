@@ -20,8 +20,9 @@ vector<Item_Type> Game_Data::item_types;
 vector<Upgrade> Game_Data::upgrades;
 vector<Planet_Type> Game_Data::planet_types;
 
-///Don't forget to increment this for each progress item in load_data_game() below
+// Don't forget to increment this for each progress item in load_data_game() below
 const int Game_Data::game_data_load_item_count = 6;
+
 void Game_Data::load_data_game (Progress_Bar& bar) {
     bar.progress("Loading ship types");
     Data_Manager::load_data("ship");
@@ -85,6 +86,7 @@ void Game_Data::load_ship_type (File_IO_Load* load) {
             ship_types.back().color = line;
         } else if (Data_Reader::check_prefix(line, "box_collision:")) {
             vector<string> dimensions;
+
             boost::algorithm::split(dimensions, line, boost::algorithm::is_any_of(","));
 
             if (dimensions.size() >= 1) {
@@ -104,6 +106,7 @@ void Game_Data::load_ship_type (File_IO_Load* load) {
             }
         } else if (Data_Reader::check_prefix(line, "upgrades:")) {
             vector<string> upgrade_strings;
+
             boost::algorithm::split(upgrade_strings, line, boost::algorithm::is_any_of(","));
 
             for (size_t j = 0; j < upgrade_strings.size(); j++) {
@@ -131,11 +134,11 @@ void Game_Data::load_ship_type (File_IO_Load* load) {
             ship_types.back().point_value = Strings::string_to_unsigned_long(line);
         } else if (Data_Reader::check_prefix(line, "angular_velocity:")) {
             vector<string> components;
+
             boost::algorithm::split(components, line, boost::algorithm::is_any_of(","));
 
             if (components.size() >= 2) {
-                ship_types.back().angular_velocity = Vector(Strings::string_to_double(
-                                                                components[0]),
+                ship_types.back().angular_velocity = Vector(Strings::string_to_double(components[0]),
                                                             Strings::string_to_double(components[1]));
             }
         }

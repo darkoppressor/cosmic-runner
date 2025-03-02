@@ -41,6 +41,7 @@ uint32_t Android_Achievements::ARTFUL_TIER_2 = 19;
 uint32_t Android_Achievements::ARTFUL_TIER_3 = 20;
 uint32_t Android_Achievements::ARTFUL_TIER_4 = 21;
 uint32_t Android_Achievements::ARTFUL_TIER_5 = 22;
+
 void Android_Achievements::save_failed_submission (uint32_t id_number) {
     set<uint32_t> failed_submissions = load_failed_submissions();
 
@@ -67,6 +68,7 @@ set<uint32_t> Android_Achievements::load_failed_submissions () {
         if (load.is_opened()) {
             while (!load.eof()) {
                 string line = "";
+
                 load.getline(&line);
 
                 failed_submissions.emplace((uint32_t) Strings::string_to_unsigned_long(line));
@@ -83,6 +85,7 @@ string Android_Achievements::get_achievement_id (uint32_t id_number) {
     if (load.is_opened()) {
         for (uint32_t i = 0; !load.eof(); i++) {
             string line = "";
+
             load.getline(&line);
 
             if (i == id_number) {

@@ -40,10 +40,10 @@ Collision_Rect<double> Debris::get_box () const {
 }
 
 Collision_Rect<double> Debris::get_collision_box () const {
-    return Collision_Rect<double>(
-        box.x + box.w / 2.0 - box.w * get_debris_type()->collision_percentage / 2.0,
-        box.y + box.h / 2.0 - box.h * get_debris_type()->collision_percentage / 2.0,
-        box.w * get_debris_type()->collision_percentage, box.h * get_debris_type()->collision_percentage);
+    return Collision_Rect<double>(box.x + box.w / 2.0 - box.w * get_debris_type()->collision_percentage / 2.0,
+                                  box.y + box.h / 2.0 - box.h * get_debris_type()->collision_percentage / 2.0,
+                                  box.w * get_debris_type()->collision_percentage,
+                                  box.h * get_debris_type()->collision_percentage);
 }
 
 double Debris::get_angle () const {
@@ -69,6 +69,7 @@ void Debris::animate () {
 
     vector<Coords<double>> vertices_shadow;
     Collision_Rect<double> shadow_box = box;
+
     shadow_box.w += Game_Constants::SHADOW_OFFSET_DEBRIS;
     shadow_box.h += Game_Constants::SHADOW_OFFSET_DEBRIS;
     shadow_box.get_vertices(vertices_shadow, angle);
@@ -93,11 +94,10 @@ void Debris::render () {
     if (Collision::check_rect_rotated(box_for_camera_check * Game_Manager::camera_zoom, Game_Manager::camera, angle,
                                       0.0)) {
         if (cast_shadow) {
-            sprite.render(
-                (box.x + Game_Constants::SHADOW_OFFSET_DEBRIS) * Game_Manager::camera_zoom - Game_Manager::camera.x,
-                (box.y + Game_Constants::SHADOW_OFFSET_DEBRIS) * Game_Manager::camera_zoom - Game_Manager::camera.y,
-                0.25,
-                0.45, 0.45, angle, "ui_black");
+            sprite.render((box.x + Game_Constants::SHADOW_OFFSET_DEBRIS) * Game_Manager::camera_zoom -
+                          Game_Manager::camera.x,
+                          (box.y + Game_Constants::SHADOW_OFFSET_DEBRIS) * Game_Manager::camera_zoom -
+                          Game_Manager::camera.y, 0.25, 0.45, 0.45, angle, "ui_black");
         }
 
         sprite.render(box.x * Game_Manager::camera_zoom - Game_Manager::camera.x,
@@ -106,10 +106,11 @@ void Debris::render () {
         if (Game_Options::show_collision_outlines) {
             Collision_Rect<double> col_box = get_collision_box();
 
-            /// Render extra collision boxes
+            // Render extra collision boxes
             /*Render::render_rectangle(box.x*Game_Manager::camera_zoom-Game_Manager::camera.x,box.y*Game_Manager::camera_zoom-Game_Manager::camera.y,box.w,box.h,0.25,"white");
                Render::render_rectangle(col_box.x*Game_Manager::camera_zoom-Game_Manager::camera.x,col_box.y*Game_Manager::camera_zoom-Game_Manager::camera.y,col_box.w,col_box.h,0.25,"red");*/
             vector<Coords<double>> vertices;
+
             col_box.get_vertices(vertices, angle);
 
             for (size_t i = 0; i < vertices.size(); i++) {

@@ -362,14 +362,15 @@ void Ship::calculate_laser_target (const Quadtree<double, uint32_t>& quadtree_sh
 
 void Ship::render_laser (bool is_player) {
     if (is_alive() && !is_landing() && (!is_player || !Game::player_is_landed()) && !is_disabled(is_player)) {
-        if (laser_has_target &&
-            (Collision::check_rect(box * Game_Manager::camera_zoom,
-                                   Game_Manager::camera) ||
-             Collision::check_rect(Collision_Rect<double>(laser_endpoint.x, laser_endpoint.y, 1.0,
-                                                          1.0) * Game_Manager::camera_zoom, Game_Manager::camera))) {
+        if (laser_has_target && (Collision::check_rect(box * Game_Manager::camera_zoom,
+                                                       Game_Manager::camera) ||
+                                 Collision::check_rect(Collision_Rect<double>(laser_endpoint.x, laser_endpoint.y, 1.0,
+                                                                              1.0) * Game_Manager::camera_zoom,
+                                                       Game_Manager::camera))) {
             Render::render_line(box.center_x() * Game_Manager::camera_zoom - Game_Manager::camera.x,
-                                box.center_y() * Game_Manager::camera_zoom - Game_Manager::camera.y, laser_endpoint.x * Game_Manager::camera_zoom - Game_Manager::camera.x, laser_endpoint.y * Game_Manager::camera_zoom - Game_Manager::camera.y, 1.0,
-                                "laser");
+                                box.center_y() * Game_Manager::camera_zoom - Game_Manager::camera.y,
+                                laser_endpoint.x * Game_Manager::camera_zoom - Game_Manager::camera.x,
+                                laser_endpoint.y * Game_Manager::camera_zoom - Game_Manager::camera.y, 1.0, "laser");
         }
     }
 }
@@ -454,7 +455,7 @@ bool Ship::can_use_item (Item_Type* item_type) const {
     if (item_type->restores_hull()) {
         return get_hull() < get_hull_max();
     } else if (item_type->restores_power()) {
-        return Game::get_power() < Game_Constants::MAX_POWER* Engine::UPDATE_RATE;
+        return Game::get_power() < Game_Constants::MAX_POWER * Engine::UPDATE_RATE;
     } else {
         return true;
     }
@@ -614,6 +615,7 @@ vector<Coords<double>> Ship::get_collision_vertices () const {
     box.get_vertices(vertices_box, angle);
 
     vector<Coords<double>> vertices_collision;
+
     get_collision_box().get_vertices(vertices_collision, angle);
 
     double translate_x = vertices_collision[Collision::VERTEX_UPPER_LEFT].x -
@@ -626,12 +628,10 @@ vector<Coords<double>> Ship::get_collision_vertices () const {
         vertices_collision[i].y -= translate_y;
     }
 
-    double angle_x =
-        Math::get_angle_to_point(vertices_box[Collision::VERTEX_UPPER_LEFT],
-                                 vertices_box[Collision::VERTEX_UPPER_RIGHT]);
-    double angle_y =
-        Math::get_angle_to_point(vertices_box[Collision::VERTEX_UPPER_LEFT],
-                                 vertices_box[Collision::VERTEX_LOWER_RIGHT]);
+    double angle_x = Math::get_angle_to_point(vertices_box[Collision::VERTEX_UPPER_LEFT],
+                                              vertices_box[Collision::VERTEX_UPPER_RIGHT]);
+    double angle_y = Math::get_angle_to_point(vertices_box[Collision::VERTEX_UPPER_LEFT],
+                                              vertices_box[Collision::VERTEX_LOWER_RIGHT]);
     Vector_Components vc_x = Vector(get_collision_box().x, angle_x).get_components();
 
     for (size_t i = 0; i < vertices_collision.size(); i++) {
@@ -739,10 +739,9 @@ void Ship::die (bool is_player, string damage_faction, RNG& rng) {
 
         hull = 0;
 
-        Game::create_explosion("explosion_ship", "explosion_ship_" + Strings::num_to_string(rng.random_range(0,
-                                                                                                             2)),
-                               Coords<double>(box.center_x(),
-                                              box.center_y()), Game_Constants::EXPLOSION_DAMAGE_SHIP, damage_faction);
+        Game::create_explosion("explosion_ship", "explosion_ship_" + Strings::num_to_string(rng.random_range(0, 2)),
+                               Coords<double>(box.center_x(), box.center_y()), Game_Constants::EXPLOSION_DAMAGE_SHIP,
+                               damage_faction);
 
         uint32_t items_to_drop = rng.random_range(get_ship_type()->item_drop_min, get_ship_type()->item_drop_max);
 
@@ -775,9 +774,8 @@ void Ship::take_damage (bool is_player, int32_t damage, string damage_type, cons
         }
 
         if (is_player && damage > 0) {
-            Game::create_effect("effect_cross", false, 2.5, location, "", Vector(0.0, 0.0), 0.0, Vector(0.0,
-                                                                                                        0.0), 0, false,
-                                Coords<double>());
+            Game::create_effect("effect_cross", false, 2.5, location, "", Vector(0.0, 0.0), 0.0, Vector(0.0, 0.0), 0,
+                                false, Coords<double>());
         }
 
         int32_t effective_damage = damage;
@@ -792,9 +790,8 @@ void Ship::take_damage (bool is_player, int32_t damage, string damage_type, cons
             }
 
             if (effective_damage > 0) {
-                Game::create_effect("effect_explosion_shields", false, 1.0, location, "effect_explosion_shields", Vector(
-                                        0.0,
-                                        0.0), 0.0, Vector(0.0, 0.0), 0, false, Coords<double>());
+                Game::create_effect("effect_explosion_shields", false, 1.0, location, "effect_explosion_shields",
+                                    Vector(0.0, 0.0), 0.0, Vector(0.0, 0.0), 0, false, Coords<double>());
 
                 if (effective_damage <= shields) {
                     shields -= effective_damage;
@@ -827,14 +824,12 @@ void Ship::take_damage (bool is_player, int32_t damage, string damage_type, cons
         }
 
         if (effective_damage > 0) {
-            Game::create_effect("effect_hull_damage", true, 0.1 * (double) rng.random_range(1,
-                                                                                            10), location,
-                                "effect_hull_damage_" + Strings::num_to_string(rng.random_range(
-                                                                                   0, 5)),
+            Game::create_effect("effect_hull_damage", true, 0.1 * (double) rng.random_range(1, 10), location,
+                                "effect_hull_damage_" + Strings::num_to_string(rng.random_range(0, 5)),
                                 Vector(rng.random_range(0, 10), rng.random_range(0, 359)), rng.random_range(0, 359),
-                                Vector(0.01 * rng.random_range(0, 50), rng.random_range(0,
-                                                                                        359)), Game_Constants::EFFECT_LENGTH_HULL_DAMAGE, false,
-                                Coords<double>(), get_ship_type()->color);
+                                Vector(0.01 * rng.random_range(0, 50), rng.random_range(0, 359)),
+                                Game_Constants::EFFECT_LENGTH_HULL_DAMAGE, false, Coords<double>(),
+                                get_ship_type()->color);
 
             if (rng.random_range(0, 1)) {
                 Coords<double> smoke_location = location;
@@ -858,9 +853,8 @@ void Ship::take_damage (bool is_player, int32_t damage, string damage_type, cons
                 Game::create_effect("effect_smoke_" + Strings::num_to_string(rng.random_range(0, 2)), true,
                                     0.1 * (double) rng.random_range(5, 15), smoke_location, "",
                                     Vector(rng.random_range(0, 10), rng.random_range(0, 359)), rng.random_range(0, 359),
-                                    Vector(0.01 * rng.random_range(0, 50), rng.random_range(0,
-                                                                                            359)), Game_Constants::EFFECT_LENGTH_SMOKE, false,
-                                    Coords<double>(), "white");
+                                    Vector(0.01 * rng.random_range(0, 50), rng.random_range(0, 359)),
+                                    Game_Constants::EFFECT_LENGTH_SMOKE, false, Coords<double>(), "white");
             }
 
             if (is_player) {
@@ -897,13 +891,12 @@ void Ship::take_damage (bool is_player, int32_t damage, string damage_type, cons
                                                             Game_Constants::SMOKE_POSITION_MAXIMUM);
                     }
 
-                    Game::create_effect("effect_hull_damage", true, 0.1 * (double) rng.random_range(1,
-                                                                                                    10), hull_location, "",
-                                        Vector(rng.random_range(
-                                                   0, 10), rng.random_range(0, 359)), rng.random_range(0, 359),
-                                        Vector(0.01 * rng.random_range(0, 50), rng.random_range(0,
-                                                                                                359)), Game_Constants::EFFECT_LENGTH_HULL_DAMAGE, false,
-                                        Coords<double>(), get_ship_type()->color);
+                    Game::create_effect("effect_hull_damage", true, 0.1 * (double) rng.random_range(1, 10),
+                                        hull_location, "", Vector(rng.random_range(0, 10), rng.random_range(0, 359)),
+                                        rng.random_range(0, 359),
+                                        Vector(0.01 * rng.random_range(0, 50), rng.random_range(0, 359)),
+                                        Game_Constants::EFFECT_LENGTH_HULL_DAMAGE, false, Coords<double>(),
+                                        get_ship_type()->color);
                 }
 
                 for (size_t i = 0; i < smoke_effects; i++) {
@@ -929,19 +922,17 @@ void Ship::take_damage (bool is_player, int32_t damage, string damage_type, cons
                                         0.1 * (double) rng.random_range(10, 20), smoke_location, "",
                                         Vector(rng.random_range(0, 10), rng.random_range(0, 359)),
                                         rng.random_range(0, 359),
-                                        Vector(0.01 * rng.random_range(0, 50), rng.random_range(0,
-                                                                                                359)), Game_Constants::EFFECT_LENGTH_SMOKE, false,
-                                        Coords<double>(), "white");
+                                        Vector(0.01 * rng.random_range(0, 50), rng.random_range(0, 359)),
+                                        Game_Constants::EFFECT_LENGTH_SMOKE, false, Coords<double>(), "white");
                 }
 
                 Game::create_explosion("explosion_ship",
                                        "explosion_ship_" + Strings::num_to_string(rng.random_range(0, 2)),
-                                       Coords<double>(box.center_x(),
-                                                      box.center_y()), Game_Constants::EXPLOSION_DAMAGE_SHIP,
-                                       damage_faction);
+                                       Coords<double>(box.center_x(), box.center_y()),
+                                       Game_Constants::EXPLOSION_DAMAGE_SHIP, damage_faction);
 
-                uint32_t items_to_drop =
-                    rng.random_range(get_ship_type()->item_drop_min, get_ship_type()->item_drop_max);
+                uint32_t items_to_drop = rng.random_range(get_ship_type()->item_drop_min,
+                                                          get_ship_type()->item_drop_max);
 
                 for (uint32_t i = 0; i < items_to_drop; i++) {
                     Game::create_item(Coords<double>(box.center_x(), box.center_y()), velocity);
@@ -1068,7 +1059,7 @@ void Ship::regenerate_shields (bool is_player) {
 void Ship::drain_power (bool is_player) {
     if (is_player) {
         if (is_cloaked() || is_warping()) {
-            if (++power_drain >= Game_Constants::ACTIVE_POWER_DRAIN_RATE* Engine::UPDATE_RATE / 1000) {
+            if (++power_drain >= Game_Constants::ACTIVE_POWER_DRAIN_RATE * Engine::UPDATE_RATE / 1000) {
                 Game::use_power(Game_Data::get_upgrade_type(get_active_name())->power_use * Engine::UPDATE_RATE);
 
                 power_drain = 0;
@@ -1182,8 +1173,8 @@ int32_t Ship::get_nearest_valid_target_ship (const Quadtree<double, uint32_t>& q
                 (nearby_ships[i] != 0 || !Game::player_is_landed()) && !ship.is_cloaked() && !ship.is_warping()) {
                 Collision_Rect<double> box_ship = ship.get_box();
 
-                if (faction_is_valid(ship.get_faction(),
-                                     weapon_check) && Collision::check_rect(box_targeting, box_ship)) {
+                if (faction_is_valid(ship.get_faction(), weapon_check) && Collision::check_rect(box_targeting,
+                                                                                                box_ship)) {
                     valid_targets.push_back(nearby_ships[i]);
                 }
             }
@@ -1271,14 +1262,12 @@ bool Ship::fire_weapon (const Quadtree<double, uint32_t>& quadtree_ships, RNG& r
                                                                  Game_Constants::SMOKE_POSITION_MAXIMUM);
                         }
 
-                        Game::create_effect("effect_smoke_" + Strings::num_to_string(rng.random_range(0,
-                                                                                                      2)), true,
+                        Game::create_effect("effect_smoke_" + Strings::num_to_string(rng.random_range(0, 2)), true,
                                             0.1 * (double) rng.random_range(10, 20), smoke_location, "",
                                             Vector(rng.random_range(0, 10), rng.random_range(0, 359)),
                                             rng.random_range(0, 359),
-                                            Vector(0.01 * rng.random_range(0, 50), rng.random_range(0,
-                                                                                                    359)), Game_Constants::EFFECT_LENGTH_SMOKE, false,
-                                            Coords<double>(), "white");
+                                            Vector(0.01 * rng.random_range(0, 50), rng.random_range(0, 359)),
+                                            Game_Constants::EFFECT_LENGTH_SMOKE, false, Coords<double>(), "white");
                     }
                 } else if (damage_type == "explosive") {
                     damage_mod_for_one_shot = get_damage_mod_explosive();
@@ -1310,14 +1299,12 @@ bool Ship::fire_weapon (const Quadtree<double, uint32_t>& quadtree_ships, RNG& r
                                                                  Game_Constants::SMOKE_POSITION_MAXIMUM);
                         }
 
-                        Game::create_effect("effect_smoke_" + Strings::num_to_string(rng.random_range(0,
-                                                                                                      2)), true,
+                        Game::create_effect("effect_smoke_" + Strings::num_to_string(rng.random_range(0, 2)), true,
                                             0.1 * (double) rng.random_range(10, 20), smoke_location, "",
                                             Vector(rng.random_range(0, 10), rng.random_range(0, 359)),
                                             rng.random_range(0, 359),
-                                            Vector(0.01 * rng.random_range(0, 50), rng.random_range(0,
-                                                                                                    359)), Game_Constants::EFFECT_LENGTH_SMOKE, false,
-                                            Coords<double>(), "white");
+                                            Vector(0.01 * rng.random_range(0, 50), rng.random_range(0, 359)),
+                                            Game_Constants::EFFECT_LENGTH_SMOKE, false, Coords<double>(), "white");
                     }
                 } else if (damage_type == "energy") {
                     damage_mod_for_one_shot = get_damage_mod_energy();
@@ -1349,13 +1336,12 @@ bool Ship::fire_weapon (const Quadtree<double, uint32_t>& quadtree_ships, RNG& r
                                                                  Game_Constants::SMOKE_POSITION_MAXIMUM);
                         }
 
-                        Game::create_effect("effect_plasma_smoke_0", true, 0.1 * (double) rng.random_range(10,
-                                                                                                           20), smoke_location, "",
-                                            Vector(rng.random_range(
-                                                       0, 10), rng.random_range(0, 359)), rng.random_range(0, 359),
-                                            Vector(0.01 * rng.random_range(0, 50), rng.random_range(0,
-                                                                                                    359)), Game_Constants::EFFECT_LENGTH_SMOKE, false,
-                                            Coords<double>(), "white");
+                        Game::create_effect("effect_plasma_smoke_0", true, 0.1 * (double) rng.random_range(10, 20),
+                                            smoke_location, "",
+                                            Vector(rng.random_range(0, 10), rng.random_range(0, 359)),
+                                            rng.random_range(0, 359),
+                                            Vector(0.01 * rng.random_range(0, 50), rng.random_range(0, 359)),
+                                            Game_Constants::EFFECT_LENGTH_SMOKE, false, Coords<double>(), "white");
                     }
                 }
 
@@ -1368,8 +1354,8 @@ bool Ship::fire_weapon (const Quadtree<double, uint32_t>& quadtree_ships, RNG& r
                 }
 
                 Game::create_shot(own_index, upgrade->shot_type, get_faction(), upgrade->name,
-                                  Coords<double>(box.center_x(), box.center_y()), box.get_angle_to_rect(
-                                      ship.get_box()) + angle_variation, actual_damage_mod);
+                                  Coords<double>(box.center_x(), box.center_y()),
+                                  box.get_angle_to_rect(ship.get_box()) + angle_variation, actual_damage_mod);
             }
 
             if (upgrade->sound.length() > 0) {
@@ -1528,11 +1514,10 @@ bool Ship::fire_point_defense (RNG& rng, const Quadtree<double, uint32_t>& quadt
             Game::create_explosion("explosion_missile",
                                    "explosion_missile_" + Strings::num_to_string(rng.random_range(0, 2)),
                                    Coords<double>(shot.get_box().center_x(), shot.get_box().center_y()),
-                                   shot.get_damage(),
-                                   shot.get_faction());
+                                   shot.get_damage(), shot.get_faction());
 
-            Game::create_effect("", true, 1.0, box.get_center(), "point_defense", Vector(), 0.0,
-                                Vector(), 1, true, shot.get_box().get_center(), "point_defense");
+            Game::create_effect("", true, 1.0, box.get_center(), "point_defense", Vector(), 0.0, Vector(), 1, true,
+                                shot.get_box().get_center(), "point_defense");
 
             Game::kill_shot((uint32_t) nearest_index);
 
@@ -1557,6 +1542,7 @@ void Ship::ai_select_target (uint32_t own_index, RNG& rng) {
 
         Vector select_target(Game_Constants::AI_PATROL_DISTANCE, rng.random_range(0, 359));
         Vector_Components vc = select_target.get_components();
+
         ai_target.x += vc.a;
         ai_target.y += vc.b;
     }
@@ -1626,6 +1612,7 @@ void Ship::ai (const Quadtree<double, uint32_t>& quadtree_ships, const Quadtree<
 
         if (get_faction() == "civilian") {
             vector<uint32_t> nearby_planets;
+
             quadtree_planets.get_objects(nearby_planets, box);
 
             unordered_set<uint32_t> collisions;
@@ -1636,6 +1623,7 @@ void Ship::ai (const Quadtree<double, uint32_t>& quadtree_ships, const Quadtree<
 
                     const Planet& planet = Game::get_planet(nearby_planets[i]);
                     vector<Coords<double>> vertices;
+
                     box.get_vertices(vertices, angle);
 
                     if (Game::is_object_over_planet(vertices, planet)) {
@@ -1696,13 +1684,15 @@ void Ship::ai (const Quadtree<double, uint32_t>& quadtree_ships, const Quadtree<
 void Ship::ai_determine_angle (const Quadtree<double, uint32_t>& quadtree_debris) {
     Vector angle_determinant(Game_Constants::AI_WEIGHT_TARGET, Math::get_angle_to_point(box.get_center(), ai_target));
 
-    if (!ai_ignore_angle_mods &&
-        Math::get_distance_between_points(box.get_center(), ai_target) > Game_Constants::AI_ANGLE_MOD_IGNORE_DISTANCE) {
+    if (!ai_ignore_angle_mods && Math::get_distance_between_points(box.get_center(),
+                                                                   ai_target) >
+        Game_Constants::AI_ANGLE_MOD_IGNORE_DISTANCE) {
         Collision_Rect<double> box_check(box.x - Game_Constants::AI_ANGLE_MOD_DISTANCE,
                                          box.y - Game_Constants::AI_ANGLE_MOD_DISTANCE,
-                                         box.w + Game_Constants::AI_ANGLE_MOD_DISTANCE*2.0,
-                                         box.h + Game_Constants::AI_ANGLE_MOD_DISTANCE*2.0);
+                                         box.w + Game_Constants::AI_ANGLE_MOD_DISTANCE * 2.0,
+                                         box.h + Game_Constants::AI_ANGLE_MOD_DISTANCE * 2.0);
         vector<uint32_t> nearby_debris;
+
         quadtree_debris.get_objects(nearby_debris, box_check);
 
         unordered_set<uint32_t> collisions;
@@ -1720,9 +1710,9 @@ void Ship::ai_determine_angle (const Quadtree<double, uint32_t>& quadtree_debris
                     object_distance = 0.0000001;
                 }
 
-                angle_determinant +=
-                    Vector((Game_Constants::AI_WEIGHT_AVOID_DEBRIS* object_size) / (object_distance * object_distance), Math::get_angle_to_point(
-                               box_debris.get_center(), box.get_center()));
+                angle_determinant += Vector((Game_Constants::AI_WEIGHT_AVOID_DEBRIS* object_size) /
+                                            (object_distance * object_distance),
+                                            Math::get_angle_to_point(box_debris.get_center(), box.get_center()));
             }
         }
     }
@@ -1802,8 +1792,9 @@ void Ship::rotation (bool is_player) {
     }
 }
 
-void Ship::movement (uint32_t own_index, const Quadtree<double, uint32_t>& quadtree_debris, const Quadtree<double,
-                                                                                                           uint32_t>& quadtree_shots, const Quadtree<double, uint32_t>& quadtree_explosions,
+void Ship::movement (uint32_t own_index, const Quadtree<double, uint32_t>& quadtree_debris,
+                     const Quadtree<double, uint32_t>& quadtree_shots,
+                     const Quadtree<double, uint32_t>& quadtree_explosions,
                      const Quadtree<double, uint32_t>& quadtree_items, RNG& rng) {
     bool is_player = own_index == 0;
 
@@ -1830,6 +1821,7 @@ void Ship::movement (uint32_t own_index, const Quadtree<double, uint32_t>& quadt
 
         if (!is_warping()) {
             vector<uint32_t> nearby_debris;
+
             quadtree_debris.get_objects(nearby_debris, box);
 
             unordered_set<uint32_t> collisions;
@@ -1841,6 +1833,7 @@ void Ship::movement (uint32_t own_index, const Quadtree<double, uint32_t>& quadt
 
                         const Debris& debris = Game::get_debris(nearby_debris[i]);
                         vector<Coords<double>> vertices_collision;
+
                         debris.get_collision_box().get_vertices(vertices_collision, debris.get_angle());
 
                         if (rng.random_range(0,
@@ -1856,8 +1849,7 @@ void Ship::movement (uint32_t own_index, const Quadtree<double, uint32_t>& quadt
                             take_damage(is_player, debris.get_debris_type()->damage,
                                         debris.get_debris_type()->damage_type,
                                         Coords<double>(box.x + rng.random_range(0, (uint32_t) box.w),
-                                                       box.y + rng.random_range(0,
-                                                                                (uint32_t) box.h)), damage_faction,
+                                                       box.y + rng.random_range(0, (uint32_t) box.h)), damage_faction,
                                         rng);
                         }
                     }
@@ -1867,6 +1859,7 @@ void Ship::movement (uint32_t own_index, const Quadtree<double, uint32_t>& quadt
             }
 
             vector<uint32_t> nearby_shots;
+
             quadtree_shots.get_objects(nearby_shots, box);
 
             collisions.clear();
@@ -1881,24 +1874,20 @@ void Ship::movement (uint32_t own_index, const Quadtree<double, uint32_t>& quadt
                         if (shot.is_alive() && (!shot.has_owner() || own_index != shot.get_owner_index())) {
                             Collision_Rect<double> box_shot = shot.get_collision_box();
                             vector<Coords<double>> vertices_collision;
+
                             box_shot.get_vertices(vertices_collision, shot.get_angle());
 
                             if (Collision::check_vertices_rect(get_collision_vertices(), vertices_collision)) {
                                 if (shot.get_shot_type()->damage_type == "explosive") {
                                     Game::create_explosion("explosion_missile",
                                                            "explosion_missile_" +
-                                                           Strings::num_to_string(rng.random_range(
-                                                                                      0,
-                                                                                      2)),
-                                                           Coords<double>(box_shot.center_x(),
-                                                                          box_shot.center_y()),
+                                                           Strings::num_to_string(rng.random_range(0, 2)),
+                                                           Coords<double>(box_shot.center_x(), box_shot.center_y()),
                                                            shot.get_damage(), shot.get_faction());
                                 } else {
                                     take_damage(is_player, shot.get_damage(), shot.get_shot_type()->damage_type,
                                                 Coords<double>(box.x + rng.random_range(0, (uint32_t) box.w),
-                                                               box.y + rng.random_range(0,
-                                                                                        (
-                                                                                            uint32_t) box.h)),
+                                                               box.y + rng.random_range(0, (uint32_t) box.h)),
                                                 shot.get_faction(), rng);
                                 }
 
@@ -1912,6 +1901,7 @@ void Ship::movement (uint32_t own_index, const Quadtree<double, uint32_t>& quadt
             }
 
             vector<uint32_t> nearby_explosions;
+
             quadtree_explosions.get_objects(nearby_explosions, box);
 
             collisions.clear();
@@ -1924,8 +1914,8 @@ void Ship::movement (uint32_t own_index, const Quadtree<double, uint32_t>& quadt
                         const Explosion& explosion = Game::get_explosion(nearby_explosions[i]);
 
                         if (explosion.is_alive() && !was_damaged_by_explosion(nearby_explosions[i])) {
-                            Coords<double> collision_center = Collision::get_vertices_center_rect(
-                                get_collision_vertices());
+                            Coords<double> collision_center =
+                                Collision::get_vertices_center_rect(get_collision_vertices());
 
                             if (Collision::check_circ(explosion.get_circle(),
                                                       Collision_Circ<double>(collision_center.x, collision_center.y,
@@ -1944,7 +1934,8 @@ void Ship::movement (uint32_t own_index, const Quadtree<double, uint32_t>& quadt
                                             if (Game::notoriety_tier_1() || Game::notoriety_tier_2()) {
                                                 Game::increase_notoriety(Game_Constants::NOTORIETY_INCREASE_SCAN);
                                             } else {
-                                                Game::increase_notoriety(Game_Constants::NOTORIETY_INCREASE_SCAN_INITIAL);
+                                                Game::increase_notoriety(
+                                                    Game_Constants::NOTORIETY_INCREASE_SCAN_INITIAL);
                                             }
                                         }
                                     }
@@ -1953,8 +1944,7 @@ void Ship::movement (uint32_t own_index, const Quadtree<double, uint32_t>& quadt
                                 } else {
                                     take_damage(is_player, explosion.get_damage(), "explosive",
                                                 Coords<double>(box.x + rng.random_range(0, (uint32_t) box.w),
-                                                               box.y + rng.random_range(0,
-                                                                                        (uint32_t) box.h)),
+                                                               box.y + rng.random_range(0, (uint32_t) box.h)),
                                                 explosion.get_faction(), rng);
                                 }
                             }
@@ -1967,6 +1957,7 @@ void Ship::movement (uint32_t own_index, const Quadtree<double, uint32_t>& quadt
 
             if (is_player) {
                 vector<uint32_t> nearby_items;
+
                 quadtree_items.get_objects(nearby_items, box);
 
                 collisions.clear();
@@ -2018,6 +2009,7 @@ void Ship::movement (uint32_t own_index, const Quadtree<double, uint32_t>& quadt
 
         vector<Coords<double>> vertices;
         Collision_Rect<double> shadow_box = box;
+
         shadow_box.w += Game_Constants::SHADOW_OFFSET;
         shadow_box.h += Game_Constants::SHADOW_OFFSET;
         shadow_box.get_vertices(vertices, angle);
@@ -2064,7 +2056,7 @@ void Ship::animate (bool tractoring) {
             (get_faction() == "police" && ai_proximity_target_is_player() && !is_disabled(false) &&
              (Game::notoriety_tier_1() || Game::notoriety_tier_2()))) {
             if (++sound_cooldown_chasing_player >=
-                Game_Constants::CHASING_PLAYER_SOUND_RATE* Engine::UPDATE_RATE / 1000) {
+                Game_Constants::CHASING_PLAYER_SOUND_RATE * Engine::UPDATE_RATE / 1000) {
                 sound_cooldown_chasing_player = 0;
 
                 Sound_Manager::play_sound("siren", box.center_x(), box.center_y());
@@ -2106,11 +2098,10 @@ void Ship::render (bool tractoring, bool is_player) {
                 }
 
                 if (cast_shadow) {
-                    sprite.render(
-                        (box.x + Game_Constants::SHADOW_OFFSET) * Game_Manager::camera_zoom - Game_Manager::camera.x,
-                        (box.y + Game_Constants::SHADOW_OFFSET) * Game_Manager::camera_zoom - Game_Manager::camera.y,
-                        0.25,
-                        scale * 0.65, scale * 0.65, angle_to_use, "ui_black");
+                    sprite.render((box.x + Game_Constants::SHADOW_OFFSET) * Game_Manager::camera_zoom -
+                                  Game_Manager::camera.x,
+                                  (box.y + Game_Constants::SHADOW_OFFSET) * Game_Manager::camera_zoom -
+                                  Game_Manager::camera.y, 0.25, scale * 0.65, scale * 0.65, angle_to_use, "ui_black");
                 }
 
                 sprite.render(box.x * Game_Manager::camera_zoom - Game_Manager::camera.x,
@@ -2123,6 +2114,7 @@ void Ship::render (bool tractoring, bool is_player) {
                                                  box.y - Game_Constants::DODGE_RANGE,
                                                  box.w + Game_Constants::DODGE_RANGE*2.0,
                                                  box.h + Game_Constants::DODGE_RANGE*2.0);
+
                 Render::render_rectangle(dodge_box.x * Game_Manager::camera_zoom - Game_Manager::camera.x,
                                          dodge_box.y * Game_Manager::camera_zoom - Game_Manager::camera.y, dodge_box.w,
                                          dodge_box.h, 0.25, "text_input_blue");
@@ -2133,12 +2125,14 @@ void Ship::render (bool tractoring, bool is_player) {
                     uint32_t start_vertex = (uint32_t) i;
                     uint32_t end_vertex = (i < vertices_collision.size() - 1) ? start_vertex + 1 : 0;
 
-                    Render::render_line(
-                        vertices_collision[start_vertex].x * Game_Manager::camera_zoom - Game_Manager::camera.x,
-                        vertices_collision[start_vertex].y * Game_Manager::camera_zoom - Game_Manager::camera.y,
-                        vertices_collision[end_vertex].x * Game_Manager::camera_zoom - Game_Manager::camera.x,
-                        vertices_collision[end_vertex].y * Game_Manager::camera_zoom - Game_Manager::camera.y, 1.0,
-                        "red");
+                    Render::render_line(vertices_collision[start_vertex].x * Game_Manager::camera_zoom -
+                                        Game_Manager::camera.x,
+                                        vertices_collision[start_vertex].y * Game_Manager::camera_zoom -
+                                        Game_Manager::camera.y,
+                                        vertices_collision[end_vertex].x * Game_Manager::camera_zoom -
+                                        Game_Manager::camera.x,
+                                        vertices_collision[end_vertex].y * Game_Manager::camera_zoom -
+                                        Game_Manager::camera.y, 1.0, "red");
                 }
             }
         }
@@ -2148,10 +2142,12 @@ void Ship::render (bool tractoring, bool is_player) {
             double x = box.center_x() - tractor_sprite.get_width() / 2.0;
             double y = box.center_y() - tractor_sprite.get_height() / 2.0;
             Coords<double> box_side(box.x + box.w, box.center_y());
+
             box_side = Math::rotate_point(box_side, box.get_center(), angle);
 
             Vector move_sprite(Math::get_distance_between_points(box.get_center(), box_side), angle);
             Vector_Components vc = move_sprite.get_components();
+
             x += vc.a;
             y += vc.b;
 

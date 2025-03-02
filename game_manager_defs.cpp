@@ -171,10 +171,11 @@ void Game_Manager::render_title_background () {
         Bitmap_Font* font = Object_Manager::get_font("large");
 
         font->show(0.0, Game_Window::height() - font->spacing_y * 2.0,
-                   "Version: " + Engine_Version::get_version() + " " + Engine_Version::get_status() + "\nChecksum: " + Engine::CHECKSUM,
-                   "ui_0");
+                   "Version: " + Engine_Version::get_version() + " " + Engine_Version::get_status() + "\nChecksum: " +
+                   Engine::CHECKSUM, "ui_0");
 
         Image_Data* title_image = Image_Manager::get_image("title");
+
         Render::render_texture(Game_Window::width() / 2.0 - title_image->w / 2.0, 24.0, title_image);
     }
 }
@@ -187,11 +188,10 @@ void Game_Manager::render_scoreboard () {
 
         Render::render_rectangle(0.0, 0.0, Game_Window::width(), Game_Window::height(), 0.5, "ui_black");
 
-        font->show(72.0, (Game_Window::height() - (Strings::newline_count(
-                                                       name_list) + 1) * font->spacing_y) / 2.0, name_list, "ui_white");
-        font->show(168.0, (Game_Window::height() - (Strings::newline_count(
-                                                        ping_list) + 1) * font->spacing_y) / 2.0, ping_list,
-                   "ui_white");
+        font->show(72.0, (Game_Window::height() - (Strings::newline_count(name_list) + 1) * font->spacing_y) / 2.0,
+                   name_list, "ui_white");
+        font->show(168.0, (Game_Window::height() - (Strings::newline_count(ping_list) + 1) * font->spacing_y) / 2.0,
+                   ping_list, "ui_white");
     }
 }
 
@@ -204,8 +204,9 @@ void Game_Manager::render_pause () {
 }
 
 void Game_Manager::render_fps (int render_rate, double ms_per_frame, int logic_frame_rate) {
-    Object_Manager::get_font("large")->show(2.0, 2.0, "FPS: " + Strings::num_to_string(
-                                                render_rate) + "\n" + Network_Engine::get_stats(), "ui_0");
+    Object_Manager::get_font("large")->show(2.0, 2.0,
+                                            "FPS: " + Strings::num_to_string(render_rate) + "\n" +
+                                            Network_Engine::get_stats(), "ui_0");
 }
 
 void Game_Manager::render_loading_screen (const Progress_Bar& bar, string message) {
@@ -242,12 +243,10 @@ void Game_Manager::render_loading_screen (const Progress_Bar& bar, string messag
                 Bitmap_Font* font = Object_Manager::get_font("standard");
                 string msg = Strings::num_to_string((int) (percentage * 100.0)) + "%";
 
-                font->show(
-                    (screen_width - (double) msg.length() * (double) font->spacing_x) / 2.0, screen_height - offset + 6, msg,
-                    "ui_0");
-                font->show(
-                    (screen_width - (double) message.length() * (double) font->spacing_x) / 2.0, screen_height - offset + back_thickness * 2.0 + font->spacing_y * 1.5, message,
-                    "ui_0");
+                font->show((screen_width - (double) msg.length() * (double) font->spacing_x) / 2.0,
+                           screen_height - offset + 6, msg, "ui_0");
+                font->show((screen_width - (double) message.length() * (double) font->spacing_x) / 2.0,
+                           screen_height - offset + back_thickness * 2.0 + font->spacing_y * 1.5, message, "ui_0");
             }
         }
 

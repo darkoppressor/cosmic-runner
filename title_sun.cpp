@@ -44,8 +44,9 @@ void Title_Sun_Shimmer::draw_circle (SDL_Surface* surface, int32_t x_coord, int3
                 if (Collision::check_circ(Collision_Circ<double>(x, y, 0.0),
                                           Collision_Circ<double>(x_coord, y_coord, radius))) {
                     Color current_color = Pixels::surface_get_pixel(surface, x, y);
-                    current_color.set(current_color.get_red(), current_color.get_green(),
-                                      current_color.get_blue(), short(current_color.get_alpha() / 2));
+
+                    current_color.set(current_color.get_red(), current_color.get_green(), current_color.get_blue(),
+                                      short(current_color.get_alpha() / 2));
                     Pixels::surface_put_pixel(surface, x, y, current_color);
                 }
             }
@@ -147,8 +148,9 @@ void Title_Sun::animate (RNG& rng) {
     if (++shimmer_spawn >= Game_Constants::TITLE_SUN_SHIMMER_SPAWN_RATE* Engine::UPDATE_RATE / 1000) {
         shimmer_spawn = 0;
 
-        if (shimmers.size() < Game_Constants::TITLE_MAX_SUN_SHIMMERS &&
-            rng.random_range(0, 99) < Game_Constants::TITLE_SUN_SHIMMER_SPAWN_CHANCE) {
+        if (shimmers.size() < Game_Constants::TITLE_MAX_SUN_SHIMMERS && rng.random_range(0,
+                                                                                         99) <
+            Game_Constants::TITLE_SUN_SHIMMER_SPAWN_CHANCE) {
             double y_right_mod = rng.random_range(Game_Constants::TITLE_SUN_SHIMMER_Y_RIGHT_MOD_MIN,
                                                   Game_Constants::TITLE_SUN_SHIMMER_Y_RIGHT_MOD_MAX);
 
