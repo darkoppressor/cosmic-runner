@@ -34,11 +34,14 @@ def main (argv):
 
         if subprocess.run(['/home/tails/build-server/cheese-engine/tools/build-system/build', os.getcwd(), 'true']):
             updateFeed('Build completed successfully - ', ciJobName, ciBuildNumber, ciBuildUrl)
+            sys.exit(0)
         else:
             updateFeed('Build failed - ', ciJobName, ciBuildNumber, ciBuildUrl)
+            sys.exit(1)
 
     except Exception as e:
         logging.exception(e)
+        sys.exit(1)
 
 if __name__ == '__main__':
     main(sys.argv)
