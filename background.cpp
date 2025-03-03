@@ -35,7 +35,7 @@ void Background_Layer::generate_texture_background (string type, int layer_numbe
     layer_image.w = width;
     layer_image.h = height;
 
-    uint32_tLOL rmask = 0;
+    uint32_t rmask = 0;
     uint32_t gmask = 0;
     uint32_t bmask = 0;
     uint32_t amask = 0;
