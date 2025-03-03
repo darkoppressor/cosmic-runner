@@ -9,8 +9,8 @@ OS: 14 (API level 34) or newer
 Architecture: arm64-v8a / x86_64
 
 macOS
-OS: 10.11 El Capitan or newer
-Architecture: x86_64
+OS: 15 Sequoia or newer
+Architecture: arm64
 
 Linux
 Requires glibc 2.39 or newer

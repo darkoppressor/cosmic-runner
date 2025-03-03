@@ -35,10 +35,9 @@ development/android/local.properties
 /*pyvenv.cfg
 
 /*Windows-x86_64.exe
-/*Windows-Debug-x86_64.exe
 /*Linux-x86_64
 /*Linux-Debug-x86_64
-/*macOS-x86_64
+/*macOS-arm64
 
 /*options.cfg
 /*game_commands.cfg
@@ -62,7 +61,7 @@ docs/build-information
 /*log-Release-Android
 /*log-Release-Linux-x86_64
 /*log-Debug-Linux-x86_64
-/*log-Release-macOS-x86_64
+/*log-Release-macOS-arm64
 /*log-Release-Windows-x86_64
 
 /*libsteam_api.so

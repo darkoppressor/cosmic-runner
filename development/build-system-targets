@@ -4,7 +4,7 @@
 
 Release-Linux-x86_64
 Release-Windows-x86_64
-Release-macOS-x86_64
+Release-macOS-arm64
 
 # A line beginning with 'Android' tells the build system to build for Android
 # The remainder of an Android line will be used to generate a new APP_ABI line in Application.mk
