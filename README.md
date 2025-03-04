@@ -23,19 +23,19 @@ Ship upgrades can be one of three categories:
 
 ## For players
 
-[System requirements](docs/systemRequirements.md)
-[Changelog](docs/changelog.md)
-[Android permissions](docs/androidPermissions.md)
+* [System requirements](docs/systemRequirements.md)
+* [Changelog](docs/changelog.md)
+* [Android permissions](docs/androidPermissions.md)
 
 ## For developers
 
-[Ideas](development/ideas.md)
-[To do](development/toDo.md)
+* [Ideas](development/ideas.md)
+* [To do](development/toDo.md)
 
-[Redesign](development/design/redesign.md)
-[Design](development/design/design.md)
-[Passives](development/design/passives.ods)
-[Ships](development/design/ships.ods)
+* [Redesign](development/design/redesign.md)
+* [Design](development/design/design.md)
+* [Passives](development/design/passives.ods)
+* [Ships](development/design/ships.ods)
 
 ### Updating the version
 
@@ -44,7 +44,7 @@ Ship upgrades can be one of three categories:
 
 In version.cpp:
 
-        Update the version series in Engine_Version::populate_version_series to include the new version
+    Update the version series in Engine_Version::populate_version_series to include the new version
 
 When an updated version has been pushed to main, tag the commit locally and remotely:
 
