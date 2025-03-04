@@ -30,7 +30,7 @@ In version.cpp:
 
 When an updated version has been pushed to main, tag the commit locally and remotely:
 
-    git tag <VERSION>
+    git tag <VERSION> -m "<VERSION>"
     git push origin tag <VERSION>
 
 ## License
