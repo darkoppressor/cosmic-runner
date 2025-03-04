@@ -1,9 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--
-  ~ Copyright (c) 2019 Cheese and Bacon Games, LLC
-  ~ This file is licensed under the MIT License.
-  ~ See the file docs/LICENSE.txt for the full license text.
-  -->
+<!-- Copyright (c) Cheese and Bacon Games, LLC. See docs/LICENSE.md for details. -->
 
 <!-- Replace com.test.game with the identifier of your game below, e.g.
      com.gamemaker.game
