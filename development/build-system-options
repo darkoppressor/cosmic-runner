@@ -3,5 +3,3 @@
 rebuild_images=true
 rebuild_music=true
 rebuild_sounds=true
-google_play_service_account=cosmic_runner_google_play_service.json
-android_package_name=org.cheeseandbacon.cosmicrunner
