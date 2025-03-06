@@ -5,7 +5,7 @@ OS: 10 or newer
 Architecture: x86_64
 
 Android
-OS: 14 (API level 34) or newer
+OS: 15 (API level 35) or newer
 Architecture: arm64-v8a / x86_64
 
 macOS
