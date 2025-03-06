@@ -10,7 +10,9 @@ if (buildAsApplication) {
 }
 
 android {
-    namespace 'org.cheeseandbacon.cosmicrunner'
+    if (buildAsApplication) {
+        namespace 'org.cheeseandbacon.cosmicrunner'
+    }
     buildToolsVersion project.buildToolsVersion
     ndkVersion project.ndkVersion
 
@@ -43,12 +45,12 @@ android {
         implementation fileTree(include: ['*.jar'], dir: 'libs')
 
         // Google Play Services
-        implementation 'com.google.android.gms:play-services-base:17.1.0'
-        implementation 'com.google.android.gms:play-services-auth:17.0.0'
-        implementation 'com.google.android.gms:play-services-games:18.0.1'
+        implementation 'com.google.android.gms:play-services-base:18.5.0'
+        implementation 'com.google.android.gms:play-services-auth:21.3.0'
+        implementation 'com.google.android.gms:play-services-games:23.2.0'
     }
 
-    lintOptions {
+    lint {
         abortOnError false
         checkReleaseBuilds false
     }

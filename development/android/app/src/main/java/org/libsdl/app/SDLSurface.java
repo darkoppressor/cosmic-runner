@@ -186,7 +186,7 @@ public class SDLSurface extends SurfaceView implements SurfaceHolder.Callback,
         int nDeviceHeight = height;
         try
         {
-            if (Build.VERSION.SDK_INT >= 17) {
+            if (Build.VERSION.SDK_INT >= 17 /* Android 4.2 (JELLY_BEAN_MR1) */) {
                 DisplayMetrics realMetrics = new DisplayMetrics();
                 mDisplay.getRealMetrics( realMetrics );
                 nDeviceWidth = realMetrics.widthPixels;
@@ -233,7 +233,7 @@ public class SDLSurface extends SurfaceView implements SurfaceHolder.Callback,
 
         // Don't skip in MultiWindow.
         if (skip) {
-            if (Build.VERSION.SDK_INT >= 24) {
+            if (Build.VERSION.SDK_INT >= 24 /* Android 7.0 (N) */) {
                 if (SDLActivity.mSingleton.isInMultiWindowMode()) {
                     Log.v("SDL", "Don't skip in Multi-Window");
                     skip = false;
