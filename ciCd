@@ -18,13 +18,13 @@ updateFeed () {
 }
 
 if [ -n "$CI_JOB_NAME" ] && [ -n "$CI_BUILD_NUMBER" ] && [ -n "$CI_BUILD_URL" ]; then
-	updateFeed "Build started - " "CI_JOB_NAME" "CI_BUILD_NUMBER" "CI_BUILD_URL"
+	updateFeed "Build started - " "$CI_JOB_NAME" "$CI_BUILD_NUMBER" "$CI_BUILD_URL"
 
 	if /home/tails/build-server/cheese-engine/tools/build-system/build "$(pwd)" "true" ; then
-		updateFeed "Build completed successfully - " "CI_JOB_NAME" "CI_BUILD_NUMBER" "CI_BUILD_URL"
+		updateFeed "Build completed successfully - " "$CI_JOB_NAME" "$CI_BUILD_NUMBER" "$CI_BUILD_URL"
 		exit 0
 	else
-		updateFeed "Build failed - " "CI_JOB_NAME" "CI_BUILD_NUMBER" "CI_BUILD_URL"
+		updateFeed "Build failed - " "$CI_JOB_NAME" "$CI_BUILD_NUMBER" "$CI_BUILD_URL"
 		exit 1
 	fi
 else
