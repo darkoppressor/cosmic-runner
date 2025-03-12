@@ -69,7 +69,7 @@ target_include_directories(Release-Linux-x86_64 PRIVATE
 /home/tails/build-server/linux-x86_64/boost/
 /home/tails/build-server/linux-x86_64/raknet/
 /home/tails/build-server/linux-x86_64/zlib/
-/home/tails/build-server/cheese-engine
+/home/tails/build-server/cheese-engine/src/
 )
 
 target_link_libraries(Release-Linux-x86_64
@@ -112,7 +112,7 @@ target_include_directories(Debug-Linux-x86_64 PRIVATE
 /home/tails/build-server/linux-x86_64/boost/
 /home/tails/build-server/linux-x86_64/raknet/
 /home/tails/build-server/linux-x86_64/zlib/
-/home/tails/build-server/cheese-engine
+/home/tails/build-server/cheese-engine/src/
 )
 
 target_link_libraries(Debug-Linux-x86_64
@@ -157,7 +157,7 @@ target_include_directories(Release-Windows-x86_64 PRIVATE
 /home/tails/build-server/windows-x86_64/boost/
 /home/tails/build-server/windows-x86_64/raknet/
 /home/tails/build-server/windows-x86_64/zlib/
-/home/tails/build-server/cheese-engine
+/home/tails/build-server/cheese-engine/src/
 )
 
 target_link_libraries(Release-Windows-x86_64
@@ -209,7 +209,7 @@ target_include_directories(Release-macOS-arm64 PRIVATE
 /home/tails/build-server/macos-arm64/boost/
 /home/tails/build-server/macos-arm64/raknet/
 /home/tails/build-server/macos-arm64/zlib/
-/home/tails/build-server/cheese-engine
+/home/tails/build-server/cheese-engine/src/
 )
 
 target_link_libraries(Release-macOS-arm64
