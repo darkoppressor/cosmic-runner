@@ -51,7 +51,7 @@ development/android/local.properties
 /*_TEMPORARY
 /*_BACKUP
 
-docs/build-information
+docs/buildInformation.md
 
 /*CMakeCache.txt
 /*Makefile
