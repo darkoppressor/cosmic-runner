@@ -17,7 +17,6 @@ src/effect.cpp
 src/engine_glue.cpp
 src/explosion.cpp
 src/game.cpp
-src/game.rc
 src/high_score_table.cpp
 src/high_score.cpp
 src/game_constants.cpp
@@ -46,6 +45,7 @@ src/upgrade.cpp
 src/version.cpp
 src/window_close_function.cpp
 src/window_scrolling_buttons.cpp
+game.rc
 )
 
 ########################################################################################################################
