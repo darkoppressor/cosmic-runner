@@ -4,7 +4,7 @@
 // The constant is ignored completely by the script, and it is in no way added to the source code
 //
 // <script_no_declare>
-// The constant is not declared in src/game_constants.h, and is not given an initial value in src/game_constants.cpp
+// The constant is not declared in src/game/game_constants.h, and is not given an initial value in src/game/game_constants.cpp
 //
 // type:TYPE
 // The constant is declared, initialized, and setup according to its type
