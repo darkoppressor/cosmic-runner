@@ -1,7 +1,7 @@
 /* Copyright (c) Cheese and Bacon Games, LLC. See docs/LICENSE.md for details. */
 
 #include "main.h"
-#include "game_data.h"
+#include "game/game_data.h"
 
 #include <main_startup.h>
 
