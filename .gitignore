@@ -29,7 +29,18 @@ development/android/jni/include/boost/**
 development/android/jni/include/cheese-engine/**
 development/android/jni/arm64-v8a/**
 development/android/jni/x86_64/**
+development/android/build.gradle
+development/android/gradle.properties
+development/android/gradlew
+development/android/gradlew.bat
 development/android/local.properties
+development/android/repositories.gradle
+development/android/settings.gradle
+development/android/gradle/**
+development/android/app/build.gradle
+development/android/app/proguard-rules.pro
+development/android/app/src/java/org/libsdl/**
+development/android/app/jni/**
 
 /*lib64
 /*pyvenv.cfg
