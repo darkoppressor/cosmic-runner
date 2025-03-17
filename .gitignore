@@ -16,19 +16,9 @@ data/sounds/**
 !data/sounds/.gitkeep
 
 development/android/.gradle/**
-development/android/assets/**
-development/android/bin/**
-development/android/gen/**
-development/android/libs/**
-development/android/obj/**
-development/android/jni/include/SDL2/**
-development/android/jni/include/SDL2_image/**
-development/android/jni/include/SDL2_mixer/**
-development/android/jni/include/RakNet/**
-development/android/jni/include/boost/**
-development/android/jni/include/cheese-engine/**
-development/android/jni/arm64-v8a/**
-development/android/jni/x86_64/**
+development/android/build/**
+development/android/app/build/**
+development/android/app/src/main/assets/**
 development/android/build.gradle
 development/android/gradle.properties
 development/android/gradlew
@@ -39,7 +29,7 @@ development/android/settings.gradle
 development/android/gradle/**
 development/android/app/build.gradle
 development/android/app/proguard-rules.pro
-development/android/app/src/java/org/libsdl/**
+development/android/app/src/main/java/org/libsdl/**
 development/android/app/jni/**
 
 /*lib64
@@ -74,6 +64,7 @@ docs/buildInformation.md
 /*log-Debug-Linux-x86_64
 /*log-Release-macOS-arm64
 /*log-Release-Windows-x86_64
+/*log-build-system
 
 /*libsteam_api.so
 /*libsteam_api.dylib

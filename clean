@@ -93,6 +93,7 @@ rm -f "log-Release-Linux-x86_64"
 rm -f "log-Debug-Linux-x86_64"
 rm -f "log-Release-macOS-arm64"
 rm -f "log-Release-Windows-x86_64"
+rm -f "log-build-system"
 
 rm -f "libsteam_api.so"
 rm -f "libsteam_api.dylib"
