@@ -1,0 +1,12 @@
+#!/bin/bash
+
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+cd $DIR
+
+if /home/tails/build-server/cheese-engine/tools/build-system/scripts/build-target "$(pwd)" "Release-Linux-x86_64" ; then
+    echo "Build completed successfully"
+    exit 0
+else
+    echo "Build failed"
+    exit 1
+fi
