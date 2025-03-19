@@ -29,9 +29,9 @@ Ship upgrades can be one of three categories:
 
 ## For developers
 
-* [Ideas](development/ideas.md)
 * [To do](development/toDo.md)
 
+* [Ideas](development/design/ideas.md)
 * [Redesign](development/design/redesign.md)
 * [Design](development/design/design.md)
 * [Passives](development/design/passives.ods)
