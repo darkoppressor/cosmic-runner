@@ -174,11 +174,11 @@ void Game::dodge_check () {
 
                     increase_score(Game_Constants::POINT_VALUE_DODGE);
 
-                    create_effect("effect_" + debris.get_debris_type()->sprite, true, 1.0,
-                                  debris.get_box().get_center(), "", Vector(0.0, 0.0), debris.get_angle(),
-                                  debris.get_angular_velocity(), 1, false, Coords<double>());
+                    create_effect(debris.get_debris_type()->sprite_effect, true, 1.0, debris.get_box().get_center(), "",
+                                  Vector(0.0, 0.0), debris.get_angle(), debris.get_angular_velocity(), 1, false,
+                                  Coords<double>());
 
-                    Sound_Manager::play_sound("dodge");
+                    Sound_Manager::play_sound("player/dodge");
                 }
             }
         }
@@ -754,7 +754,7 @@ void Game::arrest_player () {
 
     Engine::make_toast("Arrested");
 
-    Sound_Manager::play_sound("arrested");
+    Sound_Manager::play_sound("player/arrested");
 }
 
 void Game::restore_hull_from_contract () {
@@ -799,7 +799,7 @@ void Game::land (uint32_t landing_planet_index) {
 
         Window_Manager::get_window("select_upgrade")->toggle_on(true, true);
 
-        Sound_Manager::play_sound("contract_completed");
+        Sound_Manager::play_sound("player/contract_completed");
     } else if (!player_has_contract()) {
         assign_new_contract((uint32_t) landed_planet);
 
@@ -809,7 +809,7 @@ void Game::land (uint32_t landing_planet_index) {
 
         Engine::make_toast("New contract acquired");
 
-        Sound_Manager::play_sound("contract_acquired");
+        Sound_Manager::play_sound("player/contract_acquired");
     }
 }
 
@@ -1034,7 +1034,7 @@ void Game::player_brake (bool brake) {
 void Game::player_toggle_weapons () {
     get_player().toggle_weapons();
 
-    Sound_Manager::play_sound("toggle_weapons");
+    Sound_Manager::play_sound("player/toggle_weapons");
 }
 
 void Game::player_use_active () {
@@ -1399,7 +1399,7 @@ void Game::game_over (string cause_of_death) {
 
     Window_Manager::get_window("game_over")->toggle_on(true, true);
 
-    Sound_Manager::play_sound("game_over");
+    Sound_Manager::play_sound("player/game_over");
 }
 
 void Game::handle_repeating_sounds () {
@@ -1409,7 +1409,7 @@ void Game::handle_repeating_sounds () {
         if (++sound_cooldown_disabled >= Game_Constants::DISABLED_SOUND_RATE * Engine::UPDATE_RATE / 1000) {
             sound_cooldown_disabled = 0;
 
-            Sound_Manager::play_sound("disabled");
+            Sound_Manager::play_sound("player/disabled");
         }
     } else {
         double player_hull_percentage = (double) player.get_hull() / (double) player.get_hull_max();
@@ -1418,7 +1418,7 @@ void Game::handle_repeating_sounds () {
             ++sound_cooldown_low_hull >= Game_Constants::LOW_HULL_SOUND_RATE* Engine::UPDATE_RATE / 1000) {
             sound_cooldown_low_hull = 0;
 
-            Sound_Manager::play_sound("low_hull");
+            Sound_Manager::play_sound("player/low_hull");
         }
     }
 }

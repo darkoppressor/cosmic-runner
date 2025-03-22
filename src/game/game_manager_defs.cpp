@@ -172,7 +172,7 @@ void Game_Manager::render_title_background () {
                    "Version: " + Engine_Version::get_version() + " " + Engine_Version::get_status() + "\nChecksum: " +
                    Engine::CHECKSUM, "ui_0");
 
-        Image_Data* title_image = Image_Manager::get_image("title");
+        Image_Data* title_image = Image_Manager::get_image("title/title");
 
         Render::render_texture(Game_Window::width() / 2.0 - title_image->w / 2.0, 24.0, title_image);
     }

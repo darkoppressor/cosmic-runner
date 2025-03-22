@@ -13,8 +13,8 @@
 	<button>
 		location:550,64
 		states:Off,On
-		sound_moused:moused_1
-		sound_click:click_1
+		sound_moused:ui/moused_1
+		sound_click:ui/click_1
 	</button>
 
 	<info>
@@ -25,8 +25,8 @@
 	<button>
 		location:440,108
 		states:Off,On
-		sound_moused:moused_2
-		sound_click:click_2
+		sound_moused:ui/moused_2
+		sound_click:ui/click_2
 	</button>
 
 	<info>
@@ -37,8 +37,8 @@
 	<button>
 		location:440,152
 		states:Off,On
-		sound_moused:moused_3
-		sound_click:click_3
+		sound_moused:ui/moused_3
+		sound_click:ui/click_3
 	</button>
 
 	<info>
@@ -49,8 +49,8 @@
 	<button>
 		location:440,196
 		states:Off,On
-		sound_moused:moused_1
-		sound_click:click_1
+		sound_moused:ui/moused_1
+		sound_click:ui/click_1
 	</button>
 
 	<info>
@@ -61,40 +61,40 @@
 	<button>
 		location:620,240
 		states:Low,Medium,High
-		sound_moused:moused_2
-		sound_click:click_2
+		sound_moused:ui/moused_2
+		sound_click:ui/click_2
 	</button>
 
 	<button>
 		location:2,284
 		text:Configure Commands
 		event:configure_commands
-		sound_moused:moused_3
-		sound_click:click_3
+		sound_moused:ui/moused_3
+		sound_click:ui/click_3
 	</button>
 
 	<button>
 		location:480,284
 		text:OK
 		event:options_input
-		sound_moused:moused_1
-		sound_click:click_1
+		sound_moused:ui/moused_1
+		sound_click:ui/click_1
 	</button>
 
 	<button>
 		location:560,284
 		text:Apply
 		event:options_input_apply
-		sound_moused:moused_2
-		sound_click:click_2
+		sound_moused:ui/moused_2
+		sound_click:ui/click_2
 	</button>
 
 	<button>
 		location:710,284
 		text:Cancel
 		event:close_window
-		sound_moused:moused_3
-		sound_click:click_3
+		sound_moused:ui/moused_3
+		sound_click:ui/click_3
 	</button>
 
 </window>

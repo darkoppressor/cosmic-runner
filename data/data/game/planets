@@ -1,41 +1,41 @@
 <planet>
 	name:planet_0
-	sprite:planet_0
+	sprite:planets/planet_0
 	minimap_color:planet_0_minimap
 	cloud_color:planet_0_clouds
 </planet>
 
 <planet>
 	name:planet_1
-	sprite:planet_1
+	sprite:planets/planet_1
 	minimap_color:planet_1_minimap
 	cloud_color:planet_1_clouds
 </planet>
 
 <planet>
 	name:planet_2
-	sprite:planet_2
+	sprite:planets/planet_2
 	minimap_color:planet_2_minimap
 	cloud_color:planet_2_clouds
 </planet>
 
 <planet>
 	name:planet_3
-	sprite:planet_3
+	sprite:planets/planet_3
 	minimap_color:planet_3_minimap
 	cloud_color:planet_3_clouds
 </planet>
 
 <planet>
 	name:planet_4
-	sprite:planet_4
+	sprite:planets/planet_4
 	minimap_color:planet_4_minimap
 	cloud_color:planet_4_clouds
 </planet>
 
 <planet>
 	name:planet_5
-	sprite:planet_5
+	sprite:planets/planet_5
 	minimap_color:planet_5_minimap
 	cloud_color:planet_5_clouds
 </planet>

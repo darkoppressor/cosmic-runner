@@ -1,8 +1,8 @@
 <shot>
 	name:bullet
-	sprite:shot_bullet
-	death_sprite:effect_shot_death_bullet
-	death_sound:effect_shot_death_bullet
+	sprite:ships/shot_bullet
+	death_sprite:effects/effect_shot_death_bullet
+	death_sound:effects/effect_shot_death_bullet
 	collision_percentage:0.9
 	mass:10.0
 	damage_type:solid
@@ -11,9 +11,9 @@
 
 <shot>
 	name:plasma_blast
-	sprite:shot_plasma_blast
-	death_sprite:effect_shot_death_plasma_blast
-	death_sound:effect_shot_death_plasma_blast
+	sprite:ships/shot_plasma_blast
+	death_sprite:effects/effect_shot_death_plasma_blast
+	death_sound:effects/effect_shot_death_plasma_blast
 	collision_percentage:0.9
 	mass:10.0
 	damage_type:energy
@@ -22,7 +22,7 @@
 
 <shot>
 	name:missile
-	sprite:shot_missile
+	sprite:ships/shot_missile
 	death_sprite:
 	death_sound:
 	collision_percentage:0.9
@@ -33,7 +33,7 @@
 
 <shot>
 	name:guided_missile
-	sprite:shot_missile
+	sprite:ships/shot_missile
 	death_sprite:
 	death_sound:
 	collision_percentage:0.9

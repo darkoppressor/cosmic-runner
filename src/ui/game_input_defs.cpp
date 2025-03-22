@@ -250,7 +250,7 @@ bool Game_Manager::handle_game_command (string command_name) {
             }
 
             if (!landed) {
-                Sound_Manager::play_sound("cannot_land");
+                Sound_Manager::play_sound("player/cannot_land");
             }
 
             return true;
@@ -263,9 +263,8 @@ bool Game_Manager::handle_game_command (string command_name) {
                     Game::cancel_contract();
 
                     for (uint32_t i = 0; i < 5; i++) {
-                        Game::create_effect("effect_cargo_" + Strings::num_to_string(Game::get_rng().random_range(0,
-                                                                                                                  0)),
-                                            true, 1.0,
+                        Game::create_effect("effects/effect_cargo_" +
+                                            Strings::num_to_string(Game::get_rng().random_range(0, 0)), true, 1.0,
                                             Coords<double>(player.get_box().center_x(), player.get_box().center_y()),
                                             "",
                                             Vector(Game::get_rng().random_range(0, 10),
@@ -278,12 +277,12 @@ bool Game_Manager::handle_game_command (string command_name) {
 
                     dropped = true;
 
-                    Sound_Manager::play_sound("drop_cargo");
+                    Sound_Manager::play_sound("player/drop_cargo");
                 }
             }
 
             if (!dropped) {
-                Sound_Manager::play_sound("cannot_drop_cargo");
+                Sound_Manager::play_sound("player/cannot_drop_cargo");
             }
 
             return true;
@@ -291,7 +290,7 @@ bool Game_Manager::handle_game_command (string command_name) {
             if (!Game::get_player_const().is_disabled(true) && !Game::get_player_const().is_warping()) {
                 Game::player_toggle_weapons();
             } else {
-                Sound_Manager::play_sound("cannot_toggle_weapons");
+                Sound_Manager::play_sound("player/cannot_toggle_weapons");
             }
 
             return true;
@@ -299,7 +298,7 @@ bool Game_Manager::handle_game_command (string command_name) {
             if (Game::get_player_const().can_use_active(true)) {
                 Game::player_use_active();
             } else {
-                Sound_Manager::play_sound("cannot_use_active");
+                Sound_Manager::play_sound("player/cannot_use_active");
             }
 
             return true;

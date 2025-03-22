@@ -1,9 +1,9 @@
 <cursor>
 	name:standard
-	sprite:cursor_standard
+	sprite:ui/cursor_standard
 </cursor>
 
 <cursor>
 	name:mouse_over
-	sprite:cursor_mouse_over
+	sprite:ui/cursor_mouse_over
 </cursor>

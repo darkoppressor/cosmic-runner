@@ -10,6 +10,7 @@ class Debris_Type {
     public:
         std::string name;
         std::string sprite;
+        std::string sprite_effect;
         double collision_percentage;
         std::int32_t damage;
         std::string damage_type;

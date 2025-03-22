@@ -19,8 +19,8 @@
 		location:40,622
 		text:Google Play Games Leaderboards
 		event:gpg_show_all_leaderboards
-		sound_moused:moused_1
-		sound_click:click_1
+		sound_moused:ui/moused_1
+		sound_click:ui/click_1
 	</button>
 
 	<info>
@@ -32,8 +32,8 @@
 		location:40,666
 		text:Google Play Games Achievements
 		event:gpg_show_achievements
-		sound_moused:moused_2
-		sound_click:click_2
+		sound_moused:ui/moused_2
+		sound_click:ui/click_2
 	</button>
 
 </window>

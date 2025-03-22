@@ -67,7 +67,7 @@ void Planet::animate (RNG& rng) {
                     angle = 180.0;
                 }
 
-                Game::create_effect("effect_cloud_" + Strings::num_to_string(rng.random_range(0, 2)), true,
+                Game::create_effect("effects/effect_cloud_" + Strings::num_to_string(rng.random_range(0, 2)), true,
                                     0.1 * (double) rng.random_range(5, 30), location, "",
                                     Vector(rng.random_range(5, 15), angle), 0.0, Vector(0.0, 0.0), 0, false,
                                     Coords<double>(), get_planet_type()->cloud_color, "", true);

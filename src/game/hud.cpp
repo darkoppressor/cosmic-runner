@@ -18,7 +18,7 @@ using namespace std;
 Sprite Hud::notoriety_sprite;
 
 void Hud::setup () {
-    notoriety_sprite.set_name("hud_notoriety_tier");
+    notoriety_sprite.set_name("hud/hud_notoriety_tier");
 }
 
 void Hud::animate () {
@@ -41,7 +41,7 @@ void Hud::render_bar (string font_name, string font_color, string bar_color, con
     double bar_width = Game_Constants::HUD_MAX_BAR_WIDTH * percentage;
 
     if (show_background) {
-        Render::render_texture(position.x, position.y, Image_Manager::get_image("hud_bar_background"));
+        Render::render_texture(position.x, position.y, Image_Manager::get_image("hud/hud_bar_background"));
     }
 
     Render::render_rectangle(position.x + Game_Constants::HUD_BAR_OFFSET_X,

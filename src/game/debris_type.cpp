@@ -8,6 +8,7 @@ Debris_Type::Debris_Type () {
     name = "";
 
     sprite = "";
+    sprite_effect = "";
 
     collision_percentage = 0.0;
 

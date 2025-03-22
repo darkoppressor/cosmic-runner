@@ -254,9 +254,9 @@ void Shot::movement (RNG& rng, const Quadtree<double, uint32_t>& quadtree_debris
 
                     if (Collision::check_rect_rotated(box_collision, box_debris, angle, debris.get_angle())) {
                         if (get_shot_type()->damage_type == "explosive") {
-                            Game::create_explosion("explosion_missile",
-                                                   "explosion_missile_" + Strings::num_to_string(rng.random_range(0,
-                                                                                                                  2)),
+                            Game::create_explosion("explosions/explosion_missile",
+                                                   "explosions/explosion_missile_" +
+                                                   Strings::num_to_string(rng.random_range(0, 2)),
                                                    Coords<double>(box.center_x(), box.center_y()), get_damage(),
                                                    faction);
                         }
@@ -296,7 +296,7 @@ void Shot::animate (RNG& rng) {
                                               rng.random_range(vertices[Collision::VERTEX_UPPER_LEFT].y,
                                                                vertices[Collision::VERTEX_LOWER_LEFT].y));
 
-                Game::create_effect("effect_smoke_" + Strings::num_to_string(rng.random_range(0, 2)), true,
+                Game::create_effect("effects/effect_smoke_" + Strings::num_to_string(rng.random_range(0, 2)), true,
                                     0.1 * (double) rng.random_range(5, 15), smoke_location, "",
                                     Vector(rng.random_range(0, 10), rng.random_range(0, 359)), rng.random_range(0, 359),
                                     Vector(0.01 * rng.random_range(0, 50), rng.random_range(0, 359)),

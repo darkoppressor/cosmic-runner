@@ -11,10 +11,12 @@ data/images/**
 data/music/**
 data/sounds/**
 
-!data/data/windows/.gitkeep
+!data/data/ui/windows/.gitkeep
 !data/images/.gitkeep
 !data/music/.gitkeep
 !data/sounds/.gitkeep
+!development/Cosmic Runner.app/Contents/MacOS/.gitkeep
+!development/Cosmic Runner.app/Contents/Resources/.gitkeep
 !development/music/.gitkeep
 
 development/android/.gradle/**

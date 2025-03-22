@@ -1,6 +1,7 @@
 <debris>
 	name:asteroid_0
-	sprite:debris_asteroid_0
+	sprite:debris/debris_asteroid_0
+	sprite_effect:effects/effect_debris_asteroid_0
 	collision_percentage:0.9
 	damage:4
 	damage_type:solid
@@ -8,7 +9,8 @@
 
 <debris>
 	name:asteroid_1
-	sprite:debris_asteroid_1
+	sprite:debris/debris_asteroid_1
+	sprite_effect:effects/effect_debris_asteroid_1
 	collision_percentage:0.95
 	damage:4
 	damage_type:solid
@@ -16,7 +18,8 @@
 
 <debris>
 	name:asteroid_2
-	sprite:debris_asteroid_2
+	sprite:debris/debris_asteroid_2
+	sprite_effect:effects/effect_debris_asteroid_2
 	collision_percentage:0.95
 	damage:4
 	damage_type:solid

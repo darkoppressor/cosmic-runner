@@ -737,7 +737,8 @@ void Ship::die (bool is_player, string damage_faction, RNG& rng) {
 
         hull = 0;
 
-        Game::create_explosion("explosion_ship", "explosion_ship_" + Strings::num_to_string(rng.random_range(0, 2)),
+        Game::create_explosion("explosions/explosion_ship",
+                               "explosions/explosion_ship_" + Strings::num_to_string(rng.random_range(0, 2)),
                                Coords<double>(box.center_x(), box.center_y()), Game_Constants::EXPLOSION_DAMAGE_SHIP,
                                damage_faction);
 
@@ -772,8 +773,8 @@ void Ship::take_damage (bool is_player, int32_t damage, string damage_type, cons
         }
 
         if (is_player && damage > 0) {
-            Game::create_effect("effect_cross", false, 2.5, location, "", Vector(0.0, 0.0), 0.0, Vector(0.0, 0.0), 0,
-                                false, Coords<double>());
+            Game::create_effect("effects/effect_cross", false, 2.5, location, "", Vector(0.0, 0.0), 0.0,
+                                Vector(0.0, 0.0), 0, false, Coords<double>());
         }
 
         int32_t effective_damage = damage;
@@ -788,8 +789,9 @@ void Ship::take_damage (bool is_player, int32_t damage, string damage_type, cons
             }
 
             if (effective_damage > 0) {
-                Game::create_effect("effect_explosion_shields", false, 1.0, location, "effect_explosion_shields",
-                                    Vector(0.0, 0.0), 0.0, Vector(0.0, 0.0), 0, false, Coords<double>());
+                Game::create_effect("effects/effect_explosion_shields", false, 1.0, location,
+                                    "effects/effect_explosion_shields", Vector(0.0, 0.0), 0.0, Vector(0.0, 0.0), 0,
+                                    false, Coords<double>());
 
                 if (effective_damage <= shields) {
                     shields -= effective_damage;
@@ -822,8 +824,8 @@ void Ship::take_damage (bool is_player, int32_t damage, string damage_type, cons
         }
 
         if (effective_damage > 0) {
-            Game::create_effect("effect_hull_damage", true, 0.1 * (double) rng.random_range(1, 10), location,
-                                "effect_hull_damage_" + Strings::num_to_string(rng.random_range(0, 5)),
+            Game::create_effect("effects/effect_hull_damage", true, 0.1 * (double) rng.random_range(1, 10), location,
+                                "effects/effect_hull_damage_" + Strings::num_to_string(rng.random_range(0, 5)),
                                 Vector(rng.random_range(0, 10), rng.random_range(0, 359)), rng.random_range(0, 359),
                                 Vector(0.01 * rng.random_range(0, 50), rng.random_range(0, 359)),
                                 Game_Constants::EFFECT_LENGTH_HULL_DAMAGE, false, Coords<double>(),
@@ -848,7 +850,7 @@ void Ship::take_damage (bool is_player, int32_t damage, string damage_type, cons
                                                          Game_Constants::SMOKE_POSITION_MAXIMUM);
                 }
 
-                Game::create_effect("effect_smoke_" + Strings::num_to_string(rng.random_range(0, 2)), true,
+                Game::create_effect("effects/effect_smoke_" + Strings::num_to_string(rng.random_range(0, 2)), true,
                                     0.1 * (double) rng.random_range(5, 15), smoke_location, "",
                                     Vector(rng.random_range(0, 10), rng.random_range(0, 359)), rng.random_range(0, 359),
                                     Vector(0.01 * rng.random_range(0, 50), rng.random_range(0, 359)),
@@ -889,7 +891,7 @@ void Ship::take_damage (bool is_player, int32_t damage, string damage_type, cons
                                                             Game_Constants::SMOKE_POSITION_MAXIMUM);
                     }
 
-                    Game::create_effect("effect_hull_damage", true, 0.1 * (double) rng.random_range(1, 10),
+                    Game::create_effect("effects/effect_hull_damage", true, 0.1 * (double) rng.random_range(1, 10),
                                         hull_location, "", Vector(rng.random_range(0, 10), rng.random_range(0, 359)),
                                         rng.random_range(0, 359),
                                         Vector(0.01 * rng.random_range(0, 50), rng.random_range(0, 359)),
@@ -916,7 +918,7 @@ void Ship::take_damage (bool is_player, int32_t damage, string damage_type, cons
                                                              Game_Constants::SMOKE_POSITION_MAXIMUM);
                     }
 
-                    Game::create_effect("effect_smoke_" + Strings::num_to_string(rng.random_range(0, 2)), true,
+                    Game::create_effect("effects/effect_smoke_" + Strings::num_to_string(rng.random_range(0, 2)), true,
                                         0.1 * (double) rng.random_range(10, 20), smoke_location, "",
                                         Vector(rng.random_range(0, 10), rng.random_range(0, 359)),
                                         rng.random_range(0, 359),
@@ -924,8 +926,8 @@ void Ship::take_damage (bool is_player, int32_t damage, string damage_type, cons
                                         Game_Constants::EFFECT_LENGTH_SMOKE, false, Coords<double>(), "white");
                 }
 
-                Game::create_explosion("explosion_ship",
-                                       "explosion_ship_" + Strings::num_to_string(rng.random_range(0, 2)),
+                Game::create_explosion("explosions/explosion_ship",
+                                       "explosions/explosion_ship_" + Strings::num_to_string(rng.random_range(0, 2)),
                                        Coords<double>(box.center_x(), box.center_y()),
                                        Game_Constants::EXPLOSION_DAMAGE_SHIP, damage_faction);
 
@@ -1260,8 +1262,8 @@ bool Ship::fire_weapon (const Quadtree<double, uint32_t>& quadtree_ships, RNG& r
                                                                  Game_Constants::SMOKE_POSITION_MAXIMUM);
                         }
 
-                        Game::create_effect("effect_smoke_" + Strings::num_to_string(rng.random_range(0, 2)), true,
-                                            0.1 * (double) rng.random_range(10, 20), smoke_location, "",
+                        Game::create_effect("effects/effect_smoke_" + Strings::num_to_string(rng.random_range(0, 2)),
+                                            true, 0.1 * (double) rng.random_range(10, 20), smoke_location, "",
                                             Vector(rng.random_range(0, 10), rng.random_range(0, 359)),
                                             rng.random_range(0, 359),
                                             Vector(0.01 * rng.random_range(0, 50), rng.random_range(0, 359)),
@@ -1297,8 +1299,8 @@ bool Ship::fire_weapon (const Quadtree<double, uint32_t>& quadtree_ships, RNG& r
                                                                  Game_Constants::SMOKE_POSITION_MAXIMUM);
                         }
 
-                        Game::create_effect("effect_smoke_" + Strings::num_to_string(rng.random_range(0, 2)), true,
-                                            0.1 * (double) rng.random_range(10, 20), smoke_location, "",
+                        Game::create_effect("effects/effect_smoke_" + Strings::num_to_string(rng.random_range(0, 2)),
+                                            true, 0.1 * (double) rng.random_range(10, 20), smoke_location, "",
                                             Vector(rng.random_range(0, 10), rng.random_range(0, 359)),
                                             rng.random_range(0, 359),
                                             Vector(0.01 * rng.random_range(0, 50), rng.random_range(0, 359)),
@@ -1334,8 +1336,8 @@ bool Ship::fire_weapon (const Quadtree<double, uint32_t>& quadtree_ships, RNG& r
                                                                  Game_Constants::SMOKE_POSITION_MAXIMUM);
                         }
 
-                        Game::create_effect("effect_plasma_smoke_0", true, 0.1 * (double) rng.random_range(10, 20),
-                                            smoke_location, "",
+                        Game::create_effect("effects/effect_plasma_smoke_0", true,
+                                            0.1 * (double) rng.random_range(10, 20), smoke_location, "",
                                             Vector(rng.random_range(0, 10), rng.random_range(0, 359)),
                                             rng.random_range(0, 359),
                                             Vector(0.01 * rng.random_range(0, 50), rng.random_range(0, 359)),
@@ -1419,7 +1421,7 @@ void Ship::use_active (bool is_player) {
 
             active_cooldown = 0;
 
-            Game::create_explosion("emp", "emp", box.get_center(), 0, get_faction(), false, true);
+            Game::create_explosion("emp", "ship/emp", box.get_center(), 0, get_faction(), false, true);
 
             // We don't want this explosion to affect its user
             damaged_by_explosion(Game::get_explosion_count() - 1);
@@ -1509,13 +1511,13 @@ bool Ship::fire_point_defense (RNG& rng, const Quadtree<double, uint32_t>& quadt
         if (nearest_index >= 0) {
             const Shot& shot = Game::get_shot((uint32_t) nearest_index);
 
-            Game::create_explosion("explosion_missile",
-                                   "explosion_missile_" + Strings::num_to_string(rng.random_range(0, 2)),
+            Game::create_explosion("explosions/explosion_missile",
+                                   "explosions/explosion_missile_" + Strings::num_to_string(rng.random_range(0, 2)),
                                    Coords<double>(shot.get_box().center_x(), shot.get_box().center_y()),
                                    shot.get_damage(), shot.get_faction());
 
             Game::create_effect("", true, 1.0, box.get_center(), "point_defense", Vector(), 0.0, Vector(), 1, true,
-                                shot.get_box().get_center(), "point_defense");
+                                shot.get_box().get_center(), "ship/point_defense");
 
             Game::kill_shot((uint32_t) nearest_index);
 
@@ -1731,7 +1733,7 @@ void Ship::thrust (uint32_t frame, RNG& rng) {
         force += thrust_force;
 
         if (frame % 15 == 0) {
-            Sound_Manager::play_sound("thrust", box.center_x(), box.center_y());
+            Sound_Manager::play_sound("ship/thrust", box.center_x(), box.center_y());
         }
     }
 }
@@ -1749,7 +1751,7 @@ void Ship::brake (uint32_t frame) {
         force += brake_force;
 
         if (frame % 30 == 0) {
-            Sound_Manager::play_sound("brake", box.center_x(), box.center_y());
+            Sound_Manager::play_sound("ship/brake", box.center_x(), box.center_y());
         }
     }
 }
@@ -1877,8 +1879,8 @@ void Ship::movement (uint32_t own_index, const Quadtree<double, uint32_t>& quadt
 
                             if (Collision::check_vertices_rect(get_collision_vertices(), vertices_collision)) {
                                 if (shot.get_shot_type()->damage_type == "explosive") {
-                                    Game::create_explosion("explosion_missile",
-                                                           "explosion_missile_" +
+                                    Game::create_explosion("explosions/explosion_missile",
+                                                           "explosions/explosion_missile_" +
                                                            Strings::num_to_string(rng.random_range(0, 2)),
                                                            Coords<double>(box_shot.center_x(), box_shot.center_y()),
                                                            shot.get_damage(), shot.get_faction());
@@ -2028,7 +2030,7 @@ void Ship::animate_scanner_startup () {
 
         // If we just finished the scanner startup animation
         if (!scanner_startup_sprite.animating) {
-            Game::create_explosion("scanner_scan", "scanner", box.get_center(), 0, get_faction(), true);
+            Game::create_explosion("scanner_scan", "ship/scanner", box.get_center(), 0, get_faction(), true);
 
             // We don't want this explosion to affect its user
             damaged_by_explosion(Game::get_explosion_count() - 1);
@@ -2057,7 +2059,7 @@ void Ship::animate (bool tractoring) {
                 Game_Constants::CHASING_PLAYER_SOUND_RATE * Engine::UPDATE_RATE / 1000) {
                 sound_cooldown_chasing_player = 0;
 
-                Sound_Manager::play_sound("siren", box.center_x(), box.center_y());
+                Sound_Manager::play_sound("ship/siren", box.center_x(), box.center_y());
             }
         }
     }

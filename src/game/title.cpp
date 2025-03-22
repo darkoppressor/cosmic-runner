@@ -26,7 +26,7 @@ void Title::clear_title () {
 void Title::setup (RNG& rng) {
     Sprite sprite;
 
-    sprite.set_name("title_sun");
+    sprite.set_name("title/title_sun");
 
     Coords<double> position((double) Game_Window::width() / 4.0 - sprite.get_width() / 2.0,
                             (double) Game_Window::height() - sprite.get_height() * 0.9);
@@ -43,7 +43,7 @@ void Title::setup (RNG& rng) {
         double distance_scale = 0.01 * (double) rng.random_range(75, 150);
         Sprite sprite;
 
-        sprite.set_name("title_tree");
+        sprite.set_name("title/title_tree");
 
         Coords<double> position(rng.random_range((uint32_t) (sprite.get_width() * distance_scale),
                                                  (uint32_t) ((double) Game_Window::width() - sprite.get_width() *
@@ -63,11 +63,11 @@ void Title::generate_ship (RNG& rng) {
         Sprite sprite;
 
         if (bird) {
-            sprite.set_name("title_bird");
+            sprite.set_name("title/title_bird");
         } else if (cloud) {
-            sprite.set_name("title_cloud_" + Strings::num_to_string(rng.random_range(0, 2)));
+            sprite.set_name("title/title_cloud_" + Strings::num_to_string(rng.random_range(0, 2)));
         } else {
-            sprite.set_name("title_ship_" + Strings::num_to_string(rng.random_range(0, 2)));
+            sprite.set_name("title/title_ship_" + Strings::num_to_string(rng.random_range(0, 2)));
         }
 
         double distance_scale = 0.01 * (double) rng.random_range(20, 80);
@@ -153,19 +153,19 @@ void Title::animate (RNG& rng) {
 }
 
 void Title::render () {
-    Render::render_texture(0.0, 0.0, Image_Manager::get_image("title_background_0"));
+    Render::render_texture(0.0, 0.0, Image_Manager::get_image("title/title_background_0"));
 
     for (size_t i = 0; i < suns.size(); i++) {
         suns[i].render();
     }
 
-    Render::render_texture(0.0, 0.0, Image_Manager::get_image("title_background_1"));
+    Render::render_texture(0.0, 0.0, Image_Manager::get_image("title/title_background_1"));
 
     for (size_t i = 0; i < ships.size(); i++) {
         ships[i].render(false);
     }
 
-    Render::render_texture(0.0, 0.0, Image_Manager::get_image("title_background_2"));
+    Render::render_texture(0.0, 0.0, Image_Manager::get_image("title/title_background_2"));
 
     for (size_t i = 0; i < ships.size(); i++) {
         ships[i].render(true);

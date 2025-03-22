@@ -173,6 +173,8 @@ void Game_Data::load_debris_type (File_IO_Load* load) {
             debris_types.back().name = line;
         } else if (Data_Reader::check_prefix(line, "sprite:")) {
             debris_types.back().sprite = line;
+        } else if (Data_Reader::check_prefix(line, "sprite_effect:")) {
+            debris_types.back().sprite_effect = line;
         } else if (Data_Reader::check_prefix(line, "collision_percentage:")) {
             debris_types.back().collision_percentage = Strings::string_to_double(line);
         } else if (Data_Reader::check_prefix(line, "damage:")) {

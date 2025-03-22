@@ -6,7 +6,7 @@
 	sprite:
 	type:active
 	banned:true
-	sound:active_scanner
+	sound:actives/active_scanner
 	cooldown:5000
 	power_use:0
 </upgrade>
@@ -15,7 +15,7 @@
 	name:emp
 	display_name:EMP
 	description:Active - makes an electromagnetic pulse go boom (don't worry, it probably won't affect your ship much)
-	sprite:upgrade_active_emp
+	sprite:upgrades/upgrade_active_emp
 	type:active
 	sound:
 	cooldown:10000
@@ -26,10 +26,10 @@
 	name:cloak
 	display_name:Cloaking Device
 	description:Active - you already know what this does
-	sprite:upgrade_active_cloak
+	sprite:upgrades/upgrade_active_cloak
 	type:active
-	sound:active_cloak_on
-	off_sound:active_cloak_off
+	sound:actives/active_cloak_on
+	off_sound:actives/active_cloak_off
 	cooldown:2000
 	power_use:5
 </upgrade>
@@ -38,10 +38,10 @@
 	name:warp_drive
 	display_name:Warp Drive
 	description:Active - makes you go really fast, using complicated physics that I won't go into here\nSeriously though, the physics behind this are totally legit, I wouldn't even worry about it
-	sprite:upgrade_active_warp
+	sprite:upgrades/upgrade_active_warp
 	type:active
-	sound:active_warp_drive_on
-	off_sound:active_warp_drive_off
+	sound:actives/active_warp_drive_on
+	off_sound:actives/active_warp_drive_off
 	cooldown:2000
 	power_use:10
 </upgrade>

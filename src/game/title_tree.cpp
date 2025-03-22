@@ -9,7 +9,7 @@ Title_Tree::Title_Tree (RNG& rng, const Coords<double>& position, double new_dis
     box.x = position.x;
     box.y = position.y;
 
-    sprite.set_name("title_tree");
+    sprite.set_name("title/title_tree");
     sprite_animation_speed = rng.random_range(Game_Constants::TITLE_TREE_ANIMATION_SPEED_MINIMUM,
                                               Game_Constants::TITLE_TREE_ANIMATION_SPEED_MAXIMUM);
 
