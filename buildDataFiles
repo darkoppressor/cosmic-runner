@@ -65,4 +65,4 @@ if [ "$OPTION_REBUILD_SOUNDS" == "true" ]; then
 fi
 
 cp "$HOME/build-server/steamworks-sdk/redistributable_bin/linux64/libsteam_api.so" "$DIR"
-echo "$(sed -ne "/^\s*steam_app_id:/p" "data/engine" | sed -e "s/^\s*steam_app_id://")" > "$DIR/steam_appid.txt"
+echo "$(sed -ne "/^\s*steam_app_id:/p" "data/data/engine/engine" | sed -e "s/^\s*steam_app_id://")" > "$DIR/steam_appid.txt"
