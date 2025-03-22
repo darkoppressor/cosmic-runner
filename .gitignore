@@ -11,9 +11,11 @@ data/images/**
 data/music/**
 data/sounds/**
 
+!data/data/windows/.gitkeep
 !data/images/.gitkeep
 !data/music/.gitkeep
 !data/sounds/.gitkeep
+!development/music/.gitkeep
 
 development/android/.gradle/**
 development/android/build/**
