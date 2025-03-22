@@ -31,7 +31,7 @@
 </animation>
 
 <animation>
-	name:shot_plasma_blast
+	name:shots/shot_plasma_blast
 	frame_count:6
 	animation_speed:75
 	frame_width:24
@@ -39,7 +39,7 @@
 </animation>
 
 <animation>
-	name:effect_shot_death_bullet
+	name:effects/effect_shot_death_bullet
 	frame_count:3
 	animation_speed:100
 	frame_width:20
@@ -47,7 +47,7 @@
 </animation>
 
 <animation>
-	name:effect_shot_death_plasma_blast
+	name:effects/effect_shot_death_plasma_blast
 	frame_count:3
 	animation_speed:100
 	frame_width:24
@@ -55,7 +55,7 @@
 </animation>
 
 <animation>
-	name:explosion_missile
+	name:explosions/explosion_missile
 	frame_count:4
 	animation_speed:100
 	frame_width:184
@@ -63,7 +63,7 @@
 </animation>
 
 <animation>
-	name:explosion_ship
+	name:explosions/explosion_ship
 	frame_count:4
 	animation_speed:100
 	frame_width:184
@@ -71,7 +71,7 @@
 </animation>
 
 <animation>
-	name:effect_explosion_shields
+	name:effects/effect_explosion_shields
 	frame_count:4
 	animation_speed:100
 	frame_width:23
@@ -79,7 +79,7 @@
 </animation>
 
 <animation>
-	name:effect_smoke_0
+	name:effects/effect_smoke_0
 	frame_count:3
 	animation_speed:500
 	frame_width:12
@@ -87,7 +87,7 @@
 </animation>
 
 <animation>
-	name:effect_smoke_1
+	name:effects/effect_smoke_1
 	frame_count:3
 	animation_speed:500
 	frame_width:12
@@ -95,7 +95,7 @@
 </animation>
 
 <animation>
-	name:effect_smoke_2
+	name:effects/effect_smoke_2
 	frame_count:3
 	animation_speed:500
 	frame_width:12
@@ -103,7 +103,7 @@
 </animation>
 
 <animation>
-	name:effect_plasma_smoke_0
+	name:effects/effect_plasma_smoke_0
 	frame_count:3
 	animation_speed:150
 	frame_width:12
@@ -111,7 +111,7 @@
 </animation>
 
 <animation>
-	name:effect_cross
+	name:effects/effect_cross
 	frame_count:7
 	animation_speed:100
 	frame_width:16
@@ -119,7 +119,7 @@
 </animation>
 
 <animation>
-	name:hud_notoriety_tier
+	name:hud/hud_notoriety_tier
 	frame_count:2
 	animation_speed:500
 	frame_width:40
@@ -151,7 +151,7 @@
 </animation>
 
 <animation>
-	name:ship_player_0
+	name:ships/ship_player_0
 	frame_count:3
 	animation_speed:100
 	frame_width:55
@@ -159,7 +159,7 @@
 </animation>
 
 <animation>
-	name:ship_civilian_0
+	name:ships/ship_civilian_0
 	frame_count:4
 	animation_speed:100
 	frame_width:125
@@ -167,7 +167,7 @@
 </animation>
 
 <animation>
-	name:ship_bounty_hunter_0
+	name:ships/ship_bounty_hunter_0
 	frame_count:4
 	animation_speed:100
 	frame_width:64
@@ -175,7 +175,7 @@
 </animation>
 
 <animation>
-	name:ship_bounty_hunter_1
+	name:ships/ship_bounty_hunter_1
 	frame_count:4
 	animation_speed:100
 	frame_width:55
@@ -183,7 +183,7 @@
 </animation>
 
 <animation>
-	name:ship_bounty_hunter_2
+	name:ships/ship_bounty_hunter_2
 	frame_count:4
 	animation_speed:100
 	frame_width:61
@@ -191,7 +191,7 @@
 </animation>
 
 <animation>
-	name:ship_pirate_0
+	name:ships/ship_pirate_0
 	frame_count:4
 	animation_speed:100
 	frame_width:55
@@ -199,7 +199,7 @@
 </animation>
 
 <animation>
-	name:ship_pirate_1
+	name:ships/ship_pirate_1
 	frame_count:4
 	animation_speed:100
 	frame_width:52
@@ -207,7 +207,7 @@
 </animation>
 
 <animation>
-	name:ship_pirate_2
+	name:ships/ship_pirate_2
 	frame_count:4
 	animation_speed:100
 	frame_width:75
@@ -215,7 +215,7 @@
 </animation>
 
 <animation>
-	name:ship_police_0
+	name:ships/ship_police_0
 	frame_count:4
 	animation_speed:100
 	frame_width:55
@@ -223,7 +223,7 @@
 </animation>
 
 <animation>
-	name:ship_police_1
+	name:ships/ship_police_1
 	frame_count:4
 	animation_speed:100
 	frame_width:49
@@ -231,7 +231,7 @@
 </animation>
 
 <animation>
-	name:ship_police_2
+	name:ships/ship_police_2
 	frame_count:4
 	animation_speed:100
 	frame_width:55
@@ -239,7 +239,7 @@
 </animation>
 
 <animation>
-	name:shot_missile
+	name:shots/shot_missile
 	frame_count:4
 	animation_speed:100
 	frame_width:36
@@ -247,7 +247,7 @@
 </animation>
 
 <animation>
-	name:title_ship_0
+	name:title/title_ship_0
 	frame_count:4
 	animation_speed:100
 	frame_width:55
@@ -255,7 +255,7 @@
 </animation>
 
 <animation>
-	name:title_ship_1
+	name:title/title_ship_1
 	frame_count:4
 	animation_speed:100
 	frame_width:124
@@ -263,7 +263,7 @@
 </animation>
 
 <animation>
-	name:title_ship_2
+	name:title/title_ship_2
 	frame_count:4
 	animation_speed:100
 	frame_width:55
@@ -271,7 +271,7 @@
 </animation>
 
 <animation>
-	name:title_bird
+	name:title/title_bird
 	frame_count:5
 	animation_speed:450
 	frame_width:13
@@ -279,7 +279,7 @@
 </animation>
 
 <animation>
-	name:title_tree
+	name:title/title_tree
 	frame_count:8
 	animation_speed:400
 	frame_width:40

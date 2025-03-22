@@ -11,7 +11,7 @@
 
 <shot>
 	name:plasma_blast
-	sprite:ships/shot_plasma_blast
+	sprite:shots/shot_plasma_blast
 	death_sprite:effects/effect_shot_death_plasma_blast
 	death_sound:effects/effect_shot_death_plasma_blast
 	collision_percentage:0.9

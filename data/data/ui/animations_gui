@@ -1,5 +1,5 @@
 <animation>
-	name:text_selector
+	name:ui/text_selector
 	frame_count:2
 	animation_speed:500
 	frame_width:18
