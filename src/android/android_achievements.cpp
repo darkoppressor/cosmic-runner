@@ -125,12 +125,12 @@ void Android_Achievements::update_achievements_button (Window* window) {
 
         if (Android::gpg_is_silent_sign_in_attempt_complete()) {
             if (!Android::gpg_is_signed_in()) {
-                window->informations.back().set_sprite("play_games_achievements_gray");
+                window->informations.back().set_sprite("engine/play_games_achievements_gray");
             } else {
-                window->informations.back().set_sprite("play_games_achievements_green");
+                window->informations.back().set_sprite("engine/play_games_achievements_green");
             }
         } else {
-            window->informations.back().set_sprite("play_games_achievements_gray");
+            window->informations.back().set_sprite("engine/play_games_achievements_gray");
         }
 
     #endif

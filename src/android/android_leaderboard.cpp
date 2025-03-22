@@ -113,14 +113,14 @@ void Android_Leaderboard::update_sign_in_button (Window* window) {
 
         if (Android::gpg_is_silent_sign_in_attempt_complete()) {
             if (!Android::gpg_is_signed_in()) {
-                window->informations.back().set_sprite("play_games_controller_gray");
+                window->informations.back().set_sprite("engine/play_games_controller_gray");
                 window->buttons.back().set_text("Sign In");
             } else {
-                window->informations.back().set_sprite("play_games_controller_green");
+                window->informations.back().set_sprite("engine/play_games_controller_green");
                 window->buttons.back().set_text("Sign Out");
             }
         } else {
-            window->informations.back().set_sprite("play_games_controller_gray");
+            window->informations.back().set_sprite("engine/play_games_controller_gray");
             window->buttons.back().set_text("Sign In");
         }
 
@@ -132,12 +132,13 @@ void Android_Leaderboard::update_leaderboards_button (Window* window) {
 
         if (Android::gpg_is_silent_sign_in_attempt_complete()) {
             if (!Android::gpg_is_signed_in()) {
-                window->informations[window->informations.size() - 2].set_sprite("play_games_leaderboards_gray");
+                window->informations[window->informations.size() - 2].set_sprite("engine/play_games_leaderboards_gray");
             } else {
-                window->informations[window->informations.size() - 2].set_sprite("play_games_leaderboards_green");
+                window->informations[window->informations.size() -
+                                     2].set_sprite("engine/play_games_leaderboards_green");
             }
         } else {
-            window->informations[window->informations.size() - 2].set_sprite("play_games_leaderboards_gray");
+            window->informations[window->informations.size() - 2].set_sprite("engine/play_games_leaderboards_gray");
         }
 
     #endif

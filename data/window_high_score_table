@@ -12,7 +12,7 @@
 
 	<info>
 		location:4,625
-		sprite:play_games_leaderboards_gray
+		sprite:engine/play_games_leaderboards_gray
 	</info>
 
 	<button>
@@ -25,7 +25,7 @@
 
 	<info>
 		location:4,669
-		sprite:play_games_achievements_gray
+		sprite:engine/play_games_achievements_gray
 	</info>
 
 	<button>

@@ -63,7 +63,7 @@
 
 	<info>
 		location:4,387
-		sprite:play_games_controller_gray
+		sprite:engine/play_games_controller_gray
 	</info>
 
 	<button>
