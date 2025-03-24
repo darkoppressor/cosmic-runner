@@ -1,22 +1,22 @@
 # Redesign
 
-Disable spawns for ships, junk, and items
-Make game world larger
-Make planets farther apart
-Planets have a minimum distance between them
-Ensure there is room between planets for belts
-There should be some space beyond the planets as well
-Implement belts
-Maybe add belts rendering on the minimap and / or in the world when in dev mode?
-Reenable junk spawns
-Redo junk
-Redo junk spawns
-Reenable item spawns
-Redo items
-Redo item spawns
-Reenable ship spawns
-Redo ships
-Redo ship spawns
+* [x] Disable spawns for ships, junk, and items
+* [x] Make game world larger
+* [x] Make planets farther apart
+* [x] Planets have a minimum distance between them
+* [ ] Ensure there is room between planets for belts
+* [ ] There should be some space beyond the planets as well
+* [ ] Implement belts
+* [ ] Maybe add belts rendering on the minimap and / or in the world when in dev mode?
+* [ ] Reenable junk spawns
+* [ ] Redo junk
+* [ ] Redo junk spawns
+* [ ] Reenable item spawns
+* [ ] Redo items
+* [ ] Redo item spawns
+* [ ] Reenable ship spawns
+* [ ] Redo ships
+* [ ] Redo ship spawns
 
 Belts are defined by a pair of distances from a planet's center
 Different planet types have different belt generation stats
@@ -33,7 +33,8 @@ There are size classes of each type of junk
 The size of a junk is also based on belt
 
 The spawn rates for junk, ships, and items are affected by the player's belt
-The type chances for junk, ships, and items are affected by the belt they are in (if in multiple belts, choose at random)
+The type chances for junk, ships, and items are affected by the belt they are in (if in multiple belts, choose at
+random)
 The player's belt affects their background and music
 When the player changes belts, the background and music fade in / out
 When the player has cargo, it should be shown being carried

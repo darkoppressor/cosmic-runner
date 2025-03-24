@@ -284,14 +284,14 @@ void Game::generate_world () {
 
     bar.progress("Generating planets");
 
-    world_width = 10000.0;
-    world_height = 10000.0;
+    world_width = Game_Constants::WORLD_WIDTH;
+    world_height = Game_Constants::WORLD_HEIGHT;
 
     uint32_t max_attempts = 100000;
 
     // Generate planets
     uint32_t minimum_planets = 2;
-    uint32_t planet_count = ((world_width + world_height) / 2.0) / 1024.0;
+    uint32_t planet_count = (world_width * world_height) / Math::pow(Game_Constants::SQUARE_METERS_PER_PLANET, 2.0);
 
     if (planet_count < minimum_planets) {
         planet_count = minimum_planets;
@@ -309,58 +309,68 @@ void Game::generate_world () {
         uint32_t x = rng.random_range(radius, (uint32_t) world_width - radius);
         uint32_t y = rng.random_range(radius, (uint32_t) world_height - radius);
         Coords<double> position((double) x, (double) y);
-        bool too_close_to_planet = false;
+        bool too_close_to_planet_or_world_edge = false;
 
-        for (size_t j = 0; j < planets.size(); j++) {
-            double minimum_distance_between_planets = Game_Constants::MINIMUM_GEN_DISTANCE_BETWEEN_PLANETS +
-                                                      planets[j].get_circle().r + (double) radius;
+        if (position.x - (double) radius < Game_Constants::MINIMUM_DISTANCE_BETWEEN_PLANETS_AND_WORLD_EDGE ||
+            position.x + (double) radius >
+            world_width - Game_Constants::MINIMUM_DISTANCE_BETWEEN_PLANETS_AND_WORLD_EDGE - 1.0 ||
+            position.y - (double) radius < Game_Constants::MINIMUM_DISTANCE_BETWEEN_PLANETS_AND_WORLD_EDGE ||
+            position.y + (double) radius >
+            world_height - Game_Constants::MINIMUM_DISTANCE_BETWEEN_PLANETS_AND_WORLD_EDGE - 1.0) {
+            too_close_to_planet_or_world_edge = true;
+        } else {
+            for (size_t j = 0; j < planets.size(); j++) {
+                double minimum_distance_between_planets = Game_Constants::MINIMUM_DISTANCE_BETWEEN_PLANETS +
+                                                          planets[j].get_circle().r + (double) radius;
 
-            if (Math::get_distance_between_points(position,
-                                                  planets[j].get_circle().get_center()) <
-                minimum_distance_between_planets) {
-                too_close_to_planet = true;
+                if (Math::get_distance_between_points(position,
+                                                      planets[j].get_circle().get_center()) <
+                    minimum_distance_between_planets) {
+                    too_close_to_planet_or_world_edge = true;
 
-                break;
+                    break;
+                }
             }
         }
 
-        if (attempts >= max_attempts || !too_close_to_planet) {
+        if (attempts >= max_attempts || !too_close_to_planet_or_world_edge) {
             planets.push_back(Planet(type, position));
 
             i++;
         }
     }
 
+    // TODO Debris disabled for redesign
     bar.progress("Generating debris");
 
-    // Generate debris
-    uint32_t asteroid_count = ((world_width + world_height) / 2.0) / 8.0;
+    //// Generate debris
+    // uint32_t asteroid_count = ((world_width + world_height) / 2.0) / 8.0;
 
-    for (uint32_t i = 0; i < asteroid_count; i++) {
-        string type = "asteroid_" + Strings::num_to_string(rng.random_range(0, 2));
-        Sprite sprite;
+    // for (uint32_t i = 0; i < asteroid_count; i++) {
+    // string type = "asteroid_" + Strings::num_to_string(rng.random_range(0, 2));
+    // Sprite sprite;
 
-        sprite.set_name(Game_Data::get_debris_type(type)->sprite);
+    // sprite.set_name(Game_Data::get_debris_type(type)->sprite);
 
-        uint32_t x = rng.random_range(0, (uint32_t) world_width - (uint32_t) sprite.get_width());
-        uint32_t y = rng.random_range(0, (uint32_t) world_height - (uint32_t) sprite.get_height());
-        Coords<double> position((double) x, (double) y);
-        bool touching_debris = false;
+    // uint32_t x = rng.random_range(0, (uint32_t) world_width - (uint32_t) sprite.get_width());
+    // uint32_t y = rng.random_range(0, (uint32_t) world_height - (uint32_t) sprite.get_height());
+    // Coords<double> position((double) x, (double) y);
+    // bool touching_debris = false;
 
-        for (size_t j = 0; j < debris.size(); j++) {
-            if (Collision::check_rect(Collision_Rect<double>((double) x, (double) y, sprite.get_width(),
-                                                             sprite.get_height()), debris[j].get_box())) {
-                touching_debris = true;
+    // for (size_t j = 0; j < debris.size(); j++) {
+    // if (Collision::check_rect(Collision_Rect<double>((double) x, (double) y, sprite.get_width(),
+    // sprite.get_height()), debris[j].get_box())) {
+    // touching_debris = true;
 
-                break;
-            }
-        }
+    // break;
+    // }
+    // }
 
-        if (!touching_debris) {
-            debris.push_back(Debris(type, position, rng.random_range(0, 359),
-                                    Vector(0.01 * rng.random_range(0, 75), rng.random_range(0, 359))));
-        }
-    }
+    // if (!touching_debris) {
+    // debris.push_back(Debris(type, position, rng.random_range(0, 359),
+    // Vector(0.01 * rng.random_range(0, 75), rng.random_range(0, 359))));
+    // }
+    // }
 
     bar.progress("Generating the player's ship");
 
@@ -417,9 +427,10 @@ void Game::generate_world () {
     quadtree_items.setup(10, 5, 0, Collision_Rect<double>(0, 0, world_width, world_height));
     quadtree_planets.setup(10, 5, 0, Collision_Rect<double>(0, 0, world_width, world_height));
 
+    // TODO Non-player ships disabled for redesign
     bar.progress("Generating ships");
 
-    generate_ships();
+    // generate_ships();
 
     bar.progress("Done generating game world");
     Log::add_log("Game world generated in " + Strings::num_to_string(bar.get_time_elapsed()) + " ms");
@@ -1262,117 +1273,119 @@ Coords<double> Game::get_spawn_point (double width, double height) {
 }
 
 void Game::generate_ships () {
-    uint64_t ship_count = ships.size() - 1;
-    uint64_t desired_ships = Game_Constants::DESIRED_SHIPS_BASE + score_multiplier *
-                             Game_Constants::DESIRED_SHIPS_MULTIPLIER;
+    // TODO Non-player ships disabled for redesign
+    // uint64_t ship_count = ships.size() - 1;
+    // uint64_t desired_ships = Game_Constants::DESIRED_SHIPS_BASE + score_multiplier *
+    // Game_Constants::DESIRED_SHIPS_MULTIPLIER;
 
-    if (desired_ships > Game_Constants::DESIRED_SHIPS_MAX) {
-        desired_ships = Game_Constants::DESIRED_SHIPS_MAX;
-    }
+    // if (desired_ships > Game_Constants::DESIRED_SHIPS_MAX) {
+    // desired_ships = Game_Constants::DESIRED_SHIPS_MAX;
+    // }
 
-    if (ship_count <= desired_ships) {
-        desired_ships -= ship_count;
-    } else {
-        desired_ships = 0;
-    }
+    // if (ship_count <= desired_ships) {
+    // desired_ships -= ship_count;
+    // } else {
+    // desired_ships = 0;
+    // }
 
-    bool player_in_deep_space = is_player_in_deep_space();
+    // bool player_in_deep_space = is_player_in_deep_space();
 
-    for (uint64_t i = 0; i < desired_ships; i++) {
-        uint32_t tier = 0;
+    // for (uint64_t i = 0; i < desired_ships; i++) {
+    // uint32_t tier = 0;
 
-        if (score_multiplier >= Game_Constants::MIN_SCORE_MULTIPLIER_TIER_1) {
-            uint32_t score_multiplier_32 = score_multiplier <
-                                           (uint64_t) UINT32_MAX ? (uint32_t) score_multiplier : UINT32_MAX;
-            uint32_t weight = score_multiplier_32 / Game_Constants::SCORE_MULTIPLIER_TIER_DENOMINATOR;
+    // if (score_multiplier >= Game_Constants::MIN_SCORE_MULTIPLIER_TIER_1) {
+    // uint32_t score_multiplier_32 = score_multiplier <
+    // (uint64_t) UINT32_MAX ? (uint32_t) score_multiplier : UINT32_MAX;
+    // uint32_t weight = score_multiplier_32 / Game_Constants::SCORE_MULTIPLIER_TIER_DENOMINATOR;
 
-            if (weight < 2) {
-                weight = 2;
-            } else if (weight > 256) {
-                weight = 256;
-            }
+    // if (weight < 2) {
+    // weight = 2;
+    // } else if (weight > 256) {
+    // weight = 256;
+    // }
 
-            if (score_multiplier >= Game_Constants::MIN_SCORE_MULTIPLIER_TIER_2) {
-                tier = rng.weighted_random_range(0, 2, 2, weight);
-            } else {
-                tier = rng.weighted_random_range(0, 1, 1, weight);
-            }
-        }
+    // if (score_multiplier >= Game_Constants::MIN_SCORE_MULTIPLIER_TIER_2) {
+    // tier = rng.weighted_random_range(0, 2, 2, weight);
+    // } else {
+    // tier = rng.weighted_random_range(0, 1, 1, weight);
+    // }
+    // }
 
-        vector<string> types;
+    // vector<string> types;
 
-        for (uint32_t j = 0; j < Game_Constants::SHIP_WEIGHT_CIVILIAN; j++) {
-            types.push_back("civilian_0");
-        }
+    // for (uint32_t j = 0; j < Game_Constants::SHIP_WEIGHT_CIVILIAN; j++) {
+    // types.push_back("civilian_0");
+    // }
 
-        uint32_t ship_weight_bounty_hunter = 0;
+    // uint32_t ship_weight_bounty_hunter = 0;
 
-        if (notoriety_tier_2()) {
-            ship_weight_bounty_hunter = Game_Constants::SHIP_WEIGHT_BOUNTY_HUNTER_NOTORIETY_TIER_2;
-        } else if (notoriety_tier_1()) {
-            ship_weight_bounty_hunter = Game_Constants::SHIP_WEIGHT_BOUNTY_HUNTER_NOTORIETY_TIER_1;
-        }
+    // if (notoriety_tier_2()) {
+    // ship_weight_bounty_hunter = Game_Constants::SHIP_WEIGHT_BOUNTY_HUNTER_NOTORIETY_TIER_2;
+    // } else if (notoriety_tier_1()) {
+    // ship_weight_bounty_hunter = Game_Constants::SHIP_WEIGHT_BOUNTY_HUNTER_NOTORIETY_TIER_1;
+    // }
 
-        for (uint32_t j = 0; j < ship_weight_bounty_hunter; j++) {
-            types.push_back("bounty_hunter_" + Strings::num_to_string(tier));
-        }
+    // for (uint32_t j = 0; j < ship_weight_bounty_hunter; j++) {
+    // types.push_back("bounty_hunter_" + Strings::num_to_string(tier));
+    // }
 
-        if (player_in_deep_space) {
-            for (uint32_t j = 0; j < Game_Constants::SHIP_WEIGHT_PIRATE; j++) {
-                types.push_back("pirate_" + Strings::num_to_string(tier));
-            }
-        } else {
-            uint32_t ship_weight_police = Game_Constants::SHIP_WEIGHT_POLICE_NOTORIETY_TIER_0;
+    // if (player_in_deep_space) {
+    // for (uint32_t j = 0; j < Game_Constants::SHIP_WEIGHT_PIRATE; j++) {
+    // types.push_back("pirate_" + Strings::num_to_string(tier));
+    // }
+    // } else {
+    // uint32_t ship_weight_police = Game_Constants::SHIP_WEIGHT_POLICE_NOTORIETY_TIER_0;
 
-            if (notoriety_tier_2()) {
-                ship_weight_police = Game_Constants::SHIP_WEIGHT_POLICE_NOTORIETY_TIER_2;
-            } else if (notoriety_tier_1()) {
-                ship_weight_police = Game_Constants::SHIP_WEIGHT_POLICE_NOTORIETY_TIER_1;
-            }
+    // if (notoriety_tier_2()) {
+    // ship_weight_police = Game_Constants::SHIP_WEIGHT_POLICE_NOTORIETY_TIER_2;
+    // } else if (notoriety_tier_1()) {
+    // ship_weight_police = Game_Constants::SHIP_WEIGHT_POLICE_NOTORIETY_TIER_1;
+    // }
 
-            for (uint32_t j = 0; j < ship_weight_police; j++) {
-                types.push_back("police_" + Strings::num_to_string(tier));
-            }
-        }
+    // for (uint32_t j = 0; j < ship_weight_police; j++) {
+    // types.push_back("police_" + Strings::num_to_string(tier));
+    // }
+    // }
 
-        string type = types[rng.random_range(0, types.size() - 1)];
-        Sprite sprite;
+    // string type = types[rng.random_range(0, types.size() - 1)];
+    // Sprite sprite;
 
-        sprite.set_name(Game_Data::get_ship_type(type)->sprite);
+    // sprite.set_name(Game_Data::get_ship_type(type)->sprite);
 
-        Coords<double> spawn_point = get_spawn_point(sprite.get_width(), sprite.get_height());
+    // Coords<double> spawn_point = get_spawn_point(sprite.get_width(), sprite.get_height());
 
-        if (spawn_point.x >= 0.0 && spawn_point.y >= 0.0) {
-            ships.push_back(Ship(type, spawn_point, rng.random_range(0, 359)));
-            ships.back().ai_select_target((uint32_t) ships.size() - 1, rng);
-        }
-    }
+    // if (spawn_point.x >= 0.0 && spawn_point.y >= 0.0) {
+    // ships.push_back(Ship(type, spawn_point, rng.random_range(0, 359)));
+    // ships.back().ai_select_target((uint32_t) ships.size() - 1, rng);
+    // }
+    // }
 }
 
 void Game::generate_items () {
-    uint64_t item_count = items.size();
-    uint64_t desired_items = uint64_t(Game_Constants::DESIRED_ITEMS_BASE /
-                                      ((double) score_multiplier *
-                                       Game_Constants::DESIRED_ITEMS_SCORE_MULTIPLIER_ADJUSTMENT));
+    // TODO Items disabled for redesign
+    // uint64_t item_count = items.size();
+    // uint64_t desired_items = uint64_t(Game_Constants::DESIRED_ITEMS_BASE /
+    // ((double) score_multiplier *
+    // Game_Constants::DESIRED_ITEMS_SCORE_MULTIPLIER_ADJUSTMENT));
 
-    if (item_count <= desired_items) {
-        desired_items -= item_count;
-    } else {
-        desired_items = 0;
-    }
+    // if (item_count <= desired_items) {
+    // desired_items -= item_count;
+    // } else {
+    // desired_items = 0;
+    // }
 
-    for (uint64_t i = 0; i < desired_items; i++) {
-        string type = get_random_item_type();
-        Sprite sprite;
+    // for (uint64_t i = 0; i < desired_items; i++) {
+    // string type = get_random_item_type();
+    // Sprite sprite;
 
-        sprite.set_name(Game_Data::get_item_type(type)->sprite);
+    // sprite.set_name(Game_Data::get_item_type(type)->sprite);
 
-        Coords<double> spawn_point = get_spawn_point(sprite.get_width(), sprite.get_height());
+    // Coords<double> spawn_point = get_spawn_point(sprite.get_width(), sprite.get_height());
 
-        if (spawn_point.x >= 0.0 && spawn_point.y >= 0.0) {
-            items.push_back(Item(type, spawn_point, Vector(0.0, 0.0), rng.random_range(0, 359), Vector(0.0, 0.0)));
-        }
-    }
+    // if (spawn_point.x >= 0.0 && spawn_point.y >= 0.0) {
+    // items.push_back(Item(type, spawn_point, Vector(0.0, 0.0), rng.random_range(0, 359), Vector(0.0, 0.0)));
+    // }
+    // }
 }
 
 vector<High_Score> Game::get_high_scores () {

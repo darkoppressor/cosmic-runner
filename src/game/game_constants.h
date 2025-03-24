@@ -73,7 +73,11 @@ class Game_Constants {
         static double POINT_DEFENSE_RANGE;
         static double ITEM_VACUUM_RANGE;
         static double ITEM_VACUUM_FORCE;
-        static double MINIMUM_GEN_DISTANCE_BETWEEN_PLANETS;
+        static double WORLD_WIDTH;
+        static double WORLD_HEIGHT;
+        static double SQUARE_METERS_PER_PLANET;
+        static double MINIMUM_DISTANCE_BETWEEN_PLANETS_AND_WORLD_EDGE;
+        static double MINIMUM_DISTANCE_BETWEEN_PLANETS;
         static double PLANETARY_SPACE_RANGE;
         static double GEN_PLAYER_START_CLEAN_DISTANCE;
         static std::uint32_t NOTORIETY_MAX;

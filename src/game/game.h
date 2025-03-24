@@ -94,7 +94,7 @@ class Game {
         static void dodge_check();
 
     public:
-        // pixels
+        // meters (pixels)
         static double world_width;
         static double world_height;
 

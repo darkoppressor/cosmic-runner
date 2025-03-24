@@ -468,8 +468,35 @@
 
 <game_constant>
 	// meters (pixels)
-	name:minimum_gen_distance_between_planets
-	value:1024.0
+	name:world_width
+	value:20000.0
+	type:double
+</game_constant>
+
+<game_constant>
+	// meters (pixels)
+	name:world_height
+	value:20000.0
+	type:double
+</game_constant>
+
+<game_constant>
+	name:square_meters_per_planet
+	value:4096.0
+	type:double
+</game_constant>
+
+<game_constant>
+	// meters (pixels)
+	name:minimum_distance_between_planets_and_world_edge
+	value:2048.0
+	type:double
+</game_constant>
+
+<game_constant>
+	// meters (pixels)
+	name:minimum_distance_between_planets
+	value:2048.0
 	type:double
 </game_constant>
 

@@ -73,7 +73,11 @@ double Game_Constants::POLICE_LIGHTS_ANGULAR_SPEED = 0.0;
 double Game_Constants::POINT_DEFENSE_RANGE = 0.0;
 double Game_Constants::ITEM_VACUUM_RANGE = 0.0;
 double Game_Constants::ITEM_VACUUM_FORCE = 0.0;
-double Game_Constants::MINIMUM_GEN_DISTANCE_BETWEEN_PLANETS = 0.0;
+double Game_Constants::WORLD_WIDTH = 0.0;
+double Game_Constants::WORLD_HEIGHT = 0.0;
+double Game_Constants::SQUARE_METERS_PER_PLANET = 0.0;
+double Game_Constants::MINIMUM_DISTANCE_BETWEEN_PLANETS_AND_WORLD_EDGE = 0.0;
+double Game_Constants::MINIMUM_DISTANCE_BETWEEN_PLANETS = 0.0;
 double Game_Constants::PLANETARY_SPACE_RANGE = 0.0;
 double Game_Constants::GEN_PLAYER_START_CLEAN_DISTANCE = 0.0;
 uint32_t Game_Constants::NOTORIETY_MAX = 0;
@@ -324,8 +328,16 @@ void Game_Constants_Loader::set_game_constant (string name, string value) {
         Game_Constants::ITEM_VACUUM_RANGE = Strings::string_to_double(value);
     } else if (name == "item_vacuum_force") {
         Game_Constants::ITEM_VACUUM_FORCE = Strings::string_to_double(value);
-    } else if (name == "minimum_gen_distance_between_planets") {
-        Game_Constants::MINIMUM_GEN_DISTANCE_BETWEEN_PLANETS = Strings::string_to_double(value);
+    } else if (name == "world_width") {
+        Game_Constants::WORLD_WIDTH = Strings::string_to_double(value);
+    } else if (name == "world_height") {
+        Game_Constants::WORLD_HEIGHT = Strings::string_to_double(value);
+    } else if (name == "square_meters_per_planet") {
+        Game_Constants::SQUARE_METERS_PER_PLANET = Strings::string_to_double(value);
+    } else if (name == "minimum_distance_between_planets_and_world_edge") {
+        Game_Constants::MINIMUM_DISTANCE_BETWEEN_PLANETS_AND_WORLD_EDGE = Strings::string_to_double(value);
+    } else if (name == "minimum_distance_between_planets") {
+        Game_Constants::MINIMUM_DISTANCE_BETWEEN_PLANETS = Strings::string_to_double(value);
     } else if (name == "planetary_space_range") {
         Game_Constants::PLANETARY_SPACE_RANGE = Strings::string_to_double(value);
     } else if (name == "gen_player_start_clean_distance") {
