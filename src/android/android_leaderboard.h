@@ -1,4 +1,4 @@
-/* Copyright (c) Cheese and Bacon Games, LLC. See docs/LICENSE.md for details. */
+/* Copyright (c) Cheese and Bacon Games. See docs/LICENSE.md for details. */
 
 #ifndef android_leaderboard_h
 #define android_leaderboard_h

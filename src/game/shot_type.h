@@ -1,4 +1,4 @@
-/* Copyright (c) Cheese and Bacon Games, LLC. See docs/LICENSE.md for details. */
+/* Copyright (c) Cheese and Bacon Games. See docs/LICENSE.md for details. */
 
 #ifndef shot_type_h
 #define shot_type_h
