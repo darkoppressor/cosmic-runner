@@ -37,22 +37,6 @@
     <uses-feature android:name="android.hardware.faketouch" android:required="false" />
     <uses-feature android:name="android.hardware.sensor.accelerometer" android:required="false" />
 
-    <!-- Enable these features as needed -->
-    <!-- <uses-feature android:name="android.hardware.sensor.ambient_temperature" android:required="false" /> -->
-    <!-- <uses-feature android:name="android.hardware.sensor.barometer" android:required="false" /> -->
-    <!-- <uses-feature android:name="android.hardware.sensor.compass" android:required="false" /> -->
-    <!-- <uses-feature android:name="android.hardware.sensor.gyroscope" android:required="false" /> -->
-    <!-- <uses-feature android:name="android.hardware.sensor.hifi_sensors" android:required="false" /> -->
-    <!-- <uses-feature android:name="android.hardware.sensor.heartrate" android:required="false" /> -->
-    <!-- <uses-feature android:name="android.hardware.sensor.heartrate.ecg" android:required="false" /> -->
-    <!-- <uses-feature android:name="android.hardware.sensor.light" android:required="false" /> -->
-    <!-- <uses-feature android:name="android.hardware.sensor.proximity" android:required="false" /> -->
-    <!-- <uses-feature android:name="android.hardware.sensor.relative_humidity" android:required="false" /> -->
-    <!-- <uses-feature android:name="android.hardware.sensor.stepcounter" android:required="false" /> -->
-    <!-- <uses-feature android:name="android.hardware.sensor.stepdetector" android:required="false" /> -->
-    <!-- <uses-feature android:name="android.hardware.location" android:required="false" /> -->
-    <!-- <uses-feature android:name="android.hardware.location.gps" android:required="false" /> -->
-
     <!-- Audio recording support -->
     <!-- if you want to capture audio, uncomment this. -->
     <!-- <uses-feature
@@ -75,8 +59,6 @@
 
     <!-- Enable these permissions as needed -->
     <!-- <uses-permission android:name="android.permission.INTERNET" /> -->
-	<!-- <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" /> -->
-    <!-- <uses-permission android:name="android.permission.BODY_SENSORS" /> -->
 
     <!-- Create a Java class extending SDLActivity and place it in a
          directory under app/src/main/java matching the package, e.g. app/src/main/java/com/gamemaker/game/MyGame.java
