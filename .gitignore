@@ -70,10 +70,6 @@ docs/buildInformation.md
 /*log-Release-Windows-x86_64
 /*log-build-system
 
-/*libsteam_api.so
-/*libsteam_api.dylib
-/*steam_appid.txt
-
 /*.dll
 /*.ico
 /*.depend

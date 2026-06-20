@@ -95,10 +95,6 @@ rm -f "log-Release-macOS-arm64"
 rm -f "log-Release-Windows-x86_64"
 rm -f "log-build-system"
 
-rm -f "libsteam_api.so"
-rm -f "libsteam_api.dylib"
-rm -f "steam_appid.txt"
-
 rm -f *.dll
 rm -f *.depend
 rm -f *.cscope_file_list
