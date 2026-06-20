@@ -18,4 +18,3 @@ Game over music
 
 Bugs:
 Sometimes the cooldown bar shows when it is empty
-The Android leaderboard button causes the leaderboard UI to begin to load, and then fails and closes with no error message

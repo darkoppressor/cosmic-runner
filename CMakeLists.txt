@@ -2,8 +2,6 @@ cmake_minimum_required(VERSION 3.28.3)
 project(cosmic-runner)
 
 set(SOURCE_FILES
-src/android/android_achievements.cpp
-src/android/android_leaderboard.cpp
 src/console/console_commands_defs.cpp
 src/data/data_manager_defs.cpp
 src/engine/engine_glue.cpp

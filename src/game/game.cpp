@@ -4,8 +4,6 @@
 #include "game_data.h"
 #include "game_constants.h"
 #include "hud.h"
-#include "../android/android_leaderboard.h"
-#include "../android/android_achievements.h"
 
 #include <render/render.h>
 #include <game_window.h>
@@ -53,10 +51,6 @@ uint64_t Game::dodges = 0;
 uint32_t Game::power = 0;
 uint32_t Game::notoriety = 0;
 uint32_t Game::kills = 0;
-uint64_t Game::kills_police = 0;
-uint64_t Game::kills_civilian = 0;
-uint64_t Game::kills_pirate = 0;
-uint64_t Game::kills_bounty_hunter = 0;
 bool Game::player_tractored = false;
 uint32_t Game::tractoring_ship = 0;
 double Game::tractor_angle = 0.0;
@@ -80,8 +74,6 @@ uint32_t Game::sound_cooldown_low_hull = 0;
 string Game::cause_of_death = "";
 double Game::world_width = 0.0;
 double Game::world_height = 0.0;
-bool Game::android_need_to_check_failed_leaderboard_submissions = true;
-bool Game::android_need_to_check_failed_achievement_submissions = true;
 
 Ship& Game::get_player () {
     if (!ships.empty()) {
@@ -160,18 +152,6 @@ void Game::dodge_check () {
                 if (player.get_velocity().magnitude > Game_Constants::DODGE_SPEED_THRESHOLD) {
                     dodges++;
 
-                    if (dodges == Game_Constants::DODGES_TIER_1) {
-                        Android_Achievements::unlock(Android_Achievements::ARTFUL_TIER_1);
-                    } else if (dodges == Game_Constants::DODGES_TIER_2) {
-                        Android_Achievements::unlock(Android_Achievements::ARTFUL_TIER_2);
-                    } else if (dodges == Game_Constants::DODGES_TIER_3) {
-                        Android_Achievements::unlock(Android_Achievements::ARTFUL_TIER_3);
-                    } else if (dodges == Game_Constants::DODGES_TIER_4) {
-                        Android_Achievements::unlock(Android_Achievements::ARTFUL_TIER_4);
-                    } else if (dodges == Game_Constants::DODGES_TIER_5) {
-                        Android_Achievements::unlock(Android_Achievements::ARTFUL_TIER_5);
-                    }
-
                     increase_score(Game_Constants::POINT_VALUE_DODGE);
 
                     create_effect(debris.get_debris_type()->sprite_effect, true, 1.0, debris.get_box().get_center(), "",
@@ -217,11 +197,6 @@ void Game::clear_world () {
     notoriety = 0;
 
     kills = 0;
-
-    kills_police = 0;
-    kills_civilian = 0;
-    kills_pirate = 0;
-    kills_bounty_hunter = 0;
 
     clear_tractor();
     tractor_sprite.set_name("tractor_beam");
@@ -442,11 +417,6 @@ bool Game::is_generating_world () {
     return generating_world;
 }
 
-void Game::android_gpg_signing_in () {
-    android_need_to_check_failed_leaderboard_submissions = true;
-    android_need_to_check_failed_achievement_submissions = true;
-}
-
 uint32_t Game::get_ship_count () {
     return ships.size();
 }
@@ -606,10 +576,6 @@ void Game::increase_score (uint64_t amount, bool add_effect) {
         score += amount;
     } else {
         score = UINT64_MAX;
-    }
-
-    if (score > Game_Constants::DEFAULT_HIGH_SCORE_10) {
-        Android_Achievements::unlock(Android_Achievements::BIG_SCORER);
     }
 
     if (add_effect) {
@@ -920,56 +886,6 @@ uint32_t Game::get_kills () {
 
 void Game::add_kill (string faction) {
     kills++;
-
-    if (faction == "police") {
-        kills_police++;
-
-        if (kills_police == Game_Constants::KILLS_TIER_1_POLICE) {
-            Android_Achievements::unlock(Android_Achievements::COP_KILLER_TIER_1);
-        } else if (kills_police == Game_Constants::KILLS_TIER_2_POLICE) {
-            Android_Achievements::unlock(Android_Achievements::COP_KILLER_TIER_2);
-        } else if (kills_police == Game_Constants::KILLS_TIER_3_POLICE) {
-            Android_Achievements::unlock(Android_Achievements::COP_KILLER_TIER_3);
-        } else if (kills_police == Game_Constants::KILLS_TIER_4_POLICE) {
-            Android_Achievements::unlock(Android_Achievements::COP_KILLER_TIER_4);
-        }
-    } else if (faction == "civilian") {
-        kills_civilian++;
-
-        if (kills_civilian == Game_Constants::KILLS_TIER_1_CIVILIAN) {
-            Android_Achievements::unlock(Android_Achievements::PIRATE_TIER_1);
-        } else if (kills_civilian == Game_Constants::KILLS_TIER_2_CIVILIAN) {
-            Android_Achievements::unlock(Android_Achievements::PIRATE_TIER_2);
-        } else if (kills_civilian == Game_Constants::KILLS_TIER_3_CIVILIAN) {
-            Android_Achievements::unlock(Android_Achievements::PIRATE_TIER_3);
-        } else if (kills_civilian == Game_Constants::KILLS_TIER_4_CIVILIAN) {
-            Android_Achievements::unlock(Android_Achievements::PIRATE_TIER_4);
-        }
-    } else if (faction == "pirate") {
-        kills_pirate++;
-
-        if (kills_pirate == Game_Constants::KILLS_TIER_1_PIRATE) {
-            Android_Achievements::unlock(Android_Achievements::PIRATE_HUNTER_TIER_1);
-        } else if (kills_pirate == Game_Constants::KILLS_TIER_2_PIRATE) {
-            Android_Achievements::unlock(Android_Achievements::PIRATE_HUNTER_TIER_2);
-        } else if (kills_pirate == Game_Constants::KILLS_TIER_3_PIRATE) {
-            Android_Achievements::unlock(Android_Achievements::PIRATE_HUNTER_TIER_3);
-        } else if (kills_pirate == Game_Constants::KILLS_TIER_4_PIRATE) {
-            Android_Achievements::unlock(Android_Achievements::PIRATE_HUNTER_TIER_4);
-        }
-    } else if (faction == "bounty_hunter") {
-        kills_bounty_hunter++;
-
-        if (kills_bounty_hunter == Game_Constants::KILLS_TIER_1_BOUNTY_HUNTER) {
-            Android_Achievements::unlock(Android_Achievements::SURVIVALIST_TIER_1);
-        } else if (kills_bounty_hunter == Game_Constants::KILLS_TIER_2_BOUNTY_HUNTER) {
-            Android_Achievements::unlock(Android_Achievements::SURVIVALIST_TIER_2);
-        } else if (kills_bounty_hunter == Game_Constants::KILLS_TIER_3_BOUNTY_HUNTER) {
-            Android_Achievements::unlock(Android_Achievements::SURVIVALIST_TIER_3);
-        } else if (kills_bounty_hunter == Game_Constants::KILLS_TIER_4_BOUNTY_HUNTER) {
-            Android_Achievements::unlock(Android_Achievements::SURVIVALIST_TIER_4);
-        }
-    }
 }
 
 bool Game::is_player_tractored () {
@@ -1054,21 +970,6 @@ void Game::player_use_active () {
 
 void Game::player_add_upgrade (string name) {
     get_player().add_upgrade(name);
-
-    bool player_has_all_passives = true;
-    vector<string> upgrades = Game_Data::get_upgrade_names();
-
-    for (string upgrade : upgrades) {
-        if (Game_Data::get_upgrade_type(upgrade)->is_passive() && !get_player().has_upgrade(upgrade)) {
-            player_has_all_passives = false;
-
-            break;
-        }
-    }
-
-    if (player_has_all_passives) {
-        Android_Achievements::unlock(Android_Achievements::ALL_THE_THINGS);
-    }
 }
 
 void Game::player_remove_upgrade (string name) {
@@ -1567,18 +1468,6 @@ void Game::events () {
     const Ship& player = get_player_const();
 
     Sound_Manager::set_listener(player.get_box().center_x(), player.get_box().center_y(), Game_Manager::camera_zoom);
-
-    if (android_need_to_check_failed_leaderboard_submissions && Android::gpg_is_signed_in()) {
-        android_need_to_check_failed_leaderboard_submissions = false;
-
-        Android_Leaderboard::check_for_failed_submissions();
-    }
-
-    if (android_need_to_check_failed_achievement_submissions && Android::gpg_is_signed_in()) {
-        android_need_to_check_failed_achievement_submissions = false;
-
-        Android_Achievements::check_for_failed_submissions();
-    }
 
     handle_repeating_sounds();
 

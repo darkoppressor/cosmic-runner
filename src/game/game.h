@@ -60,10 +60,6 @@ class Game {
         static std::uint32_t power;
         static std::uint32_t notoriety;
         static std::uint32_t kills;
-        static std::uint64_t kills_police;
-        static std::uint64_t kills_civilian;
-        static std::uint64_t kills_pirate;
-        static std::uint64_t kills_bounty_hunter;
         static bool player_tractored;
         static std::uint32_t tractoring_ship;
         static double tractor_angle;
@@ -87,8 +83,6 @@ class Game {
         static std::uint32_t sound_cooldown_disabled;
         static std::uint32_t sound_cooldown_low_hull;
         static std::string cause_of_death;
-        static bool android_need_to_check_failed_leaderboard_submissions;
-        static bool android_need_to_check_failed_achievement_submissions;
 
         static Ship& get_player();
         static void dodge_check();
@@ -101,7 +95,6 @@ class Game {
         static void clear_world();
         static void generate_world();
         static bool is_generating_world();
-        static void android_gpg_signing_in();
         static std::uint32_t get_ship_count();
         static std::uint32_t get_item_count();
         static std::uint32_t get_debris_count();

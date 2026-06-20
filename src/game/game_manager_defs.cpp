@@ -2,8 +2,6 @@
 
 #include "game.h"
 #include "background.h"
-#include "../android/android_leaderboard.h"
-#include "../android/android_achievements.h"
 
 #include <game/game_manager.h>
 #include <options/options.h>
@@ -33,8 +31,6 @@ void Game_Manager::on_startup () {
     }
 
     Game::load_high_scores();
-
-    Android_Leaderboard::remove_android_buttons();
 }
 
 bool Game_Manager::effect_allowed () {
@@ -48,9 +44,6 @@ bool Game_Manager::effect_allowed () {
 }
 
 void Game_Manager::manage_music () {
-    Android_Leaderboard::update_windows();
-    Android_Achievements::update_windows();
-
     string music_to_play = "";
 
     /**if(in_progress){

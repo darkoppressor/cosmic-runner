@@ -10,30 +10,4 @@
 		special_text:high_scores
 	</info>
 
-	<info>
-		location:4,625
-		sprite:engine/play_games_leaderboards_gray
-	</info>
-
-	<button>
-		location:40,622
-		text:Google Play Games Leaderboards
-		event:gpg_show_all_leaderboards
-		sound_moused:ui/moused_1
-		sound_click:ui/click_1
-	</button>
-
-	<info>
-		location:4,669
-		sprite:engine/play_games_achievements_gray
-	</info>
-
-	<button>
-		location:40,666
-		text:Google Play Games Achievements
-		event:gpg_show_achievements
-		sound_moused:ui/moused_2
-		sound_click:ui/click_2
-	</button>
-
 </window>

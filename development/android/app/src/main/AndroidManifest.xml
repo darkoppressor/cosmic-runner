@@ -96,12 +96,6 @@
         android:appCategory="game"
         android:hardwareAccelerated="true">
 
-        <!-- Google Play Games SDK -->
-        <meta-data android:name="com.google.android.gms.games.APP_ID"
-                   android:value="@string/app_id" />
-        <meta-data android:name="com.google.android.gms.version"
-                   android:value="@integer/google_play_services_version" />
-
         <!-- Example of setting SDL hints from AndroidManifest.xml:
         <meta-data android:name="SDL_ENV.SDL_ACCELEROMETER_AS_JOYSTICK" android:value="0"/>
          -->
